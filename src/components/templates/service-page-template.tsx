@@ -1,16 +1,16 @@
 import Link from "next/link";
-import { CheckCircle2 } from "lucide-react";
-import { Section } from "@/components/layout/section";
+import { ArrowUpRight, CheckCircle2, TriangleAlert } from "lucide-react";
+import { Container } from "@/components/layout/container";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
-import { SectionHeading } from "@/components/ui/section-heading";
 import { LinkButton } from "@/components/ui/link-button";
 import { FaqAccordion } from "@/components/content/faq-accordion";
 import { EmptyEditorialState } from "@/components/content/empty-editorial-state";
+import { serviceCategoryIcons } from "@/lib/service-category-icons";
 import { routes } from "@/config/routes";
 import type { RouteRecord } from "@/types/route";
 import type { ServiceContent } from "@/content/services-data";
-import { getService } from "@/config/services";
+import { getService, getServiceCategory } from "@/config/services";
 import { getSector } from "@/config/sectors";
 
 interface ServicePageTemplateProps {
@@ -20,13 +20,28 @@ interface ServicePageTemplateProps {
 }
 
 /**
- * Reusable template implementing the 17-section individual service page
- * structure from this phase's brief (and CLAUDE.md section 12). Sections
- * 13-15 (case study / expert / insight) render an honest empty state when
- * no genuine, approved content exists yet, rather than being omitted or
- * fabricated.
+ * Individual (sub-)service page template, per the approved reference
+ * layout, generalised across all 48 services using only fields already
+ * authored in services-data.ts — no per-service bespoke copy was
+ * invented to match the reference exactly. Notably:
+ * - the reference's three-item "trust strip" and its interactive
+ *   deal-lifecycle "scope explorer" were both written for one specific
+ *   service (M&A due diligence) with data no other service has (distinct
+ *   phase titles/copy/deliverables per phase) — reproducing them for all
+ *   48 pages would mean fabricating that structure 47 more times, so
+ *   neither was built;
+ * - the "risks we help uncover" aside reuses the existing `whenNeeded`
+ *   list (already phrased as trigger/signal statements) under an
+ *   honest, generic heading instead;
+ * - "Our delivery approach" keeps deliveryApproach as a static numbered
+ *   timeline rather than an interactive picker, since each step is one
+ *   sentence, not a title/description pair.
+ * Sections 13-15 (case study / expert / insight) still render an honest
+ * empty state when no genuine, approved content exists yet.
  */
 export function ServicePageTemplate({ title, breadcrumbTrail, service }: ServicePageTemplateProps) {
+  const parentCategory = getServiceCategory(service.categorySlug);
+  const CategoryIcon = parentCategory ? serviceCategoryIcons[parentCategory.slug] : undefined;
   const relatedServices = service.relatedServiceSlugs
     .map((slug) => getService(slug))
     .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
@@ -35,182 +50,240 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service }: Service
     .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
 
   return (
-    <>
-      {/* 1. Breadcrumbs + 2. hero */}
-      <Section tone="page">
-        <Breadcrumbs trail={breadcrumbTrail} />
-        <div className="mt-6 max-w-[var(--container-reading)]">
-          <SectionKicker>{service.primaryKeyword}</SectionKicker>
-          <h1 className="mt-3 font-display text-h1 font-bold text-navy">{title}</h1>
-          <p className="mt-4 text-lead text-text-secondary">{service.heroSummary}</p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <LinkButton href={routes.findTalent.path} variant="primary" surface="light">
+    <div className="bg-surface-page py-8 md:py-12">
+      <Container size="wide">
+        <div className="overflow-hidden rounded-md bg-cream shadow-(--shadow-modal)">
+          <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
+              <Breadcrumbs trail={breadcrumbTrail} tone="dark" />
+              <div>
+                <SectionKicker tone="dark">{service.primaryKeyword}</SectionKicker>
+                <h1 className="mt-4 max-w-xl font-display text-display font-bold text-white">{title}</h1>
+              </div>
+              <p className="max-w-lg text-lead text-white/70">{service.heroSummary}</p>
+              <div className="flex flex-wrap items-center gap-4">
+                <LinkButton href={routes.contact.path} variant="primary" surface="dark">
+                  Discuss your needs
+                  <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                </LinkButton>
+                <LinkButton href={routes.findTalent.path} variant="secondary" surface="dark">
+                  {routes.findTalent.label}
+                </LinkButton>
+              </div>
+            </div>
+
+            <div className="relative flex flex-col items-center justify-center gap-8 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
+              <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <span className="absolute h-72 w-72 rounded-full border border-white/10" />
+                <span className="absolute h-44 w-44 rounded-full border border-white/10" />
+              </div>
+
+              <div className="relative z-10 flex flex-wrap justify-center gap-3">
+                {service.businessOutcomes.slice(0, 4).map((outcome) => (
+                  <span
+                    key={outcome}
+                    className="inline-flex max-w-52 items-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-caption font-semibold text-white"
+                  >
+                    {outcome}
+                  </span>
+                ))}
+              </div>
+
+              <div className="relative z-10 flex flex-col items-center gap-2 rounded-md bg-cream px-10 py-7 text-center shadow-(--shadow-modal)">
+                {CategoryIcon && <CategoryIcon aria-hidden="true" className="h-7 w-7 text-navy" />}
+                {parentCategory && (
+                  <p className="mt-1 max-w-44 text-small text-text-secondary">
+                    Part of{" "}
+                    <Link href={`/services/${parentCategory.slug}/`} className="font-semibold text-navy underline-offset-4 hover:underline">
+                      {parentCategory.title}
+                    </Link>
+                  </p>
+                )}
+              </div>
+            </div>
+          </header>
+
+          <section className="grid grid-cols-1 gap-10 p-8 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:p-14">
+            <div>
+              <SectionKicker tone="light">The employer challenge</SectionKicker>
+              <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-navy">
+                Where {title.toLowerCase()} helps
+              </h2>
+              <p className="mt-4 max-w-lg text-body-lg text-text-secondary">{service.employerChallenge}</p>
+            </div>
+
+            {service.whenNeeded.length > 0 && (
+              <aside className="rounded-md bg-navy p-8">
+                <span className="text-caption font-semibold uppercase tracking-widest text-gold">
+                  Signs you may need this
+                </span>
+                <div className="mt-5 flex flex-col">
+                  {service.whenNeeded.map((sign) => (
+                    <div key={sign} className="flex items-start gap-3 border-t border-white/10 py-4 first:border-t-0">
+                      <TriangleAlert aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
+                      <p className="text-body text-white/85">{sign}</p>
+                    </div>
+                  ))}
+                </div>
+              </aside>
+            )}
+          </section>
+
+          <section aria-label="Business outcomes" className="bg-navy px-8 py-16 sm:px-10 lg:px-14 lg:py-20">
+            <SectionKicker tone="dark">Business outcomes</SectionKicker>
+            <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {service.businessOutcomes.map((outcome, index) => (
+                <div key={outcome} className="border-t border-white/20 pt-6">
+                  <span className="font-display text-body-lg text-gold">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p className="mt-4 max-w-xs font-display text-h4 font-bold text-white">{outcome}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="grid grid-cols-1 gap-10 bg-surface-card p-8 sm:p-10 lg:grid-cols-3 lg:p-14">
+            <div className="lg:col-span-2">
+              <SectionKicker tone="light">What the service includes</SectionKicker>
+              <ul className="mt-6 flex flex-col gap-3">
+                {service.whatItIncludes.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-body text-text-primary">
+                    <CheckCircle2 aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold-ink" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <SectionKicker tone="light">Who we support</SectionKicker>
+              <p className="mt-6 text-body text-text-secondary">{service.whoWeSupport}</p>
+            </div>
+          </section>
+
+          <section className="p-8 sm:p-10 lg:p-14">
+            <SectionKicker tone="light">Our delivery approach</SectionKicker>
+            <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-navy">
+              Clear steps, from first conversation to delivery
+            </h2>
+            <ol className="mt-10 grid grid-cols-1 gap-8 border-t border-border-subtle pt-8 sm:grid-cols-2 lg:grid-cols-4">
+              {service.deliveryApproach.map((step, index) => (
+                <li key={step} className="relative pl-6">
+                  <span aria-hidden="true" className="absolute left-0 top-1.5 h-2.5 w-2.5 rounded-full bg-gold" />
+                  <span className="font-display text-small text-gold-ink">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p className="mt-3 text-body text-text-secondary">{step}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {service.engagementOptions.length > 0 && (
+            <section className="bg-navy p-8 sm:p-10 lg:p-14">
+              <SectionKicker tone="dark">Engagement options</SectionKicker>
+              <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-white">
+                Choose the way you want to work together
+              </h2>
+              <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {service.engagementOptions.map((option) => (
+                  <div
+                    key={option}
+                    className="flex flex-col justify-between gap-8 rounded-md border border-white/15 bg-white/5 p-6"
+                  >
+                    <h3 className="font-display text-h4 font-bold text-white">{option}</h3>
+                    <Link
+                      href={routes.contact.path}
+                      className="inline-flex w-fit items-center gap-2 text-caption font-bold uppercase tracking-[0.08em] text-gold"
+                    >
+                      Discuss this option
+                      <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {(relatedServices.length > 0 || relatedSectors.length > 0 || service.faqs.length > 0) && (
+            <section className="grid grid-cols-1 gap-12 p-8 sm:p-10 lg:grid-cols-[0.85fr_1.15fr] lg:p-14">
+              <div>
+                <SectionKicker tone="light">Continue exploring</SectionKicker>
+                <h2 className="mt-4 font-display text-h2 font-bold text-navy">Related expertise</h2>
+                {relatedServices.length > 0 && (
+                  <ul className="mt-6 flex flex-col">
+                    {relatedServices.map((related) => (
+                      <li key={related.slug} className="border-t border-border-subtle first:border-t-0">
+                        <Link
+                          href={`/services/${related.slug}/`}
+                          className="flex items-center justify-between gap-4 py-4 font-semibold text-navy hover:text-gold-ink"
+                        >
+                          {related.title}
+                          <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0" />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {relatedSectors.length > 0 && (
+                  <div className="mt-8">
+                    <h3 className="font-display text-h4 font-bold text-navy">Relevant sectors</h3>
+                    <ul className="mt-4 flex flex-wrap gap-2">
+                      {relatedSectors.map((related) => (
+                        <li key={related.slug}>
+                          <Link
+                            href={`/sector/${related.slug}/`}
+                            className="rounded-full border border-border-subtle bg-surface-card px-4 py-2 text-small text-navy underline-offset-4 hover:border-navy hover:underline"
+                          >
+                            {related.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+
+              {service.faqs.length > 0 && (
+                <div>
+                  <SectionKicker tone="light">Frequently asked questions</SectionKicker>
+                  <h2 className="mt-4 font-display text-h2 font-bold text-navy">What clients usually ask</h2>
+                  <div className="mt-6">
+                    <FaqAccordion items={service.faqs} />
+                  </div>
+                </div>
+              )}
+            </section>
+          )}
+
+          <section className="p-8 sm:p-10 lg:p-14">
+            <SectionKicker tone="light">Still deciding</SectionKicker>
+            <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <EmptyEditorialState message="A relevant case study will appear here once verified evidence is approved." />
+              <EmptyEditorialState message="A relevant Apex expert will appear here once an approved profile exists." />
+              <EmptyEditorialState message="A relevant insight article will appear here once published." />
+            </div>
+          </section>
+
+          <div className="mx-4 mb-4 mt-4 flex flex-col gap-6 rounded-md bg-gold p-8 sm:mx-6 sm:mb-6 sm:mt-6 sm:flex-row sm:items-center sm:justify-between lg:mx-8 lg:mb-8 lg:mt-8 lg:p-12">
+            <div>
+              <h3 className="font-display text-h2 font-bold text-navy">
+                Ready to talk about {title.toLowerCase()}?
+              </h3>
+              <p className="mt-2 max-w-md text-body text-navy/80">{service.whyApex}</p>
+            </div>
+            <LinkButton
+              href={routes.findTalent.path}
+              variant="primary"
+              surface="light"
+              className="shrink-0"
+              data-analytics-id={`service-cta-${title.toLowerCase().replace(/\s+/g, "-")}`}
+            >
               {routes.findTalent.label}
             </LinkButton>
-            <LinkButton href={routes.contact.path} variant="secondary" surface="light">
-              Discuss your needs
-            </LinkButton>
           </div>
         </div>
-      </Section>
-
-      {/* 3. Employer challenge */}
-      <Section tone="card" containerSize="reading">
-        <SectionHeading title="The employer challenge" />
-        <p className="mt-4 text-body-lg text-text-secondary">{service.employerChallenge}</p>
-      </Section>
-
-      {/* 4. Business outcomes */}
-      <Section tone="page" containerSize="reading">
-        <SectionHeading title="Business outcomes" />
-        <ul className="mt-6 flex flex-col gap-3">
-          {service.businessOutcomes.map((outcome) => (
-            <li key={outcome} className="flex items-start gap-3 text-body text-text-primary">
-              <CheckCircle2 aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold-ink" />
-              {outcome}
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      {/* 5. What it includes + 6. When needed + 7. Who we support */}
-      <Section tone="card">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
-          <div>
-            <SectionHeading title="What the service includes" as="h3" />
-            <ul className="mt-4 flex flex-col gap-2">
-              {service.whatItIncludes.map((item) => (
-                <li key={item} className="text-body text-text-secondary">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <SectionHeading title="When you may need this" as="h3" />
-            <ul className="mt-4 flex flex-col gap-2">
-              {service.whenNeeded.map((item) => (
-                <li key={item} className="text-body text-text-secondary">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <SectionHeading title="Who we support" as="h3" />
-            <p className="mt-4 text-body text-text-secondary">{service.whoWeSupport}</p>
-          </div>
-        </div>
-      </Section>
-
-      {/* 8. Delivery approach + 9. Engagement options */}
-      <Section tone="page">
-        <SectionHeading title="Our delivery approach" />
-        <ol className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {service.deliveryApproach.map((step, index) => (
-            <li key={step} className="border-t-2 border-gold pt-4">
-              <span className="font-display text-h4 font-bold text-navy">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <p className="mt-2 text-body text-text-secondary">{step}</p>
-            </li>
-          ))}
-        </ol>
-        <div className="mt-10">
-          <SectionHeading title="Engagement options" as="h3" />
-          <ul className="mt-4 flex flex-wrap gap-3">
-            {service.engagementOptions.map((option) => (
-              <li
-                key={option}
-                className="border border-border-strong bg-surface-card px-4 py-2 text-small font-semibold text-navy"
-              >
-                {option}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Section>
-
-      {/* 10. Why choose Apex HR */}
-      <Section tone="card" containerSize="reading">
-        <SectionHeading title="Why choose Apex HR" />
-        <p className="mt-4 text-body-lg text-text-secondary">{service.whyApex}</p>
-      </Section>
-
-      {/* 11. Related services + 12. Relevant sectors */}
-      {(relatedServices.length > 0 || relatedSectors.length > 0) && (
-        <Section tone="page">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-            {relatedServices.length > 0 && (
-              <div>
-                <SectionHeading title="Related services" as="h3" />
-                <ul className="mt-4 flex flex-col gap-2">
-                  {relatedServices.map((related) => (
-                    <li key={related.slug}>
-                      <Link
-                        href={`/services/${related.slug}/`}
-                        className="text-body font-semibold text-navy underline-offset-4 hover:underline"
-                      >
-                        {related.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {relatedSectors.length > 0 && (
-              <div>
-                <SectionHeading title="Relevant sectors" as="h3" />
-                <ul className="mt-4 flex flex-col gap-2">
-                  {relatedSectors.map((related) => (
-                    <li key={related.slug}>
-                      <Link
-                        href={`/sector/${related.slug}/`}
-                        className="text-body font-semibold text-navy underline-offset-4 hover:underline"
-                      >
-                        {related.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </Section>
-      )}
-
-      {/* 13-15. Case study / expert / insight areas — honest empty states */}
-      <Section tone="card">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <EmptyEditorialState message="A relevant case study will appear here once verified evidence is approved." />
-          <EmptyEditorialState message="A relevant Apex expert will appear here once an approved profile exists." />
-          <EmptyEditorialState message="A relevant insight article will appear here once published." />
-        </div>
-      </Section>
-
-      {/* 16. FAQs */}
-      <Section tone="page" containerSize="reading">
-        <SectionHeading title="Frequently asked questions" />
-        <div className="mt-8">
-          <FaqAccordion items={service.faqs} />
-        </div>
-      </Section>
-
-      {/* 17. Service-specific CTA */}
-      <Section tone="dark" className="text-center">
-        <h2 className="mx-auto max-w-2xl font-display text-h2 font-bold text-white">
-          Ready to talk about {title.toLowerCase()}?
-        </h2>
-        <LinkButton
-          href={routes.findTalent.path}
-          variant="primary"
-          surface="dark"
-          className="mt-8"
-          data-analytics-id={`service-cta-${title.toLowerCase().replace(/\s+/g, "-")}`}
-        >
-          {routes.findTalent.label}
-        </LinkButton>
-      </Section>
-    </>
+      </Container>
+    </div>
   );
 }
