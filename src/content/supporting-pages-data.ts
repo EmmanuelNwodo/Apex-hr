@@ -50,15 +50,37 @@ export const aboutPageContent: InfoPageContent = {
 export const contactPageContent: InfoPageContent = {
   kicker: "Contact",
   heading: "Contact Apex HR",
-  lead: "Tell us about your hiring or HR need and an Apex HR advisor will get back to you.",
+  lead: "Whether you are hiring, navigating a people challenge or planning for growth, start with a straightforward conversation with an Apex HR advisor.",
   sections: [
     {
       heading: "How to get in touch",
-      body: "The fastest way to reach Apex HR is through the Find Talent form, which routes your enquiry to the right advisor. Verified direct contact details will be published here once confirmed.",
+      body: "Call or email Apex HR directly, or share a few details through the enquiry form so your message reaches the right advisor.",
     },
     {
       heading: "What happens next",
-      body: "After you submit an enquiry, an Apex HR advisor reviews the details and follows up to discuss your needs and appropriate next steps.",
+      body: "After you get in touch, an Apex HR advisor reviews the details and follows up to discuss your needs and appropriate next steps.",
+    },
+  ],
+  faqs: [
+    {
+      id: "what-to-include",
+      question: "What information should I include?",
+      answer: "A brief description of the role, people issue or business objective is enough to start. More detail can be discussed confidentially during the first conversation.",
+    },
+    {
+      id: "sensitive-matter",
+      question: "Can I discuss a sensitive employee matter?",
+      answer: "Yes. You can keep the initial enquiry brief and ask for a confidential call with an appropriate HR advisor.",
+    },
+    {
+      id: "projects-and-retainers",
+      question: "Do you support one-off projects and ongoing retainers?",
+      answer: "Yes. Support can be structured as a defined project, an interim or fractional assignment, or an ongoing retained partnership.",
+    },
+    {
+      id: "where-we-operate",
+      question: "Where does Apex HR provide support?",
+      answer: "Apex HR supports UK employers and can also advise international organisations with UK workforce or market-entry needs.",
     },
   ],
   primaryCta: { label: "Find Talent", href: routes.findTalent.path },
@@ -111,6 +133,28 @@ export const forCandidatesPageContent: InfoPageContent = {
     {
       heading: "What to expect",
       body: "If your details match a live vacancy or future opportunity, an Apex HR recruiter will be in touch. Apex HR does not guarantee a specific outcome or timescale for any application.",
+    },
+  ],
+  faqs: [
+    {
+      id: "cost",
+      question: "Does it cost anything to register with Apex HR?",
+      answer: "No. Apex HR does not charge candidates to register, apply for roles or receive recruitment support.",
+    },
+    {
+      id: "after-cv",
+      question: "What happens after I submit my CV?",
+      answer: "Your details are reviewed against current and future opportunities. A recruiter will contact you when there is a suitable match.",
+    },
+    {
+      id: "shared-automatically",
+      question: "Will my CV be sent to employers automatically?",
+      answer: "No. Your profile is only introduced to an employer after the role has been discussed with you and you have agreed to proceed.",
+    },
+    {
+      id: "not-actively-looking",
+      question: "Can I register if I am not actively job hunting?",
+      answer: "Yes. You can join the talent pool and indicate that you are open to hearing about selected future opportunities.",
     },
   ],
   primaryCta: { label: "Search Jobs", href: routes.jobs.path },
