@@ -15,6 +15,12 @@ export const siteConfig = {
     "Apex HR is a UK HR, recruitment and people-consulting partner for employers, offering outsourced HR, executive search and strategic workforce advisory.",
   /** Left empty until an approved social profile is confirmed. */
   socialProfiles: [] as string[],
+  /** Confirmed via explicit user instruction — used by the floating contact button. */
+  contactPhone: {
+    display: "+44 7762 272692",
+    tel: "+447762272692",
+    whatsapp: "447762272692",
+  },
 };
 
 export function absoluteUrl(path: string): string {

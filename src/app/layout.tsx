@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import { SkipLink } from "@/components/layout/skip-link";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { FloatingContactButton } from "@/components/layout/floating-contact-button";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.productionUrl),
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        <FloatingContactButton />
       </body>
     </html>
   );
