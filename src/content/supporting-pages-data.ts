@@ -89,6 +89,8 @@ export const forEmployersPageContent: InfoPageContent = {
   secondaryCta: { label: "Explore HR Services", href: routes.services.path },
   faqs: [
     { id: "size", question: "Does Apex HR work with businesses of all sizes?", answer: "Support is scaled to the size and needs of your business, from early-stage startups to larger established employers." },
+    { id: "combine", question: "Can we combine recruitment and HR support?", answer: "Yes. An engagement can combine recruitment delivery with onboarding, contracts, policies, reward advice or wider workforce support." },
+    { id: "retained", question: "Do you offer ongoing retained support?", answer: "Yes. Retained HR support can provide an ongoing source of advice and delivery, with scope agreed around your organisation's priorities." },
   ],
 };
 
