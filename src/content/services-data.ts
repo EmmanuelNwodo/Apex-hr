@@ -16,10 +16,27 @@ import type { ContentFaqItem } from "@/types/content";
  *   services, 10 Confirmed/Corrected parent categories).
  */
 
+export interface ServiceCategoryChallenge {
+  title: string;
+  detail: string;
+}
+
+export interface ServiceCategoryApproachStep {
+  title: string;
+  detail: string;
+}
+
 export interface ServiceCategoryContent {
   slug: string;
+  /** Short, service-family-specific hero headline. */
+  tagline: string;
   summary: string;
   introduction: string;
+  /** Three short employer problems this service family addresses. */
+  challenges: ServiceCategoryChallenge[];
+  /** Three-step "how we work" outline for this service family specifically
+   * (distinct from the site-wide five-step process on the homepage). */
+  approach: ServiceCategoryApproachStep[];
 }
 
 export interface ServiceContent {
@@ -45,63 +62,263 @@ export interface ServiceContent {
 export const serviceCategoryContent: ServiceCategoryContent[] = [
   {
     slug: "outsourced-hr-services",
+    tagline: "HR support, without the overhead of an HR department.",
     summary: "Day-to-day HR support and outsourced HR leadership for businesses without a full in-house team.",
     introduction:
       "For many growing businesses, HR sits with a founder, an office manager or a finance lead who is already stretched. Outsourced HR gives employers access to the policies, advice and hands-on support of a wider HR function without the cost of building one from scratch.",
+    challenges: [
+      {
+        title: "HR sits with whoever has time",
+        detail: "People issues land on a founder, office manager or finance lead who is already stretched thin.",
+      },
+      {
+        title: "Policies haven't kept pace",
+        detail: "Contracts, handbooks and processes were written early on and haven't been reviewed as the business has grown.",
+      },
+      {
+        title: "Every issue feels like the first time",
+        detail: "Without a consistent HR partner, similar situations get handled differently each time they come up.",
+      },
+    ],
+    approach: [
+      { title: "Understand", detail: "Review current HR practices, contracts and policies." },
+      { title: "Agree scope", detail: "Set out ongoing support and how quickly you can reach us." },
+      { title: "Adapt", detail: "Revisit priorities as the business and its risks change." },
+    ],
   },
   {
     slug: "recruitment-talent-acquisition",
+    tagline: "Hire well, without slowing down.",
     summary: "Permanent, contract and executive recruitment delivered alongside genuine HR expertise.",
     introduction:
       "Recruitment works best when it is informed by a real understanding of the role, the team and the organisation's people strategy. Apex HR combines recruitment delivery with HR knowledge, from single permanent hires to volume and executive search programmes.",
+    challenges: [
+      {
+        title: "Vacancies stay open too long",
+        detail: "Slow, generic hiring processes lose strong candidates to faster-moving employers.",
+      },
+      {
+        title: "The wrong hire is expensive to unwind",
+        detail: "Recruitment disconnected from HR strategy increases the risk of a poor-fit appointment.",
+      },
+      {
+        title: "Senior roles need a different approach",
+        detail: "Executive and specialist hires call for search, not just advertising a vacancy.",
+      },
+    ],
+    approach: [
+      { title: "Brief", detail: "Understand the role, the team and what success looks like." },
+      { title: "Search", detail: "Identify and assess candidates against the real requirements." },
+      { title: "Appoint", detail: "Support the offer, onboarding and early weeks in the role." },
+    ],
   },
   {
     slug: "employment-law-and-employee-relations",
+    tagline: "Handle difficult situations with confidence.",
     summary: "Practical, informational support for redundancy, TUPE, investigations, mediation and other employee-relations situations.",
     introduction:
       "Employee-relations issues are high-stakes and often time-sensitive. This service family provides practical HR support through difficult situations — it is informational HR guidance, not a substitute for regulated legal advice, and complex or high-risk matters should always be reviewed by a qualified employment lawyer.",
+    challenges: [
+      {
+        title: "A difficult situation needs a clear next step",
+        detail: "Redundancy, investigations and disputes are high-stakes and often time-sensitive.",
+      },
+      {
+        title: "Policies exist, but confidence doesn't",
+        detail: "Managers know a process is documented but aren't sure how to apply it fairly and consistently.",
+      },
+      {
+        title: "Risk isn't visible until it's a problem",
+        detail: "Employment law changes regularly, and gaps in everyday practice are easy to miss.",
+      },
+    ],
+    approach: [
+      { title: "Assess", detail: "Understand the situation and the options available." },
+      { title: "Advise", detail: "Provide practical, informational guidance on next steps." },
+      { title: "Support", detail: "Stay involved through to resolution, referring to legal counsel where needed." },
+    ],
   },
   {
     slug: "organisation-development-change-management",
+    tagline: "Change the organisation, without losing the people.",
     summary: "Structuring, restructuring and transforming organisations through periods of growth or change.",
     introduction:
       "Growth, restructuring, M&A and culture change all put pressure on how an organisation is structured and how people experience it. This service family helps employers design, sequence and deliver organisational change with less disruption to the business.",
+    challenges: [
+      {
+        title: "Growth has blurred accountability",
+        detail: "Roles, reporting lines and decision-making no longer match how the organisation actually works.",
+      },
+      {
+        title: "Change is creating resistance",
+        detail: "Managers need a practical roadmap for communication, consultation and implementation.",
+      },
+      {
+        title: "Culture and strategy have drifted apart",
+        detail: "Everyday behaviours are undermining the outcomes leaders want to achieve.",
+      },
+    ],
+    approach: [
+      { title: "Understand", detail: "Diagnose the business need, people risks and readiness for change." },
+      { title: "Design", detail: "Build a practical solution with clear ownership, milestones and measures." },
+      { title: "Embed", detail: "Equip leaders and managers to make the change work beyond the project." },
+    ],
   },
   {
     slug: "compensation-reward-and-benefits",
+    tagline: "Pay and reward that's fair, and easy to defend.",
     summary: "Pay structures, reward strategy and benefits design that support recruitment, retention and fairness.",
     introduction:
       "Reward decisions affect recruitment, retention and how fairly employees feel they are treated. This service family covers benchmarking, pay structures, reward strategy, pay equity reporting, benefits and executive compensation.",
+    challenges: [
+      {
+        title: "Pay decisions lack a consistent basis",
+        detail: "Salaries have been set ad hoc rather than benchmarked against the market.",
+      },
+      {
+        title: "Reward isn't helping retention",
+        detail: "Good performers leave for better-structured packages elsewhere.",
+      },
+      {
+        title: "Fairness is hard to evidence",
+        detail: "Without clear pay structures, it's difficult to demonstrate consistent, equitable decisions.",
+      },
+    ],
+    approach: [
+      { title: "Benchmark", detail: "Compare current pay against relevant market data." },
+      { title: "Design", detail: "Build structures and a reward approach that fit the business." },
+      { title: "Implement", detail: "Support rollout and ongoing governance of the new approach." },
+    ],
   },
   {
     slug: "learning-and-leadership-development",
+    tagline: "Build leaders who bring out the best in their teams.",
     summary: "Leadership training, coaching and capability development for managers and teams.",
     introduction:
       "Capable leaders and well-supported managers directly affect engagement, retention and performance. This service family covers leadership and management training, executive coaching, and building a broader learning strategy.",
+    challenges: [
+      {
+        title: "Managers were promoted, not trained",
+        detail: "Technical strength doesn't always translate into confident people leadership.",
+      },
+      {
+        title: "Development feels generic",
+        detail: "One-size-fits-all training doesn't address the specific gaps holding a team back.",
+      },
+      {
+        title: "Capability hasn't kept up with growth",
+        detail: "As the organisation scales, leadership skills need to scale with it.",
+      },
+    ],
+    approach: [
+      { title: "Diagnose", detail: "Identify the specific capability gaps holding teams back." },
+      { title: "Develop", detail: "Design training and coaching around real scenarios." },
+      { title: "Reinforce", detail: "Support managers to apply new skills after the programme ends." },
+    ],
   },
   {
     slug: "performance-and-talent-management",
+    tagline: "Make consistent, defensible people decisions.",
     summary: "Performance management, succession planning and competency frameworks that support consistent decision-making.",
     introduction:
       "Consistent, fair performance and talent processes help employers make better decisions about development, promotion and succession. This service family covers performance management design, succession planning and competency frameworks.",
+    challenges: [
+      {
+        title: "Performance conversations are inconsistent",
+        detail: "Managers approach reviews differently, which makes outcomes feel unfair.",
+      },
+      {
+        title: "Succession relies on memory, not planning",
+        detail: "Key-person risk isn't visible until someone hands in their notice.",
+      },
+      {
+        title: "Competency expectations aren't written down",
+        detail: "Without a shared framework, decisions about promotion and development are hard to defend.",
+      },
+    ],
+    approach: [
+      { title: "Review", detail: "Assess current performance and talent processes." },
+      { title: "Design", detail: "Build frameworks that are consistent and easy for managers to use." },
+      { title: "Embed", detail: "Train managers and monitor how the approach is working." },
+    ],
   },
   {
     slug: "employee-experience-and-engagement",
+    tagline: "An employee experience people actually believe in.",
     summary: "Employee experience strategy, engagement surveys, employer branding, wellbeing and DEI consulting.",
     introduction:
       "How people experience work shapes engagement, retention and employer reputation. This service family covers employee experience strategy, engagement surveys, employer branding and EVP, workplace wellbeing, and diversity, equity and inclusion consulting.",
+    challenges: [
+      {
+        title: "Engagement is assumed, not measured",
+        detail: "Without structured feedback, problems only surface once someone resigns.",
+      },
+      {
+        title: "The employer brand doesn't match reality",
+        detail: "What's promised to candidates and what employees experience have drifted apart.",
+      },
+      {
+        title: "Good intentions haven't become practice",
+        detail: "Wellbeing and inclusion goals exist but aren't reflected in everyday people practices.",
+      },
+    ],
+    approach: [
+      { title: "Listen", detail: "Understand the current employee experience and engagement levels." },
+      { title: "Design", detail: "Build a targeted action plan around what you've heard." },
+      { title: "Sustain", detail: "Track progress and keep the plan current." },
+    ],
   },
   {
     slug: "hr-technology-and-people-analytics",
+    tagline: "HR technology that works for your business, not the other way round.",
     summary: "HRIS implementation, HR software selection, people analytics and digital HR transformation.",
     introduction:
       "The right HR technology reduces administrative burden and gives employers better visibility of their workforce. This service family covers HRIS implementation, software selection, people analytics and dashboards, digital HR transformation, and AI workplace policy.",
+    challenges: [
+      {
+        title: "HR data lives in spreadsheets",
+        detail: "Basic workforce questions take far too long to answer.",
+      },
+      {
+        title: "The current system doesn't fit the business",
+        detail: "HR software was chosen for an earlier stage of growth and hasn't kept pace.",
+      },
+      {
+        title: "Digital change stalls without a plan",
+        detail: "New systems are introduced without the people-side support needed to make them stick.",
+      },
+    ],
+    approach: [
+      { title: "Assess", detail: "Review current systems, data and reporting needs." },
+      { title: "Select or build", detail: "Recommend the right technology and analytics approach." },
+      { title: "Adopt", detail: "Support rollout, training and change management." },
+    ],
   },
   {
     slug: "strategic-hr-and-workforce-advisory",
+    tagline: "Plan the workforce you'll need, not just the one you have.",
     summary: "People strategy, strategic workforce planning and global mobility advisory for growing organisations.",
     introduction:
       "As organisations scale, HR needs to move from administration to strategic workforce planning. This service family covers people strategy, strategic workforce planning and global mobility and expatriate HR management.",
+    challenges: [
+      {
+        title: "HR is still administrative",
+        detail: "People strategy hasn't caught up with the pace of the business.",
+      },
+      {
+        title: "Workforce planning is reactive",
+        detail: "Hiring happens in response to pressure rather than a plan.",
+      },
+      {
+        title: "International growth raises new questions",
+        detail: "Expanding into new markets brings unfamiliar employment considerations.",
+      },
+    ],
+    approach: [
+      { title: "Understand", detail: "Connect business strategy to future workforce needs." },
+      { title: "Plan", detail: "Build a practical workforce and people strategy." },
+      { title: "Advise", detail: "Provide ongoing strategic input as plans evolve." },
+    ],
   },
 ];
 

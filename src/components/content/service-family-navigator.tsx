@@ -2,36 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  ArrowRight,
-  BadgePoundSterling,
-  ChartSpline,
-  ChevronRight,
-  Gauge,
-  HeartHandshake,
-  Presentation,
-  Scale,
-  Telescope,
-  UserRoundSearch,
-  UsersRound,
-  Workflow,
-} from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { getServicesByCategory, serviceCategories } from "@/config/services";
 import { serviceCategoryContent } from "@/content/services-data";
+import { serviceCategoryIcons } from "@/lib/service-category-icons";
 import { cn } from "@/lib/utils";
-
-const categoryIcons: Record<string, typeof UsersRound> = {
-  "outsourced-hr-services": UsersRound,
-  "recruitment-talent-acquisition": UserRoundSearch,
-  "employment-law-and-employee-relations": Scale,
-  "organisation-development-change-management": Workflow,
-  "compensation-reward-and-benefits": BadgePoundSterling,
-  "learning-and-leadership-development": Presentation,
-  "performance-and-talent-management": Gauge,
-  "employee-experience-and-engagement": HeartHandshake,
-  "hr-technology-and-people-analytics": ChartSpline,
-  "strategic-hr-and-workforce-advisory": Telescope,
-};
 
 /**
  * Interactive "service family" navigator for the services hub, per the
@@ -54,7 +29,7 @@ export function ServiceFamilyNavigator() {
   const activeCategory = serviceCategories[activeIndex];
   const activeContent = serviceCategoryContent.find((entry) => entry.slug === activeCategory.slug);
   const activeServices = getServicesByCategory(activeCategory.slug);
-  const ActiveIcon = categoryIcons[activeCategory.slug];
+  const ActiveIcon = serviceCategoryIcons[activeCategory.slug];
 
   return (
     <div className="grid overflow-hidden rounded-md border border-border-subtle lg:grid-cols-[minmax(280px,0.82fr)_minmax(360px,1.18fr)]">
