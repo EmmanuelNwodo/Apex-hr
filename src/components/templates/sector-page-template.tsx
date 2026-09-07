@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { CheckCircle2 } from "lucide-react";
-import { Section } from "@/components/layout/section";
+import { ArrowUpRight } from "lucide-react";
+import { Container } from "@/components/layout/container";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
-import { SectionHeading } from "@/components/ui/section-heading";
 import { LinkButton } from "@/components/ui/link-button";
 import { FaqAccordion } from "@/components/content/faq-accordion";
+import { SectorServiceExplorer } from "@/components/content/sector-service-explorer";
+import { sectorIcons } from "@/lib/sector-icons";
 import { routes } from "@/config/routes";
 import type { RouteRecord } from "@/types/route";
 import type { SectorContent } from "@/content/sectors-data";
@@ -18,118 +19,210 @@ interface SectorPageTemplateProps {
   sector: SectorContent;
 }
 
-/** Reusable sector page template. */
+/**
+ * Individual sector page template, per the approved reference layout,
+ * generalised across all 17 sectors using only fields already authored in
+ * sectors-data.ts. Notably:
+ * - the reference's three-item "focus strip" was written specifically for
+ *   Financial Services (Specialist talent / Reward governance / Robust HR
+ *   practice) with no equivalent generic field for any sector — building
+ *   it for all 17 would mean inventing 51 new phrases, so it was dropped;
+ * - the "How Apex HR can help" interactive picker is keyed by each
+ *   sector's own curated `relatedServiceSlugs` (real services, each with
+ *   its own real heroSummary/whatItIncludes) rather than the reference's
+ *   bespoke Hire/Reward/Govern groupings, which again only existed for
+ *   the one example sector;
+ * - the recruitment-considerations checklist was dropped in favour of the
+ *   existing single `recruitmentConsiderations` paragraph, since there's
+ *   no per-sector checklist data to reuse honestly.
+ */
 export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPageTemplateProps) {
+  const Icon = sectorIcons[sector.slug];
   const relatedServices = sector.relatedServiceSlugs
     .map((slug) => getService(slug))
     .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
-  const relatedRoles = talentRoleContent.filter((role) =>
-    role.relatedSectorSlugs.includes(sector.slug),
-  );
+  const relatedRoles = talentRoleContent.filter((role) => role.relatedSectorSlugs.includes(sector.slug));
 
   return (
-    <>
-      <Section tone="page">
-        <Breadcrumbs trail={breadcrumbTrail} />
-        <div className="mt-6 max-w-[var(--container-reading)]">
-          <SectionKicker>Sector</SectionKicker>
-          <h1 className="mt-3 font-display text-h1 font-bold text-navy">{title}</h1>
-          <p className="mt-4 text-lead text-text-secondary">{sector.overview}</p>
-        </div>
-        <div className="mt-8 flex flex-wrap gap-4">
-          <LinkButton href={routes.findTalent.path} variant="primary" surface="light">
-            {routes.findTalent.label}
-          </LinkButton>
-          <LinkButton href={routes.contact.path} variant="secondary" surface="light">
-            Discuss your needs
-          </LinkButton>
-        </div>
-      </Section>
-
-      <Section tone="card" containerSize="reading">
-        <SectionHeading title="Common workforce and people challenges" />
-        <ul className="mt-6 flex flex-col gap-3">
-          {sector.challenges.map((challenge) => (
-            <li key={challenge} className="flex items-start gap-3 text-body text-text-primary">
-              <CheckCircle2 aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold-ink" />
-              {challenge}
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      <Section tone="page" containerSize="reading">
-        <SectionHeading title="Recruitment considerations" />
-        <p className="mt-4 text-body-lg text-text-secondary">{sector.recruitmentConsiderations}</p>
-      </Section>
-
-      <Section tone="card" containerSize="reading">
-        <SectionHeading title="How Apex HR can help" />
-        <p className="mt-4 text-body-lg text-text-secondary">{sector.howApexHelps}</p>
-      </Section>
-
-      {(relatedServices.length > 0 || relatedRoles.length > 0) && (
-        <Section tone="page">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-            {relatedServices.length > 0 && (
+    <div className="bg-surface-page py-8 md:py-12">
+      <Container size="wide">
+        <div className="overflow-hidden rounded-md bg-cream shadow-(--shadow-modal)">
+          <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.06fr_0.94fr]">
+            <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
+              <Breadcrumbs trail={breadcrumbTrail} tone="dark" />
               <div>
-                <SectionHeading title="Relevant HR services" as="h3" />
-                <ul className="mt-4 flex flex-col gap-2">
-                  {relatedServices.map((service) => (
-                    <li key={service.slug}>
-                      <Link
-                        href={`/services/${service.slug}/`}
-                        className="text-body font-semibold text-navy underline-offset-4 hover:underline"
-                      >
-                        {service.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                <SectionKicker tone="dark">Sector expertise</SectionKicker>
+                <h1 className="mt-4 max-w-xl font-display text-display font-bold text-white">{title}</h1>
+                <p className="mt-3 max-w-xl font-display text-h3 font-bold text-gold">{sector.tagline}</p>
               </div>
-            )}
-            {relatedRoles.length > 0 && (
+              <p className="max-w-lg text-lead text-white/70">{sector.overview}</p>
+              <div className="flex flex-wrap items-center gap-4">
+                <LinkButton href={routes.contact.path} variant="primary" surface="dark">
+                  Discuss your workforce
+                  <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                </LinkButton>
+                {relatedServices.length > 0 && (
+                  <LinkButton href="#help" variant="secondary" surface="dark">
+                    See how we help
+                  </LinkButton>
+                )}
+              </div>
+            </div>
+
+            <div className="relative flex flex-col items-center justify-center gap-8 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
+              <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <span className="absolute h-72 w-72 rounded-full border border-white/10" />
+                <span className="absolute h-44 w-44 rounded-full border border-white/10" />
+              </div>
+
+              <div className="relative z-10 flex flex-wrap justify-center gap-3">
+                {relatedServices.slice(0, 4).map((service) => (
+                  <span
+                    key={service.slug}
+                    className="inline-flex items-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-small font-semibold text-white"
+                  >
+                    {service.title}
+                  </span>
+                ))}
+              </div>
+
+              <div className="relative z-10 flex flex-col items-center gap-2 rounded-md bg-cream px-10 py-7 text-center shadow-(--shadow-modal)">
+                {Icon && <Icon aria-hidden="true" className="h-7 w-7 text-navy" />}
+                <p className="mt-1 max-w-44 text-small text-text-secondary">
+                  People strategy built for {title.toLowerCase()}
+                </p>
+              </div>
+            </div>
+          </header>
+
+          <section className="p-8 sm:p-10 lg:p-14">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-end">
               <div>
-                <SectionHeading title="Relevant talent needs" as="h3" />
-                <ul className="mt-4 flex flex-col gap-2">
-                  {relatedRoles.slice(0, 6).map((role) => (
-                    <li key={role.slug}>
-                      <Link
-                        href={`/talent-acquisition/${role.slug}/`}
-                        className="text-body font-semibold text-navy underline-offset-4 hover:underline"
-                      >
-                        {role.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                <SectionKicker tone="light">Common workforce challenges</SectionKicker>
+                <h2 className="mt-4 max-w-md font-display text-h1 font-bold text-navy">
+                  Where people risk meets business risk
+                </h2>
               </div>
-            )}
+              <p className="text-body text-text-secondary">
+                Sector context shapes which HR and recruitment priorities matter most —
+                here&apos;s where Apex HR most often helps {title.toLowerCase()} employers.
+              </p>
+            </div>
+
+            <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-border-subtle bg-border-subtle sm:grid-cols-2">
+              {sector.challenges.map((challenge, index) => (
+                <div key={challenge} className="flex flex-col gap-4 bg-surface-card p-7">
+                  <div className="flex items-center justify-between">
+                    {Icon && (
+                      <span className="grid h-11 w-11 place-items-center rounded-full bg-success/10 text-success">
+                        <Icon aria-hidden="true" className="h-5 w-5" />
+                      </span>
+                    )}
+                    <span className="font-display text-small text-gold-ink">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <p className="text-body-lg text-navy">{challenge}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="grid grid-cols-1 bg-navy lg:grid-cols-2">
+            <div className="relative min-h-64 overflow-hidden bg-linear-to-br from-navy via-slate to-gold/40 p-8 sm:p-10 lg:min-h-full lg:p-12">
+              <div className="flex h-full items-end">
+                <div className="w-full rounded-md border border-white/20 bg-navy/70 p-5 backdrop-blur-sm">
+                  <p className="font-display text-h4 font-bold text-white">
+                    Recruitment with sector context
+                  </p>
+                  <p className="mt-1 text-small text-white/70">
+                    Capability, fit and culture considered together
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col justify-center gap-4 p-8 sm:p-10 lg:p-14">
+              <SectionKicker tone="dark">Recruitment considerations</SectionKicker>
+              <h2 className="max-w-lg font-display text-h1 font-bold text-white">
+                More than matching a CV to a vacancy
+              </h2>
+              <p className="max-w-lg text-body text-white/70">{sector.recruitmentConsiderations}</p>
+            </div>
+          </section>
+
+          {relatedServices.length > 0 && (
+            <section id="help" className="p-8 sm:p-10 lg:p-14">
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-end">
+                <div>
+                  <SectionKicker tone="light">How Apex HR can help</SectionKicker>
+                  <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-navy">
+                    Start with the outcome you need
+                  </h2>
+                </div>
+                <p className="text-body text-text-secondary">{sector.howApexHelps}</p>
+              </div>
+
+              <div className="mt-10">
+                <SectorServiceExplorer services={relatedServices} />
+              </div>
+            </section>
+          )}
+
+          {relatedRoles.length > 0 && (
+            <section className="bg-navy p-8 sm:p-10 lg:p-14">
+              <SectionKicker tone="dark">Relevant talent needs</SectionKicker>
+              <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-white">
+                Roles that keep {title.toLowerCase()} moving
+              </h2>
+              <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {relatedRoles.slice(0, 6).map((role) => (
+                  <Link
+                    key={role.slug}
+                    href={`/talent-acquisition/${role.slug}/`}
+                    className="flex items-center justify-between gap-4 rounded-md border border-white/15 bg-white/5 px-5 py-4 text-body font-semibold text-white transition-colors duration-(--duration-fast) hover:border-gold hover:bg-white/10"
+                  >
+                    {role.title}
+                    <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {sector.faqs.length > 0 && (
+            <section className="grid grid-cols-1 gap-12 bg-surface-card p-8 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:p-14">
+              <div>
+                <SectionKicker tone="light">Frequently asked questions</SectionKicker>
+                <h2 className="mt-4 font-display text-h2 font-bold text-navy">
+                  Questions {title.toLowerCase()} employers ask
+                </h2>
+              </div>
+              <FaqAccordion items={sector.faqs} />
+            </section>
+          )}
+
+          <div className="mx-4 mb-4 mt-4 flex flex-col gap-6 rounded-md bg-gold p-8 sm:mx-6 sm:mb-6 sm:mt-6 sm:flex-row sm:items-center sm:justify-between lg:mx-8 lg:mb-8 lg:mt-8 lg:p-12">
+            <div>
+              <h3 className="font-display text-h2 font-bold text-navy">
+                Hiring or strengthening HR in {title.toLowerCase()}?
+              </h3>
+              <p className="mt-2 max-w-md text-body text-navy/80">
+                Tell us what&apos;s changing in your workforce. Apex HR can connect the right
+                recruitment, reward and HR advisory support around your priorities.
+              </p>
+            </div>
+            <LinkButton
+              href={routes.findTalent.path}
+              variant="primary"
+              surface="light"
+              className="shrink-0"
+              data-analytics-id={`sector-cta-${sector.slug}`}
+            >
+              {routes.findTalent.label}
+            </LinkButton>
           </div>
-        </Section>
-      )}
-
-      <Section tone="card" containerSize="reading">
-        <SectionHeading title="Frequently asked questions" />
-        <div className="mt-8">
-          <FaqAccordion items={sector.faqs} />
         </div>
-      </Section>
-
-      <Section tone="dark" className="text-center">
-        <h2 className="mx-auto max-w-2xl font-display text-h2 font-bold text-white">
-          Ready to talk about hiring or HR support in {title.toLowerCase()}?
-        </h2>
-        <LinkButton
-          href={routes.findTalent.path}
-          variant="primary"
-          surface="dark"
-          className="mt-8"
-          data-analytics-id={`sector-cta-${sector.slug}`}
-        >
-          {routes.findTalent.label}
-        </LinkButton>
-      </Section>
-    </>
+      </Container>
+    </div>
   );
 }

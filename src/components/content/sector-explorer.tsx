@@ -2,28 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  BriefcaseBusiness,
-  Calculator,
-  Cog,
-  ConciergeBell,
-  Cpu,
-  DraftingCompass,
-  Factory,
-  FlaskConical,
-  GraduationCap,
-  HandHeart,
-  HardHat,
-  HeartPulse,
-  HouseHeart,
-  Landmark,
-  Rocket,
-  Ticket,
-  Truck,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { sectors } from "@/config/sectors";
 import { sectorContent } from "@/content/sectors-data";
+import { sectorIcons } from "@/lib/sector-icons";
 import { cn } from "@/lib/utils";
 
 type FilterKey = "all" | "business" | "health" | "built" | "people" | "operations";
@@ -37,24 +19,24 @@ const FILTERS: { key: FilterKey; label: string }[] = [
   { key: "operations", label: "Operations" },
 ];
 
-const SECTOR_META: Record<string, { icon: typeof Rocket; category: FilterKey }> = {
-  "startups-scale-ups": { icon: Rocket, category: "business" },
-  "professional-services": { icon: BriefcaseBusiness, category: "business" },
-  "health-care": { icon: HeartPulse, category: "health" },
-  "life-sciences": { icon: FlaskConical, category: "health" },
-  technology: { icon: Cpu, category: "business" },
-  "financial-services": { icon: Landmark, category: "business" },
-  accountants: { icon: Calculator, category: "business" },
-  architects: { icon: DraftingCompass, category: "built" },
-  "care-homes": { icon: HouseHeart, category: "health" },
-  charity: { icon: HandHeart, category: "people" },
-  construction: { icon: HardHat, category: "built" },
-  distribution: { icon: Truck, category: "operations" },
-  education: { icon: GraduationCap, category: "people" },
-  engineers: { icon: Cog, category: "built" },
-  leisure: { icon: Ticket, category: "people" },
-  manufacturers: { icon: Factory, category: "operations" },
-  hospitality: { icon: ConciergeBell, category: "operations" },
+const SECTOR_CATEGORIES: Record<string, FilterKey> = {
+  "startups-scale-ups": "business",
+  "professional-services": "business",
+  "health-care": "health",
+  "life-sciences": "health",
+  technology: "business",
+  "financial-services": "business",
+  accountants: "business",
+  architects: "built",
+  "care-homes": "health",
+  charity: "people",
+  construction: "built",
+  distribution: "operations",
+  education: "people",
+  engineers: "built",
+  leisure: "people",
+  manufacturers: "operations",
+  hospitality: "operations",
 };
 
 // The two sectors given the larger "featured" treatment, per the approved
@@ -84,7 +66,7 @@ export function SectorExplorer() {
   const visibleCount =
     activeFilter === "all"
       ? sectors.length
-      : orderedSectors.filter((sector) => SECTOR_META[sector.slug]?.category === activeFilter).length;
+      : orderedSectors.filter((sector) => SECTOR_CATEGORIES[sector.slug] === activeFilter).length;
 
   return (
     <div>
@@ -116,13 +98,12 @@ export function SectorExplorer() {
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {orderedSectors.map((sector, index) => {
-          const meta = SECTOR_META[sector.slug];
           const content = sectorContent.find((entry) => entry.slug === sector.slug);
-          const Icon = meta?.icon;
+          const Icon = sectorIcons[sector.slug];
           const isWide = sector.slug === FEATURED_WIDE_SLUG;
           const isTall = sector.slug === FEATURED_TALL_SLUG;
           const isFeatured = isWide || isTall;
-          const isVisible = activeFilter === "all" || meta?.category === activeFilter;
+          const isVisible = activeFilter === "all" || SECTOR_CATEGORIES[sector.slug] === activeFilter;
 
           return (
             <Link
