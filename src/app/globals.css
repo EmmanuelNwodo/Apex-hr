@@ -1,0 +1,199 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+/*
+ * Bridge Apex HR design tokens (src/styles/tokens.css) into Tailwind's
+ * v4 CSS-based theme so brand values are available as utilities
+ * (bg-navy, text-gold-ink, font-display, text-h1, rounded-md, ...).
+ * Tailwind's default numeric spacing scale (p-1..p-40 etc., based on a
+ * 0.25rem step) already matches the --space-* rhythm in tokens.css, so
+ * spacing is intentionally left on Tailwind's defaults rather than
+ * duplicated here.
+ */
+@theme inline {
+  --color-navy: var(--color-navy);
+  --color-gold: var(--color-gold);
+  --color-gold-ink: var(--color-gold-ink);
+  --color-cream: var(--color-cream);
+  --color-peach: var(--color-peach);
+  --color-slate: var(--color-slate);
+  --color-white: var(--color-white);
+
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --color-information: var(--color-information);
+
+  --color-surface-page: var(--surface-page);
+  --color-surface-card: var(--surface-card);
+  --color-surface-warm: var(--surface-warm);
+  --color-surface-dark: var(--surface-dark);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-reversed: var(--text-reversed);
+  --color-text-accent-light: var(--text-accent-light);
+  --color-text-accent-dark: var(--text-accent-dark);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+
+  --text-display-xl: var(--text-display-xl);
+  --text-display-xl--line-height: var(--leading-display-xl);
+  --text-display: var(--text-display);
+  --text-display--line-height: var(--leading-display);
+  --text-h1: var(--text-h1);
+  --text-h1--line-height: var(--leading-h1);
+  --text-h2: var(--text-h2);
+  --text-h2--line-height: var(--leading-h2);
+  --text-h3: var(--text-h3);
+  --text-h3--line-height: var(--leading-h3);
+  --text-h4: var(--text-h4);
+  --text-h4--line-height: var(--leading-h4);
+  --text-lead: var(--text-lead);
+  --text-lead--line-height: var(--leading-lead);
+  --text-body-lg: var(--text-body-lg);
+  --text-body-lg--line-height: var(--leading-body-lg);
+  --text-body: var(--text-body);
+  --text-body--line-height: var(--leading-body);
+  --text-small: var(--text-small);
+  --text-small--line-height: var(--leading-small);
+  --text-caption: var(--text-caption);
+  --text-caption--line-height: var(--leading-caption);
+
+  --radius-none: var(--radius-none);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+}
+
+@layer base {
+  * {
+    border-color: var(--border-subtle);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    background-color: var(--surface-page);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  ::selection {
+    background-color: var(--color-peach);
+    color: var(--color-navy);
+  }
+
+  :focus-visible {
+    outline: var(--focus-width) solid var(--color-navy);
+    outline-offset: var(--focus-offset);
+  }
+}
+
+@layer components {
+  @keyframes overlay-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes sheet-in {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .mobile-menu-overlay[data-state="open"] {
+    animation: overlay-in var(--duration-base) var(--ease-enter);
+  }
+
+  .mobile-menu-content[data-state="open"] {
+    animation: sheet-in var(--duration-slow) var(--ease-enter);
+  }
+
+  .skip-link {
+    position: absolute;
+    top: var(--space-2);
+    left: var(--space-2);
+    z-index: 100;
+    transform: translateY(-150%);
+    background-color: var(--color-navy);
+    color: var(--color-white);
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: transform var(--duration-fast) var(--ease-standard);
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+
+  @keyframes marquee-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-right {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .marquee-left {
+    animation: marquee-left 36s linear infinite;
+  }
+
+  .marquee-right {
+    animation: marquee-right 36s linear infinite;
+  }
+
+  /* DESIGN.md section 22 "Logo marquee": pause movement on hover/focus. */
+  .marquee-left:hover,
+  .marquee-left:focus-within,
+  .marquee-right:hover,
+  .marquee-right:focus-within {
+    animation-play-state: paused;
+  }
+}
