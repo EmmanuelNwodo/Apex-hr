@@ -1,6 +1,7 @@
 import { serviceCategories } from "@/config/services";
 import { sectors } from "@/config/sectors";
 import { routes } from "@/config/routes";
+import { sectorImages } from "@/lib/sector-images";
 
 /**
  * Typed homepage content layer — a temporary local fallback pending live
@@ -43,6 +44,12 @@ export const hero: HeroContent = {
   secondaryCta: { label: "Meet Apex HR", href: routes.about.path, analyticsId: "hero-meet-apex" },
   candidateLink: { label: "Search Jobs", href: routes.jobs.path, analyticsId: "hero-search-jobs" },
 };
+
+// Short, generic, non-quantified capability labels for the hero's lower-left
+// trust-indicator row — not claims of scale, awards or specific results, so
+// no verification gate applies (contrast `trust.stats` below, which are
+// explicit placeholder statistics).
+export const heroTrustIndicators: string[] = ["UK-wide support", "Practical HR expertise", "Built around your business"];
 
 // --- Hero media: workplace facts -------------------------------------------
 
@@ -168,29 +175,27 @@ export interface PartnerBrand {
 // CLAUDE.md section 3, explicit stakeholder-supplied assets take priority
 // over the general "do not fabricate client claims" default, so these are
 // treated as approved evidence of real client relationships rather than
-// placeholder content. Order matches the supplied files; split across two
-// marquee rows by PartnerLogoMarqueeRow.
+// placeholder content. Order matches the supplied files. These are the
+// background-removed replacement set supplied 9 September 2026 — the
+// earlier file set included five brands (Flutterwave, Paystack,
+// Interswitch, Carbon, Prune) that are not present in this replacement
+// set, so they are omitted here rather than left pointing at deleted files.
 export const partnerBrands: PartnerBrand[] = [
-  { name: "Flutterwave", imageSrc: "/images/partner-brands/Flutterwave.jpg" },
-  { name: "Paystack", imageSrc: "/images/partner-brands/paystack.png" },
   { name: "Kuda", imageSrc: "/images/partner-brands/Kuda.png" },
   { name: "Opay", imageSrc: "/images/partner-brands/Opay.png" },
-  { name: "PalmPay", imageSrc: "/images/partner-brands/palmpay.jpg" },
-  { name: "Moniepoint", imageSrc: "/images/partner-brands/moniepoint.jpg" },
-  { name: "Interswitch", imageSrc: "/images/partner-brands/interswitch.png" },
-  { name: "Wise", imageSrc: "/images/partner-brands/wise.png" },
+  { name: "PalmPay", imageSrc: "/images/partner-brands/Palmpay.png" },
+  { name: "Moniepoint", imageSrc: "/images/partner-brands/moniepoint2.png" },
+  { name: "Wise", imageSrc: "/images/partner-brands/wise2.png" },
   { name: "dLocal", imageSrc: "/images/partner-brands/dlocal.png" },
-  { name: "AZA Finance", imageSrc: "/images/partner-brands/aza-finance.png" },
-  { name: "PiggyVest", imageSrc: "/images/partner-brands/Piggyvest.webp" },
-  { name: "LemFi", imageSrc: "/images/partner-brands/lemfi.png" },
-  { name: "Cellulant", imageSrc: "/images/partner-brands/Cellulant.jpg" },
-  { name: "Carbon", imageSrc: "/images/partner-brands/carbon.png" },
+  { name: "AZA Finance", imageSrc: "/images/partner-brands/aza_finance.png" },
+  { name: "PiggyVest", imageSrc: "/images/partner-brands/piggyvest.png" },
+  { name: "LemFi", imageSrc: "/images/partner-brands/lemfi2.png" },
+  { name: "Cellulant", imageSrc: "/images/partner-brands/Cellulant.png" },
   { name: "Patricia", imageSrc: "/images/partner-brands/patricia.png" },
   { name: "Paxful", imageSrc: "/images/partner-brands/paxful.png" },
-  { name: "Raenest", imageSrc: "/images/partner-brands/raenest.png" },
+  { name: "Raenest", imageSrc: "/images/partner-brands/raenest2.png" },
   { name: "Propellerplate", imageSrc: "/images/partner-brands/propellerplate.png" },
-  { name: "Prune", imageSrc: "/images/partner-brands/prune.webp" },
-  { name: "Jeriod", imageSrc: "/images/partner-brands/jeriod.jpg" },
+  { name: "Jeriod", imageSrc: "/images/partner-brands/jeriod.png" },
 ];
 
 // --- Employer need selector -----------------------------------------------
@@ -229,13 +234,21 @@ export const employerNeeds: EmployerNeed[] = [
 ];
 
 // Supporting copy and CTA for the need-selector intro column.
-export const needSelectorIntro: { description: string; adviserCta: CtaLink } = {
+export const needSelectorIntro: { description: string; adviserCta: CtaLink; exploreCta: CtaLink } = {
   description:
     "Choose the option that best describes what you need from Apex HR, and we'll point you to the right service.",
   adviserCta: {
     label: "Not sure? Speak to an adviser",
     href: routes.contact.path,
     analyticsId: "need-selector-speak-to-adviser",
+  },
+  // SEO audit Phase 3 Batch 4: a prominent, descriptively-anchored body
+  // link to /for-employers/ — previously only reachable from the homepage
+  // via the global header nav, not from any homepage body content.
+  exploreCta: {
+    label: "See the full picture of employer support",
+    href: routes.forEmployers.path,
+    analyticsId: "need-selector-for-employers",
   },
 };
 
@@ -457,28 +470,13 @@ const featuredSectorSlugs = [
   "hospitality",
 ];
 
-// Maps a featured sector slug to its approved photo in public/images.
-// A sector left out of this map (e.g. a future addition to
-// featuredSectorSlugs without a photo yet) renders SectorCard's plain
-// text-tile fallback instead of a placeholder stock image.
-const featuredSectorImages: Record<string, string> = {
-  "startups-scale-ups": "/images/startup.jpg",
-  "professional-services": "/images/professional-services.png",
-  "health-care": "/images/healthcare.png",
-  technology: "/images/IT.png",
-  construction: "/images/construction.png",
-  distribution: "/images/distribution.png",
-  manufacturers: "/images/manufacturing.png",
-  hospitality: "/images/hospitality.png",
-};
-
 export const featuredSectors: FeaturedSector[] = sectors
   .filter((sector) => featuredSectorSlugs.includes(sector.slug))
   .map((sector) => ({
     slug: sector.slug,
     title: sector.title,
     href: `/sector/${sector.slug}/`,
-    imageSrc: featuredSectorImages[sector.slug],
+    imageSrc: sectorImages[sector.slug],
   }));
 
 // --- How Apex works ---------------------------------------------------------

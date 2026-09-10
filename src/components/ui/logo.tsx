@@ -18,16 +18,24 @@ interface LogoProps {
  */
 export function Logo({ surface = "light", className }: LogoProps) {
   return (
-    <Link
-      href="/"
-      className={cn(
-        "inline-flex items-baseline gap-1.5 font-display text-h4 font-bold tracking-tight",
-        surface === "light" ? "text-navy" : "text-white",
-        className,
-      )}
-    >
-      Apex
-      <span className={surface === "light" ? "text-gold-ink" : "text-gold"}>HR</span>
+    <Link href="/" className={cn("inline-flex flex-col", className)}>
+      <span
+        className={cn(
+          "inline-flex items-baseline gap-1.5 font-display text-h4 font-bold tracking-tight",
+          surface === "light" ? "text-navy" : "text-white",
+        )}
+      >
+        Apex
+        <span className={surface === "light" ? "text-gold-ink" : "text-gold"}>HR</span>
+      </span>
+      <span
+        className={cn(
+          "text-caption font-semibold uppercase tracking-widest",
+          surface === "light" ? "text-slate" : "text-white/70",
+        )}
+      >
+        Global People Partner
+      </span>
     </Link>
   );
 }
