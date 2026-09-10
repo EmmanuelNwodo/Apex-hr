@@ -24,7 +24,7 @@ describe("services/[slug] page — dynamic route resolution", () => {
 describe("services/[slug] page — metadata generation", () => {
   it("generates a title and description for a known service", async () => {
     const metadata = await generateMetadata({ params: Promise.resolve({ slug: "executive-search" }) });
-    expect(metadata.title).toBe("Executive Search");
+    expect(metadata.title).toBe("Executive Search Firm in the UK");
     expect(metadata.description).toBeTruthy();
   });
 

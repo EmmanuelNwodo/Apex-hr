@@ -5,7 +5,7 @@ import { finalCta } from "@/content/home";
 /** Final employer conversion band per DESIGN.md 17.10. */
 export function FinalCtaSection() {
   return (
-    <Section tone="dark" className="text-center">
+    <Section tone="dark" gutter="always" className="text-center">
       <h2 className="mx-auto max-w-2xl font-display text-h2 font-bold text-white">
         {finalCta.heading}
       </h2>

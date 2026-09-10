@@ -222,8 +222,11 @@ Professional Services and IT are separate intents. Professional Services uses `/
 
 ## 9. Location architecture
 
+A `/locations/` hub route (directory of all locations below) was added by explicit later stakeholder instruction — see `docs/URL-DECISION-REGISTER.md` D-013. It supersedes the earlier position that only the dynamic `[slug]` pattern was approved for this family.
+
 | Location | Canonical URL | Status |
 |---|---|---|
+| All locations (hub) | `/locations/` | Confirmed |
 | London | `/locations/london/` | Confirmed |
 | Manchester | `/locations/manchester/` | Confirmed |
 | Birmingham | `/locations/birmingham/` | Confirmed |
@@ -261,7 +264,7 @@ Example:
 /services/executive-search-london/
 ```
 
-The register contains 816 combinations: 48 child services multiplied by the UK plus 16 named locations. Every combination is **Provisional**.
+The register contains 816 recorded service-location combinations (48 child services x 16 named locations, plus the parent categories) and 160 recorded category-location combinations. The default status for any combination not explicitly Confirmed below remains **Provisional**.
 
 A service-location page may move to Confirmed only when all of these gates pass:
 
@@ -271,6 +274,8 @@ A service-location page may move to Confirmed only when all of these gates pass:
 - No office, practitioner, customer, rating or result is fabricated.
 - Search intent does not substantially duplicate the national service page.
 - The content and SEO owner explicitly approves indexation.
+
+**Confirmed subset (D-014):** by explicit later stakeholder instruction, the combinations already curated in each location's `relatedServiceSlugs` (`src/content/locations-data.ts` — the 3-5 services genuinely picked as relevant to that location's real economic context, plus each service's parent category) are Confirmed and published at `/services/[service-slug]-[location-slug]/` and `/services/[category-slug]-[location-slug]/`. Every other combination in the 816/160 totals remains Provisional. See `docs/URL-DECISION-REGISTER.md` D-014 and `src/config/service-locations.ts` for the exact generated set.
 
 ## 11. Talent acquisition by role
 

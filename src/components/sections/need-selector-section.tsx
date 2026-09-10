@@ -33,7 +33,7 @@ interface NeedSelectorSectionProps {
  */
 export function NeedSelectorSection({ transparent = false }: NeedSelectorSectionProps) {
   return (
-    <Section tone="dark" className={transparent ? "bg-transparent" : undefined}>
+    <Section tone="dark" gutter="always" className={transparent ? "bg-transparent" : undefined}>
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
         <div className="rounded-md border border-white/15 bg-navy/60 p-6 backdrop-blur-sm sm:p-8 lg:col-span-5">
           <SectionHeading
@@ -52,6 +52,13 @@ export function NeedSelectorSection({ transparent = false }: NeedSelectorSection
               <MessageCircle aria-hidden="true" className="h-4 w-4" />
             </span>
             {needSelectorIntro.adviserCta.label}
+          </Link>
+          <Link
+            href={needSelectorIntro.exploreCta.href}
+            data-analytics-id={needSelectorIntro.exploreCta.analyticsId}
+            className="mt-3 block text-small font-semibold text-white/70 hover:text-white hover:underline underline-offset-4"
+          >
+            {needSelectorIntro.exploreCta.label}
           </Link>
         </div>
 

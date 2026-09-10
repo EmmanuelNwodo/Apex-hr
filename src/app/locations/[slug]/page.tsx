@@ -4,17 +4,13 @@ import { getLocation, locations } from "@/config/locations";
 import { locationContent } from "@/content/locations-data";
 import { LocationPageTemplate } from "@/components/templates/location-page-template";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getBreadcrumbJsonLd } from "@/lib/seo/structured-data";
+import { getBreadcrumbJsonLd, getServiceJsonLd, toJsonLdScript } from "@/lib/seo/structured-data";
 import { routes } from "@/config/routes";
 import type { RouteRecord } from "@/types/route";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
-
-// No `/locations/` hub route exists in the approved master register — see
-// src/config/routes.ts. Breadcrumbs for this page therefore go straight
-// from Home to the location, with no intermediate hub crumb.
 
 export function generateStaticParams() {
   return locations.map((location) => ({ slug: location.slug }));
@@ -49,12 +45,24 @@ export default async function LocationPage({ params }: PageProps) {
     status: "confirmed",
     readyToIndex: true,
   };
-  const breadcrumbTrail = [locationRoute];
-  const jsonLd = getBreadcrumbJsonLd(routes.home.label, breadcrumbTrail);
+  const breadcrumbTrail = [routes.locations, locationRoute];
+  // No FAQPage entry here: LocationPageTemplate renders its FAQ list
+  // (location.faqs plus three generic questions, via buildLocationFaqs)
+  // through FaqWithContactForm, which already emits its own FAQPage
+  // JSON-LD from that exact array — adding one here too would duplicate
+  // the schema block.
+  const jsonLd = [
+    getServiceJsonLd({
+      name: `HR and Recruitment Support in ${location.title}`,
+      description: content.metaDescription,
+      path: `/locations/${location.slug}/`,
+    }),
+    getBreadcrumbJsonLd(routes.home.label, breadcrumbTrail),
+  ];
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLdScript(jsonLd) }} />
       <LocationPageTemplate title={location.title} breadcrumbTrail={breadcrumbTrail} location={content} />
     </>
   );

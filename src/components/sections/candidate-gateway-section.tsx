@@ -18,7 +18,7 @@ export function CandidateGatewaySection() {
   const [primaryLink, secondaryLink] = candidateGateway.links;
 
   return (
-    <Section tone="warm">
+    <Section tone="warm" gutter="always">
       <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-6">
           <SectionKicker>{candidateGateway.kicker}</SectionKicker>

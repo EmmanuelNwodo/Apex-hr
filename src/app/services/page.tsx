@@ -1,16 +1,21 @@
 import { ArrowDown, ChartNoAxesCombined, UserRoundSearch, UsersRound } from "lucide-react";
 import Link from "next/link";
-import { Container } from "@/components/layout/container";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
 import { Reveal } from "@/components/motion/reveal";
 import { ServiceFamilyNavigator } from "@/components/content/service-family-navigator";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { getBreadcrumbJsonLd, getCollectionPageJsonLd, toJsonLdScript } from "@/lib/seo/structured-data";
 import { routes } from "@/config/routes";
+import { serviceCategories } from "@/config/services";
+
+const HUB_DESCRIPTION =
+  "Explore Apex HR's ten connected HR and recruitment service families, from outsourced HR support to workforce strategy, and find the right expertise for your organisation.";
 
 export const metadata = buildMetadata({
   title: "HR & Recruitment Services",
+  description: HUB_DESCRIPTION,
   path: routes.services.path,
   index: routes.services.readyToIndex,
 });
@@ -44,18 +49,33 @@ const priorityRoutes = [
  * hero with quick-start priority routes, then an interactive service
  * family navigator (see ServiceFamilyNavigator), all inside one rounded
  * cream "page shell". Breadcrumbs sit outside the shell in the normal
- * page background, per DESIGN.md's visible-breadcrumb requirement.
+ * page background, per DESIGN.md's visible-breadcrumb requirement. Each
+ * section is now a full-width band with no side margin (per later user
+ * instruction; previously the whole page sat inside that rounded card,
+ * inset from the browser edges).
  */
 export default function ServicesPage() {
-  return (
-    <div className="bg-surface-page py-8 md:py-12">
-      <Container size="wide">
-        <Breadcrumbs trail={[routes.services]} />
-      </Container>
+  const jsonLd = [
+    getCollectionPageJsonLd({
+      path: routes.services.path,
+      name: "HR & Recruitment Services",
+      description: HUB_DESCRIPTION,
+      items: serviceCategories.map((category) => ({ name: category.title, path: `/services/${category.slug}/` })),
+    }),
+    getBreadcrumbJsonLd(routes.home.label, [routes.services]),
+  ];
 
-      <Container size="wide" className="mt-6">
-        <div className="overflow-hidden rounded-md bg-cream shadow-(--shadow-modal)">
-          <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.08fr_0.92fr]">
+  return (
+    <div className="bg-surface-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: toJsonLdScript(jsonLd) }}
+      />
+      <div className="px-5 py-8 sm:px-0 md:py-12">
+        <Breadcrumbs trail={[routes.services]} />
+      </div>
+
+      <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.08fr_0.92fr]">
             <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
               <SectionKicker tone="dark">Apex HR services</SectionKicker>
               <h1 className="max-w-2xl font-display text-display font-bold text-white">
@@ -119,24 +139,22 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <Reveal className="mx-4 mb-4 sm:mx-6 sm:mb-6 lg:mx-8 lg:mb-8">
-            <ServiceFamilyNavigator />
-          </Reveal>
+      <Reveal className="px-5 pb-8 sm:px-0 sm:pb-10 lg:pb-14">
+        <ServiceFamilyNavigator />
+      </Reveal>
 
-          <div className="mx-4 mb-4 flex flex-col gap-6 rounded-md bg-navy p-8 sm:mx-6 sm:mb-6 sm:flex-row sm:items-center sm:justify-between lg:mx-8 lg:mb-8 lg:p-12">
-            <div>
-              <h3 className="font-display text-h2 font-bold text-white">Not sure which service fits?</h3>
-              <p className="mt-2 max-w-md text-body text-white/70">
-                Tell us what&apos;s happening in your organisation and we&apos;ll point you in the right
-                direction.
-              </p>
-            </div>
-            <LinkButton href={routes.contact.path} variant="primary" surface="dark" className="shrink-0">
-              Speak to an adviser
-            </LinkButton>
-          </div>
+      <div className="flex flex-col gap-6 bg-navy p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-14">
+        <div>
+          <h3 className="font-display text-h2 font-bold text-white">Not sure which service fits?</h3>
+          <p className="mt-2 max-w-md text-body text-white/70">
+            Tell us what&apos;s happening in your organisation and we&apos;ll point you in the right
+            direction.
+          </p>
         </div>
-      </Container>
+        <LinkButton href={routes.contact.path} variant="primary" surface="dark" className="shrink-0">
+          Speak to an adviser
+        </LinkButton>
+      </div>
     </div>
   );
 }

@@ -21,6 +21,9 @@ interface EmployerProblemsSectionProps {
  * its own navy fallback by default, or the shared background video when
  * `transparent` (see page.tsx) — so the video stays visible in the
  * surrounding padding while the shell itself keeps guaranteed contrast.
+ * Uses the default `gutter="auto"` (no side margin from `sm` up) rather
+ * than `gutter="always"`, per later explicit user instruction removing
+ * this section's side margin.
  */
 export function EmployerProblemsSection({ transparent = false }: EmployerProblemsSectionProps) {
   return (

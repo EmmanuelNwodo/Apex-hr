@@ -13,7 +13,6 @@ import {
   UserRoundSearch,
   UsersRound,
 } from "lucide-react";
-import { Container } from "@/components/layout/container";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
@@ -23,10 +22,16 @@ import { aboutPageContent } from "@/content/supporting-pages-data";
 import { processSteps } from "@/content/home";
 import { serviceCategoryContent } from "@/content/services-data";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { getAboutPageJsonLd, getBreadcrumbJsonLd, toJsonLdScript } from "@/lib/seo/structured-data";
 import { routes } from "@/config/routes";
 
+// Bare page title — the root layout's "%s | Apex HR" template appends the
+// brand name once. Passing "About Apex HR" here previously rendered as
+// "About Apex HR | Apex HR" (SEO audit Batch 2, item 1). Every other
+// buildMetadata() caller in src/app already follows this convention; this
+// was the one exception.
 export const metadata = buildMetadata({
-  title: "About Apex HR",
+  title: "About",
   description: aboutPageContent.lead,
   path: routes.about.path,
   index: routes.about.readyToIndex,
@@ -115,11 +120,15 @@ const growthStages = [
  * would need verification (CLAUDE.md section 32).
  */
 export default function AboutPage() {
+  const jsonLd = [getAboutPageJsonLd(routes.about.path), getBreadcrumbJsonLd(routes.home.label, [routes.about])];
+
   return (
-    <div className="bg-surface-page py-8 md:py-12">
-      <Container size="wide">
-        <div className="overflow-hidden rounded-md bg-cream shadow-(--shadow-modal)">
-          <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.06fr_0.94fr]">
+    <div className="bg-surface-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: toJsonLdScript(jsonLd) }}
+      />
+      <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.06fr_0.94fr]">
             <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
               <Breadcrumbs trail={[routes.about]} tone="dark" />
               <div>
@@ -278,22 +287,20 @@ export default function AboutPage() {
             </div>
           </section>
 
-          <div className="mx-4 mb-4 mt-4 flex flex-col gap-6 rounded-md bg-gold p-8 sm:mx-6 sm:mb-6 sm:mt-6 sm:flex-row sm:items-center sm:justify-between lg:mx-8 lg:mb-8 lg:mt-8 lg:p-12">
-            <div>
-              <h3 className="font-display text-h2 font-bold text-navy">
-                Looking for a people partner who can see the whole picture?
-              </h3>
-              <p className="mt-2 max-w-md text-body text-navy/80">
-                Tell Apex HR what your organisation is trying to achieve. We&apos;ll help connect
-                the recruitment, HR and workforce support around it.
-              </p>
-            </div>
-            <LinkButton href={routes.contact.path} variant="primary" surface="light" className="shrink-0">
-              Start a conversation
-            </LinkButton>
-          </div>
+      <div className="flex flex-col gap-6 bg-gold p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-14">
+        <div>
+          <h3 className="font-display text-h2 font-bold text-navy">
+            Looking for a people partner who can see the whole picture?
+          </h3>
+          <p className="mt-2 max-w-md text-body text-navy/80">
+            Tell Apex HR what your organisation is trying to achieve. We&apos;ll help connect
+            the recruitment, HR and workforce support around it.
+          </p>
         </div>
-      </Container>
+        <LinkButton href={routes.contact.path} variant="primary" surface="light" className="shrink-0">
+          Start a conversation
+        </LinkButton>
+      </div>
     </div>
   );
 }

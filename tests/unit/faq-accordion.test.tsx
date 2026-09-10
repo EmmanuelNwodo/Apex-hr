@@ -9,14 +9,16 @@ const items = [
 ];
 
 describe("FaqAccordion", () => {
-  it("renders every answer open by default so content survives without JavaScript", () => {
+  it("renders only the first answer open by default, reading as a genuine accordion", () => {
     render(<FaqAccordion items={items} />);
 
-    for (const item of items) {
-      const button = screen.getByRole("button", { name: item.question });
-      expect(button).toHaveAttribute("aria-expanded", "true");
-      expect(screen.getByText(item.answer)).toBeVisible();
-    }
+    const firstButton = screen.getByRole("button", { name: items[0].question });
+    expect(firstButton).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByText(items[0].answer)).toBeVisible();
+
+    const secondButton = screen.getByRole("button", { name: items[1].question });
+    expect(secondButton).toHaveAttribute("aria-expanded", "false");
+    expect(screen.getByText(items[1].answer)).not.toBeVisible();
   });
 
   it("collapses and re-expands an answer on click, toggling aria-expanded", async () => {
@@ -41,11 +43,11 @@ describe("FaqAccordion", () => {
     const user = userEvent.setup();
     render(<FaqAccordion items={items} />);
 
-    await user.click(screen.getByRole("button", { name: items[0].question }));
+    await user.click(screen.getByRole("button", { name: items[1].question }));
 
     expect(screen.getByRole("button", { name: items[0].question })).toHaveAttribute(
       "aria-expanded",
-      "false",
+      "true",
     );
     expect(screen.getByRole("button", { name: items[1].question })).toHaveAttribute(
       "aria-expanded",

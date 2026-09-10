@@ -1,5 +1,4 @@
 import { ArrowDown, CheckCircle2, Cpu, HardHat, HeartPulse, Landmark } from "lucide-react";
-import { Container } from "@/components/layout/container";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
@@ -8,10 +7,15 @@ import { SectorExplorer } from "@/components/content/sector-explorer";
 import { sectors } from "@/config/sectors";
 import { sectorContent } from "@/content/sectors-data";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { getBreadcrumbJsonLd, getCollectionPageJsonLd, toJsonLdScript } from "@/lib/seo/structured-data";
 import { routes } from "@/config/routes";
+
+const HUB_DESCRIPTION =
+  "Browse HR and recruitment support by sector. Explore the people challenges and service pathways relevant to your industry, from healthcare to technology and beyond.";
 
 export const metadata = buildMetadata({
   title: "Sectors We Support",
+  description: HUB_DESCRIPTION,
   path: routes.sectors.path,
   index: routes.sectors.readyToIndex,
 });
@@ -34,20 +38,33 @@ const heroExamplePills = [
  * labels and hand-painted gradient "people silhouette" were simplified to
  * a plain flex layout and a token-based gradient panel respectively —
  * both were purely decorative, and the originals would have been fragile
- * across breakpoints for no functional gain.
+ * across breakpoints for no functional gain. Each section is a full-width
+ * band with no side margin (per later user instruction; previously a
+ * single rounded cream "page shell" card inset from the browser edges).
  */
 export default function SectorsPage() {
   const healthCare = sectorContent.find((entry) => entry.slug === "health-care");
+  const jsonLd = [
+    getCollectionPageJsonLd({
+      path: routes.sectors.path,
+      name: "Sectors We Support",
+      description: HUB_DESCRIPTION,
+      items: sectors.map((sector) => ({ name: sector.title, path: `/sector/${sector.slug}/` })),
+    }),
+    getBreadcrumbJsonLd(routes.home.label, [routes.sectors]),
+  ];
 
   return (
-    <div className="bg-surface-page py-8 md:py-12">
-      <Container size="wide">
+    <div className="bg-surface-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: toJsonLdScript(jsonLd) }}
+      />
+      <div className="px-5 py-8 sm:px-0 md:py-12">
         <Breadcrumbs trail={[routes.sectors]} />
-      </Container>
+      </div>
 
-      <Container size="wide" className="mt-6">
-        <div className="overflow-hidden rounded-md bg-cream shadow-(--shadow-modal)">
-          <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.05fr_0.95fr]">
+      <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.05fr_0.95fr]">
             <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
               <SectionKicker tone="dark">Sector expertise</SectionKicker>
               <h1 className="max-w-2xl font-display text-display font-bold text-white">
@@ -117,7 +134,7 @@ export default function SectorsPage() {
             </div>
           </div>
 
-          <Reveal className="px-4 pb-8 sm:px-6 sm:pb-10 lg:px-8 lg:pb-14">
+          <Reveal className="px-5 pb-8 sm:px-0 sm:pb-10 lg:pb-14">
             <SectorExplorer />
           </Reveal>
 
@@ -151,20 +168,18 @@ export default function SectorsPage() {
             </div>
           </section>
 
-          <div className="mx-4 mb-4 mt-4 flex flex-col gap-6 rounded-md bg-gold p-8 sm:mx-6 sm:mb-6 sm:mt-6 sm:flex-row sm:items-center sm:justify-between lg:mx-8 lg:mb-8 lg:mt-8 lg:p-12">
-            <div>
-              <h3 className="font-display text-h2 font-bold text-navy">Don&apos;t see your sector?</h3>
-              <p className="mt-2 max-w-md text-body text-navy/80">
-                Tell us about your workforce challenge. Our team will connect you with the right
-                combination of HR, recruitment and people expertise.
-              </p>
-            </div>
-            <LinkButton href={routes.contact.path} variant="primary" surface="light" className="shrink-0">
-              Talk to an adviser
-            </LinkButton>
-          </div>
+      <div className="flex flex-col gap-6 bg-gold p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-14">
+        <div>
+          <h3 className="font-display text-h2 font-bold text-navy">Don&apos;t see your sector?</h3>
+          <p className="mt-2 max-w-md text-body text-navy/80">
+            Tell us about your workforce challenge. Our team will connect you with the right
+            combination of HR, recruitment and people expertise.
+          </p>
         </div>
-      </Container>
+        <LinkButton href={routes.contact.path} variant="primary" surface="light" className="shrink-0">
+          Talk to an adviser
+        </LinkButton>
+      </div>
     </div>
   );
 }

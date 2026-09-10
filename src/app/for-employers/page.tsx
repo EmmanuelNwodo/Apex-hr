@@ -9,20 +9,25 @@ import {
   UserRoundSearch,
   UsersRound,
 } from "lucide-react";
-import { Container } from "@/components/layout/container";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
 import { Reveal } from "@/components/motion/reveal";
-import { FaqAccordion } from "@/components/content/faq-accordion";
+import { FaqWithContactForm } from "@/components/content/faq-with-contact-form";
 import { EmployerNeedsExplorer } from "@/components/content/employer-needs-explorer";
 import { forEmployersPageContent } from "@/content/supporting-pages-data";
 import { serviceCategoryContent } from "@/content/services-data";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { getBreadcrumbJsonLd, toJsonLdScript } from "@/lib/seo/structured-data";
 import { routes } from "@/config/routes";
 
+// SEO audit Phase 3 Batch 4: title made intent-descriptive (was the generic
+// nav label "For Employers") to better match this page's principal intent
+// — "HR support and recruitment support for UK employers" — while staying
+// concise; the H1 itself is unchanged per this batch's explicit preservation
+// instruction.
 export const metadata = buildMetadata({
-  title: "For Employers",
+  title: "HR & Recruitment Support for Employers",
   description: forEmployersPageContent.lead,
   path: routes.forEmployers.path,
   index: routes.forEmployers.readyToIndex,
@@ -92,11 +97,12 @@ const growthStages = [
  * or history that would need verification (CLAUDE.md section 32).
  */
 export default function ForEmployersPage() {
+  const jsonLd = getBreadcrumbJsonLd(routes.home.label, [routes.forEmployers]);
+
   return (
-    <div className="bg-surface-page py-8 md:py-12">
-      <Container size="wide">
-        <div className="overflow-hidden rounded-md bg-cream shadow-(--shadow-modal)">
-          <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.06fr_0.94fr]">
+    <div className="bg-surface-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLdScript(jsonLd) }} />
+      <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.06fr_0.94fr]">
             <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
               <Breadcrumbs trail={[routes.forEmployers]} tone="dark" />
               <div>
@@ -257,38 +263,36 @@ export default function ForEmployersPage() {
           </section>
 
           {forEmployersPageContent.faqs && forEmployersPageContent.faqs.length > 0 && (
-            <section className="grid grid-cols-1 gap-12 bg-surface-card p-8 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:p-14">
-              <div>
-                <SectionKicker tone="light">Frequently asked questions</SectionKicker>
-                <h2 className="mt-4 font-display text-h2 font-bold text-navy">What employers usually ask</h2>
+            <section className="bg-surface-card p-8 sm:p-10 lg:p-14">
+              <SectionKicker tone="light">Frequently asked questions</SectionKicker>
+              <h2 className="mt-4 max-w-lg font-display text-h2 font-bold text-navy">What employers usually ask</h2>
+              <div className="mt-10">
+                <FaqWithContactForm items={forEmployersPageContent.faqs} />
               </div>
-              <FaqAccordion items={forEmployersPageContent.faqs} />
             </section>
           )}
 
-          <div className="mx-4 mb-4 mt-4 flex flex-col gap-6 rounded-md bg-gold p-8 sm:mx-6 sm:mb-6 sm:mt-6 sm:flex-row sm:items-center sm:justify-between lg:mx-8 lg:mb-8 lg:mt-8 lg:p-12">
-            <div>
-              <h3 className="font-display text-h2 font-bold text-navy">
-                What does your organisation need next?
-              </h3>
-              <p className="mt-2 max-w-md text-body text-navy/80">
-                Whether the priority is hiring, dependable HR support or a complex people
-                challenge, Apex HR can help you identify the right place to start.
-              </p>
-            </div>
-            {forEmployersPageContent.primaryCta && (
-              <LinkButton
-                href={forEmployersPageContent.primaryCta.href}
-                variant="primary"
-                surface="light"
-                className="shrink-0"
-              >
-                {forEmployersPageContent.primaryCta.label}
-              </LinkButton>
-            )}
-          </div>
+      <div className="flex flex-col gap-6 bg-gold p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-14">
+        <div>
+          <h3 className="font-display text-h2 font-bold text-navy">
+            What does your organisation need next?
+          </h3>
+          <p className="mt-2 max-w-md text-body text-navy/80">
+            Whether the priority is hiring, dependable HR support or a complex people
+            challenge, Apex HR can help you identify the right place to start.
+          </p>
         </div>
-      </Container>
+        {forEmployersPageContent.primaryCta && (
+          <LinkButton
+            href={forEmployersPageContent.primaryCta.href}
+            variant="primary"
+            surface="light"
+            className="shrink-0"
+          >
+            {forEmployersPageContent.primaryCta.label}
+          </LinkButton>
+        )}
+      </div>
     </div>
   );
 }

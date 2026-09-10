@@ -13,7 +13,7 @@ import { routes } from "@/config/routes";
  */
 export function InsightsSection() {
   return (
-    <Section tone="page">
+    <Section tone="page" gutter="always">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <SectionHeading kicker="Insights" title="Latest thinking on HR and workforce strategy" />
         <LinkButton href={routes.insights.path} variant="tertiary" surface="light">

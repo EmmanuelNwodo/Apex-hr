@@ -27,7 +27,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "startups-scale-ups",
     tagline: "People expertise built for fast-moving teams.",
-    metaDescription: "HR and recruitment support for startups and scale-ups, built for fast-moving, lean teams.",
+    metaDescription: "Apex HR is a specialist HR company for startups and scale-ups in the UK, helping fast-moving, lean teams build practical HR foundations as they grow.",
     overview:
       "Startups and scale-ups grow fast and change direction often, which puts particular pressure on HR foundations and hiring speed.",
     challenges: [
@@ -49,7 +49,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "professional-services",
     tagline: "People expertise for firms that compete on talent.",
-    metaDescription: "HR and recruitment support for professional services firms, from HR foundations to leadership hiring.",
+    metaDescription: "Apex HR is a specialist HR company for professional services firms in the UK, supporting everything from HR foundations to leadership hiring.",
     overview:
       "Professional services firms compete on the quality of their people, making recruitment, development and retention central to the business itself.",
     challenges: [
@@ -71,7 +71,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "health-care",
     tagline: "People expertise for complex workforce demands.",
-    metaDescription: "HR and recruitment support for healthcare organisations, covering clinical and non-clinical workforce needs.",
+    metaDescription: "Apex HR is a specialist HR company for healthcare organisations in the UK, supporting clinical and non-clinical workforce recruitment and management.",
     overview:
       "Healthcare employers manage complex workforce needs across clinical and non-clinical roles, often against significant recruitment and retention pressure.",
     challenges: [
@@ -93,7 +93,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "life-sciences",
     tagline: "People expertise for scarce scientific talent.",
-    metaDescription: "HR and recruitment support for life sciences organisations hiring specialist scientific and technical talent.",
+    metaDescription: "Apex HR is a specialist HR company for life sciences organisations in the UK, helping employers hire specialist scientific and technical talent.",
     overview:
       "Life sciences organisations often compete for a relatively small pool of specialist scientific and technical talent, making targeted recruitment and retention especially important.",
     challenges: [
@@ -115,7 +115,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "technology",
     tagline: "People expertise for a fast-moving market.",
-    metaDescription: "HR and recruitment support for IT and technology employers hiring technical and digital talent.",
+    metaDescription: "Apex HR is a specialist HR company for IT and technology employers in the UK, supporting the hiring and management of technical and digital talent.",
     overview:
       "Technology employers compete intensely for technical talent, and workforce practices often need to keep pace with fast-changing team structures and skill needs.",
     challenges: [
@@ -137,7 +137,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "financial-services",
     tagline: "People expertise for a regulated world.",
-    metaDescription: "HR and recruitment support for financial services firms navigating a regulated, competitive talent market.",
+    metaDescription: "Apex HR is a specialist HR company for financial services firms in the UK, helping employers navigate a regulated, competitive talent market.",
     overview:
       "Financial services employers operate in a regulated environment where recruitment, reward and conduct-related HR processes carry particular importance.",
     challenges: [
@@ -159,7 +159,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "accountants",
     tagline: "People expertise through seasonal demand.",
-    metaDescription: "HR and recruitment support for accountancy practices and finance teams.",
+    metaDescription: "Apex HR is a specialist HR company for accountancy practices in the UK, supporting recruitment and workforce management for finance teams.",
     overview:
       "Accountancy practices depend on attracting and developing technically strong staff while managing seasonal workload pressures.",
     challenges: [
@@ -181,7 +181,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "architects",
     tagline: "People expertise for project-led studios.",
-    metaDescription: "HR and recruitment support for architecture practices, from studio recruitment to HR foundations.",
+    metaDescription: "Apex HR is a specialist HR company for architecture practices in the UK, providing support from studio recruitment through to HR foundations.",
     overview:
       "Architecture practices often operate as close-knit studios where culture fit and design capability both matter significantly in hiring.",
     challenges: [
@@ -203,7 +203,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "care-homes",
     tagline: "People expertise for frontline care teams.",
-    metaDescription: "HR and recruitment support for care homes, covering staffing, compliance and wellbeing.",
+    metaDescription: "Apex HR is a specialist HR company for care homes in the UK, supporting staffing, compliance and workforce wellbeing.",
     overview:
       "Care homes manage significant recruitment and retention pressure alongside regulatory and safeguarding obligations that shape everyday HR practice.",
     challenges: [
@@ -225,7 +225,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "charity",
     tagline: "People expertise for purpose-driven organisations.",
-    metaDescription: "HR and recruitment support for charities and not-for-profit organisations, built for lean teams and tight budgets.",
+    metaDescription: "Apex HR is a specialist HR company for charities and not-for-profit organisations in the UK, built for lean teams and tight budgets.",
     overview:
       "Charities often manage HR with limited dedicated resource, while needing to compete for talent against better-funded sectors.",
     challenges: [
@@ -247,7 +247,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "construction",
     tagline: "People expertise for site-based teams.",
-    metaDescription: "HR and recruitment support for construction and contracting businesses, covering site and office roles.",
+    metaDescription: "Apex HR is a specialist HR company for construction and contracting businesses in the UK, supporting both site and office-based workforce needs.",
     overview:
       "Construction employers manage a mix of site-based and office-based workforce needs, often with project timelines driving hiring urgency.",
     challenges: [
@@ -269,7 +269,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "distribution",
     tagline: "People expertise for shift-based workforces.",
-    metaDescription: "HR and recruitment support for distribution and logistics employers, covering warehouse and operational roles.",
+    metaDescription: "Apex HR is a specialist HR company for distribution and logistics employers in the UK, supporting warehouse and operational workforce needs.",
     overview:
       "Distribution and logistics employers often manage high-volume, shift-based workforces where recruitment speed and retention both matter.",
     challenges: [
@@ -291,7 +291,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "education",
     tagline: "People expertise within safeguarding and governance.",
-    metaDescription: "HR and recruitment support for schools, colleges and education providers.",
+    metaDescription: "Apex HR is a specialist HR company for schools, colleges and education providers in the UK, supporting their HR and recruitment needs.",
     overview:
       "Education providers manage recruitment and HR within a framework of safeguarding, governance and often term-time-driven planning cycles.",
     challenges: [
@@ -313,7 +313,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "engineers",
     tagline: "People expertise for technical career pathways.",
-    metaDescription: "HR and recruitment support for engineering employers hiring technical and specialist talent.",
+    metaDescription: "Apex HR is a specialist HR company for engineering employers in the UK, helping them hire and manage technical and specialist talent.",
     overview:
       "Engineering employers often compete for specialist technical talent while managing structured, sometimes lengthy project and career pathways.",
     challenges: [
@@ -335,7 +335,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "leisure",
     tagline: "People expertise for seasonal, customer-facing teams.",
-    metaDescription: "HR and recruitment support for leisure and attractions businesses, covering seasonal and operational roles.",
+    metaDescription: "Apex HR is a specialist HR company for leisure and attractions businesses in the UK, supporting seasonal and operational workforce needs.",
     overview:
       "Leisure businesses often manage seasonal peaks, shift-based teams and a strong customer-facing culture that shapes hiring priorities.",
     challenges: [
@@ -357,7 +357,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "manufacturers",
     tagline: "People expertise for production workforces.",
-    metaDescription: "HR and recruitment support for manufacturers, covering production, technical and operational roles.",
+    metaDescription: "Apex HR is a specialist HR company for manufacturers in the UK, supporting production, technical and operational workforce needs.",
     overview:
       "Manufacturers manage a mix of production, technical and management roles, often within tight margins where workforce efficiency matters.",
     challenges: [
@@ -379,7 +379,7 @@ export const sectorContent: SectorContent[] = [
   {
     slug: "hospitality",
     tagline: "People expertise for people-first hospitality teams.",
-    metaDescription: "HR and recruitment support for hospitality businesses, covering front-of-house, kitchen and management roles.",
+    metaDescription: "Apex HR is a specialist HR company for hospitality businesses in the UK, supporting front-of-house, kitchen and management recruitment.",
     overview:
       "Hospitality employers manage high staff turnover, seasonal demand and customer-facing culture, all of which shape recruitment and retention priorities.",
     challenges: [

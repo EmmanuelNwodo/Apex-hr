@@ -16,13 +16,19 @@ interface CategoryServiceExplorerProps {
 /**
  * Interactive service picker scoped to one service family, per the
  * approved reference layout: selecting a service in the left list swaps
- * the summary and "what's included" chips shown on the right. Reuses the
- * real per-service content already authored in services-data.ts
- * (heroSummary, whatItIncludes) rather than inventing new copy for this
- * view. A client component because selecting a service updates visible
- * content without a page navigation; each service is a native `button`
- * (keyboard-operable by default) and the detail panel is `aria-live` so
- * assistive technology announces the update.
+ * the detail shown on the right. Reuses real per-service content already
+ * authored in services-data.ts. A client component because selecting a
+ * service updates visible content without a page navigation; each service
+ * is a native `button` (keyboard-operable by default) and the detail panel
+ * is `aria-live` so assistive technology announces the update.
+ *
+ * SEO audit Phase 3 Batch 5 corrective pass: deliberately shows
+ * `employerChallenge` (the problem this service addresses) rather than
+ * `heroSummary` (already shown, per service, in
+ * ServiceCategoryTemplate's server-rendered child-service grid) — the two
+ * views are meant to answer different questions ("what is it" in the
+ * grid vs. "what problem does it solve" here), not repeat the same
+ * sentence for whichever service happens to be selected.
  */
 export function CategoryServiceExplorer({ categorySlug, services }: CategoryServiceExplorerProps) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -63,7 +69,10 @@ export function CategoryServiceExplorer({ categorySlug, services }: CategoryServ
           )}
           <h3 className="mt-8 max-w-xl font-display text-h3 font-bold text-white">{activeService.title}</h3>
           {activeContent && (
-            <p className="mt-3 max-w-xl text-body text-white/70">{activeContent.heroSummary}</p>
+            <>
+              <p className="mt-3 text-caption font-bold uppercase tracking-widest text-gold">The challenge</p>
+              <p className="mt-2 max-w-xl text-body text-white/70">{activeContent.employerChallenge}</p>
+            </>
           )}
           {activeContent && (
             <div className="mt-8 flex flex-wrap gap-2">

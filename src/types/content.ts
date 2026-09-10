@@ -19,6 +19,8 @@ export type PageType =
   | "sector"
   | "locationHub"
   | "location"
+  | "serviceLocation"
+  | "serviceCategoryLocation"
   | "talentAcquisitionHub"
   | "talentAcquisitionRole"
   | "employerLanding"

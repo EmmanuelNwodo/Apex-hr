@@ -22,7 +22,9 @@ const pillarIcons: Record<TrustPillarIcon, typeof Combine> = {
  * reference. These must be replaced with real, evidenced numbers before
  * this section ships to production. The reference's alternative "editorial
  * band" concept was not built — a production page ships one layout, not a
- * design-exploration tab switcher.
+ * design-exploration tab switcher. Uses the default `gutter="auto"` (no
+ * side margin from `sm` up) rather than `gutter="always"`, per later
+ * explicit user instruction removing this section's side gutter.
  */
 export function TrustSection() {
   const featuredStat = trust.stats.find((stat) => stat.id === "retention");

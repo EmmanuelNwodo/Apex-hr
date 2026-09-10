@@ -5,7 +5,7 @@ import { routes } from "@/config/routes";
 
 export default function NotFound() {
   return (
-    <Section tone="page" containerSize="reading" className="text-center">
+    <Section tone="page" className="text-center">
       <SectionKicker>404</SectionKicker>
       <h1 className="mt-3 font-display text-h1 font-bold text-navy">Page not found</h1>
       <p className="mx-auto mt-4 max-w-[50ch] text-body-lg text-text-secondary">

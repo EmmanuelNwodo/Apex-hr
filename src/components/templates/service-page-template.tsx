@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2, TriangleAlert } from "lucide-react";
-import { Container } from "@/components/layout/container";
+import { ArrowUpRight, CheckCircle2, CircleSlash, TriangleAlert } from "lucide-react";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
-import { FaqAccordion } from "@/components/content/faq-accordion";
+import { FaqWithContactForm } from "@/components/content/faq-with-contact-form";
 import { EmptyEditorialState } from "@/components/content/empty-editorial-state";
 import { serviceCategoryIcons } from "@/lib/service-category-icons";
 import { routes } from "@/config/routes";
@@ -12,11 +11,20 @@ import type { RouteRecord } from "@/types/route";
 import type { ServiceContent } from "@/content/services-data";
 import { getService, getServiceCategory } from "@/config/services";
 import { getSector } from "@/config/sectors";
+import { getLocation } from "@/config/locations";
+import { serviceLocationCombos } from "@/config/service-locations";
 
 interface ServicePageTemplateProps {
   title: string;
   breadcrumbTrail: RouteRecord[];
   service: ServiceContent;
+  /**
+   * SEO audit Phase 3 Batch 6A: renders an additional "For Employers" link
+   * in the closing CTA row. Defaults to false so the other 42 service pages
+   * outside this batch render exactly as before — only the six Outsourced
+   * HR Services children opt in (see src/app/services/[slug]/page.tsx).
+   */
+  showForEmployersLink?: boolean;
 }
 
 /**
@@ -37,9 +45,12 @@ interface ServicePageTemplateProps {
  *   timeline rather than an interactive picker, since each step is one
  *   sentence, not a title/description pair.
  * Sections 13-15 (case study / expert / insight) still render an honest
- * empty state when no genuine, approved content exists yet.
+ * empty state when no genuine, approved content exists yet. Each section
+ * is a full-width band with no side margin (per later user instruction;
+ * previously a single rounded cream "page shell" card inset from the
+ * browser edges).
  */
-export function ServicePageTemplate({ title, breadcrumbTrail, service }: ServicePageTemplateProps) {
+export function ServicePageTemplate({ title, breadcrumbTrail, service, showForEmployersLink = false }: ServicePageTemplateProps) {
   const parentCategory = getServiceCategory(service.categorySlug);
   const CategoryIcon = parentCategory ? serviceCategoryIcons[parentCategory.slug] : undefined;
   const relatedServices = service.relatedServiceSlugs
@@ -48,17 +59,31 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service }: Service
   const relatedSectors = service.relatedSectorSlugs
     .map((slug) => getSector(slug))
     .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
+  // Only the curated, demand-justified service-location combinations for
+  // this specific service (src/config/service-locations.ts) — never a
+  // generated list of every UK location, per CLAUDE.md section 9's
+  // doorway-page restriction.
+  const availableLocations = serviceLocationCombos
+    .filter((combo) => combo.serviceSlug === service.slug)
+    .map((combo) => ({ combo, location: getLocation(combo.locationSlug) }))
+    .filter((entry): entry is { combo: (typeof serviceLocationCombos)[number]; location: NonNullable<ReturnType<typeof getLocation>> } =>
+      Boolean(entry.location),
+    );
+  // SEO audit Phase 3 Batch 6A: additionalFaqs is a separate field from
+  // faqs specifically so service-location combination pages (which read
+  // service.faqs.slice(0, 3) directly) never see it — see the doc comment
+  // on ServiceContent.additionalFaqs. Combined only here, for the
+  // canonical page's own visible FAQ section and schema.
+  const allFaqs = [...service.faqs, ...(service.additionalFaqs ?? [])];
 
   return (
-    <div className="bg-surface-page py-8 md:py-12">
-      <Container size="wide">
-        <div className="overflow-hidden rounded-md bg-cream shadow-(--shadow-modal)">
-          <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.1fr_0.9fr]">
+    <div className="bg-surface-page">
+      <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.1fr_0.9fr]">
             <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
               <Breadcrumbs trail={breadcrumbTrail} tone="dark" />
               <div>
                 <SectionKicker tone="dark">{service.primaryKeyword}</SectionKicker>
-                <h1 className="mt-4 max-w-xl font-display text-display font-bold text-white">{title}</h1>
+                <h1 className="mt-4 max-w-xl font-display text-display font-bold text-white">{title} Firm in the UK</h1>
               </div>
               <p className="max-w-lg text-lead text-white/70">{service.heroSummary}</p>
               <div className="flex flex-wrap items-center gap-4">
@@ -154,6 +179,19 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service }: Service
                   </li>
                 ))}
               </ul>
+              {service.outOfScope && service.outOfScope.length > 0 && (
+                <div className="mt-10">
+                  <SectionKicker tone="light">Not included in this service</SectionKicker>
+                  <ul className="mt-6 flex flex-col gap-3">
+                    {service.outOfScope.map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-body text-text-secondary">
+                        <CircleSlash aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-text-secondary" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
             <div>
               <SectionKicker tone="light">Who we support</SectionKicker>
@@ -205,13 +243,16 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service }: Service
             </section>
           )}
 
-          {(relatedServices.length > 0 || relatedSectors.length > 0 || service.faqs.length > 0) && (
-            <section className="grid grid-cols-1 gap-12 p-8 sm:p-10 lg:grid-cols-[0.85fr_1.15fr] lg:p-14">
-              <div>
-                <SectionKicker tone="light">Continue exploring</SectionKicker>
-                <h2 className="mt-4 font-display text-h2 font-bold text-navy">Related expertise</h2>
+          {(relatedServices.length > 0 || relatedSectors.length > 0) && (
+            <section className="p-8 sm:p-10 lg:p-14">
+              <SectionKicker tone="light">Continue exploring</SectionKicker>
+              <h2 className="mt-4 max-w-lg font-display text-h2 font-bold text-navy">Related expertise</h2>
+              {service.differentiationNote && (
+                <p className="mt-4 max-w-3xl text-body text-text-secondary">{service.differentiationNote}</p>
+              )}
+              <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
                 {relatedServices.length > 0 && (
-                  <ul className="mt-6 flex flex-col">
+                  <ul className="flex flex-col">
                     {relatedServices.map((related) => (
                       <li key={related.slug} className="border-t border-border-subtle first:border-t-0">
                         <Link
@@ -226,7 +267,7 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service }: Service
                   </ul>
                 )}
                 {relatedSectors.length > 0 && (
-                  <div className="mt-8">
+                  <div>
                     <h3 className="font-display text-h4 font-bold text-navy">Relevant sectors</h3>
                     <ul className="mt-4 flex flex-wrap gap-2">
                       {relatedSectors.map((related) => (
@@ -243,16 +284,45 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service }: Service
                   </div>
                 )}
               </div>
+              <div className="mt-10">
+                <h3 className="font-display text-h4 font-bold text-navy">
+                  {availableLocations.length > 0 ? `${title} in these UK locations` : "UK-wide coverage"}
+                </h3>
+                {availableLocations.length > 0 ? (
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {availableLocations.map(({ combo, location }) => (
+                      <li key={combo.slug}>
+                        <Link
+                          href={`/services/${combo.slug}/`}
+                          className="rounded-full border border-border-subtle bg-surface-card px-4 py-2 text-small text-navy underline-offset-4 hover:border-navy hover:underline"
+                        >
+                          {location.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="mt-4 max-w-md text-body text-text-secondary">
+                    {`${title} is available to employers across the UK, delivered remotely and, where useful, on-site.`}
+                  </p>
+                )}
+                <Link
+                  href={routes.locations.path}
+                  className="mt-4 inline-flex w-fit items-center gap-2 text-caption font-bold uppercase tracking-widest text-gold-ink underline-offset-4 hover:underline"
+                >
+                  View all UK locations Apex HR supports
+                </Link>
+              </div>
+            </section>
+          )}
 
-              {service.faqs.length > 0 && (
-                <div>
-                  <SectionKicker tone="light">Frequently asked questions</SectionKicker>
-                  <h2 className="mt-4 font-display text-h2 font-bold text-navy">What clients usually ask</h2>
-                  <div className="mt-6">
-                    <FaqAccordion items={service.faqs} />
-                  </div>
-                </div>
-              )}
+          {allFaqs.length > 0 && (
+            <section className="bg-surface-card p-8 sm:p-10 lg:p-14">
+              <SectionKicker tone="light">Frequently asked questions</SectionKicker>
+              <h2 className="mt-4 max-w-lg font-display text-h2 font-bold text-navy">What clients usually ask</h2>
+              <div className="mt-10">
+                <FaqWithContactForm items={allFaqs} />
+              </div>
             </section>
           )}
 
@@ -265,25 +335,29 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service }: Service
             </div>
           </section>
 
-          <div className="mx-4 mb-4 mt-4 flex flex-col gap-6 rounded-md bg-gold p-8 sm:mx-6 sm:mb-6 sm:mt-6 sm:flex-row sm:items-center sm:justify-between lg:mx-8 lg:mb-8 lg:mt-8 lg:p-12">
-            <div>
-              <h3 className="font-display text-h2 font-bold text-navy">
-                Ready to talk about {title.toLowerCase()}?
-              </h3>
-              <p className="mt-2 max-w-md text-body text-navy/80">{service.whyApex}</p>
-            </div>
-            <LinkButton
-              href={routes.findTalent.path}
-              variant="primary"
-              surface="light"
-              className="shrink-0"
-              data-analytics-id={`service-cta-${title.toLowerCase().replace(/\s+/g, "-")}`}
-            >
-              {routes.findTalent.label}
-            </LinkButton>
-          </div>
+      <div className="flex flex-col gap-6 bg-gold p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-14">
+        <div>
+          <h3 className="font-display text-h2 font-bold text-navy">
+            Ready to talk about {title.toLowerCase()}?
+          </h3>
+          <p className="mt-2 max-w-md text-body text-navy/80">{service.whyApex}</p>
         </div>
-      </Container>
+        <div className="flex shrink-0 flex-wrap gap-4">
+          {showForEmployersLink && (
+            <LinkButton href={routes.forEmployers.path} variant="tertiary" surface="light">
+              More employer support
+            </LinkButton>
+          )}
+          <LinkButton
+            href={routes.findTalent.path}
+            variant="primary"
+            surface="light"
+            data-analytics-id={`service-cta-${title.toLowerCase().replace(/\s+/g, "-")}`}
+          >
+            {routes.findTalent.label}
+          </LinkButton>
+        </div>
+      </div>
     </div>
   );
 }

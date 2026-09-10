@@ -24,3 +24,20 @@ if (!window.ResizeObserver) {
   }
   window.ResizeObserver = ResizeObserverStub as unknown as typeof ResizeObserver;
 }
+
+// jsdom does not implement IntersectionObserver, which Motion for React's
+// Reveal/whileInView components probe for on mount.
+if (!window.IntersectionObserver) {
+  class IntersectionObserverStub {
+    readonly root = null;
+    readonly rootMargin = "";
+    readonly thresholds: ReadonlyArray<number> = [];
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+    takeRecords(): IntersectionObserverEntry[] {
+      return [];
+    }
+  }
+  window.IntersectionObserver = IntersectionObserverStub as unknown as typeof IntersectionObserver;
+}

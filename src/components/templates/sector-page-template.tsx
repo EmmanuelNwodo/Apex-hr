@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Container } from "@/components/layout/container";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
-import { FaqAccordion } from "@/components/content/faq-accordion";
+import { FaqWithContactForm } from "@/components/content/faq-with-contact-form";
 import { SectorServiceExplorer } from "@/components/content/sector-service-explorer";
 import { sectorIcons } from "@/lib/sector-icons";
 import { routes } from "@/config/routes";
@@ -35,6 +34,9 @@ interface SectorPageTemplateProps {
  * - the recruitment-considerations checklist was dropped in favour of the
  *   existing single `recruitmentConsiderations` paragraph, since there's
  *   no per-sector checklist data to reuse honestly.
+ * Each section is a full-width band with no side margin (per later user
+ * instruction; previously a single rounded cream "page shell" card inset
+ * from the browser edges).
  */
 export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPageTemplateProps) {
   const Icon = sectorIcons[sector.slug];
@@ -44,15 +46,13 @@ export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPag
   const relatedRoles = talentRoleContent.filter((role) => role.relatedSectorSlugs.includes(sector.slug));
 
   return (
-    <div className="bg-surface-page py-8 md:py-12">
-      <Container size="wide">
-        <div className="overflow-hidden rounded-md bg-cream shadow-(--shadow-modal)">
-          <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.06fr_0.94fr]">
+    <div className="bg-surface-page">
+      <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.06fr_0.94fr]">
             <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
               <Breadcrumbs trail={breadcrumbTrail} tone="dark" />
               <div>
                 <SectionKicker tone="dark">Sector expertise</SectionKicker>
-                <h1 className="mt-4 max-w-xl font-display text-display font-bold text-white">{title}</h1>
+                <h1 className="mt-4 max-w-xl font-display text-display font-bold text-white">{`HR Company for ${title} in the UK`}</h1>
                 <p className="mt-3 max-w-xl font-display text-h3 font-bold text-gold">{sector.tagline}</p>
               </div>
               <p className="max-w-lg text-lead text-white/70">{sector.overview}</p>
@@ -190,39 +190,37 @@ export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPag
           )}
 
           {sector.faqs.length > 0 && (
-            <section className="grid grid-cols-1 gap-12 bg-surface-card p-8 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:p-14">
-              <div>
-                <SectionKicker tone="light">Frequently asked questions</SectionKicker>
-                <h2 className="mt-4 font-display text-h2 font-bold text-navy">
-                  Questions {title.toLowerCase()} employers ask
-                </h2>
+            <section className="bg-surface-card p-8 sm:p-10 lg:p-14">
+              <SectionKicker tone="light">Frequently asked questions</SectionKicker>
+              <h2 className="mt-4 max-w-2xl font-display text-h2 font-bold text-navy">
+                Questions {title.toLowerCase()} employers ask
+              </h2>
+              <div className="mt-10">
+                <FaqWithContactForm items={sector.faqs} />
               </div>
-              <FaqAccordion items={sector.faqs} />
             </section>
           )}
 
-          <div className="mx-4 mb-4 mt-4 flex flex-col gap-6 rounded-md bg-gold p-8 sm:mx-6 sm:mb-6 sm:mt-6 sm:flex-row sm:items-center sm:justify-between lg:mx-8 lg:mb-8 lg:mt-8 lg:p-12">
-            <div>
-              <h3 className="font-display text-h2 font-bold text-navy">
-                Hiring or strengthening HR in {title.toLowerCase()}?
-              </h3>
-              <p className="mt-2 max-w-md text-body text-navy/80">
-                Tell us what&apos;s changing in your workforce. Apex HR can connect the right
-                recruitment, reward and HR advisory support around your priorities.
-              </p>
-            </div>
-            <LinkButton
-              href={routes.findTalent.path}
-              variant="primary"
-              surface="light"
-              className="shrink-0"
-              data-analytics-id={`sector-cta-${sector.slug}`}
-            >
-              {routes.findTalent.label}
-            </LinkButton>
-          </div>
+      <div className="flex flex-col gap-6 bg-gold p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-14">
+        <div>
+          <h3 className="font-display text-h2 font-bold text-navy">
+            Hiring or strengthening HR in {title.toLowerCase()}?
+          </h3>
+          <p className="mt-2 max-w-md text-body text-navy/80">
+            Tell us what&apos;s changing in your workforce. Apex HR can connect the right
+            recruitment, reward and HR advisory support around your priorities.
+          </p>
         </div>
-      </Container>
+        <LinkButton
+          href={routes.findTalent.path}
+          variant="primary"
+          surface="light"
+          className="shrink-0"
+          data-analytics-id={`sector-cta-${sector.slug}`}
+        >
+          {routes.findTalent.label}
+        </LinkButton>
+      </div>
     </div>
   );
 }

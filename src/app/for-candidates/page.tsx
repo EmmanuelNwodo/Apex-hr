@@ -10,17 +10,21 @@ import {
   MessagesSquare,
   Route as RouteIcon,
 } from "lucide-react";
-import { Container } from "@/components/layout/container";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
-import { FaqAccordion } from "@/components/content/faq-accordion";
+import { FaqWithContactForm } from "@/components/content/faq-with-contact-form";
 import { forCandidatesPageContent } from "@/content/supporting-pages-data";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { getBreadcrumbJsonLd, toJsonLdScript } from "@/lib/seo/structured-data";
 import { routes } from "@/config/routes";
 
+// SEO audit Phase 3 Batch 4: title made intent-descriptive (was the generic
+// nav label "For Candidates") to better match this page's principal intent
+// — candidate support, opportunities and the candidate journey; the H1
+// itself is unchanged per this batch's explicit preservation instruction.
 export const metadata = buildMetadata({
-  title: "For Candidates",
+  title: "Candidate Support & Opportunities",
   description: forCandidatesPageContent.lead,
   path: routes.forCandidates.path,
   index: routes.forCandidates.readyToIndex,
@@ -43,10 +47,10 @@ const startPaths = [
   },
   {
     icon: Compass,
-    title: "Build your next step",
-    detail: "Use practical guidance to sharpen your CV, interviews and wider career strategy.",
-    href: routes.resources.path,
-    linkLabel: "Explore resources",
+    title: "Talk through your next step",
+    detail: "Get practical guidance on your CV, interviews and wider career strategy from an adviser.",
+    href: routes.contact.path,
+    linkLabel: "Talk to an adviser",
   },
 ];
 
@@ -101,11 +105,12 @@ const resources = [
  * Everything else reuses the existing forCandidatesPageContent fields.
  */
 export default function ForCandidatesPage() {
+  const jsonLd = getBreadcrumbJsonLd(routes.home.label, [routes.forCandidates]);
+
   return (
-    <div className="bg-surface-page py-8 md:py-12">
-      <Container size="wide">
-        <div className="overflow-hidden rounded-md bg-cream shadow-(--shadow-modal)">
-          <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.06fr_0.94fr]">
+    <div className="bg-surface-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLdScript(jsonLd) }} />
+      <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.06fr_0.94fr]">
             <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
               <Breadcrumbs trail={[routes.forCandidates]} tone="dark" />
               <div>
@@ -285,46 +290,50 @@ export default function ForCandidatesPage() {
 
             <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
               {resources.map((resource) => (
-                <div key={resource.title} className="flex flex-col justify-between gap-6 rounded-md border border-border-subtle bg-surface-card p-6">
-                  <div>
-                    <resource.icon aria-hidden="true" className="h-6 w-6 text-gold-ink" />
-                    <h3 className="mt-4 font-display text-h4 font-bold text-navy">{resource.title}</h3>
-                    <p className="mt-2 text-body text-text-secondary">{resource.detail}</p>
-                  </div>
-                  <Link
-                    href={routes.resources.path}
-                    className="inline-flex w-fit items-center gap-2 text-caption font-bold uppercase tracking-widest text-gold-ink"
-                  >
-                    Explore resources
-                    <ArrowRight aria-hidden="true" className="h-4 w-4" />
-                  </Link>
+                <div key={resource.title} className="flex flex-col gap-4 rounded-md border border-border-subtle bg-surface-card p-6">
+                  <resource.icon aria-hidden="true" className="h-6 w-6 text-gold-ink" />
+                  <h3 className="font-display text-h4 font-bold text-navy">{resource.title}</h3>
+                  <p className="text-body text-text-secondary">{resource.detail}</p>
                 </div>
               ))}
             </div>
+
+            {/* SEO audit Phase 3 Batch 4: a written candidate-resources hub
+                (routes.resources) is empty and noindex, so this section no
+                longer links out to it three times — a single, real route to
+                an adviser replaces that dead end. */}
+            <p className="mt-8 text-body text-text-secondary">
+              Want guidance tailored to your situation?{" "}
+              <Link
+                href={routes.contact.path}
+                className="inline-flex items-center gap-2 font-bold text-gold-ink underline-offset-4 hover:underline"
+              >
+                Talk to an adviser
+                <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              </Link>
+            </p>
           </section>
 
           {forCandidatesPageContent.faqs && forCandidatesPageContent.faqs.length > 0 && (
-            <section className="grid grid-cols-1 gap-12 bg-surface-card p-8 sm:p-10 lg:grid-cols-[0.7fr_1.3fr] lg:p-14">
-              <div>
-                <SectionKicker tone="light">Questions answered</SectionKicker>
-                <h2 className="mt-4 font-display text-h2 font-bold text-navy">Before you apply</h2>
+            <section className="bg-surface-card p-8 sm:p-10 lg:p-14">
+              <SectionKicker tone="light">Questions answered</SectionKicker>
+              <h2 className="mt-4 max-w-lg font-display text-h2 font-bold text-navy">Before you apply</h2>
+              <div className="mt-10">
+                <FaqWithContactForm items={forCandidatesPageContent.faqs} />
               </div>
-              <FaqAccordion items={forCandidatesPageContent.faqs} />
             </section>
           )}
 
-          <div className="mx-4 mb-4 mt-4 flex flex-col gap-6 rounded-md bg-gold p-8 sm:mx-6 sm:mb-6 sm:mt-6 sm:flex-row sm:items-center sm:justify-between lg:mx-8 lg:mb-8 lg:mt-8 lg:p-12">
-            <div>
-              <h3 className="font-display text-h2 font-bold text-navy">
-                Ready for a role that feels like real progress?
-              </h3>
-            </div>
-            <LinkButton href={routes.jobs.path} variant="primary" surface="light" className="shrink-0">
-              Explore current opportunities
-            </LinkButton>
-          </div>
+      <div className="flex flex-col gap-6 bg-gold p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-14">
+        <div>
+          <h3 className="font-display text-h2 font-bold text-navy">
+            Ready for a role that feels like real progress?
+          </h3>
         </div>
-      </Container>
+        <LinkButton href={routes.jobs.path} variant="primary" surface="light" className="shrink-0">
+          Explore current opportunities
+        </LinkButton>
+      </div>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { LinkButton } from "@/components/ui/link-button";
-import { FaqAccordion } from "@/components/content/faq-accordion";
+import { FaqWithContactForm } from "@/components/content/faq-with-contact-form";
 import type { RouteRecord } from "@/types/route";
 import type { InfoPageContent } from "@/content/supporting-pages-data";
 
@@ -47,7 +47,7 @@ export function InfoPageTemplate({ breadcrumbTrail, content }: InfoPageTemplateP
       </Section>
 
       {content.sections.map((section, index) => (
-        <Section key={section.heading} tone={index % 2 === 0 ? "card" : "page"} containerSize="reading">
+        <Section key={section.heading} tone={index % 2 === 0 ? "card" : "page"}>
           <SectionHeading title={section.heading} />
           {section.body && <p className="mt-4 text-body-lg text-text-secondary">{section.body}</p>}
           {section.list && (
@@ -63,10 +63,10 @@ export function InfoPageTemplate({ breadcrumbTrail, content }: InfoPageTemplateP
       ))}
 
       {content.faqs && content.faqs.length > 0 && (
-        <Section tone="card" containerSize="reading">
+        <Section tone="card">
           <SectionHeading title="Frequently asked questions" />
           <div className="mt-8">
-            <FaqAccordion items={content.faqs} />
+            <FaqWithContactForm items={content.faqs} />
           </div>
         </Section>
       )}

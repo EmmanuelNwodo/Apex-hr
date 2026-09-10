@@ -27,11 +27,11 @@ export interface InfoPageContent {
 export const aboutPageContent: InfoPageContent = {
   kicker: "About",
   heading: "About Apex HR",
-  lead: "Apex HR is a UK HR, recruitment and people-consulting partner built to support employers across the full people lifecycle.",
+  lead: "Apex HR is a London-based UK HR, recruitment and people-consulting partner, supporting employers across the full people lifecycle.",
   sections: [
     {
       heading: "What we do",
-      body: "Apex HR combines outsourced HR support, recruitment and strategic workforce advisory in one partner, so employers don't have to coordinate multiple separate suppliers for related people needs.",
+      body: "Apex HR combines outsourced HR support, recruitment and strategic workforce advisory in one partner, so employers don't have to coordinate multiple separate suppliers for related people needs. Alongside this employer-first focus, Apex HR maintains a separate, clearly signposted pathway for candidates.",
     },
     {
       heading: "How we work",
@@ -50,15 +50,15 @@ export const aboutPageContent: InfoPageContent = {
 export const contactPageContent: InfoPageContent = {
   kicker: "Contact",
   heading: "Contact Apex HR",
-  lead: "Whether you are hiring, navigating a people challenge or planning for growth, start with a straightforward conversation with an Apex HR advisor.",
+  lead: "Whether you are hiring, navigating a people challenge or planning for growth, start with a straightforward conversation with an Apex HR adviser in London, UK.",
   sections: [
     {
       heading: "How to get in touch",
-      body: "Call or email Apex HR directly, or share a few details through the enquiry form so your message reaches the right advisor.",
+      body: "Call or email Apex HR directly, or share a few details through the enquiry form so your message reaches the right adviser.",
     },
     {
       heading: "What happens next",
-      body: "After you get in touch, an Apex HR advisor reviews the details and follows up to discuss your needs and appropriate next steps.",
+      body: "After you get in touch, an Apex HR adviser reviews the details and follows up to discuss your needs and appropriate next steps.",
     },
   ],
   faqs: [
@@ -70,7 +70,7 @@ export const contactPageContent: InfoPageContent = {
     {
       id: "sensitive-matter",
       question: "Can I discuss a sensitive employee matter?",
-      answer: "Yes. You can keep the initial enquiry brief and ask for a confidential call with an appropriate HR advisor.",
+      answer: "Yes. You can keep the initial enquiry brief and ask for a confidential call with an appropriate HR adviser.",
     },
     {
       id: "projects-and-retainers",
@@ -89,7 +89,7 @@ export const contactPageContent: InfoPageContent = {
 export const forEmployersPageContent: InfoPageContent = {
   kicker: "Employers",
   heading: "HR and recruitment support for employers",
-  lead: "Apex HR supports employers with outsourced HR, recruitment and strategic people advisory, so you can focus on running the business.",
+  lead: "Explore outsourced HR, recruitment and strategic people support for UK employers, with Apex HR helping you find the right service for your needs.",
   sections: [
     {
       heading: "Where to start",
@@ -119,7 +119,7 @@ export const forEmployersPageContent: InfoPageContent = {
 export const forCandidatesPageContent: InfoPageContent = {
   kicker: "Candidates",
   heading: "Find your next role with Apex HR",
-  lead: "Search current vacancies, join the Apex talent pool, or explore resources to support your job search.",
+  lead: "Learn how Apex HR helps candidates explore opportunities when available, join the talent pool and understand the recruitment process.",
   sections: [
     {
       heading: "Ways to connect",

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { talentRoleContent } from "@/content/talent-roles-data";
 import { TalentRoleTemplate } from "@/components/templates/talent-role-template";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getBreadcrumbJsonLd } from "@/lib/seo/structured-data";
+import { getBreadcrumbJsonLd, getServiceJsonLd, toJsonLdScript } from "@/lib/seo/structured-data";
 import { routes } from "@/config/routes";
 import type { RouteRecord } from "@/types/route";
 
@@ -47,11 +47,22 @@ export default async function TalentAcquisitionRolePage({ params }: PageProps) {
     readyToIndex: true,
   };
   const breadcrumbTrail = [roleRoute];
-  const jsonLd = getBreadcrumbJsonLd(routes.home.label, breadcrumbTrail);
+  // No FAQPage entry here: TalentRoleTemplate renders role.faqs through
+  // FaqWithContactForm, which already emits its own FAQPage JSON-LD from
+  // that exact array — adding one here too would duplicate the schema
+  // block.
+  const jsonLd = [
+    getServiceJsonLd({
+      name: `${role.title} Recruitment`,
+      description: role.metaDescription,
+      path: `/talent-acquisition/${role.slug}/`,
+    }),
+    getBreadcrumbJsonLd(routes.home.label, breadcrumbTrail),
+  ];
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLdScript(jsonLd) }} />
       <TalentRoleTemplate breadcrumbTrail={breadcrumbTrail} role={role} />
     </>
   );

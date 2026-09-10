@@ -8,7 +8,7 @@ import { recruitmentSpotlight } from "@/content/home";
 /** Recruitment gets its own chapter and CTA, per DESIGN.md 17.5. */
 export function RecruitmentSpotlightSection() {
   return (
-    <Section tone="warm">
+    <Section tone="warm" gutter="always">
       <Reveal className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-6">
           <SectionKicker>{recruitmentSpotlight.kicker}</SectionKicker>

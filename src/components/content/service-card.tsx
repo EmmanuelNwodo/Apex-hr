@@ -14,6 +14,14 @@ interface ServiceCardProps {
  * Structured as a dark, image-led tile (navy surface, per the
  * surface-dark/text-reversed tokens already used by the site footer) — the
  * whole card is a single link, not just its title.
+ *
+ * The description fades in only on hover/keyboard-focus (`group-hover`/
+ * `group-focus-visible`) and fades out otherwise. It stays an `opacity`
+ * transition rather than a height/visibility one, so the card's own box
+ * never resizes — hovering one card in the marquee can't stretch its
+ * neighbours — and, since the text is only visually faded (not
+ * `hidden`/`display:none`), it stays in the DOM for screen readers and
+ * crawlers rather than being hover-only content, per CLAUDE.md section 15.
  */
 export function ServiceCard({ title, href, description, imageSrc }: ServiceCardProps) {
   return (
@@ -32,7 +40,9 @@ export function ServiceCard({ title, href, description, imageSrc }: ServiceCardP
       </div>
       <div className="flex flex-1 flex-col">
         <h3 className="font-display text-h4 font-bold text-text-reversed">{title}</h3>
-        <p className="mt-2 text-body text-text-reversed/75">{description}</p>
+        <p className="mt-2 text-body text-text-reversed/75 opacity-0 transition-opacity duration-(--duration-fast) group-hover:opacity-100 group-focus-visible:opacity-100">
+          {description}
+        </p>
         <ArrowRight
           aria-hidden="true"
           className="mt-4 h-5 w-5 text-gold transition-transform duration-(--duration-fast) group-hover:translate-x-1"

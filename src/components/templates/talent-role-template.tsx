@@ -4,7 +4,7 @@ import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { LinkButton } from "@/components/ui/link-button";
-import { FaqAccordion } from "@/components/content/faq-accordion";
+import { FaqWithContactForm } from "@/components/content/faq-with-contact-form";
 import { routes } from "@/config/routes";
 import type { RouteRecord } from "@/types/route";
 import type { TalentRoleContent } from "@/content/talent-roles-data";
@@ -71,7 +71,7 @@ export function TalentRoleTemplate({ breadcrumbTrail, role }: TalentRoleTemplate
         </div>
       </Section>
 
-      <Section tone="page" containerSize="reading">
+      <Section tone="page">
         <SectionHeading title="Recruitment approach" />
         <p className="mt-4 text-body-lg text-text-secondary">{role.recruitmentApproach}</p>
       </Section>
@@ -117,10 +117,10 @@ export function TalentRoleTemplate({ breadcrumbTrail, role }: TalentRoleTemplate
         </Section>
       )}
 
-      <Section tone="page" containerSize="reading">
+      <Section tone="page">
         <SectionHeading title="Frequently asked questions" />
         <div className="mt-8">
-          <FaqAccordion items={role.faqs} />
+          <FaqWithContactForm items={role.faqs} />
         </div>
       </Section>
 

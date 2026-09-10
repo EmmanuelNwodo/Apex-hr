@@ -13,7 +13,7 @@ import { routes } from "@/config/routes";
  */
 export function ExpertsSection() {
   return (
-    <Section tone="card">
+    <Section tone="card" gutter="always">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <SectionHeading kicker="Apex experts" title="The people behind Apex HR" />
         <LinkButton href={routes.experts.path} variant="tertiary" surface="light">

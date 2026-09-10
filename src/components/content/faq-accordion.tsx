@@ -17,14 +17,19 @@ interface FaqAccordionProps {
  * to work without animation, so open/close is an instant visibility
  * change, not a transition.
  *
- * Every answer starts open (all ids in `openItems` by default), so the
- * content is reachable in the server-rendered HTML even if JavaScript
- * fails — clicking a question only ever collapses it, per CLAUDE.md
- * section 15 "Keep essential content present in rendered HTML".
+ * Only the first answer starts open, so the section reads as a genuine
+ * accordion rather than a fully expanded static list — per explicit later
+ * user instruction, which per CLAUDE.md section 3 takes priority over the
+ * previous "every answer starts open" default. Keeping one answer open by
+ * default (rather than all closed) still leaves some FAQ content reachable
+ * in the server-rendered HTML if JavaScript fails, per CLAUDE.md section 15
+ * "Keep essential content present in rendered HTML" — the remaining
+ * answers are still present in the HTML source (so still crawlable), just
+ * visually and programmatically hidden (`hidden` attribute) until a click.
  */
 export function FaqAccordion({ items, className }: FaqAccordionProps) {
   const [openItems, setOpenItems] = React.useState<Set<string>>(
-    () => new Set(items.map((item) => item.id)),
+    () => new Set(items.length > 0 ? [items[0].id] : []),
   );
 
   function toggle(id: string) {

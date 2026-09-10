@@ -4,7 +4,7 @@ import { getSector, sectors } from "@/config/sectors";
 import { sectorContent } from "@/content/sectors-data";
 import { SectorPageTemplate } from "@/components/templates/sector-page-template";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { getBreadcrumbJsonLd } from "@/lib/seo/structured-data";
+import { getBreadcrumbJsonLd, getServiceJsonLd, toJsonLdScript } from "@/lib/seo/structured-data";
 import { routes } from "@/config/routes";
 import type { RouteRecord } from "@/types/route";
 
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const sector = getSector(slug);
   const content = sectorContent.find((entry) => entry.slug === slug);
   return buildMetadata({
-    title: sector?.title ?? "Sector",
+    title: sector ? `HR Company for ${sector.title} in the UK` : "Sector",
     description: content?.metaDescription,
     path: `/sector/${slug}/`,
     index: routes.sectors.readyToIndex,
@@ -45,11 +45,22 @@ export default async function SectorPage({ params }: PageProps) {
     readyToIndex: routes.sectors.readyToIndex,
   };
   const breadcrumbTrail = [routes.sectors, sectorRoute];
-  const jsonLd = getBreadcrumbJsonLd(routes.home.label, breadcrumbTrail);
+  // No FAQPage entry here: SectorPageTemplate renders sector.faqs through
+  // FaqWithContactForm, which already emits its own FAQPage JSON-LD from
+  // that exact array (see includeSchema on that component) — adding one
+  // here too would duplicate the schema block.
+  const jsonLd = [
+    getServiceJsonLd({
+      name: `HR Company for ${sector.title} in the UK`,
+      description: content.metaDescription,
+      path: `/sector/${sector.slug}/`,
+    }),
+    getBreadcrumbJsonLd(routes.home.label, breadcrumbTrail),
+  ];
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLdScript(jsonLd) }} />
       <SectorPageTemplate title={sector.title} breadcrumbTrail={breadcrumbTrail} sector={content} />
     </>
   );

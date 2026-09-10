@@ -14,7 +14,7 @@ const bottomRowSectors = featuredSectors.slice(midpoint);
 /** Sectors section per DESIGN.md 17.6, with two opposite-direction sliders. */
 export function SectorOverviewSection() {
   return (
-    <Section tone="warm">
+    <Section tone="warm" gutter="always">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
           <SectionKicker>Sectors we serve</SectionKicker>

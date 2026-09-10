@@ -18,7 +18,7 @@ export function WhyApexSection() {
   const retentionStat = trust.stats.find((stat) => stat.id === "retention");
 
   return (
-    <Section tone="page">
+    <Section tone="page" gutter="always">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start lg:gap-16">
         <div className="lg:col-span-7">
           <SectionKicker>Why Apex HR</SectionKicker>

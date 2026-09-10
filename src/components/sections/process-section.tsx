@@ -12,7 +12,7 @@ import { processSteps } from "@/content/home";
  */
 export function ProcessSection() {
   return (
-    <Section tone="dark">
+    <Section tone="dark" gutter="always">
       <SectionHeading
         kicker="How Apex works"
         title="A clear, five-step delivery approach"

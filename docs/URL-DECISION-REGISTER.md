@@ -20,6 +20,9 @@
 | D-010 | URL formatting | Use lowercase hyphenated slugs with trailing slashes | Enforce consistently in routing, canonicals, links and sitemap output |
 | D-011 | Website-Sitemap-only services | Keep unmatched services Provisional; Salesforce Future | Do not publish or expose in navigation until the commercial offer is approved |
 | D-012 | Route governance statuses | Use Confirmed, Corrected, Redirected, Provisional and Future | Apply one status to every route record |
+| D-013 | Locations hub route | Add `/locations/` as a Confirmed hub route, superseding the earlier "no hub for this family" position | Add a directory page linking to all 16 location pages; link it from the footer's Company column |
+| D-014 | Curated service-location subset | Confirm only each location's already-curated `relatedServiceSlugs` combinations (and their parent categories), not the full 816/160 cross-products | Generate pages from existing curated data only; give every combination a unique meta description and genuine local-context content |
+| D-015 | Category-location cannibalisation resolution | Redirect the 44 category-location pages backed by only one curated child service to that child's service-location page; retain the 2 pages backed by two curated child services as independently indexable | Raise the category-location curation threshold to 2+ services in `src/config/service-locations.ts`; add 44 permanent redirects to `src/config/redirects.ts`; reposition the 2 retained pages around both child services |
 
 ## D-001 — Sector is canonical
 
@@ -171,6 +174,43 @@ Salesforce remains Future. None may be indexed or added to primary navigation un
 ## D-012 — Status control
 
 Every route must carry exactly one of the five approved statuses. Only Confirmed and Corrected routes may enter the build backlog. Corrected routes must include the previous URL where one exists. Redirected routes are never indexable. Provisional and Future routes are excluded from production sitemaps.
+
+## D-013 — Add a locations hub route
+
+**Decision:** Add `/locations/` as a Confirmed hub route: a directory page linking to all 16 approved location pages, with an entry in the footer's Company column labelled "Locations".
+
+**Rationale:** Requested by explicit later user instruction. This supersedes the position recorded elsewhere in this register and in `docs/MASTER-SITEMAP.md` section 9 that only the dynamic `/locations/[slug]/` pattern was approved for this family — per CLAUDE.md section 3, explicit stakeholder instruction outranks the earlier documented position.
+
+**Canonical URL:** `/locations/`
+
+Individual location pages' breadcrumbs now run Home → Locations → [location], instead of skipping straight from Home to the location.
+
+## D-014 — Confirm a curated subset of service-location combinations
+
+**Decision:** Of the 816 recorded service-location combinations (section 10 of `docs/MASTER-SITEMAP.md`), Confirm and publish only the combinations already present in each location's curated `relatedServiceSlugs` (`src/content/locations-data.ts`) — not the full 58-service x 16-location cross-product. Category-level combinations are derived the same way: a category page is generated for a location only when that location has at least one curated service within it.
+
+**Rationale:** Requested by explicit later user instruction, after being shown the two options: the curated subset (~48 service+location pages, ~24 category+location pages) versus the full 928-page cross-product. CLAUDE.md section 9 explicitly gates publication of every combination behind "approved demand or keyword intent... verified service availability... unique and useful location context... editorial approval," specifically to prevent "near-duplicate doorway pages that merely swap a city name." The curated subset satisfies these gates because each combination was already deliberately selected (not auto-generated) as relevant to that location's real economic context, and each page combines two genuinely distinct real content sources (the service/category's own content plus the location's own regional context) rather than templating a single description across cities.
+
+**Implementation:**
+
+- Combinations are derived in `src/config/service-locations.ts` from existing curated data — no new relationships were separately invented.
+- Canonical URLs: `/services/[service-slug]-[location-slug]/` and `/services/[category-slug]-[location-slug]/`, served by the existing `src/app/services/[slug]/page.tsx` dynamic route (extended, not duplicated).
+- Meta descriptions are never reused verbatim across locations sharing the same curated service — a real, location-specific clause is appended (`buildComboMetaDescription`) so no two combination pages share an identical meta description.
+- No office, verified local presence, or location-specific pricing/availability is claimed — coverage is described as remote/on-site support, matching every individual location page.
+- Every other combination in the 816-row register remains Provisional and unpublished; this decision does not authorise a future bulk expansion without a further explicit decision.
+
+## D-015 — Resolve category-location cannibalisation
+
+**Decision:** Of the 46 category-location combination pages confirmed under D-014, only the 2 backed by two or more curated child services at that location (Outsourced HR Services–Worcester, Recruitment & Talent Acquisition–Liverpool) remain independently indexable. The other 44 — each backed by exactly one curated child service, targeting a near-identical keyword to that one service's own service-location page — permanently redirect (301) to that child service-location page.
+
+**Rationale:** Requested by explicit later user instruction, after review of a published category-location decision table (SEO audit Phase 2, category-location cannibalisation report). A category-location page whose only curated child is one service targets essentially the same "[intent] in [location]" query as that service's own page (e.g. "recruitment & talent acquisition london" vs. "executive search london"), which is the near-duplicate-doorway-page risk CLAUDE.md section 9 gates against. Maintaining two indexable URLs per location for that single intent risked continued cannibalisation with no compensating benefit, since the category page could not describe a second service that doesn't exist there. The 2 locations with two curated services in the same category retain a genuine aggregation role neither service page alone can claim, so those stay live.
+
+**Implementation:**
+
+- `src/config/service-locations.ts`: `categoryLocationCombos` now requires at least 2 curated child services in the same category at a location (previously ≥1) — this alone reduces the combo set from 46 to 2, so the 44 retired combinations are no longer generated as pages at all.
+- `src/config/redirects.ts`: 44 new permanent-redirect rules, each `/services/[category-slug]-[location-slug]/` → `/services/[the one child service-slug]-[location-slug]/`.
+- The 2 retained pages use a dedicated `CategoryLocationTemplate` (`src/components/templates/category-location-template.tsx`) that names and links to both confirmed child services, distinguishes the broad category page from each specific service page in its own copy, and carries `Service` + `BreadcrumbList` JSON-LD. `FAQPage` schema is deliberately withheld — the only FAQ content available at those two locations is the generic "no physical office" item shared by every location, not genuine page-specific content.
+- No service-location destination page's content was rewritten; only a canonical/title/broken-link fix would have qualified, and none was needed.
 
 ## Redirect implementation checklist
 
