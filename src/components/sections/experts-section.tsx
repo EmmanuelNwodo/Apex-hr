@@ -3,7 +3,8 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { EmptyEditorialState } from "@/components/content/empty-editorial-state";
 import { ExpertCard } from "@/components/content/expert-card";
 import { LinkButton } from "@/components/ui/link-button";
-import { Reveal } from "@/components/motion/reveal";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 import { expertPreviews } from "@/content/home";
 import { routes } from "@/config/routes";
 
@@ -15,23 +16,25 @@ import { routes } from "@/config/routes";
 export function ExpertsSection() {
   return (
     <Section tone="card" gutter="always">
-      <div className="flex flex-wrap items-end justify-between gap-6">
+      <RevealHeading className="flex flex-wrap items-end justify-between gap-6">
         <SectionHeading kicker="Apex experts" title="The people behind Apex HR" />
         <LinkButton href={routes.experts.path} variant="tertiary" surface="light">
           Meet the team
         </LinkButton>
-      </div>
-      <Reveal className="mt-8">
+      </RevealHeading>
+      <div className="mt-8">
         {expertPreviews.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <StaggerContainer className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {expertPreviews.map((expert) => (
-              <ExpertCard key={expert.id} expert={expert} />
+              <StaggerItem key={expert.id}>
+                <ExpertCard expert={expert} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         ) : (
           <EmptyEditorialState message="Approved practitioner profiles will appear here once confirmed." />
         )}
-      </Reveal>
+      </div>
     </Section>
   );
 }

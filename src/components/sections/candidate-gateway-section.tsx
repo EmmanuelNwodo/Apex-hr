@@ -2,7 +2,9 @@ import Image from "next/image";
 import { Section } from "@/components/layout/section";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
-import { Reveal } from "@/components/motion/reveal";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { FadeUp } from "@/components/motion/fade-up";
+import { SlideInRight } from "@/components/motion/slide-in";
 import { candidateGateway } from "@/content/home";
 
 /**
@@ -20,41 +22,45 @@ export function CandidateGatewaySection() {
 
   return (
     <Section tone="warm" gutter="always">
-      <Reveal className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
+      <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-6">
-          <SectionKicker>{candidateGateway.kicker}</SectionKicker>
-          <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-navy">
-            {candidateGateway.heading}
-          </h2>
-          <p className="mt-4 max-w-[50ch] text-body-lg text-text-secondary">
-            {candidateGateway.description}
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            {primaryLink && (
-              <LinkButton
-                href={primaryLink.href}
-                variant="primary"
-                surface="light"
-                data-analytics-id={primaryLink.analyticsId}
-              >
-                {primaryLink.label}
-              </LinkButton>
-            )}
-            {secondaryLink && (
-              <LinkButton
-                href={secondaryLink.href}
-                variant="secondary"
-                surface="light"
-                data-analytics-id={secondaryLink.analyticsId}
-              >
-                {secondaryLink.label}
-              </LinkButton>
-            )}
-          </div>
+          <RevealHeading>
+            <SectionKicker>{candidateGateway.kicker}</SectionKicker>
+            <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-navy">
+              {candidateGateway.heading}
+            </h2>
+          </RevealHeading>
+          <FadeUp delay={0.15}>
+            <p className="mt-4 max-w-[50ch] text-body-lg text-text-secondary">
+              {candidateGateway.description}
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              {primaryLink && (
+                <LinkButton
+                  href={primaryLink.href}
+                  variant="primary"
+                  surface="light"
+                  data-analytics-id={primaryLink.analyticsId}
+                >
+                  {primaryLink.label}
+                </LinkButton>
+              )}
+              {secondaryLink && (
+                <LinkButton
+                  href={secondaryLink.href}
+                  variant="secondary"
+                  surface="light"
+                  data-analytics-id={secondaryLink.analyticsId}
+                >
+                  {secondaryLink.label}
+                </LinkButton>
+              )}
+            </div>
+          </FadeUp>
         </div>
 
         <div className="lg:col-span-6">
-          <div className="relative aspect-video w-full overflow-hidden rounded-md bg-surface-card">
+          <SlideInRight className="relative aspect-video w-full overflow-hidden rounded-md bg-surface-card">
             <Image
               src="/images/candidates.png"
               alt=""
@@ -62,9 +68,9 @@ export function CandidateGatewaySection() {
               sizes="(min-width: 1024px) 40vw, 90vw"
               className="object-cover"
             />
-          </div>
+          </SlideInRight>
         </div>
-      </Reveal>
+      </div>
     </Section>
   );
 }

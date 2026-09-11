@@ -2,7 +2,11 @@ import { ArrowDown, CheckCircle2, Cpu, HardHat, HeartPulse, Landmark } from "luc
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
-import { Reveal } from "@/components/motion/reveal";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { FadeUp } from "@/components/motion/fade-up";
+import { AnimatedSection } from "@/components/motion/animated-section";
+import { SlideInRight } from "@/components/motion/slide-in";
+import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 import { SectorExplorer } from "@/components/content/sector-explorer";
 import { sectors } from "@/config/sectors";
 import { sectorContent } from "@/content/sectors-data";
@@ -66,26 +70,30 @@ export default function SectorsPage() {
 
       <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.05fr_0.95fr]">
             <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
-              <SectionKicker tone="dark">Sector expertise</SectionKicker>
-              <h1 className="max-w-2xl font-display text-display font-bold text-white">
-                People solutions shaped for your world
-              </h1>
-              <p className="max-w-lg text-lead text-white/70">
-                Every industry has its own pressures, skills gaps and compliance demands. Apex HR
-                combines specialist sector knowledge with practical people expertise.
-              </p>
-              <div className="flex flex-wrap items-center gap-4">
-                <LinkButton href="#sector-directory" variant="primary" surface="dark">
-                  Explore sectors
-                  <ArrowDown aria-hidden="true" className="h-4 w-4" />
-                </LinkButton>
-                <LinkButton href={routes.contact.path} variant="secondary" surface="dark">
-                  Discuss your challenge
-                </LinkButton>
-              </div>
+              <RevealHeading>
+                <SectionKicker tone="dark">Sector expertise</SectionKicker>
+                <h1 className="max-w-2xl font-display text-display font-bold text-white">
+                  People solutions shaped for your world
+                </h1>
+              </RevealHeading>
+              <FadeUp delay={0.15} className="flex flex-col gap-6">
+                <p className="max-w-lg text-lead text-white/70">
+                  Every industry has its own pressures, skills gaps and compliance demands. Apex HR
+                  combines specialist sector knowledge with practical people expertise.
+                </p>
+                <div className="flex flex-wrap items-center gap-4">
+                  <LinkButton href="#sector-directory" variant="primary" surface="dark">
+                    Explore sectors
+                    <ArrowDown aria-hidden="true" className="h-4 w-4" />
+                  </LinkButton>
+                  <LinkButton href={routes.contact.path} variant="secondary" surface="dark">
+                    Discuss your challenge
+                  </LinkButton>
+                </div>
+              </FadeUp>
             </div>
 
-            <div className="relative flex flex-col items-center justify-center gap-8 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
+            <SlideInRight className="relative flex flex-col items-center justify-center gap-8 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
               <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center">
                 <span className="absolute h-72 w-72 rounded-full border border-white/10" />
                 <span className="absolute h-44 w-44 rounded-full border border-white/10" />
@@ -109,11 +117,10 @@ export default function SectorsPage() {
                   sectors supported by one connected HR partner
                 </p>
               </div>
-            </div>
+            </SlideInRight>
           </header>
 
-          <div
-            id="sector-directory"
+          <RevealHeading
             className="grid grid-cols-1 gap-6 p-8 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end lg:gap-10 lg:p-14"
           >
             <div>
@@ -132,53 +139,61 @@ export default function SectorsPage() {
                 direct conversation.
               </p>
             </div>
-          </div>
+          </RevealHeading>
 
-          <Reveal className="px-5 pb-8 sm:px-0 sm:pb-10 lg:pb-14">
+          <AnimatedSection delay={0.1} className="px-5 pb-8 sm:px-0 sm:pb-10 lg:pb-14">
             <SectorExplorer />
-          </Reveal>
+          </AnimatedSection>
 
           <section aria-label="Featured sector story" className="grid grid-cols-1 bg-navy lg:grid-cols-2">
             <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
-              <SectionKicker tone="dark">Sector spotlight</SectionKicker>
-              <h2 className="max-w-lg font-display text-h1 font-bold text-white">
-                Healthcare needs more than faster hiring.
-              </h2>
+              <RevealHeading>
+                <SectionKicker tone="dark">Sector spotlight</SectionKicker>
+                <h2 className="max-w-lg font-display text-h1 font-bold text-white">
+                  Healthcare needs more than faster hiring.
+                </h2>
+              </RevealHeading>
               {healthCare && (
-                <p className="max-w-md text-body text-white/70">{healthCare.overview}</p>
+                <FadeUp delay={0.15}>
+                  <p className="max-w-md text-body text-white/70">{healthCare.overview}</p>
+                </FadeUp>
               )}
               {healthCare && (
-                <ul className="flex flex-col gap-3">
-                  {healthCare.challenges.slice(0, 3).map((challenge) => (
-                    <li key={challenge} className="flex items-start gap-3 text-body text-white/85">
-                      <CheckCircle2 aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
-                      {challenge}
-                    </li>
-                  ))}
-                </ul>
+                <StaggerContainer>
+                  <ul className="flex flex-col gap-3">
+                    {healthCare.challenges.slice(0, 3).map((challenge) => (
+                      <StaggerItem key={challenge} as="li" className="flex items-start gap-3 text-body text-white/85">
+                        <CheckCircle2 aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
+                        {challenge}
+                      </StaggerItem>
+                    ))}
+                  </ul>
+                </StaggerContainer>
               )}
             </div>
-            <div className="relative flex min-h-64 items-end bg-linear-to-br from-navy via-slate to-gold/40 p-8 sm:p-10 lg:p-12">
+            <SlideInRight className="relative flex min-h-64 items-end bg-linear-to-br from-navy via-slate to-gold/40 p-8 sm:p-10 lg:p-12">
               <div className="w-full rounded-md border border-white/20 bg-navy/70 p-5 backdrop-blur-sm">
                 <p className="font-display text-h4 font-bold text-white">Specialist people support</p>
                 <p className="mt-1 text-small text-white/70">
                   From vacancy pressure to long-term workforce resilience
                 </p>
               </div>
-            </div>
+            </SlideInRight>
           </section>
 
       <div className="flex flex-col gap-6 bg-gold p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-14">
-        <div>
+        <RevealHeading>
           <h3 className="font-display text-h2 font-bold text-navy">Don&apos;t see your sector?</h3>
           <p className="mt-2 max-w-md text-body text-navy/80">
             Tell us about your workforce challenge. Our team will connect you with the right
             combination of HR, recruitment and people expertise.
           </p>
-        </div>
-        <LinkButton href={routes.contact.path} variant="primary" surface="light" className="shrink-0">
-          Talk to an adviser
-        </LinkButton>
+        </RevealHeading>
+        <FadeUp delay={0.15} className="shrink-0">
+          <LinkButton href={routes.contact.path} variant="primary" surface="light">
+            Talk to an adviser
+          </LinkButton>
+        </FadeUp>
       </div>
     </div>
   );

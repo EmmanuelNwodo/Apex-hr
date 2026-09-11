@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { useHasMounted } from "@/components/motion/use-has-mounted";
 
 interface WorkplaceFactCardProps {
   facts: string[];
@@ -51,12 +52,19 @@ const REDUCED_MOTION_DURATION = 0.2;
  * seconds, in step with the fact-text fade/slide (mode="wait" AnimatePresence
  * keyed on the active index). Reduced-motion users get a short, slide-free
  * opacity fade instead, at `REDUCED_MOTION_DURATION`.
+ *
+ * Renders a fully-visible, unanimated version of the card (same first
+ * theme, same first fact) until useHasMounted confirms React has actually
+ * hydrated — otherwise Motion's `initial={opacity:0, ...}` would ship as
+ * inline styling in the raw SSR HTML, invisible to anyone whose
+ * JavaScript is slow, blocked or fails.
  */
 export function WorkplaceFactCard({ facts, intervalMs = 5000, className }: WorkplaceFactCardProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hasEntered, setHasEntered] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  const hasMounted = useHasMounted();
 
   useEffect(() => {
     if (!hasEntered || isPaused || facts.length <= 1) return;
@@ -70,13 +78,35 @@ export function WorkplaceFactCard({ facts, intervalMs = 5000, className }: Workp
   const theme = factThemes[activeIndex % factThemes.length];
   const colorDuration = shouldReduceMotion ? REDUCED_MOTION_DURATION : FULL_MOTION_DURATION;
   const contentDuration = shouldReduceMotion ? REDUCED_MOTION_DURATION : FULL_MOTION_DURATION;
+  const cardClassName = cn(
+    "absolute right-4 bottom-4 z-10 w-[calc(100%-2rem)] max-w-72 rounded-md p-6 shadow-(--shadow-modal) sm:right-6 sm:bottom-6 sm:w-72 lg:-right-6 lg:-bottom-6 lg:w-80 lg:p-8",
+    className,
+  );
+
+  if (!hasMounted) {
+    return (
+      <div
+        className={cardClassName}
+        role="group"
+        aria-label="Workplace fact"
+        tabIndex={0}
+        style={{ backgroundColor: factThemes[0].background }}
+      >
+        <p className="text-small font-semibold uppercase tracking-[0.08em]" style={{ color: factThemes[0].heading }}>
+          Workplace fact
+        </p>
+        <div className="mt-3 min-h-28">
+          <p className="text-body" style={{ color: factThemes[0].text }}>
+            {facts[0]}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <motion.div
-      className={cn(
-        "absolute right-4 bottom-4 z-10 w-[calc(100%-2rem)] max-w-72 rounded-md p-6 shadow-(--shadow-modal) sm:right-6 sm:bottom-6 sm:w-72 lg:-right-6 lg:-bottom-6 lg:w-80 lg:p-8",
-        className,
-      )}
+      className={cardClassName}
       role="group"
       aria-label="Workplace fact"
       tabIndex={0}

@@ -4,6 +4,10 @@ import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
 import { FaqWithContactForm } from "@/components/content/faq-with-contact-form";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { FadeUp } from "@/components/motion/fade-up";
+import { SlideInRight } from "@/components/motion/slide-in";
+import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 import { routes } from "@/config/routes";
 import type { RouteRecord } from "@/types/route";
 import type { ContentFaqItem } from "@/types/content";
@@ -50,6 +54,14 @@ interface CategoryLocationTemplateProps {
  * page-specific Q&A, so it's rendered visibly but without structured data,
  * consistent with the FAQ-schema safeguards from the Batch 2 corrective
  * pass.
+ *
+ * Every section uses the site-wide "Layered Rise and Reveal" on-scroll
+ * entrance system (src/components/motion/*): headings rise via
+ * RevealHeading, supporting copy via FadeUp, the bullet list and child-
+ * service grid stagger via StaggerContainer/StaggerItem, and the hero's
+ * decorative panel slides in from the right. Nothing here changes layout,
+ * copy, colour or functionality — only how each block enters as a visitor
+ * scrolls to it.
  */
 export function CategoryLocationTemplate({
   breadcrumbTrail,
@@ -70,30 +82,32 @@ export function CategoryLocationTemplate({
       <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.08fr_0.92fr]">
         <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
           <Breadcrumbs trail={breadcrumbTrail} tone="dark" />
-          <div>
+          <RevealHeading>
             <SectionKicker tone="dark">{locationTitle}</SectionKicker>
             <h1 className="mt-4 max-w-xl font-display text-display font-bold text-white">
               {categoryTitle} in {locationTitle}
             </h1>
-          </div>
-          <p className="max-w-lg text-lead text-white/70">{categorySummary}</p>
-          <p className="max-w-lg text-body text-white/60">
-            This page covers the full {categoryTitle.toLowerCase()} picture in {locationTitle} —{" "}
-            {childServices.map((service) => service.title).join(" and ")} together. For a closer
-            look at one specialism on its own, visit its dedicated page below.
-          </p>
-          <div className="flex flex-wrap items-center gap-4">
-            <LinkButton href={routes.contact.path} variant="primary" surface="dark">
-              Discuss your needs
-              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-            </LinkButton>
-            <LinkButton href={categoryHref} variant="secondary" surface="dark">
-              {`Explore ${categoryTitle}`}
-            </LinkButton>
-          </div>
+          </RevealHeading>
+          <FadeUp delay={0.15} className="flex flex-col gap-6">
+            <p className="max-w-lg text-lead text-white/70">{categorySummary}</p>
+            <p className="max-w-lg text-body text-white/60">
+              This page covers the full {categoryTitle.toLowerCase()} picture in {locationTitle} —{" "}
+              {childServices.map((service) => service.title).join(" and ")} together. For a closer
+              look at one specialism on its own, visit its dedicated page below.
+            </p>
+            <div className="flex flex-wrap items-center gap-4">
+              <LinkButton href={routes.contact.path} variant="primary" surface="dark">
+                Discuss your needs
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </LinkButton>
+              <LinkButton href={categoryHref} variant="secondary" surface="dark">
+                {`Explore ${categoryTitle}`}
+              </LinkButton>
+            </div>
+          </FadeUp>
         </div>
 
-        <div className="relative flex flex-col items-center justify-center gap-8 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
+        <SlideInRight className="relative flex flex-col items-center justify-center gap-8 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center">
             <span className="absolute h-72 w-72 rounded-full border border-white/10" />
             <span className="absolute h-44 w-44 rounded-full border border-white/10" />
@@ -106,75 +120,88 @@ export function CategoryLocationTemplate({
               Remote and on-site support, no local office claimed
             </p>
           </div>
-        </div>
+        </SlideInRight>
       </header>
 
       <section className="grid grid-cols-1 gap-10 p-8 sm:p-10 lg:grid-cols-[1fr_0.9fr] lg:p-14">
         <div>
-          <SectionKicker tone="light">Local context</SectionKicker>
-          <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-navy">
-            {locationTitle}&apos;s people market
-          </h2>
-          <p className="mt-4 max-w-lg text-body-lg text-text-secondary">{localContext}</p>
-          <Link
-            href={locationHref}
-            className="mt-4 inline-flex w-fit items-center gap-2 text-caption font-bold uppercase tracking-widest text-gold-ink underline-offset-4 hover:underline"
-          >
-            {`See all HR and recruitment support in ${locationTitle}`}
-          </Link>
+          <RevealHeading>
+            <SectionKicker tone="light">Local context</SectionKicker>
+            <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-navy">
+              {locationTitle}&apos;s people market
+            </h2>
+          </RevealHeading>
+          <FadeUp delay={0.15}>
+            <p className="mt-4 max-w-lg text-body-lg text-text-secondary">{localContext}</p>
+            <Link
+              href={locationHref}
+              className="mt-4 inline-flex w-fit items-center gap-2 text-caption font-bold uppercase tracking-widest text-gold-ink underline-offset-4 hover:underline"
+            >
+              {`See all HR and recruitment support in ${locationTitle}`}
+            </Link>
+          </FadeUp>
         </div>
 
         <aside className="rounded-md bg-surface-card p-8">
           <SectionKicker tone="light">{bulletListTitle}</SectionKicker>
-          <ul className="mt-5 flex flex-col gap-3">
-            {bulletList.map((item) => (
-              <li key={item} className="flex items-start gap-3 text-body text-text-primary">
-                <CheckCircle2 aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold-ink" />
-                {item}
-              </li>
-            ))}
-          </ul>
+          <StaggerContainer>
+            <ul className="mt-5 flex flex-col gap-3">
+              {bulletList.map((item) => (
+                <StaggerItem key={item} as="li" className="flex items-start gap-3 text-body text-text-primary">
+                  <CheckCircle2 aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold-ink" />
+                  {item}
+                </StaggerItem>
+              ))}
+            </ul>
+          </StaggerContainer>
         </aside>
       </section>
 
       <section className="bg-surface-card p-8 sm:p-10 lg:p-14">
-        <SectionKicker tone="light">Two specialisms, one location</SectionKicker>
-        <h2 className="mt-4 max-w-2xl font-display text-h2 font-bold text-navy">
-          {`What we cover under ${categoryTitle} in ${locationTitle}`}
-        </h2>
-        <p className="mt-4 max-w-2xl text-body-lg text-text-secondary">
-          This category page introduces both services below. Each has its own dedicated page with
-          more detail if one is a closer match to what you need.
-        </p>
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <RevealHeading>
+          <SectionKicker tone="light">Two specialisms, one location</SectionKicker>
+          <h2 className="mt-4 max-w-2xl font-display text-h2 font-bold text-navy">
+            {`What we cover under ${categoryTitle} in ${locationTitle}`}
+          </h2>
+        </RevealHeading>
+        <FadeUp delay={0.15}>
+          <p className="mt-4 max-w-2xl text-body-lg text-text-secondary">
+            This category page introduces both services below. Each has its own dedicated page with
+            more detail if one is a closer match to what you need.
+          </p>
+        </FadeUp>
+        <StaggerContainer className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {childServices.map((service) => (
-            <Link
-              key={service.href}
-              href={service.href}
-              className="group flex flex-col gap-3 rounded-md border border-border-subtle bg-surface-page p-6 transition-colors duration-(--duration-fast) hover:border-navy"
-            >
-              <span className="flex items-center justify-between gap-3">
-                <span className="font-display text-h4 font-bold text-navy">{service.title}</span>
-                <ArrowUpRight
-                  aria-hidden="true"
-                  className="h-5 w-5 shrink-0 text-text-secondary transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
-                />
-              </span>
-              <span className="text-body text-text-secondary">{service.summary}</span>
-              <span className="text-small font-semibold text-gold-ink">
-                {`${service.title} in ${locationTitle}`}
-              </span>
-            </Link>
+            <StaggerItem key={service.href}>
+              <Link
+                href={service.href}
+                className="group flex flex-col gap-3 rounded-md border border-border-subtle bg-surface-page p-6 transition-colors duration-(--duration-fast) hover:border-navy"
+              >
+                <span className="flex items-center justify-between gap-3">
+                  <span className="font-display text-h4 font-bold text-navy">{service.title}</span>
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    className="h-5 w-5 shrink-0 text-text-secondary transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                  />
+                </span>
+                <span className="text-body text-text-secondary">{service.summary}</span>
+                <span className="text-small font-semibold text-gold-ink">
+                  {`${service.title} in ${locationTitle}`}
+                </span>
+              </Link>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </section>
 
       {faqs.length > 0 && (
         <section className="bg-surface-page p-8 sm:p-10 lg:p-14">
-          <SectionKicker tone="light">Frequently asked questions</SectionKicker>
-          <h2 className="mt-4 max-w-2xl font-display text-h2 font-bold text-navy">
-            Questions about {categoryTitle.toLowerCase()} in {locationTitle}
-          </h2>
+          <RevealHeading>
+            <SectionKicker tone="light">Frequently asked questions</SectionKicker>
+            <h2 className="mt-4 max-w-2xl font-display text-h2 font-bold text-navy">
+              Questions about {categoryTitle.toLowerCase()} in {locationTitle}
+            </h2>
+          </RevealHeading>
           <div className="mt-10">
             {/* No FAQPage schema here — the only FAQ available at this
                 location is the same generic "no physical office" item every
@@ -186,7 +213,7 @@ export function CategoryLocationTemplate({
       )}
 
       <div className="flex flex-col gap-6 bg-gold p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-14">
-        <div>
+        <RevealHeading>
           <h3 className="font-display text-h2 font-bold text-navy">
             Ready to talk about {categoryTitle.toLowerCase()} in {locationTitle}?
           </h3>
@@ -194,10 +221,12 @@ export function CategoryLocationTemplate({
             Tell us what&apos;s happening in your organisation, and we&apos;ll help you find the
             right way in.
           </p>
-        </div>
-        <LinkButton href={routes.contact.path} variant="primary" surface="light" className="shrink-0">
-          Start a conversation
-        </LinkButton>
+        </RevealHeading>
+        <FadeUp delay={0.15} className="shrink-0">
+          <LinkButton href={routes.contact.path} variant="primary" surface="light">
+            Start a conversation
+          </LinkButton>
+        </FadeUp>
       </div>
 
       <div className="flex flex-wrap gap-4 bg-surface-page px-8 py-10 sm:px-10 lg:px-14">

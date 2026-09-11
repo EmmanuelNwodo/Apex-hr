@@ -1,7 +1,8 @@
 import { Section } from "@/components/layout/section";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { PartnerLogoMarqueeRow } from "@/components/content/partner-logo-marquee-row";
-import { Reveal } from "@/components/motion/reveal";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { ScaleReveal } from "@/components/motion/scale-reveal";
 import { partnerBrands } from "@/content/home";
 
 /**
@@ -13,10 +14,12 @@ import { partnerBrands } from "@/content/home";
 export function PartnerBrandsSection() {
   return (
     <Section tone="page" gutter="always">
-      <SectionKicker>Trusted by</SectionKicker>
-      <Reveal className="mt-10">
+      <RevealHeading>
+        <SectionKicker>Trusted by</SectionKicker>
+      </RevealHeading>
+      <ScaleReveal delay={0.15} className="mt-10">
         <PartnerLogoMarqueeRow brands={partnerBrands} direction="left" />
-      </Reveal>
+      </ScaleReveal>
     </Section>
   );
 }

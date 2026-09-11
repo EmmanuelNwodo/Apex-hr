@@ -5,6 +5,10 @@ import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
 import { FaqWithContactForm } from "@/components/content/faq-with-contact-form";
 import { EmptyEditorialState } from "@/components/content/empty-editorial-state";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { FadeUp } from "@/components/motion/fade-up";
+import { SlideInRight } from "@/components/motion/slide-in";
+import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 import { serviceCategoryIcons } from "@/lib/service-category-icons";
 import { routes } from "@/config/routes";
 import type { RouteRecord } from "@/types/route";
@@ -49,6 +53,15 @@ interface ServicePageTemplateProps {
  * is a full-width band with no side margin (per later user instruction;
  * previously a single rounded cream "page shell" card inset from the
  * browser edges).
+ *
+ * Every section below uses the site-wide "Layered Rise and Reveal"
+ * on-scroll entrance system (src/components/motion/*): headings rise via
+ * RevealHeading, supporting copy via FadeUp (slightly delayed so it
+ * settles just after its heading), card/list grids stagger individually
+ * via StaggerContainer/StaggerItem, and the hero's decorative right-hand
+ * panel slides in from the right via SlideInRight. Nothing here changes
+ * layout, copy, colour or functionality — only how each block enters as a
+ * visitor scrolls to it, once, never re-triggering.
  */
 export function ServicePageTemplate({ title, breadcrumbTrail, service, showForEmployersLink = false }: ServicePageTemplateProps) {
   const parentCategory = getServiceCategory(service.categorySlug);
@@ -81,23 +94,25 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service, showForEm
       <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.1fr_0.9fr]">
             <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
               <Breadcrumbs trail={breadcrumbTrail} tone="dark" />
-              <div>
+              <RevealHeading>
                 <SectionKicker tone="dark">{service.primaryKeyword}</SectionKicker>
                 <h1 className="mt-4 max-w-xl font-display text-display font-bold text-white">{title} Firm in the UK</h1>
-              </div>
-              <p className="max-w-lg text-lead text-white/70">{service.heroSummary}</p>
-              <div className="flex flex-wrap items-center gap-4">
-                <LinkButton href={routes.contact.path} variant="primary" surface="dark">
-                  Discuss your needs
-                  <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-                </LinkButton>
-                <LinkButton href={routes.findTalent.path} variant="secondary" surface="dark">
-                  {routes.findTalent.label}
-                </LinkButton>
-              </div>
+              </RevealHeading>
+              <FadeUp delay={0.15} className="flex flex-col gap-6">
+                <p className="max-w-lg text-lead text-white/70">{service.heroSummary}</p>
+                <div className="flex flex-wrap items-center gap-4">
+                  <LinkButton href={routes.contact.path} variant="primary" surface="dark">
+                    Discuss your needs
+                    <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                  </LinkButton>
+                  <LinkButton href={routes.findTalent.path} variant="secondary" surface="dark">
+                    {routes.findTalent.label}
+                  </LinkButton>
+                </div>
+              </FadeUp>
             </div>
 
-            <div className="relative flex flex-col items-center justify-center gap-8 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
+            <SlideInRight className="relative flex flex-col items-center justify-center gap-8 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
               <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center">
                 <span className="absolute h-72 w-72 rounded-full border border-white/10" />
                 <span className="absolute h-44 w-44 rounded-full border border-white/10" />
@@ -125,16 +140,20 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service, showForEm
                   </p>
                 )}
               </div>
-            </div>
+            </SlideInRight>
           </header>
 
           <section className="grid grid-cols-1 gap-10 p-8 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:p-14">
             <div>
-              <SectionKicker tone="light">The employer challenge</SectionKicker>
-              <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-navy">
-                Where {title.toLowerCase()} helps
-              </h2>
-              <p className="mt-4 max-w-lg text-body-lg text-text-secondary">{service.employerChallenge}</p>
+              <RevealHeading>
+                <SectionKicker tone="light">The employer challenge</SectionKicker>
+                <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-navy">
+                  Where {title.toLowerCase()} helps
+                </h2>
+              </RevealHeading>
+              <FadeUp delay={0.15}>
+                <p className="mt-4 max-w-lg text-body-lg text-text-secondary">{service.employerChallenge}</p>
+              </FadeUp>
             </div>
 
             {service.whenNeeded.length > 0 && (
@@ -142,90 +161,108 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service, showForEm
                 <span className="text-caption font-semibold uppercase tracking-widest text-gold">
                   Signs you may need this
                 </span>
-                <div className="mt-5 flex flex-col">
+                <StaggerContainer className="mt-5 flex flex-col">
                   {service.whenNeeded.map((sign) => (
-                    <div key={sign} className="flex items-start gap-3 border-t border-white/10 py-4 first:border-t-0">
+                    <StaggerItem key={sign} className="flex items-start gap-3 border-t border-white/10 py-4 first:border-t-0">
                       <TriangleAlert aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
                       <p className="text-body text-white/85">{sign}</p>
-                    </div>
+                    </StaggerItem>
                   ))}
-                </div>
+                </StaggerContainer>
               </aside>
             )}
           </section>
 
           <section aria-label="Business outcomes" className="bg-navy px-8 py-16 sm:px-10 lg:px-14 lg:py-20">
-            <SectionKicker tone="dark">Business outcomes</SectionKicker>
-            <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <RevealHeading>
+              <SectionKicker tone="dark">Business outcomes</SectionKicker>
+            </RevealHeading>
+            <StaggerContainer className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {service.businessOutcomes.map((outcome, index) => (
-                <div key={outcome} className="border-t border-white/20 pt-6">
+                <StaggerItem key={outcome} className="border-t border-white/20 pt-6">
                   <span className="font-display text-body-lg text-gold">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <p className="mt-4 max-w-xs font-display text-h4 font-bold text-white">{outcome}</p>
-                </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </section>
 
           <section className="grid grid-cols-1 gap-10 bg-surface-card p-8 sm:p-10 lg:grid-cols-3 lg:p-14">
             <div className="lg:col-span-2">
-              <SectionKicker tone="light">What the service includes</SectionKicker>
-              <ul className="mt-6 flex flex-col gap-3">
-                {service.whatItIncludes.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-body text-text-primary">
-                    <CheckCircle2 aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold-ink" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <RevealHeading>
+                <SectionKicker tone="light">What the service includes</SectionKicker>
+              </RevealHeading>
+              <StaggerContainer>
+                <ul className="mt-6 flex flex-col gap-3">
+                  {service.whatItIncludes.map((item) => (
+                    <StaggerItem key={item} as="li" className="flex items-start gap-3 text-body text-text-primary">
+                      <CheckCircle2 aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold-ink" />
+                      {item}
+                    </StaggerItem>
+                  ))}
+                </ul>
+              </StaggerContainer>
               {service.outOfScope && service.outOfScope.length > 0 && (
                 <div className="mt-10">
                   <SectionKicker tone="light">Not included in this service</SectionKicker>
-                  <ul className="mt-6 flex flex-col gap-3">
-                    {service.outOfScope.map((item) => (
-                      <li key={item} className="flex items-start gap-3 text-body text-text-secondary">
-                        <CircleSlash aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-text-secondary" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                  <StaggerContainer>
+                    <ul className="mt-6 flex flex-col gap-3">
+                      {service.outOfScope.map((item) => (
+                        <StaggerItem key={item} as="li" className="flex items-start gap-3 text-body text-text-secondary">
+                          <CircleSlash aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-text-secondary" />
+                          {item}
+                        </StaggerItem>
+                      ))}
+                    </ul>
+                  </StaggerContainer>
                 </div>
               )}
             </div>
             <div>
-              <SectionKicker tone="light">Who we support</SectionKicker>
-              <p className="mt-6 text-body text-text-secondary">{service.whoWeSupport}</p>
+              <RevealHeading>
+                <SectionKicker tone="light">Who we support</SectionKicker>
+              </RevealHeading>
+              <FadeUp delay={0.15}>
+                <p className="mt-6 text-body text-text-secondary">{service.whoWeSupport}</p>
+              </FadeUp>
             </div>
           </section>
 
           <section className="p-8 sm:p-10 lg:p-14">
-            <SectionKicker tone="light">Our delivery approach</SectionKicker>
-            <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-navy">
-              Clear steps, from first conversation to delivery
-            </h2>
-            <ol className="mt-10 grid grid-cols-1 gap-8 border-t border-border-subtle pt-8 sm:grid-cols-2 lg:grid-cols-4">
-              {service.deliveryApproach.map((step, index) => (
-                <li key={step} className="relative pl-6">
-                  <span aria-hidden="true" className="absolute left-0 top-1.5 h-2.5 w-2.5 rounded-full bg-gold" />
-                  <span className="font-display text-small text-gold-ink">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <p className="mt-3 text-body text-text-secondary">{step}</p>
-                </li>
-              ))}
-            </ol>
+            <RevealHeading>
+              <SectionKicker tone="light">Our delivery approach</SectionKicker>
+              <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-navy">
+                Clear steps, from first conversation to delivery
+              </h2>
+            </RevealHeading>
+            <StaggerContainer>
+              <ol className="mt-10 grid grid-cols-1 gap-8 border-t border-border-subtle pt-8 sm:grid-cols-2 lg:grid-cols-4">
+                {service.deliveryApproach.map((step, index) => (
+                  <StaggerItem key={step} as="li" className="relative pl-6">
+                    <span aria-hidden="true" className="absolute left-0 top-1.5 h-2.5 w-2.5 rounded-full bg-gold" />
+                    <span className="font-display text-small text-gold-ink">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <p className="mt-3 text-body text-text-secondary">{step}</p>
+                  </StaggerItem>
+                ))}
+              </ol>
+            </StaggerContainer>
           </section>
 
           {service.engagementOptions.length > 0 && (
             <section className="bg-navy p-8 sm:p-10 lg:p-14">
-              <SectionKicker tone="dark">Engagement options</SectionKicker>
-              <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-white">
-                Choose the way you want to work together
-              </h2>
-              <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <RevealHeading>
+                <SectionKicker tone="dark">Engagement options</SectionKicker>
+                <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-white">
+                  Choose the way you want to work together
+                </h2>
+              </RevealHeading>
+              <StaggerContainer className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {service.engagementOptions.map((option) => (
-                  <div
+                  <StaggerItem
                     key={option}
                     className="flex flex-col justify-between gap-8 rounded-md border border-white/15 bg-white/5 p-6"
                   >
@@ -237,50 +274,58 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service, showForEm
                       Discuss this option
                       <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
                     </Link>
-                  </div>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerContainer>
             </section>
           )}
 
           {(relatedServices.length > 0 || relatedSectors.length > 0) && (
             <section className="p-8 sm:p-10 lg:p-14">
-              <SectionKicker tone="light">Continue exploring</SectionKicker>
-              <h2 className="mt-4 max-w-lg font-display text-h2 font-bold text-navy">Related expertise</h2>
+              <RevealHeading>
+                <SectionKicker tone="light">Continue exploring</SectionKicker>
+                <h2 className="mt-4 max-w-lg font-display text-h2 font-bold text-navy">Related expertise</h2>
+              </RevealHeading>
               {service.differentiationNote && (
-                <p className="mt-4 max-w-3xl text-body text-text-secondary">{service.differentiationNote}</p>
+                <FadeUp delay={0.15}>
+                  <p className="mt-4 max-w-3xl text-body text-text-secondary">{service.differentiationNote}</p>
+                </FadeUp>
               )}
               <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
                 {relatedServices.length > 0 && (
-                  <ul className="flex flex-col">
-                    {relatedServices.map((related) => (
-                      <li key={related.slug} className="border-t border-border-subtle first:border-t-0">
-                        <Link
-                          href={`/services/${related.slug}/`}
-                          className="flex items-center justify-between gap-4 py-4 font-semibold text-navy hover:text-gold-ink"
-                        >
-                          {related.title}
-                          <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0" />
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                  <StaggerContainer>
+                    <ul className="flex flex-col">
+                      {relatedServices.map((related) => (
+                        <StaggerItem key={related.slug} as="li" className="border-t border-border-subtle first:border-t-0">
+                          <Link
+                            href={`/services/${related.slug}/`}
+                            className="flex items-center justify-between gap-4 py-4 font-semibold text-navy hover:text-gold-ink"
+                          >
+                            {related.title}
+                            <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0" />
+                          </Link>
+                        </StaggerItem>
+                      ))}
+                    </ul>
+                  </StaggerContainer>
                 )}
                 {relatedSectors.length > 0 && (
                   <div>
                     <h3 className="font-display text-h4 font-bold text-navy">Relevant sectors</h3>
-                    <ul className="mt-4 flex flex-wrap gap-2">
-                      {relatedSectors.map((related) => (
-                        <li key={related.slug}>
-                          <Link
-                            href={`/sector/${related.slug}/`}
-                            className="rounded-full border border-border-subtle bg-surface-card px-4 py-2 text-small text-navy underline-offset-4 hover:border-navy hover:underline"
-                          >
-                            {related.title}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                    <StaggerContainer>
+                      <ul className="mt-4 flex flex-wrap gap-2">
+                        {relatedSectors.map((related) => (
+                          <StaggerItem key={related.slug} as="li">
+                            <Link
+                              href={`/sector/${related.slug}/`}
+                              className="rounded-full border border-border-subtle bg-surface-card px-4 py-2 text-small text-navy underline-offset-4 hover:border-navy hover:underline"
+                            >
+                              {related.title}
+                            </Link>
+                          </StaggerItem>
+                        ))}
+                      </ul>
+                    </StaggerContainer>
                   </div>
                 )}
               </div>
@@ -289,18 +334,20 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service, showForEm
                   {availableLocations.length > 0 ? `${title} in these UK locations` : "UK-wide coverage"}
                 </h3>
                 {availableLocations.length > 0 ? (
-                  <ul className="mt-4 flex flex-wrap gap-2">
-                    {availableLocations.map(({ combo, location }) => (
-                      <li key={combo.slug}>
-                        <Link
-                          href={`/services/${combo.slug}/`}
-                          className="rounded-full border border-border-subtle bg-surface-card px-4 py-2 text-small text-navy underline-offset-4 hover:border-navy hover:underline"
-                        >
-                          {location.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                  <StaggerContainer>
+                    <ul className="mt-4 flex flex-wrap gap-2">
+                      {availableLocations.map(({ combo, location }) => (
+                        <StaggerItem key={combo.slug} as="li">
+                          <Link
+                            href={`/services/${combo.slug}/`}
+                            className="rounded-full border border-border-subtle bg-surface-card px-4 py-2 text-small text-navy underline-offset-4 hover:border-navy hover:underline"
+                          >
+                            {location.title}
+                          </Link>
+                        </StaggerItem>
+                      ))}
+                    </ul>
+                  </StaggerContainer>
                 ) : (
                   <p className="mt-4 max-w-md text-body text-text-secondary">
                     {`${title} is available to employers across the UK, delivered remotely and, where useful, on-site.`}
@@ -318,8 +365,10 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service, showForEm
 
           {allFaqs.length > 0 && (
             <section className="bg-surface-card p-8 sm:p-10 lg:p-14">
-              <SectionKicker tone="light">Frequently asked questions</SectionKicker>
-              <h2 className="mt-4 max-w-lg font-display text-h2 font-bold text-navy">What clients usually ask</h2>
+              <RevealHeading>
+                <SectionKicker tone="light">Frequently asked questions</SectionKicker>
+                <h2 className="mt-4 max-w-lg font-display text-h2 font-bold text-navy">What clients usually ask</h2>
+              </RevealHeading>
               <div className="mt-10">
                 <FaqWithContactForm items={allFaqs} />
               </div>
@@ -327,22 +376,30 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service, showForEm
           )}
 
           <section className="p-8 sm:p-10 lg:p-14">
-            <SectionKicker tone="light">Still deciding</SectionKicker>
-            <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
-              <EmptyEditorialState message="A relevant case study will appear here once verified evidence is approved." />
-              <EmptyEditorialState message="A relevant Apex expert will appear here once an approved profile exists." />
-              <EmptyEditorialState message="A relevant insight article will appear here once published." />
-            </div>
+            <RevealHeading>
+              <SectionKicker tone="light">Still deciding</SectionKicker>
+            </RevealHeading>
+            <StaggerContainer className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <StaggerItem>
+                <EmptyEditorialState message="A relevant case study will appear here once verified evidence is approved." />
+              </StaggerItem>
+              <StaggerItem>
+                <EmptyEditorialState message="A relevant Apex expert will appear here once an approved profile exists." />
+              </StaggerItem>
+              <StaggerItem>
+                <EmptyEditorialState message="A relevant insight article will appear here once published." />
+              </StaggerItem>
+            </StaggerContainer>
           </section>
 
       <div className="flex flex-col gap-6 bg-gold p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-14">
-        <div>
+        <RevealHeading>
           <h3 className="font-display text-h2 font-bold text-navy">
             Ready to talk about {title.toLowerCase()}?
           </h3>
           <p className="mt-2 max-w-md text-body text-navy/80">{service.whyApex}</p>
-        </div>
-        <div className="flex shrink-0 flex-wrap gap-4">
+        </RevealHeading>
+        <FadeUp delay={0.15} className="flex shrink-0 flex-wrap gap-4">
           {showForEmployersLink && (
             <LinkButton href={routes.forEmployers.path} variant="tertiary" surface="light">
               More employer support
@@ -356,7 +413,7 @@ export function ServicePageTemplate({ title, breadcrumbTrail, service, showForEm
           >
             {routes.findTalent.label}
           </LinkButton>
-        </div>
+        </FadeUp>
       </div>
     </div>
   );

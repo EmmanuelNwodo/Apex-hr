@@ -12,7 +12,11 @@ import {
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
-import { Reveal } from "@/components/motion/reveal";
+import { AnimatedSection } from "@/components/motion/animated-section";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { FadeUp } from "@/components/motion/fade-up";
+import { SlideInRight } from "@/components/motion/slide-in";
+import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 import { FaqWithContactForm } from "@/components/content/faq-with-contact-form";
 import { EmployerNeedsExplorer } from "@/components/content/employer-needs-explorer";
 import { forEmployersPageContent } from "@/content/supporting-pages-data";
@@ -95,6 +99,13 @@ const growthStages = [
  * models / value points / growth stages are original positioning copy
  * authored directly for this one-off page — none assert a fact, number
  * or history that would need verification (CLAUDE.md section 32).
+ *
+ * Every section below uses the site-wide "Layered Rise and Reveal"
+ * on-scroll entrance system (src/components/motion/*): headings rise via
+ * RevealHeading, supporting copy via FadeUp, card/list grids stagger via
+ * StaggerContainer/StaggerItem. Nothing here changes layout, copy, colour
+ * or functionality — only how each block enters as a visitor scrolls to
+ * it.
  */
 export default function ForEmployersPage() {
   const jsonLd = getBreadcrumbJsonLd(routes.home.label, [routes.forEmployers]);
@@ -105,25 +116,27 @@ export default function ForEmployersPage() {
       <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.06fr_0.94fr]">
             <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
               <Breadcrumbs trail={[routes.forEmployers]} tone="dark" />
-              <div>
+              <RevealHeading>
                 <SectionKicker tone="dark">For employers</SectionKicker>
                 <h1 className="mt-4 max-w-xl font-display text-display font-bold text-white">
                   The right people support, exactly when you need it
                 </h1>
-              </div>
-              <p className="max-w-lg text-lead text-white/70">{forEmployersPageContent.lead}</p>
-              <div className="flex flex-wrap items-center gap-4">
-                <LinkButton href={routes.contact.path} variant="primary" surface="dark">
-                  Discuss your needs
-                  <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-                </LinkButton>
-                <LinkButton href="#needs" variant="secondary" surface="dark">
-                  Find where to start
-                </LinkButton>
-              </div>
+              </RevealHeading>
+              <FadeUp delay={0.15} className="flex flex-col gap-6">
+                <p className="max-w-lg text-lead text-white/70">{forEmployersPageContent.lead}</p>
+                <div className="flex flex-wrap items-center gap-4">
+                  <LinkButton href={routes.contact.path} variant="primary" surface="dark">
+                    Discuss your needs
+                    <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                  </LinkButton>
+                  <LinkButton href="#needs" variant="secondary" surface="dark">
+                    Find where to start
+                  </LinkButton>
+                </div>
+              </FadeUp>
             </div>
 
-            <div className="relative flex flex-col items-center justify-center gap-8 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
+            <SlideInRight className="relative flex flex-col items-center justify-center gap-8 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
               <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center">
                 <span className="absolute h-72 w-72 rounded-full border border-white/10" />
                 <span className="absolute h-44 w-44 rounded-full border border-white/10" />
@@ -145,32 +158,37 @@ export default function ForEmployersPage() {
                 <p className="mt-1 font-display text-h4 font-bold text-navy">Your business</p>
                 <p className="max-w-44 text-small text-text-secondary">Supported to move forward</p>
               </div>
-            </div>
+            </SlideInRight>
           </header>
 
-          <section aria-label="Core employer support" className="grid grid-cols-1 gap-px overflow-hidden border-b border-border-subtle bg-border-subtle sm:grid-cols-3">
+          <StaggerContainer
+            as="section"
+            aria-label="Core employer support"
+            className="grid grid-cols-1 gap-px overflow-hidden border-b border-border-subtle bg-border-subtle sm:grid-cols-3"
+          >
             {supportPillars.map((pillar) => {
               const content = serviceCategoryContent.find((entry) => entry.slug === pillar.categorySlug);
               return (
-                <Link
-                  key={pillar.categorySlug}
-                  href={`/services/${pillar.categorySlug}/`}
-                  className="flex items-center gap-4 bg-surface-card p-6 transition-colors duration-(--duration-fast) hover:bg-surface-warm"
-                >
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-success/10 text-success">
-                    <pillar.icon aria-hidden="true" className="h-5 w-5" />
-                  </span>
-                  <div>
-                    <p className="font-display text-body-lg font-bold text-navy">{pillar.title}</p>
-                    {content && <p className="mt-1 text-small text-text-secondary">{content.summary}</p>}
-                  </div>
-                </Link>
+                <StaggerItem key={pillar.categorySlug}>
+                  <Link
+                    href={`/services/${pillar.categorySlug}/`}
+                    className="flex items-center gap-4 bg-surface-card p-6 transition-colors duration-(--duration-fast) hover:bg-surface-warm"
+                  >
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-success/10 text-success">
+                      <pillar.icon aria-hidden="true" className="h-5 w-5" />
+                    </span>
+                    <div>
+                      <p className="font-display text-body-lg font-bold text-navy">{pillar.title}</p>
+                      {content && <p className="mt-1 text-small text-text-secondary">{content.summary}</p>}
+                    </div>
+                  </Link>
+                </StaggerItem>
               );
             })}
-          </section>
+          </StaggerContainer>
 
           <section id="needs" className="p-8 sm:p-10 lg:p-14">
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-end">
+            <RevealHeading className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-end">
               <div>
                 <SectionKicker tone="light">Where to start</SectionKicker>
                 <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-navy">
@@ -181,15 +199,15 @@ export default function ForEmployersPage() {
                 Select the challenge closest to yours to see a clear explanation and a direct
                 route to relevant support.
               </p>
-            </div>
+            </RevealHeading>
 
-            <Reveal className="mt-10">
+            <AnimatedSection delay={0.1} className="mt-10">
               <EmployerNeedsExplorer />
-            </Reveal>
+            </AnimatedSection>
           </section>
 
           <section className="bg-navy p-8 sm:p-10 lg:p-14">
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-end">
+            <RevealHeading className="grid grid-cols-1 gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-end">
               <div>
                 <SectionKicker tone="dark">How engagements work</SectionKicker>
                 <h2 className="mt-4 max-w-md font-display text-h1 font-bold text-white">
@@ -200,11 +218,11 @@ export default function ForEmployersPage() {
                 Apex HR can support a defined project, provide ongoing cover, or add senior
                 capability temporarily — whichever fits how your organisation needs to work.
               </p>
-            </div>
+            </RevealHeading>
 
-            <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-white/15 bg-white/15 sm:grid-cols-3">
+            <StaggerContainer className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-white/15 bg-white/15 sm:grid-cols-3">
               {engagementModels.map((model) => (
-                <div key={model.title} className="flex flex-col justify-between gap-8 bg-navy p-7">
+                <StaggerItem key={model.title} className="flex flex-col justify-between gap-8 bg-navy p-7">
                   <div>
                     <span className="grid h-11 w-11 place-items-center rounded-full bg-white/10 text-gold">
                       <model.icon aria-hidden="true" className="h-5 w-5" />
@@ -219,53 +237,59 @@ export default function ForEmployersPage() {
                     Discuss this option
                     <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
                   </Link>
-                </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </section>
 
           <section className="grid grid-cols-1 gap-10 p-8 sm:p-10 lg:grid-cols-[0.7fr_1.3fr] lg:p-14">
-            <div>
+            <RevealHeading>
               <SectionKicker tone="light">Why Apex HR</SectionKicker>
               <h2 className="mt-4 max-w-md font-display text-h1 font-bold text-navy">
                 Advice your managers can actually use
               </h2>
-            </div>
-            <div className="flex flex-col">
-              {valuePoints.map((point, index) => (
-                <div key={point.title} className="grid grid-cols-[auto_1fr] gap-4 border-b border-border-subtle py-6 first:border-t">
-                  <span className="font-display text-body-lg text-gold-ink">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3 className="font-display text-h4 font-bold text-navy">{point.title}</h3>
-                    <p className="mt-1 text-body text-text-secondary">{point.detail}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            </RevealHeading>
+            <StaggerContainer>
+              <div className="flex flex-col">
+                {valuePoints.map((point, index) => (
+                  <StaggerItem key={point.title} className="grid grid-cols-[auto_1fr] gap-4 border-b border-border-subtle py-6 first:border-t">
+                    <span className="font-display text-body-lg text-gold-ink">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <h3 className="font-display text-h4 font-bold text-navy">{point.title}</h3>
+                      <p className="mt-1 text-body text-text-secondary">{point.detail}</p>
+                    </div>
+                  </StaggerItem>
+                ))}
+              </div>
+            </StaggerContainer>
           </section>
 
           <section className="bg-navy p-8 sm:p-10 lg:p-14">
-            <SectionKicker tone="dark">Built for every growth stage</SectionKicker>
-            <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-white">
-              Support that evolves with the organisation
-            </h2>
-            <div className="mt-10 grid grid-cols-1 gap-8 border-t border-white/20 pt-8 sm:grid-cols-2 lg:grid-cols-4">
+            <RevealHeading>
+              <SectionKicker tone="dark">Built for every growth stage</SectionKicker>
+              <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-white">
+                Support that evolves with the organisation
+              </h2>
+            </RevealHeading>
+            <StaggerContainer className="mt-10 grid grid-cols-1 gap-8 border-t border-white/20 pt-8 sm:grid-cols-2 lg:grid-cols-4">
               {growthStages.map((stage, index) => (
-                <div key={stage.title}>
+                <StaggerItem key={stage.title}>
                   <span className="font-display text-small text-gold">{String(index + 1).padStart(2, "0")}</span>
                   <h3 className="mt-3 font-display text-h4 font-bold text-white">{stage.title}</h3>
                   <p className="mt-2 text-body text-white/70">{stage.detail}</p>
-                </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </section>
 
           {forEmployersPageContent.faqs && forEmployersPageContent.faqs.length > 0 && (
             <section className="bg-surface-card p-8 sm:p-10 lg:p-14">
-              <SectionKicker tone="light">Frequently asked questions</SectionKicker>
-              <h2 className="mt-4 max-w-lg font-display text-h2 font-bold text-navy">What employers usually ask</h2>
+              <RevealHeading>
+                <SectionKicker tone="light">Frequently asked questions</SectionKicker>
+                <h2 className="mt-4 max-w-lg font-display text-h2 font-bold text-navy">What employers usually ask</h2>
+              </RevealHeading>
               <div className="mt-10">
                 <FaqWithContactForm items={forEmployersPageContent.faqs} />
               </div>
@@ -273,7 +297,7 @@ export default function ForEmployersPage() {
           )}
 
       <div className="flex flex-col gap-6 bg-gold p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-14">
-        <div>
+        <RevealHeading>
           <h3 className="font-display text-h2 font-bold text-navy">
             What does your organisation need next?
           </h3>
@@ -281,16 +305,13 @@ export default function ForEmployersPage() {
             Whether the priority is hiring, dependable HR support or a complex people
             challenge, Apex HR can help you identify the right place to start.
           </p>
-        </div>
+        </RevealHeading>
         {forEmployersPageContent.primaryCta && (
-          <LinkButton
-            href={forEmployersPageContent.primaryCta.href}
-            variant="primary"
-            surface="light"
-            className="shrink-0"
-          >
-            {forEmployersPageContent.primaryCta.label}
-          </LinkButton>
+          <FadeUp delay={0.15} className="shrink-0">
+            <LinkButton href={forEmployersPageContent.primaryCta.href} variant="primary" surface="light">
+              {forEmployersPageContent.primaryCta.label}
+            </LinkButton>
+          </FadeUp>
         )}
       </div>
     </div>

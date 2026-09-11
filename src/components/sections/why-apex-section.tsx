@@ -1,7 +1,10 @@
 import Image from "next/image";
 import { Section } from "@/components/layout/section";
 import { SectionKicker } from "@/components/ui/section-kicker";
-import { Reveal } from "@/components/motion/reveal";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { SlideInRight } from "@/components/motion/slide-in";
+import { ScaleReveal } from "@/components/motion/scale-reveal";
+import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 import { valuePropositions, trust } from "@/content/home";
 
 /**
@@ -21,14 +24,16 @@ export function WhyApexSection() {
     <Section tone="page" gutter="always">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start lg:gap-16">
         <div className="lg:col-span-7">
-          <SectionKicker>Why Apex HR</SectionKicker>
-          <h2 className="mt-4 max-w-xl font-display text-h1 font-bold text-navy">
-            Six reasons growing employers choose Apex HR
-          </h2>
-          <Reveal>
+          <RevealHeading>
+            <SectionKicker>Why Apex HR</SectionKicker>
+            <h2 className="mt-4 max-w-xl font-display text-h1 font-bold text-navy">
+              Six reasons growing employers choose Apex HR
+            </h2>
+          </RevealHeading>
+          <StaggerContainer>
             <ol className="mt-10 list-none space-y-10">
               {valuePropositions.map((item, index) => (
-                <li key={item.id} className="flex gap-6">
+                <StaggerItem key={item.id} className="flex gap-6">
                   <span aria-hidden="true" className="font-display text-h2 font-bold text-navy/15">
                     {String(index + 1).padStart(2, "0")}
                   </span>
@@ -36,14 +41,14 @@ export function WhyApexSection() {
                     <h3 className="font-display text-h4 font-bold text-navy">{item.title}</h3>
                     <p className="mt-2 max-w-[45ch] text-body text-text-secondary">{item.detail}</p>
                   </div>
-                </li>
+                </StaggerItem>
               ))}
             </ol>
-          </Reveal>
+          </StaggerContainer>
         </div>
 
         <div className="relative lg:col-span-5">
-          <div className="relative aspect-4/5 w-full overflow-hidden rounded-md bg-surface-warm">
+          <SlideInRight className="relative aspect-4/5 w-full overflow-hidden rounded-md bg-surface-warm">
             <Image
               src="/images/why-apex-section.png"
               alt=""
@@ -51,15 +56,18 @@ export function WhyApexSection() {
               sizes="(min-width: 1024px) 40vw, 90vw"
               className="object-cover"
             />
-          </div>
+          </SlideInRight>
           {retentionStat && (
-            <div className="absolute right-4 bottom-4 w-[calc(100%-2rem)] max-w-72 rounded-md bg-surface-card p-6 shadow-(--shadow-modal) sm:right-6 sm:bottom-6 sm:w-72 lg:-right-6 lg:-bottom-6 lg:w-72">
+            <ScaleReveal
+              delay={0.3}
+              className="absolute right-4 bottom-4 w-[calc(100%-2rem)] max-w-72 rounded-md bg-surface-card p-6 shadow-(--shadow-modal) sm:right-6 sm:bottom-6 sm:w-72 lg:-right-6 lg:-bottom-6 lg:w-72"
+            >
               <p className="font-display text-h3 font-bold text-success">
                 {retentionStat.value}
                 <span>{retentionStat.suffix}</span>
               </p>
               <p className="mt-2 text-body text-text-secondary">{retentionStat.label}</p>
-            </div>
+            </ScaleReveal>
           )}
         </div>
       </div>

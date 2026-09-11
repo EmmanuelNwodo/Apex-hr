@@ -3,6 +3,7 @@ import { Logo } from "@/components/ui/logo";
 import { Container } from "@/components/layout/container";
 import { footerNavigation, primaryCta } from "@/config/navigation";
 import { LinkButton } from "@/components/ui/link-button";
+import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 import { siteConfig } from "@/config/site";
 
 function FooterColumn({
@@ -33,13 +34,18 @@ function FooterColumn({
   );
 }
 
-/** Global site footer per DESIGN.md section 13. */
+/**
+ * Global site footer per DESIGN.md section 13. The column grid uses the
+ * site-wide "Layered Rise and Reveal" on-scroll entrance system
+ * (src/components/motion/stagger.tsx): each column rises in with a subtle
+ * stagger as the footer scrolls into view, once, never re-triggering.
+ */
 export function SiteFooter() {
   return (
     <footer className="bg-surface-dark text-text-reversed">
       <Container size="wide" className="py-14 lg:py-20">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5">
-          <div className="sm:col-span-2 lg:col-span-2">
+        <StaggerContainer className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5">
+          <StaggerItem className="sm:col-span-2 lg:col-span-2">
             <Logo surface="dark" />
             <p className="mt-4 max-w-sm text-body text-white/80">
               A UK HR, recruitment and people-consulting partner for employers.
@@ -54,12 +60,18 @@ export function SiteFooter() {
             >
               {primaryCta.label}
             </LinkButton>
-          </div>
+          </StaggerItem>
 
-          <FooterColumn title="Employers" items={footerNavigation.employers} />
-          <FooterColumn title="Candidates" items={footerNavigation.candidates} />
-          <FooterColumn title="Company" items={footerNavigation.company} />
-        </div>
+          <StaggerItem>
+            <FooterColumn title="Employers" items={footerNavigation.employers} />
+          </StaggerItem>
+          <StaggerItem>
+            <FooterColumn title="Candidates" items={footerNavigation.candidates} />
+          </StaggerItem>
+          <StaggerItem>
+            <FooterColumn title="Company" items={footerNavigation.company} />
+          </StaggerItem>
+        </StaggerContainer>
 
         <div className="mt-14 border-t border-white/15 pt-8 text-small text-white/60">
           <p>

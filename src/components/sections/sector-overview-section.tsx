@@ -2,7 +2,8 @@ import { Section } from "@/components/layout/section";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
 import { SectorMarqueeRow } from "@/components/content/sector-marquee-row";
-import { Reveal } from "@/components/motion/reveal";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { ScaleReveal } from "@/components/motion/scale-reveal";
 import { featuredSectors } from "@/content/home";
 import { routes } from "@/config/routes";
 
@@ -15,7 +16,7 @@ const bottomRowSectors = featuredSectors.slice(midpoint);
 export function SectorOverviewSection() {
   return (
     <Section tone="warm" gutter="always">
-      <div className="flex flex-wrap items-end justify-between gap-6">
+      <RevealHeading className="flex flex-wrap items-end justify-between gap-6">
         <div>
           <SectionKicker>Sectors we serve</SectionKicker>
           <h2 className="mt-4 max-w-2xl font-display text-h2 font-bold text-navy">
@@ -25,11 +26,11 @@ export function SectorOverviewSection() {
         <LinkButton href={routes.sectors.path} variant="tertiary" surface="light">
           View all sectors
         </LinkButton>
-      </div>
-      <Reveal className="mt-10 space-y-4">
+      </RevealHeading>
+      <ScaleReveal delay={0.15} className="mt-10 space-y-4">
         <SectorMarqueeRow sectors={topRowSectors} direction="left" />
         <SectorMarqueeRow sectors={bottomRowSectors} direction="right" />
-      </Reveal>
+      </ScaleReveal>
     </Section>
   );
 }

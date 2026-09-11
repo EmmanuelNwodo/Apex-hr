@@ -5,6 +5,11 @@ import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
 import { FaqWithContactForm } from "@/components/content/faq-with-contact-form";
 import { SectorServiceExplorer } from "@/components/content/sector-service-explorer";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { FadeUp } from "@/components/motion/fade-up";
+import { SlideInLeft, SlideInRight } from "@/components/motion/slide-in";
+import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
+import { AnimatedSection } from "@/components/motion/animated-section";
 import { sectorIcons } from "@/lib/sector-icons";
 import { routes } from "@/config/routes";
 import type { RouteRecord } from "@/types/route";
@@ -37,6 +42,13 @@ interface SectorPageTemplateProps {
  * Each section is a full-width band with no side margin (per later user
  * instruction; previously a single rounded cream "page shell" card inset
  * from the browser edges).
+ *
+ * Every section below uses the site-wide "Layered Rise and Reveal"
+ * on-scroll entrance system (src/components/motion/*): headings rise via
+ * RevealHeading, supporting copy via FadeUp, card/list grids stagger via
+ * StaggerContainer/StaggerItem, and side imagery/decorative panels slide
+ * in from their own side. Nothing here changes layout, copy, colour or
+ * functionality — only how each block enters as a visitor scrolls to it.
  */
 export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPageTemplateProps) {
   const Icon = sectorIcons[sector.slug];
@@ -50,26 +62,28 @@ export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPag
       <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.06fr_0.94fr]">
             <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
               <Breadcrumbs trail={breadcrumbTrail} tone="dark" />
-              <div>
+              <RevealHeading>
                 <SectionKicker tone="dark">Sector expertise</SectionKicker>
                 <h1 className="mt-4 max-w-xl font-display text-display font-bold text-white">{`HR Company for ${title} in the UK`}</h1>
                 <p className="mt-3 max-w-xl font-display text-h3 font-bold text-gold">{sector.tagline}</p>
-              </div>
-              <p className="max-w-lg text-lead text-white/70">{sector.overview}</p>
-              <div className="flex flex-wrap items-center gap-4">
-                <LinkButton href={routes.contact.path} variant="primary" surface="dark">
-                  Discuss your workforce
-                  <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-                </LinkButton>
-                {relatedServices.length > 0 && (
-                  <LinkButton href="#help" variant="secondary" surface="dark">
-                    See how we help
+              </RevealHeading>
+              <FadeUp delay={0.15} className="flex flex-col gap-6">
+                <p className="max-w-lg text-lead text-white/70">{sector.overview}</p>
+                <div className="flex flex-wrap items-center gap-4">
+                  <LinkButton href={routes.contact.path} variant="primary" surface="dark">
+                    Discuss your workforce
+                    <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
                   </LinkButton>
-                )}
-              </div>
+                  {relatedServices.length > 0 && (
+                    <LinkButton href="#help" variant="secondary" surface="dark">
+                      See how we help
+                    </LinkButton>
+                  )}
+                </div>
+              </FadeUp>
             </div>
 
-            <div className="relative flex flex-col items-center justify-center gap-8 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
+            <SlideInRight className="relative flex flex-col items-center justify-center gap-8 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
               <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center">
                 <span className="absolute h-72 w-72 rounded-full border border-white/10" />
                 <span className="absolute h-44 w-44 rounded-full border border-white/10" />
@@ -92,11 +106,11 @@ export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPag
                   People strategy built for {title.toLowerCase()}
                 </p>
               </div>
-            </div>
+            </SlideInRight>
           </header>
 
           <section className="p-8 sm:p-10 lg:p-14">
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-end">
+            <RevealHeading className="grid grid-cols-1 gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-end">
               <div>
                 <SectionKicker tone="light">Common workforce challenges</SectionKicker>
                 <h2 className="mt-4 max-w-md font-display text-h1 font-bold text-navy">
@@ -107,11 +121,11 @@ export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPag
                 Sector context shapes which HR and recruitment priorities matter most —
                 here&apos;s where Apex HR most often helps {title.toLowerCase()} employers.
               </p>
-            </div>
+            </RevealHeading>
 
-            <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-border-subtle bg-border-subtle sm:grid-cols-2">
+            <StaggerContainer className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-border-subtle bg-border-subtle sm:grid-cols-2">
               {sector.challenges.map((challenge, index) => (
-                <div key={challenge} className="flex flex-col gap-4 bg-surface-card p-7">
+                <StaggerItem key={challenge} className="flex flex-col gap-4 bg-surface-card p-7">
                   <div className="flex items-center justify-between">
                     {Icon && (
                       <span className="grid h-11 w-11 place-items-center rounded-full bg-success/10 text-success">
@@ -123,13 +137,13 @@ export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPag
                     </span>
                   </div>
                   <p className="text-body-lg text-navy">{challenge}</p>
-                </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </section>
 
           <section className="grid grid-cols-1 bg-navy lg:grid-cols-2">
-            <div className="relative min-h-64 overflow-hidden bg-linear-to-br from-navy via-slate to-gold/40 p-8 sm:p-10 lg:min-h-full lg:p-12">
+            <SlideInLeft className="relative min-h-64 overflow-hidden bg-linear-to-br from-navy via-slate to-gold/40 p-8 sm:p-10 lg:min-h-full lg:p-12">
               <div className="flex h-full items-end">
                 <div className="w-full rounded-md border border-white/20 bg-navy/70 p-5 backdrop-blur-sm">
                   <p className="font-display text-h4 font-bold text-white">
@@ -140,19 +154,23 @@ export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPag
                   </p>
                 </div>
               </div>
-            </div>
+            </SlideInLeft>
             <div className="flex flex-col justify-center gap-4 p-8 sm:p-10 lg:p-14">
-              <SectionKicker tone="dark">Recruitment considerations</SectionKicker>
-              <h2 className="max-w-lg font-display text-h1 font-bold text-white">
-                More than matching a CV to a vacancy
-              </h2>
-              <p className="max-w-lg text-body text-white/70">{sector.recruitmentConsiderations}</p>
+              <RevealHeading>
+                <SectionKicker tone="dark">Recruitment considerations</SectionKicker>
+                <h2 className="max-w-lg font-display text-h1 font-bold text-white">
+                  More than matching a CV to a vacancy
+                </h2>
+              </RevealHeading>
+              <FadeUp delay={0.15}>
+                <p className="max-w-lg text-body text-white/70">{sector.recruitmentConsiderations}</p>
+              </FadeUp>
             </div>
           </section>
 
           {relatedServices.length > 0 && (
             <section id="help" className="p-8 sm:p-10 lg:p-14">
-              <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-end">
+              <RevealHeading className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-end">
                 <div>
                   <SectionKicker tone="light">How Apex HR can help</SectionKicker>
                   <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-navy">
@@ -160,41 +178,46 @@ export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPag
                   </h2>
                 </div>
                 <p className="text-body text-text-secondary">{sector.howApexHelps}</p>
-              </div>
+              </RevealHeading>
 
-              <div className="mt-10">
+              <AnimatedSection delay={0.1} className="mt-10">
                 <SectorServiceExplorer services={relatedServices} />
-              </div>
+              </AnimatedSection>
             </section>
           )}
 
           {relatedRoles.length > 0 && (
             <section className="bg-navy p-8 sm:p-10 lg:p-14">
-              <SectionKicker tone="dark">Relevant talent needs</SectionKicker>
-              <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-white">
-                Roles that keep {title.toLowerCase()} moving
-              </h2>
-              <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <RevealHeading>
+                <SectionKicker tone="dark">Relevant talent needs</SectionKicker>
+                <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-white">
+                  Roles that keep {title.toLowerCase()} moving
+                </h2>
+              </RevealHeading>
+              <StaggerContainer className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {relatedRoles.slice(0, 6).map((role) => (
-                  <Link
-                    key={role.slug}
-                    href={`/talent-acquisition/${role.slug}/`}
-                    className="flex items-center justify-between gap-4 rounded-md border border-white/15 bg-white/5 px-5 py-4 text-body font-semibold text-white transition-colors duration-(--duration-fast) hover:border-gold hover:bg-white/10"
-                  >
-                    {role.title}
-                    <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0" />
-                  </Link>
+                  <StaggerItem key={role.slug}>
+                    <Link
+                      href={`/talent-acquisition/${role.slug}/`}
+                      className="flex items-center justify-between gap-4 rounded-md border border-white/15 bg-white/5 px-5 py-4 text-body font-semibold text-white transition-colors duration-(--duration-fast) hover:border-gold hover:bg-white/10"
+                    >
+                      {role.title}
+                      <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0" />
+                    </Link>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerContainer>
             </section>
           )}
 
           {sector.faqs.length > 0 && (
             <section className="bg-surface-card p-8 sm:p-10 lg:p-14">
-              <SectionKicker tone="light">Frequently asked questions</SectionKicker>
-              <h2 className="mt-4 max-w-2xl font-display text-h2 font-bold text-navy">
-                Questions {title.toLowerCase()} employers ask
-              </h2>
+              <RevealHeading>
+                <SectionKicker tone="light">Frequently asked questions</SectionKicker>
+                <h2 className="mt-4 max-w-2xl font-display text-h2 font-bold text-navy">
+                  Questions {title.toLowerCase()} employers ask
+                </h2>
+              </RevealHeading>
               <div className="mt-10">
                 <FaqWithContactForm items={sector.faqs} />
               </div>
@@ -202,7 +225,7 @@ export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPag
           )}
 
       <div className="flex flex-col gap-6 bg-gold p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-14">
-        <div>
+        <RevealHeading>
           <h3 className="font-display text-h2 font-bold text-navy">
             Hiring or strengthening HR in {title.toLowerCase()}?
           </h3>
@@ -210,16 +233,17 @@ export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPag
             Tell us what&apos;s changing in your workforce. Apex HR can connect the right
             recruitment, reward and HR advisory support around your priorities.
           </p>
-        </div>
-        <LinkButton
-          href={routes.findTalent.path}
-          variant="primary"
-          surface="light"
-          className="shrink-0"
-          data-analytics-id={`sector-cta-${sector.slug}`}
-        >
-          {routes.findTalent.label}
-        </LinkButton>
+        </RevealHeading>
+        <FadeUp delay={0.15} className="shrink-0">
+          <LinkButton
+            href={routes.findTalent.path}
+            variant="primary"
+            surface="light"
+            data-analytics-id={`sector-cta-${sector.slug}`}
+          >
+            {routes.findTalent.label}
+          </LinkButton>
+        </FadeUp>
       </div>
     </div>
   );

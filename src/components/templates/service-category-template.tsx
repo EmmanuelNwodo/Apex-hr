@@ -3,7 +3,11 @@ import { ArrowRight, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
-import { Reveal } from "@/components/motion/reveal";
+import { AnimatedSection } from "@/components/motion/animated-section";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { FadeUp } from "@/components/motion/fade-up";
+import { SlideInRight } from "@/components/motion/slide-in";
+import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 import { CategoryServiceExplorer } from "@/components/content/category-service-explorer";
 import { FaqWithContactForm } from "@/components/content/faq-with-contact-form";
 import { serviceCategoryIcons } from "@/lib/service-category-icons";
@@ -37,6 +41,13 @@ interface ServiceCategoryTemplateProps {
  * band with no side margin. The hero's decorative visual uses real data
  * (this family's own child-service names and count) rather than fabricated
  * example labels.
+ *
+ * Every section below uses the site-wide "Layered Rise and Reveal"
+ * on-scroll entrance system (src/components/motion/*): headings rise via
+ * RevealHeading, supporting copy via FadeUp, card/list grids stagger via
+ * StaggerContainer/StaggerItem, and the hero's decorative panel slides in
+ * from the right. Nothing here changes layout, copy, colour or
+ * functionality — only how each block enters as a visitor scrolls to it.
  */
 export function ServiceCategoryTemplate({
   title,
@@ -54,7 +65,7 @@ export function ServiceCategoryTemplate({
       <header className="grid grid-cols-1 overflow-hidden bg-navy lg:grid-cols-[1.08fr_0.92fr]">
         <div className="flex flex-col justify-center gap-6 p-8 sm:p-10 lg:p-16">
           <Breadcrumbs trail={breadcrumbTrail} tone="dark" />
-          <div>
+          <RevealHeading>
             <SectionKicker tone="dark">Service family</SectionKicker>
             <h1 className="mt-4 max-w-xl font-display text-display font-bold text-white">
               {title} Firm in the UK
@@ -62,20 +73,22 @@ export function ServiceCategoryTemplate({
             <p className="mt-3 max-w-xl font-display text-h4 font-semibold text-gold">
               {category.tagline}
             </p>
-          </div>
-          <p className="max-w-lg text-lead text-white/70">{category.summary}</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <LinkButton href={routes.contact.path} variant="primary" surface="dark">
-              Discuss your needs
-              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-            </LinkButton>
-            <LinkButton href="#services-in-family" variant="secondary" surface="dark">
-              Explore this service family
-            </LinkButton>
-          </div>
+          </RevealHeading>
+          <FadeUp delay={0.15} className="flex flex-col gap-6">
+            <p className="max-w-lg text-lead text-white/70">{category.summary}</p>
+            <div className="flex flex-wrap items-center gap-4">
+              <LinkButton href={routes.contact.path} variant="primary" surface="dark">
+                Discuss your needs
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </LinkButton>
+              <LinkButton href="#services-in-family" variant="secondary" surface="dark">
+                Explore this service family
+              </LinkButton>
+            </div>
+          </FadeUp>
         </div>
 
-        <div className="relative flex flex-col items-center justify-center gap-8 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
+        <SlideInRight className="relative flex flex-col items-center justify-center gap-8 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center">
             <span className="absolute h-72 w-72 rounded-full border border-white/10" />
             <span className="absolute h-44 w-44 rounded-full border border-white/10" />
@@ -99,7 +112,7 @@ export function ServiceCategoryTemplate({
               connected services in this family
             </p>
           </div>
-        </div>
+        </SlideInRight>
       </header>
 
       <div className="flex flex-col gap-3 border-b border-border-subtle bg-surface-card px-8 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-10 lg:px-14">
@@ -133,15 +146,19 @@ export function ServiceCategoryTemplate({
         className="grid grid-cols-1 gap-10 p-8 sm:p-10 lg:grid-cols-[0.82fr_1.18fr] lg:p-14"
       >
         <div>
-          <SectionKicker tone="light">Where we help</SectionKicker>
-          <h2 className="mt-4 max-w-md font-display text-h1 font-bold text-navy">
-            {title}
-          </h2>
-          <p className="mt-4 max-w-md text-body text-text-secondary">{category.introduction}</p>
+          <RevealHeading>
+            <SectionKicker tone="light">Where we help</SectionKicker>
+            <h2 className="mt-4 max-w-md font-display text-h1 font-bold text-navy">
+              {title}
+            </h2>
+          </RevealHeading>
+          <FadeUp delay={0.15}>
+            <p className="mt-4 max-w-md text-body text-text-secondary">{category.introduction}</p>
+          </FadeUp>
         </div>
-        <div className="flex flex-col">
+        <StaggerContainer className="flex flex-col">
           {category.challenges.map((challenge, index) => (
-            <div
+            <StaggerItem
               key={challenge.title}
               className="grid grid-cols-[auto_1fr] gap-4 border-b border-border-subtle py-6 first:border-t"
             >
@@ -152,13 +169,13 @@ export function ServiceCategoryTemplate({
                 <h3 className="font-display text-h4 font-bold text-navy">{challenge.title}</h3>
                 <p className="mt-1 text-body text-text-secondary">{challenge.detail}</p>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </section>
 
       <section id="services-in-family" className="bg-navy px-8 py-16 sm:px-10 lg:px-14 lg:py-20">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-end lg:gap-14">
+        <RevealHeading className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-end lg:gap-14">
           <div>
             <SectionKicker tone="dark">Services in this family</SectionKicker>
             <h2 className="mt-4 max-w-md font-display text-h1 font-bold text-white">
@@ -166,55 +183,62 @@ export function ServiceCategoryTemplate({
             </h2>
           </div>
           <p className="text-body text-white/70">{category.differentiation}</p>
-        </div>
+        </RevealHeading>
 
-        <div data-testid="child-service-grid" className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerContainer data-testid="child-service-grid" className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {childServices.map((service) => {
             const content = serviceContent.find((entry) => entry.slug === service.slug);
             return (
-              <Link
-                key={service.slug}
-                href={`/services/${service.slug}/`}
-                className="group flex flex-col gap-3 rounded-md border border-white/15 bg-white/5 p-6 transition-colors duration-(--duration-fast) hover:border-gold hover:bg-white/8"
-              >
-                <span className="flex items-start justify-between gap-3">
-                  <span className="font-display text-h4 font-bold text-white">{service.title}</span>
-                  <ArrowUpRight
-                    aria-hidden="true"
-                    className="h-5 w-5 shrink-0 text-white/50 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-gold"
-                  />
-                </span>
-                {content && <span className="text-body text-white/70">{content.heroSummary}</span>}
-              </Link>
+              <StaggerItem key={service.slug}>
+                <Link
+                  href={`/services/${service.slug}/`}
+                  className="group flex flex-col gap-3 rounded-md border border-white/15 bg-white/5 p-6 transition-colors duration-(--duration-fast) hover:border-gold hover:bg-white/8"
+                >
+                  <span className="flex items-start justify-between gap-3">
+                    <span className="font-display text-h4 font-bold text-white">{service.title}</span>
+                    <ArrowUpRight
+                      aria-hidden="true"
+                      className="h-5 w-5 shrink-0 text-white/50 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-gold"
+                    />
+                  </span>
+                  {content && <span className="text-body text-white/70">{content.heroSummary}</span>}
+                </Link>
+              </StaggerItem>
             );
           })}
-        </div>
+        </StaggerContainer>
 
         <div className="mt-14">
-          <SectionKicker tone="dark">Explore a service in detail</SectionKicker>
-          <h3 className="mt-4 max-w-md font-display text-h3 font-bold text-white">
-            See what a specific service includes
-          </h3>
-          <Reveal className="mt-8">
+          <RevealHeading>
+            <SectionKicker tone="dark">Explore a service in detail</SectionKicker>
+            <h3 className="mt-4 max-w-md font-display text-h3 font-bold text-white">
+              See what a specific service includes
+            </h3>
+          </RevealHeading>
+          <AnimatedSection delay={0.1} className="mt-8">
             <CategoryServiceExplorer categorySlug={category.slug} services={childServices} />
-          </Reveal>
+          </AnimatedSection>
         </div>
       </section>
 
       <section id="approach" className="grid grid-cols-1 gap-10 bg-surface-card p-8 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:p-14">
         <div>
-          <SectionKicker tone="light">How we work</SectionKicker>
-          <h2 className="mt-4 max-w-md font-display text-h1 font-bold text-navy">
-            Structured enough to guide, flexible enough to fit
-          </h2>
-          <p className="mt-4 max-w-md text-body text-text-secondary">
-            Every engagement is shaped around your organisation&apos;s context, pace and
-            internal capability.
-          </p>
+          <RevealHeading>
+            <SectionKicker tone="light">How we work</SectionKicker>
+            <h2 className="mt-4 max-w-md font-display text-h1 font-bold text-navy">
+              Structured enough to guide, flexible enough to fit
+            </h2>
+          </RevealHeading>
+          <FadeUp delay={0.15}>
+            <p className="mt-4 max-w-md text-body text-text-secondary">
+              Every engagement is shaped around your organisation&apos;s context, pace and
+              internal capability.
+            </p>
+          </FadeUp>
         </div>
-        <div className="flex flex-col">
+        <StaggerContainer className="flex flex-col">
           {category.approach.map((step, index) => (
-            <div
+            <StaggerItem
               key={step.title}
               className="grid grid-cols-[auto_1fr] gap-4 border-b border-border-subtle py-6 first:border-t"
             >
@@ -225,62 +249,73 @@ export function ServiceCategoryTemplate({
                 <h3 className="font-display text-h4 font-bold text-navy">{step.title}</h3>
                 <p className="mt-1 text-body text-text-secondary">{step.detail}</p>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </section>
 
       <section id="outcomes" className="grid grid-cols-1 gap-10 p-8 sm:p-10 lg:grid-cols-[0.7fr_1.3fr] lg:p-14">
         <div>
-          <SectionKicker tone="light">Potential outcomes</SectionKicker>
-          <h2 className="mt-4 max-w-md font-display text-h1 font-bold text-navy">
-            What this can help your organisation achieve
-          </h2>
-          <p className="mt-4 max-w-md text-body text-text-secondary">
-            Outcomes depend on your organisation&apos;s starting point and circumstances —
-            this is what the work is designed to support, not a guaranteed result.
-          </p>
+          <RevealHeading>
+            <SectionKicker tone="light">Potential outcomes</SectionKicker>
+            <h2 className="mt-4 max-w-md font-display text-h1 font-bold text-navy">
+              What this can help your organisation achieve
+            </h2>
+          </RevealHeading>
+          <FadeUp delay={0.15}>
+            <p className="mt-4 max-w-md text-body text-text-secondary">
+              Outcomes depend on your organisation&apos;s starting point and circumstances —
+              this is what the work is designed to support, not a guaranteed result.
+            </p>
+          </FadeUp>
         </div>
-        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {category.outcomes.map((outcome) => (
-            <li key={outcome} className="flex items-start gap-3 rounded-md border border-border-subtle bg-surface-card p-5 text-body text-navy">
-              <CheckCircle2 aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold-ink" />
-              {outcome}
-            </li>
-          ))}
-        </ul>
+        <StaggerContainer>
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {category.outcomes.map((outcome) => (
+              <StaggerItem key={outcome} as="li" className="flex items-start gap-3 rounded-md border border-border-subtle bg-surface-card p-5 text-body text-navy">
+                <CheckCircle2 aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold-ink" />
+                {outcome}
+              </StaggerItem>
+            ))}
+          </ul>
+        </StaggerContainer>
       </section>
 
       {relatedFamilies.length > 0 && (
         <section className="bg-surface-warm p-8 sm:p-10 lg:p-14">
-          <SectionKicker tone="light">Related service families</SectionKicker>
-          <h2 className="mt-4 max-w-lg font-display text-h2 font-bold text-navy">
-            Other support that may also be relevant
-          </h2>
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <RevealHeading>
+            <SectionKicker tone="light">Related service families</SectionKicker>
+            <h2 className="mt-4 max-w-lg font-display text-h2 font-bold text-navy">
+              Other support that may also be relevant
+            </h2>
+          </RevealHeading>
+          <StaggerContainer className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
             {relatedFamilies.map((family) => (
-              <Link
-                key={family.slug}
-                href={`/services/${family.slug}/`}
-                className="group flex items-center justify-between gap-4 rounded-md border border-border-subtle bg-surface-card p-6 transition-colors duration-(--duration-fast) hover:border-navy"
-              >
-                <span className="font-display text-body-lg font-bold text-navy">{family.title}</span>
-                <ArrowRight
-                  aria-hidden="true"
-                  className="h-4 w-4 shrink-0 text-text-secondary transition-transform group-hover:translate-x-1"
-                />
-              </Link>
+              <StaggerItem key={family.slug}>
+                <Link
+                  href={`/services/${family.slug}/`}
+                  className="group flex items-center justify-between gap-4 rounded-md border border-border-subtle bg-surface-card p-6 transition-colors duration-(--duration-fast) hover:border-navy"
+                >
+                  <span className="font-display text-body-lg font-bold text-navy">{family.title}</span>
+                  <ArrowRight
+                    aria-hidden="true"
+                    className="h-4 w-4 shrink-0 text-text-secondary transition-transform group-hover:translate-x-1"
+                  />
+                </Link>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </section>
       )}
 
       {category.faqs.length > 0 && (
         <section id="faqs" className="bg-surface-card p-8 sm:p-10 lg:p-14">
-          <SectionKicker tone="light">Frequently asked questions</SectionKicker>
-          <h2 className="mt-4 max-w-2xl font-display text-h2 font-bold text-navy">
-            Questions about {title.toLowerCase()}
-          </h2>
+          <RevealHeading>
+            <SectionKicker tone="light">Frequently asked questions</SectionKicker>
+            <h2 className="mt-4 max-w-2xl font-display text-h2 font-bold text-navy">
+              Questions about {title.toLowerCase()}
+            </h2>
+          </RevealHeading>
           <div className="mt-10">
             <FaqWithContactForm items={category.faqs} />
           </div>
@@ -288,7 +323,7 @@ export function ServiceCategoryTemplate({
       )}
 
       <div className="flex flex-col gap-6 bg-gold p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-14">
-        <div>
+        <RevealHeading>
           <h3 className="font-display text-h2 font-bold text-navy">
             Ready to talk about {title.toLowerCase()}?
           </h3>
@@ -296,10 +331,12 @@ export function ServiceCategoryTemplate({
             Tell us what&apos;s happening in your organisation, and we&apos;ll help you find
             the right way in.
           </p>
-        </div>
-        <LinkButton href={routes.contact.path} variant="primary" surface="light" className="shrink-0">
-          Start a conversation
-        </LinkButton>
+        </RevealHeading>
+        <FadeUp delay={0.15} className="shrink-0">
+          <LinkButton href={routes.contact.path} variant="primary" surface="light">
+            Start a conversation
+          </LinkButton>
+        </FadeUp>
       </div>
 
       <div className="flex flex-wrap gap-4 bg-surface-page px-8 py-10 sm:px-10 lg:px-14">

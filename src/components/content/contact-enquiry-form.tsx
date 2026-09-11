@@ -4,6 +4,7 @@ import { useState, type ChangeEvent, type FormEvent } from "react";
 import { Send } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 
 const MAX_CV_SIZE_BYTES = 10 * 1024 * 1024;
 const ACCEPTED_CV_EXTENSIONS = [".pdf", ".doc", ".docx"];
@@ -64,6 +65,13 @@ const inputClasses =
  * themselves before sending, once a real upload pipeline (CLAUDE.md
  * section 13/20 — private storage, signed URLs, server-side validation)
  * exists.
+ *
+ * The form's fields reveal progressively from top to bottom on first
+ * scroll into view (StaggerContainer/StaggerItem, site-wide "Layered Rise
+ * and Reveal" system) — purely a one-time entrance. Fields that appear
+ * later from user interaction (switching purpose, e.g. the CV upload
+ * field) render immediately visible rather than re-playing that entrance,
+ * since they're a direct response to a click, not a scroll event.
  */
 export function ContactEnquiryForm() {
   const [purposeId, setPurposeId] = useState<PurposeId>("hiring");
@@ -151,8 +159,9 @@ export function ContactEnquiryForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-6 rounded-md border border-border-subtle bg-surface-card p-6 sm:p-8">
-      <fieldset className="flex flex-col gap-3">
+    <form onSubmit={handleSubmit} className="rounded-md border border-border-subtle bg-surface-card p-6 sm:p-8">
+      <StaggerContainer className="flex flex-col gap-6">
+      <StaggerItem as="fieldset" className="flex flex-col gap-3">
         <legend className="text-body-lg font-semibold text-navy">I&apos;m contacting Apex HR because&hellip;</legend>
         <div role="group" aria-label="Reason for enquiry" className="flex flex-wrap gap-2">
           {purposeOptions.map((option) => {
@@ -175,9 +184,9 @@ export function ContactEnquiryForm() {
             );
           })}
         </div>
-      </fieldset>
+      </StaggerItem>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <StaggerItem as="div" className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
           <label htmlFor="contact-name" className="text-small font-semibold text-navy">
             Your name
@@ -297,20 +306,25 @@ export function ContactEnquiryForm() {
             className={cn(inputClasses, "resize-y")}
           />
         </div>
-      </div>
+      </StaggerItem>
 
-      <label className="flex items-start gap-3 text-small text-text-secondary">
-        <input type="checkbox" required className="mt-1 h-4 w-4 shrink-0 accent-navy" />
-        <span>I agree that Apex HR may use these details to respond to my enquiry in line with its privacy policy.</span>
-      </label>
+      <StaggerItem as="div">
+        <label className="flex items-start gap-3 text-small text-text-secondary">
+          <input type="checkbox" required className="mt-1 h-4 w-4 shrink-0 accent-navy" />
+          <span>I agree that Apex HR may use these details to respond to my enquiry in line with its privacy policy.</span>
+        </label>
+      </StaggerItem>
 
-      <button
-        type="submit"
-        className="inline-flex w-fit items-center gap-2 rounded-full bg-gold px-6 py-3 text-body font-bold text-navy transition-transform duration-(--duration-fast) hover:scale-[1.02]"
-      >
-        Send my enquiry
-        <Send aria-hidden="true" className="h-4 w-4" />
-      </button>
+      <StaggerItem as="div">
+        <button
+          type="submit"
+          className="inline-flex w-fit items-center gap-2 rounded-full bg-gold px-6 py-3 text-body font-bold text-navy transition-transform duration-(--duration-fast) hover:scale-[1.02]"
+        >
+          Send my enquiry
+          <Send aria-hidden="true" className="h-4 w-4" />
+        </button>
+      </StaggerItem>
+      </StaggerContainer>
 
       <div aria-live="polite" className="min-h-6 text-small text-text-secondary">
         {status}

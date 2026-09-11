@@ -3,7 +3,8 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { EmptyEditorialState } from "@/components/content/empty-editorial-state";
 import { CaseStudyCard } from "@/components/content/case-study-card";
 import { LinkButton } from "@/components/ui/link-button";
-import { Reveal } from "@/components/motion/reveal";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 import { caseStudyPreviews } from "@/content/home";
 import { routes } from "@/config/routes";
 
@@ -22,25 +23,27 @@ export function CaseStudiesSection() {
 
   return (
     <Section tone="page" gutter="always">
-      <div className="flex flex-wrap items-end justify-between gap-6">
+      <RevealHeading className="flex flex-wrap items-end justify-between gap-6">
         <SectionHeading kicker="Case studies" title="Results for the employers we work with" />
         {canLinkToHub && (
           <LinkButton href={routes.caseStudies.path} variant="tertiary" surface="light">
             View all case studies
           </LinkButton>
         )}
-      </div>
-      <Reveal className="mt-8">
+      </RevealHeading>
+      <div className="mt-8">
         {caseStudyPreviews.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <StaggerContainer className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {caseStudyPreviews.map((caseStudy) => (
-              <CaseStudyCard key={caseStudy.id} caseStudy={caseStudy} />
+              <StaggerItem key={caseStudy.id}>
+                <CaseStudyCard caseStudy={caseStudy} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         ) : (
           <EmptyEditorialState message="Verified case studies with approved evidence will appear here once published." />
         )}
-      </Reveal>
+      </div>
     </Section>
   );
 }

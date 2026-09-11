@@ -2,7 +2,8 @@ import { Section } from "@/components/layout/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { LinkButton } from "@/components/ui/link-button";
 import { ServiceMarqueeRow } from "@/components/content/service-marquee-row";
-import { Reveal } from "@/components/motion/reveal";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { ScaleReveal } from "@/components/motion/scale-reveal";
 import { featuredServiceGroups } from "@/content/home";
 import { routes } from "@/config/routes";
 
@@ -10,16 +11,16 @@ import { routes } from "@/config/routes";
 export function ServicesOverviewSection() {
   return (
     <Section tone="card" gutter="always">
-      <div className="flex flex-wrap items-end justify-between gap-6">
+      <RevealHeading className="flex flex-wrap items-end justify-between gap-6">
         <SectionHeading kicker="HR services" title="Support across the full HR lifecycle" />
         <LinkButton href={routes.services.path} variant="tertiary" surface="light">
           View all services
         </LinkButton>
-      </div>
+      </RevealHeading>
 
-      <Reveal className="mt-10">
+      <ScaleReveal delay={0.15} className="mt-10">
         <ServiceMarqueeRow services={featuredServiceGroups} direction="left" />
-      </Reveal>
+      </ScaleReveal>
     </Section>
   );
 }
