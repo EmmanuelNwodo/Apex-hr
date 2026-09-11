@@ -1,5 +1,6 @@
 import { Section } from "@/components/layout/section";
 import { EmployerChallengeNavigator } from "@/components/content/employer-challenge-navigator";
+import { Reveal } from "@/components/motion/reveal";
 import { employerProblems } from "@/content/home";
 
 interface EmployerProblemsSectionProps {
@@ -28,7 +29,9 @@ interface EmployerProblemsSectionProps {
 export function EmployerProblemsSection({ transparent = false }: EmployerProblemsSectionProps) {
   return (
     <Section tone="dark" className={transparent ? "bg-transparent" : undefined}>
-      <EmployerChallengeNavigator problems={employerProblems} />
+      <Reveal>
+        <EmployerChallengeNavigator problems={employerProblems} />
+      </Reveal>
     </Section>
   );
 }

@@ -12,12 +12,12 @@ import type { CtaConfig, NavItem } from "@/types/navigation";
 // Restores automatically the moment that route is approved indexable —
 // nothing else about the route (status, sitemap inclusion) is affected.
 export const primaryNavigation: NavItem[] = [
+  { route: routes.about },
   { route: routes.services },
   { route: routes.sectors },
   { route: routes.forEmployers },
   { route: routes.forCandidates },
   ...(routes.insights.readyToIndex ? [{ route: routes.insights }] : []),
-  { route: routes.about },
 ];
 
 export const utilityNavigation: NavItem[] = [{ route: routes.contact }];

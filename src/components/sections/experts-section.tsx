@@ -3,6 +3,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { EmptyEditorialState } from "@/components/content/empty-editorial-state";
 import { ExpertCard } from "@/components/content/expert-card";
 import { LinkButton } from "@/components/ui/link-button";
+import { Reveal } from "@/components/motion/reveal";
 import { expertPreviews } from "@/content/home";
 import { routes } from "@/config/routes";
 
@@ -20,7 +21,7 @@ export function ExpertsSection() {
           Meet the team
         </LinkButton>
       </div>
-      <div className="mt-8">
+      <Reveal className="mt-8">
         {expertPreviews.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {expertPreviews.map((expert) => (
@@ -30,7 +31,7 @@ export function ExpertsSection() {
         ) : (
           <EmptyEditorialState message="Approved practitioner profiles will appear here once confirmed." />
         )}
-      </div>
+      </Reveal>
     </Section>
   );
 }

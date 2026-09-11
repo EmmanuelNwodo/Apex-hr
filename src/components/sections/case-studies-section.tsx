@@ -3,6 +3,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { EmptyEditorialState } from "@/components/content/empty-editorial-state";
 import { CaseStudyCard } from "@/components/content/case-study-card";
 import { LinkButton } from "@/components/ui/link-button";
+import { Reveal } from "@/components/motion/reveal";
 import { caseStudyPreviews } from "@/content/home";
 import { routes } from "@/config/routes";
 
@@ -29,7 +30,7 @@ export function CaseStudiesSection() {
           </LinkButton>
         )}
       </div>
-      <div className="mt-8">
+      <Reveal className="mt-8">
         {caseStudyPreviews.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {caseStudyPreviews.map((caseStudy) => (
@@ -39,7 +40,7 @@ export function CaseStudiesSection() {
         ) : (
           <EmptyEditorialState message="Verified case studies with approved evidence will appear here once published." />
         )}
-      </div>
+      </Reveal>
     </Section>
   );
 }

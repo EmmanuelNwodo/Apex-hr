@@ -1,6 +1,7 @@
 import { Section } from "@/components/layout/section";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { PartnerLogoMarqueeRow } from "@/components/content/partner-logo-marquee-row";
+import { Reveal } from "@/components/motion/reveal";
 import { partnerBrands } from "@/content/home";
 
 /**
@@ -13,9 +14,9 @@ export function PartnerBrandsSection() {
   return (
     <Section tone="page" gutter="always">
       <SectionKicker>Trusted by</SectionKicker>
-      <div className="mt-10">
+      <Reveal className="mt-10">
         <PartnerLogoMarqueeRow brands={partnerBrands} direction="left" />
-      </div>
+      </Reveal>
     </Section>
   );
 }

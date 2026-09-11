@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Section } from "@/components/layout/section";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
+import { Reveal } from "@/components/motion/reveal";
 import { candidateGateway } from "@/content/home";
 
 /**
@@ -19,7 +20,7 @@ export function CandidateGatewaySection() {
 
   return (
     <Section tone="warm" gutter="always">
-      <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
+      <Reveal className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-6">
           <SectionKicker>{candidateGateway.kicker}</SectionKicker>
           <h2 className="mt-4 max-w-lg font-display text-h1 font-bold text-navy">
@@ -63,7 +64,7 @@ export function CandidateGatewaySection() {
             />
           </div>
         </div>
-      </div>
+      </Reveal>
     </Section>
   );
 }
