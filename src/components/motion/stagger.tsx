@@ -14,8 +14,15 @@ import {
 interface StaggerContainerProps {
   children: ReactNode;
   className?: string;
-  /** Fraction of the container that must be in the viewport before it triggers (default 20%). */
-  amount?: number;
+  /**
+   * Viewport root margin controlling when the stagger triggers, as a
+   * fraction of the *viewport's own* height — see Entrance's doc comment
+   * on the same param for why this is margin-based rather than a
+   * target-relative amount (a target-relative 20% threshold is
+   * unreachable for any grid/list taller than 5x the viewport, a real bug
+   * found on this site).
+   */
+  triggerMargin?: number;
   /** Element to render as, when the default `div` would be invalid in context or a landmark tag is wanted. Defaults to `div`. */
   as?: EntranceElement;
   "aria-label"?: string;
@@ -36,7 +43,7 @@ interface StaggerContainerProps {
 export function StaggerContainer({
   children,
   className,
-  amount = 0.2,
+  triggerMargin = -0.2,
   as = "div",
   "aria-label": ariaLabel,
   id,
@@ -63,7 +70,7 @@ export function StaggerContainer({
       data-testid={dataTestId}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount }}
+      viewport={{ once: true, margin: `0px 0px ${Math.round(triggerMargin * 100)}% 0px` }}
       variants={staggerContainerVariants}
     >
       {children}

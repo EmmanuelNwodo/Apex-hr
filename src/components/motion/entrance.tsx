@@ -13,8 +13,19 @@ export interface EntranceProps {
   className?: string;
   /** Extra delay in seconds, layered on top of the variant's own transition — used to sequence e.g. a paragraph just after its heading. */
   delay?: number;
-  /** Fraction of the element that must be in the viewport before it triggers (site default: 20%). */
-  amount?: number;
+  /**
+   * Viewport root margin controlling when the entrance triggers, as a
+   * fraction of the *viewport's own* height (not the target element's) —
+   * e.g. -0.2 triggers once the element has scrolled roughly 20% of the
+   * viewport height into view. Deliberately margin-based rather than
+   * Motion's target-relative `amount` (site default: `amount: 0.2` would
+   * require 20% of the TARGET's own height to be visible, which is
+   * mathematically unreachable for any wrapped element taller than 5x the
+   * viewport — a real, reproducible bug found wrapping a large embedded
+   * widget). A margin-based threshold stays reachable regardless of how
+   * tall the wrapped content is.
+   */
+  triggerMargin?: number;
   /** Element to render as, when the default `div` would be invalid in context (e.g. a direct child of `<ul>`). Defaults to `div`. */
   as?: EntranceElement;
   /** Forwarded to the rendered element — for `as="section"` landmarks that need an accessible name. */
@@ -60,7 +71,7 @@ export function Entrance({
   children,
   className,
   delay = 0,
-  amount = 0.2,
+  triggerMargin = -0.2,
   as = "div",
   variants,
   "aria-label": ariaLabel,
@@ -88,7 +99,7 @@ export function Entrance({
       data-testid={dataTestId}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount }}
+      viewport={{ once: true, margin: `0px 0px ${Math.round(triggerMargin * 100)}% 0px` }}
       variants={variants}
       transition={delay ? { delay } : undefined}
     >
