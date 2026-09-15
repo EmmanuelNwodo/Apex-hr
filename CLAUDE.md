@@ -195,13 +195,17 @@ Sanity may manage:
 - Service-location page content
 - Talent-acquisition roles
 - Experts and team profiles
-- Insights and topic clusters
+- Topic clusters (Insights *category* hubs only — see WordPress below for articles)
 - Case studies
 - Testimonials
 - FAQs
 - Reports, resources, events and webinars
 - Jobs only when no ATS is currently the vacancy source of truth
 - SEO fields and social-sharing assets
+
+### WordPress owns Insights/blog article content
+
+Per `docs/URL-DECISION-REGISTER.md` D-016, WordPress (`blog.apexhrllc.co.uk`, consumed headlessly via `src/lib/wordpress/`) is the source of truth for individual Insights/blog articles only — not for any other content type this section assigns to Sanity. The archive stays at `/insights/`; articles are served at the root-level `/[slug]/`. `blog.apexhrllc.co.uk` is the CMS/API origin only and must never be a public canonical, sitemap entry or visitor-facing link; `www.apexhrllc.co.uk` (or the current `NEXT_PUBLIC_SITE_URL`) is the only public canonical host.
 
 ### Supabase owns operational and personal data
 
@@ -233,6 +237,8 @@ Find Talent and consultation requests must be persisted safely, then synchronise
 - Do not expose a Supabase service-role key in browser code.
 - Do not use analytics as a source of truth for leads or consent.
 - Do not make the website database the permanent ATS if an approved ATS is available.
+- Do not use `blog.apexhrllc.co.uk` as a public canonical URL, sitemap entry or visitor-facing link — see D-016.
+- Do not model Insights/blog articles in Sanity while WordPress is the confirmed source of truth for them (D-016); do not remove or repurpose the unrelated Sanity integration on the strength of this decision alone.
 
 ---
 
@@ -1075,6 +1081,9 @@ Validate environment variables at startup. Names may be adapted to repository co
 
 ```text
 NEXT_PUBLIC_SITE_URL
+
+WORDPRESS_API_URL
+WORDPRESS_SITE_URL
 
 NEXT_PUBLIC_SANITY_PROJECT_ID
 NEXT_PUBLIC_SANITY_DATASET

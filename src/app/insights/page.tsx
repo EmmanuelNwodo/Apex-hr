@@ -3,8 +3,12 @@ import { Section } from "@/components/layout/section";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
 import { EmptyEditorialState } from "@/components/content/empty-editorial-state";
+import { InsightCard } from "@/components/content/insight-card";
+import { LinkButton } from "@/components/ui/link-button";
+import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 import { insightCategories } from "@/config/insight-categories";
 import { buildMetadata } from "@/lib/seo/metadata";
+import { getPosts, toInsightPreview } from "@/lib/wordpress";
 import { routes } from "@/config/routes";
 
 export const metadata = buildMetadata({
@@ -14,7 +18,20 @@ export const metadata = buildMetadata({
   index: routes.insights.readyToIndex,
 });
 
-export default function InsightsPage() {
+interface InsightsPageProps {
+  searchParams: Promise<{ page?: string }>;
+}
+
+const POSTS_PER_PAGE = 12;
+
+export default async function InsightsPage({ searchParams }: InsightsPageProps) {
+  const { page: pageParam } = await searchParams;
+  const requestedPage = Number(pageParam);
+  const page = Number.isInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
+
+  const { posts, totalPages, unavailable } = await getPosts({ page, perPage: POSTS_PER_PAGE });
+  const insights = posts.map(toInsightPreview);
+
   return (
     <Section tone="page">
       <Breadcrumbs trail={[routes.insights]} />
@@ -41,7 +58,42 @@ export default function InsightsPage() {
       </ul>
 
       <div className="mt-10">
-        <EmptyEditorialState message="Approved articles and reports will appear here once published. No articles are published yet." />
+        {unavailable ? (
+          <EmptyEditorialState message="Articles can't be loaded right now. Please check back shortly." />
+        ) : insights.length > 0 ? (
+          <>
+            <StaggerContainer className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {insights.map((insight) => (
+                <StaggerItem key={insight.id}>
+                  <InsightCard insight={insight} />
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+            {totalPages > 1 && (
+              <nav aria-label="Insights pagination" className="mt-10 flex items-center justify-between gap-4">
+                {page > 1 ? (
+                  <LinkButton href={`${routes.insights.path}?page=${page - 1}`} variant="secondary" surface="light">
+                    Previous
+                  </LinkButton>
+                ) : (
+                  <span />
+                )}
+                <p className="text-small text-text-secondary">
+                  Page {page} of {totalPages}
+                </p>
+                {page < totalPages ? (
+                  <LinkButton href={`${routes.insights.path}?page=${page + 1}`} variant="secondary" surface="light">
+                    Next
+                  </LinkButton>
+                ) : (
+                  <span />
+                )}
+              </nav>
+            )}
+          </>
+        ) : (
+          <EmptyEditorialState message="Approved articles and reports will appear here once published. No articles are published yet." />
+        )}
       </div>
     </Section>
   );

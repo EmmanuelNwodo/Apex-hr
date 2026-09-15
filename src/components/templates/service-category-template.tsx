@@ -264,8 +264,8 @@ export function ServiceCategoryTemplate({
           </RevealHeading>
           <FadeUp delay={0.15}>
             <p className="mt-4 max-w-md text-body text-text-secondary">
-              Outcomes depend on your organisation&apos;s starting point and circumstances —
-              this is what the work is designed to support, not a guaranteed result.
+              Outcomes depend on your organisation&apos;s starting point and circumstances.
+              This is what the work is designed to support, not a guaranteed result.
             </p>
           </FadeUp>
         </div>

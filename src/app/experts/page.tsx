@@ -26,7 +26,7 @@ export default function ExpertsPage() {
         </p>
       </div>
       <div className="mt-10">
-        <EmptyEditorialState message="No practitioner profiles are published yet — none are fabricated to fill this page." />
+        <EmptyEditorialState message="No practitioner profiles are published yet. None are fabricated to fill this page." />
       </div>
     </Section>
   );

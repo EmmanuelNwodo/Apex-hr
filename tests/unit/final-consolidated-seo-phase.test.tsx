@@ -16,6 +16,7 @@ import { ServiceLocationTemplate } from "@/components/templates/service-location
 import { buildLocationFaqs } from "@/components/templates/location-page-template";
 import { getCollectionPageJsonLd } from "@/lib/seo/structured-data";
 import { routes } from "@/config/routes";
+import { insightCategories } from "@/config/insight-categories";
 import sitemap from "@/app/sitemap";
 import fs from "node:fs";
 import path from "node:path";
@@ -253,36 +254,57 @@ describe("Route inventory and sitemap", () => {
     );
   });
 
-  it("sitemap contains exactly 211 URLs, matching the indexable manifest entries, with no lastModified field", () => {
-    const entries = sitemap();
-    expect(entries.length).toBe(211);
+  it("sitemap contains exactly 220 URLs, matching the indexable manifest entries, with no lastModified field", async () => {
+    // WordPress is unconfigured in the test environment (no WORDPRESS_API_URL),
+    // so sitemap() contributes zero article entries here — see
+    // tests/unit/wordpress.test.ts for WordPress-specific sitemap coverage
+    // with a mocked API. 220 = the previous 211 local pages + the Insights
+    // hub and its 8 category pages, now indexable per
+    // docs/URL-DECISION-REGISTER.md D-016 (routes.insights.readyToIndex
+    // flipped to true once WordPress had genuine published content).
+    const entries = await sitemap();
+    expect(entries.length).toBe(220);
     expect(entries.length).toBe(contentManifest.filter((e) => e.indexable).length);
     for (const entry of entries) {
       expect(entry).not.toHaveProperty("lastModified");
     }
   });
 
-  it("116 redirect rules exist and none point to a sitemap URL as a competing duplicate source", () => {
+  it("116 redirect rules exist and none point to a sitemap URL as a competing duplicate source", async () => {
     expect(redirectRules.length).toBe(116);
-    const sitemapPaths = new Set(sitemap().map((e) => new URL(e.url).pathname));
+    const entries = await sitemap();
+    const sitemapPaths = new Set(entries.map((e) => new URL(e.url).pathname));
     for (const rule of redirectRules) {
       expect(sitemapPaths.has(rule.source)).toBe(false);
     }
   });
 
-  it("no readyToIndex: false route appears in the sitemap", () => {
+  it("no readyToIndex: false route appears in the sitemap", async () => {
+    // routes.insights.path is deliberately absent from this list: Insights
+    // is now readyToIndex: true (docs/URL-DECISION-REGISTER.md D-016) and
+    // is expected to appear in the sitemap — see the dedicated assertion
+    // below and tests/unit/insights-seo.test.ts.
     const noindexPaths = [
       routes.jobs.path,
       routes.talentPool.path,
       routes.findTalent.path,
-      routes.insights.path,
       routes.resources.path,
       routes.caseStudies.path,
       routes.experts.path,
     ];
-    const sitemapPaths = new Set(sitemap().map((e) => new URL(e.url).pathname));
+    const entries = await sitemap();
+    const sitemapPaths = new Set(entries.map((e) => new URL(e.url).pathname));
     for (const p of noindexPaths) {
       expect(sitemapPaths.has(p), `${p} should not be in the sitemap`).toBe(false);
+    }
+  });
+
+  it("/insights/ and all 8 insight category pages now appear in the sitemap", async () => {
+    const entries = await sitemap();
+    const sitemapPaths = new Set(entries.map((e) => new URL(e.url).pathname));
+    expect(sitemapPaths.has(routes.insights.path)).toBe(true);
+    for (const category of insightCategories) {
+      expect(sitemapPaths.has(`/insights/${category.slug}/`)).toBe(true);
     }
   });
 });

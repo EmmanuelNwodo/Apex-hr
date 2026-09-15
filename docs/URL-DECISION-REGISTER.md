@@ -23,6 +23,7 @@
 | D-013 | Locations hub route | Add `/locations/` as a Confirmed hub route, superseding the earlier "no hub for this family" position | Add a directory page linking to all 16 location pages; link it from the footer's Company column |
 | D-014 | Curated service-location subset | Confirm only each location's already-curated `relatedServiceSlugs` combinations (and their parent categories), not the full 816/160 cross-products | Generate pages from existing curated data only; give every combination a unique meta description and genuine local-context content |
 | D-015 | Category-location cannibalisation resolution | Redirect the 44 category-location pages backed by only one curated child service to that child's service-location page; retain the 2 pages backed by two curated child services as independently indexable | Raise the category-location curation threshold to 2+ services in `src/config/service-locations.ts`; add 44 permanent redirects to `src/config/redirects.ts`; reposition the 2 retained pages around both child services |
+| D-016 | Headless WordPress for Insights/blog | WordPress (`blog.apexhrllc.co.uk`) becomes the editorial source of truth for Insights/blog articles only. The archive stays at `/insights/`; individual articles are root-level `/[slug]/`, never `/insights/[slug]/`. `www.apexhrllc.co.uk` is the only public canonical host; `blog.apexhrllc.co.uk` is CMS/API-origin only | Add `src/lib/wordpress/`; add `src/app/[slug]/page.tsx` guarded by `src/config/reserved-slugs.ts`; read `NEXT_PUBLIC_SITE_URL`/`WORDPRESS_API_URL`/`WORDPRESS_SITE_URL` from environment; extend `sitemap.ts`. Sanity and Supabase are unaffected — see the full entry below |
 
 ## D-001 — Sector is canonical
 
@@ -211,6 +212,32 @@ Individual location pages' breadcrumbs now run Home → Locations → [location]
 - `src/config/redirects.ts`: 44 new permanent-redirect rules, each `/services/[category-slug]-[location-slug]/` → `/services/[the one child service-slug]-[location-slug]/`.
 - The 2 retained pages use a dedicated `CategoryLocationTemplate` (`src/components/templates/category-location-template.tsx`) that names and links to both confirmed child services, distinguishes the broad category page from each specific service page in its own copy, and carries `Service` + `BreadcrumbList` JSON-LD. `FAQPage` schema is deliberately withheld — the only FAQ content available at those two locations is the generic "no physical office" item shared by every location, not genuine page-specific content.
 - No service-location destination page's content was rewritten; only a canonical/title/broken-link fix would have qualified, and none was needed.
+
+## D-016 — Headless WordPress for Insights/blog content
+
+**Decision:** WordPress, hosted at `blog.apexhrllc.co.uk`, is the editorial source of truth for Insights/blog articles — and only that content family. Next.js remains the sole public presentation layer: nothing in `blog.apexhrllc.co.uk` is served directly to visitors.
+
+- **Archive:** `/insights/` (unchanged route; now lists live WordPress posts instead of an always-empty local array).
+- **Individual articles:** root-level `/[slug]/` (`src/app/[slug]/page.tsx`) — explicitly **not** `/insights/[slug]/`. This matches WordPress's own flat permalink structure and avoids a nested nesting that the CMS itself doesn't produce.
+- **Public canonical host:** `https://www.apexhrllc.co.uk` for every page on the site, articles included. `https://blog.apexhrllc.co.uk` is the CMS admin and REST API origin only — it must never appear as a canonical URL, a sitemap entry, or a public link a visitor can click to leave the Next.js site (its own media host, `/wp-content/uploads/...`, remains directly referenced for images, which is expected and unrelated).
+- **Root-level slug protection:** `src/config/reserved-slugs.ts` derives a guard set from `src/config/routes.ts` (the same registry every other route consumer reads) plus a small explicit list for routes not in that registry (`talent-acquisition`, `api`) or not yet built (`privacy-policy`, `terms`). `app/[slug]/page.tsx` checks this guard before ever calling WordPress, so a post slug can never shadow an existing or anticipated Apex HR route — Next.js's own static-over-dynamic routing already prevents an existing page from being shadowed at the routing layer; the guard is deliberate defence-in-depth, not the only protection.
+
+**Rationale:** Requested by explicit later user instruction. WordPress is a mature, low-friction editorial tool for the SEO/content team; building an equivalent authoring workflow for Insights inside Sanity was not requested and would duplicate effort the team already has a working tool for. Scoping the decision to Insights/blog only avoids re-opening the CMS boundaries CLAUDE.md section 7 already assigns elsewhere.
+
+**Explicitly out of scope / unaffected by this decision:**
+
+- **Sanity** is not removed and was not in active use for Insights (its `src/lib/sanity/` module was, and remains, an unconfigured stub — the `@sanity/client` package was never installed, no query in the codebase ever ran against it). It continues to be the intended CMS for every non-Insights content type CLAUDE.md section 7 assigns it, unless and until a separate decision says otherwise.
+- **Supabase** remains the system of record for all operational data (Find Talent submissions, candidate/talent-pool records, applications, consent) — completely untouched by this decision.
+- Jobs, applications, contact forms, Services, Sectors, Locations and the employer/candidate journeys are all unaffected.
+
+**Implementation:**
+
+- `src/lib/wordpress/` — server-only data layer (`config.ts`, `types.ts`, `client.ts`, `sanitize.ts`, `adapters.ts`, barrel `index.ts`). Normalises WordPress's REST response into an internal `Article` model; no UI component depends on WordPress's raw response shape. Publishes `getPosts`, `getPostBySlug` (via WordPress's own `?slug=` filter, never a full-list search), `getCategories`, `getRecentPosts`, `getRelatedPosts`, `getAllPublishedPostsForSitemap`. Every function degrades to an honest empty/`null` result on an unconfigured, unreachable or malformed CMS response — never throws, never exposes a raw upstream error to a visitor.
+- `sanitize-html` (one small, maintained dependency) sanitises `content.rendered` server-side: allow-lists ordinary editorial elements, strips scripts/handlers/unsafe protocols/embeds, preserves Gutenberg classes for styling, and rewrites `blog.apexhrllc.co.uk/{slug}/` links to the public site while leaving `/wp-content/`, `/wp-admin/` and `/wp-json/` links untouched.
+- `src/app/[slug]/page.tsx` — no `generateStaticParams`; every request resolves live, with the data layer's own ~5-minute `fetch` revalidation window, so a newly published post appears without a rebuild.
+- `src/app/sitemap.ts` — now async; appends every currently-published WordPress article (root-level URL, `lastModified` from WordPress's own `modified` date) to the existing manifest-driven entries, filtered against the same reserved-slug guard.
+- `src/config/site.ts` — `productionUrl` now reads `NEXT_PUBLIC_SITE_URL` (falling back to the previous hard-coded domain when unset), so canonical/OG/sitemap URLs across the **whole site**, not only WordPress articles, resolve to the confirmed production domain already configured in `.env.local` and on Vercel.
+- `next.config.ts` — `images.remotePatterns` narrowly allows `blog.apexhrllc.co.uk` for WordPress-hosted media; no other external host is permitted.
 
 ## Redirect implementation checklist
 

@@ -153,7 +153,7 @@ export function ContactEnquiryForm() {
     window.location.href = mailto;
     setStatus(
       showCvUpload && cvFile
-        ? `Your email app should now open with this enquiry addressed to Apex HR. Please attach ${cvFile.name} to that email yourself before sending — it can't be attached automatically. If your email app doesn't open, email ${siteConfig.contactEmail} directly and attach your CV there.`
+        ? `Your email app should now open with this enquiry addressed to Apex HR. Please attach ${cvFile.name} to that email yourself before sending. It can't be attached automatically. If your email app doesn't open, email ${siteConfig.contactEmail} directly and attach your CV there.`
         : `Your email app should now open with this enquiry addressed to Apex HR. If it doesn't open, email ${siteConfig.contactEmail} directly.`,
     );
   }

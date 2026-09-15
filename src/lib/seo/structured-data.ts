@@ -125,6 +125,50 @@ export function getFaqPageJsonLd({ faqs }: FaqPageJsonLdInput) {
   };
 }
 
+interface BlogPostingJsonLdInput {
+  path: string;
+  headline: string;
+  description: string;
+  imageUrl?: string;
+  authorName?: string;
+  datePublished: string;
+  dateModified: string;
+}
+
+/**
+ * `BlogPosting` JSON-LD for a WordPress-sourced Insights article, per
+ * CLAUDE.md section 16's structured-data table ("Insight/article ->
+ * Article or BlogPosting") and this integration's SEO requirements. Only
+ * visible, accurate values are used — `authorName` is omitted entirely
+ * (rather than defaulted to "Apex HR") when the source post has no
+ * embedded WordPress author, so nothing here is fabricated.
+ */
+export function getBlogPostingJsonLd({
+  path,
+  headline,
+  description,
+  imageUrl,
+  authorName,
+  datePublished,
+  dateModified,
+}: BlogPostingJsonLdInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${absoluteUrl(path)}#article`,
+    mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(path) },
+    url: absoluteUrl(path),
+    headline,
+    description,
+    ...(imageUrl ? { image: [imageUrl] } : {}),
+    datePublished,
+    dateModified,
+    ...(authorName ? { author: { "@type": "Person", name: authorName } } : {}),
+    publisher: { "@id": `${siteConfig.productionUrl}/#organization` },
+    isPartOf: { "@id": `${siteConfig.productionUrl}/#website` },
+  };
+}
+
 /**
  * Safely serialises a JSON-LD value for embedding in a
  * `<script type="application/ld+json">` tag via `dangerouslySetInnerHTML`.

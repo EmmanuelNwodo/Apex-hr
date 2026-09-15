@@ -618,7 +618,9 @@ Seed the eight approved category records.
 
 ### 13.2 `insight`
 
-Fields:
+> **Architectural update (docs/URL-DECISION-REGISTER.md D-016):** the source of truth for `insight` records is now WordPress (`blog.apexhrllc.co.uk`), consumed headlessly by `src/lib/wordpress/`, not this document's original Sanity schema — this is a later, explicit decision recorded here rather than a silent overwrite. Individual articles are served at the root-level `/[article-slug]/`, not nested under `/insights/`. `insightCategory` (13.1) is unaffected and remains a local, Sanity-modelled concept. This does not change the CMS boundary for any other content type in this document — Sanity remains the intended editorial CMS for services, sectors, locations, talent roles, experts, case studies, resources, reports and events unless a separate decision says otherwise, and Supabase remains unaffected for all operational data.
+
+Fields (as originally modelled for Sanity; WordPress's own REST schema — `title.rendered`, `excerpt.rendered`, `content.rendered`, `_embedded` author/featured-media/terms, `yoast_head_json` — is normalised into an equivalent internal shape by `src/lib/wordpress/types.ts`'s `Article` type, not mapped field-for-field onto the list below):
 
 - `internalTitle`
 - `publicTitle`

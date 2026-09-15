@@ -55,6 +55,7 @@ The counts above include canonical pages, dynamic route patterns, explicit redir
 - Use one canonical URL for one principal search intent.
 - Do not generate thin service-location pages automatically.
 - Do not create a second page when a redirect, taxonomy relationship or filtered view is the correct solution.
+- Exception: individual Insights/blog articles are root-level `/[article-slug]/`, not nested under `/insights/` — see `docs/URL-DECISION-REGISTER.md` D-016. The `/insights/` archive route itself is unaffected.
 
 ## 5. Top-level architecture
 
@@ -76,7 +77,7 @@ The counts above include canonical pages, dynamic route patterns, explicit redir
 | Individual job | `/jobs/[job-slug]/` | Provisional | P2 |
 | Talent Pool | `/talent-pool/` | Provisional | P2 |
 | Insights | `/insights/` | Confirmed | P3 |
-| Individual insight | `/insights/[article-slug]/` | Provisional | P3 |
+| Individual insight/article | `/[article-slug]/` (root-level, per D-016 — **not** `/insights/[article-slug]/`) | Confirmed pattern; each article Confirmed only once genuinely published in WordPress | P3 |
 | Resources | `/resources/` | Confirmed | P3 |
 | Reports | `/resources/reports/` | Provisional | P3 |
 | Events | `/resources/events/` | Provisional | P3 |

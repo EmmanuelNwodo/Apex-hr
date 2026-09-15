@@ -39,7 +39,7 @@ export const hero: HeroContent = {
   kicker: "HR Company in the UK",
   heading: "A people partner built for growing employers",
   description:
-    "Apex HR helps UK employers hire, manage and develop people with confidence — from outsourced HR support to executive search and strategic workforce advisory.",
+    "Apex HR helps UK employers hire, manage and develop people with confidence, from outsourced HR support to executive search and strategic workforce advisory.",
   primaryCta: { label: "Find Talent", href: routes.findTalent.path, analyticsId: "hero-find-talent" },
   secondaryCta: { label: "Meet Apex HR", href: routes.about.path, analyticsId: "hero-meet-apex" },
   candidateLink: { label: "Search Jobs", href: routes.jobs.path, analyticsId: "hero-search-jobs" },
@@ -56,7 +56,7 @@ export const heroTrustIndicators: string[] = ["UK-wide support", "Practical HR e
 // General workplace/HR insights, not claims about Apex HR itself — supplied
 // verbatim for the auto-rotating fact card overlaid on the hero media panel.
 export const workplaceFacts: string[] = [
-  "Positive workplace culture is created through everyday actions—not office decorations or slogans alone.",
+  "Positive workplace culture is created through everyday actions, not office decorations or slogans alone.",
   "A well-written job description can attract more suitable applicants.",
   "Short breaks can help employees return to tasks with better focus.",
   "Workplace friendships can improve collaboration and employee engagement.",
@@ -123,7 +123,7 @@ export const trust: TrustContent = {
   kicker: "Why employers work with us",
   heading: "One partner across HR and recruitment",
   description:
-    "Practical people expertise that works in the real world — not advice that simply sits in a report.",
+    "Practical people expertise that works in the real world, not advice that simply sits in a report.",
   capabilityStatements: [
     {
       id: "single-partner",
@@ -277,7 +277,7 @@ export const employerProblems: EmployerProblem[] = [
     problem: "Compliance and employment law risk",
     solutionTitle: "Stay compliant as employment law changes.",
     detail:
-      "Keep policies, contracts and people processes current, consistent and legally sound — before small gaps become costly risks.",
+      "Keep policies, contracts and people processes current, consistent and legally sound, before small gaps become costly risks.",
     serviceLabel: "HR Compliance Audit",
     href: "/services/hr-compliance-audit/",
   },
@@ -558,14 +558,21 @@ export interface InsightPreview {
   contentType: string;
   title: string;
   summary: string;
+  /** Machine-readable ISO date for the `<time dateTime>` attribute. */
   date?: string;
+  /** Human-readable date label; falls back to `date` when omitted. */
+  dateDisplay?: string;
   topic: string;
   href: string;
+  /**
+   * Already resolved through the featured-image fallback chain (WordPress
+   * featured media -> Yoast OG image -> first content image) — see
+   * src/lib/wordpress/client.ts's `resolveFeaturedImage`. `null`/omitted
+   * means none of those three real sources exist; InsightCard applies the
+   * local Apex HR placeholder image in that case, not this file.
+   */
+  image?: { url: string; alt: string; width?: number; height?: number } | null;
 }
-
-// No approved published articles exist yet — kept empty rather than
-// fabricated. EmptyEditorialState renders in place of this list.
-export const insightPreviews: InsightPreview[] = [];
 
 // --- FAQs --------------------------------------------------------------
 
@@ -581,7 +588,7 @@ export const employerFaqs: FaqItem[] = [
     id: "outsourced-hr",
     question: "What is outsourced HR support?",
     answer:
-      "Outsourced HR gives your business access to HR expertise — policies, compliance, employee relations and day-to-day advice — without hiring a full in-house team.",
+      "Outsourced HR gives your business access to HR expertise (policies, compliance, employee relations and day-to-day advice) without hiring a full in-house team.",
   },
   {
     id: "recruitment-scope",

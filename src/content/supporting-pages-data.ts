@@ -95,11 +95,11 @@ export const forEmployersPageContent: InfoPageContent = {
       heading: "Where to start",
       body: "Most employers come to Apex HR with one of three needs: recruiting talent, getting day-to-day HR support in place, or working through a specific people issue or strategic decision.",
       list: [
-        "Recruit talent — permanent, contract or executive hiring",
-        "Outsource HR — ongoing advisory, policies and compliance",
-        "Resolve a people issue — investigations, mediation, redundancy support",
-        "Improve organisational performance — structure, performance and reward",
-        "Transform HR technology — HRIS, analytics and digital HR",
+        "Recruit talent: permanent, contract or executive hiring",
+        "Outsource HR: ongoing advisory, policies and compliance",
+        "Resolve a people issue: investigations, mediation, redundancy support",
+        "Improve organisational performance: structure, performance and reward",
+        "Transform HR technology: HRIS, analytics and digital HR",
       ],
     },
     {
@@ -175,7 +175,7 @@ export const findTalentPageContent: InfoPageContent = {
     },
     {
       heading: "What happens after you submit",
-      body: "An Apex HR advisor reviews your enquiry and follows up to discuss the role and the right way to support your hiring need — whether that's recruitment, RPO or a related HR service.",
+      body: "An Apex HR advisor reviews your enquiry and follows up to discuss the role and the right way to support your hiring need, whether that's recruitment, RPO or a related HR service.",
     },
   ],
   faqs: [

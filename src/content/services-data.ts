@@ -134,7 +134,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
       { title: "Adapt", detail: "Revisit priorities as the business and its risks change." },
     ],
     differentiation:
-      "The right service usually depends on how much ongoing support is needed and at what level. Retained HR Services and HR Support for Small Businesses & Startups both provide ongoing, day-to-day advisory access — the difference is business size and complexity. A Fractional HR Director or Chief People Officer sits at leadership-team level, focused on strategic direction rather than day-to-day queries. HR Compliance Audit and Employee Handbooks & HR Policies are more contained, output-focused reviews rather than ongoing partnerships, and Payroll Advisory is specifically about payroll process and provider relationships, not general HR support.",
+      "The right service usually depends on how much ongoing support is needed and at what level. Retained HR Services and HR Support for Small Businesses & Startups both provide ongoing, day-to-day advisory access: the difference is business size and complexity. A Fractional HR Director or Chief People Officer sits at leadership-team level, focused on strategic direction rather than day-to-day queries. HR Compliance Audit and Employee Handbooks & HR Policies are more contained, output-focused reviews rather than ongoing partnerships, and Payroll Advisory is specifically about payroll process and provider relationships, not general HR support.",
     outcomes: [
       "A more consistent approach to everyday HR issues as they arise",
       "Contracts, handbooks and policies that reflect how the business actually operates",
@@ -165,7 +165,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
         id: "payroll",
         question: "Can Apex HR help with payroll as well as HR?",
         answer:
-          "Payroll Advisory covers the process, controls and provider relationship around payroll — it's advisory support, not payroll processing itself, and can sit alongside wider outsourced HR support.",
+          "Payroll Advisory covers the process, controls and provider relationship around payroll. It's advisory support, not payroll processing itself, and can sit alongside wider outsourced HR support.",
       },
     ],
   },
@@ -195,7 +195,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
       { title: "Appoint", detail: "Support the offer, onboarding and early weeks in the role." },
     ],
     differentiation:
-      "These services are mainly differentiated by seniority, volume and employment type rather than by function. Permanent Recruitment covers standard permanent hiring; Executive Search is a more intensive, senior-level search approach for leadership and specialist roles. Contract Staffing covers fixed-term and interim hiring rather than permanent roles. Recruitment Process Outsourcing (RPO) is for employers with ongoing or high-volume hiring who want a recruitment function run as an extension of their own team, rather than a single campaign. Graduate Schemes & Early Careers Design is distinct again — it's about building an early-careers hiring programme, not filling one vacancy.",
+      "These services are mainly differentiated by seniority, volume and employment type rather than by function. Permanent Recruitment covers standard permanent hiring; Executive Search is a more intensive, senior-level search approach for leadership and specialist roles. Contract Staffing covers fixed-term and interim hiring rather than permanent roles. Recruitment Process Outsourcing (RPO) is for employers with ongoing or high-volume hiring who want a recruitment function run as an extension of their own team, rather than a single campaign. Graduate Schemes & Early Careers Design is distinct again: it's about building an early-careers hiring programme, not filling one vacancy.",
     outcomes: [
       "A more focused and efficient hiring process",
       "Better-informed hiring decisions",
@@ -220,7 +220,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
         id: "rpo-volume",
         question: "Is RPO only for high-volume hiring?",
         answer:
-          "RPO tends to suit employers with ongoing or high-volume hiring needs, since it's structured as an extension of the internal team rather than a one-off campaign — for a single hire, Permanent Recruitment or Executive Search is usually more appropriate.",
+          "RPO tends to suit employers with ongoing or high-volume hiring needs, since it's structured as an extension of the internal team rather than a one-off campaign. For a single hire, Permanent Recruitment or Executive Search is usually more appropriate.",
       },
       {
         id: "combine-with-hr",
@@ -235,7 +235,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
     tagline: "Handle difficult situations with confidence.",
     summary: "Practical, informational support for redundancy, TUPE, investigations, mediation and other employee-relations situations.",
     introduction:
-      "Employee-relations issues are high-stakes and often time-sensitive. This service family provides practical HR support through difficult situations — it is informational HR guidance, not a substitute for regulated legal advice, and complex or high-risk matters should always be reviewed by a qualified employment lawyer.",
+      "Employee-relations issues are high-stakes and often time-sensitive. This service family provides practical HR support through difficult situations. It is informational HR guidance, not a substitute for regulated legal advice, and complex or high-risk matters should always be reviewed by a qualified employment lawyer.",
     challenges: [
       {
         title: "A difficult situation needs a clear next step",
@@ -275,13 +275,13 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
         id: "investigation-vs-mediation",
         question: "What's the difference between Workplace Investigations and Workplace Mediation?",
         answer:
-          "An investigation establishes what happened in relation to a specific concern or allegation. Mediation is a facilitated conversation aimed at resolving a conflict or restoring a working relationship — the two are sometimes used together, but serve different purposes.",
+          "An investigation establishes what happened in relation to a specific concern or allegation. Mediation is a facilitated conversation aimed at resolving a conflict or restoring a working relationship. The two are sometimes used together, but serve different purposes.",
       },
       {
         id: "redundancy-vs-tupe",
         question: "Do you support redundancy and TUPE situations together?",
         answer:
-          "They're offered as distinct services because they apply to different situations — redundancy involves reducing roles, while TUPE applies when a business or service transfers to a new employer — but Apex HR can advise which applies, or whether both are relevant, for a specific situation.",
+          "They're offered as distinct services because they apply to different situations (redundancy involves reducing roles, while TUPE applies when a business or service transfers to a new employer), but Apex HR can advise which applies, or whether both are relevant, for a specific situation.",
       },
       {
         id: "tribunal-timing",
@@ -317,7 +317,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
       { title: "Embed", detail: "Equip leaders and managers to make the change work beyond the project." },
     ],
     differentiation:
-      "Organisation Design is about the structure itself — roles, reporting lines and decision rights. Change Management is about how a change, including a redesign, is planned, communicated and implemented. Culture Transformation addresses behaviours and ways of working, which can be a distinct piece of work or run alongside a structural or change programme. M&A People Due Diligence & Post-Merger Integration applies specifically around a merger or acquisition, combining elements of design, change and culture work at speed.",
+      "Organisation Design is about the structure itself: roles, reporting lines and decision rights. Change Management is about how a change, including a redesign, is planned, communicated and implemented. Culture Transformation addresses behaviours and ways of working, which can be a distinct piece of work or run alongside a structural or change programme. M&A People Due Diligence & Post-Merger Integration applies specifically around a merger or acquisition, combining elements of design, change and culture work at speed.",
     outcomes: [
       "A structure better aligned with how the organisation actually needs to operate",
       "Clearer communication and a more considered approach during a change programme",
@@ -330,7 +330,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
         id: "design-vs-change",
         question: "Do we need Organisation Design or Change Management?",
         answer:
-          "Organisation Design focuses on the structure itself — roles, reporting lines and decision-making. Change Management focuses on how any change, including a redesign, is planned and delivered. Many engagements involve both, in sequence.",
+          "Organisation Design focuses on the structure itself: roles, reporting lines and decision-making. Change Management focuses on how any change, including a redesign, is planned and delivered. Many engagements involve both, in sequence.",
       },
       {
         id: "culture-standalone",
@@ -342,7 +342,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
         id: "ma-timing",
         question: "When should M&A People Due Diligence start?",
         answer:
-          "Ideally before a deal completes, so people-related risks and integration planning can inform the transaction — though support is also available once a deal has completed and integration is underway.",
+          "Ideally before a deal completes, so people-related risks and integration planning can inform the transaction, though support is also available once a deal has completed and integration is underway.",
       },
       {
         id: "timelines",
@@ -378,7 +378,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
       { title: "Implement", detail: "Support rollout and ongoing governance of the new approach." },
     ],
     differentiation:
-      "Salary Benchmarking compares current pay to the external market. Job Evaluation & Pay Structures builds the internal framework — pay bands and levels — that benchmarking data feeds into. Reward Strategy sits above both, setting the overall approach to pay, benefits and recognition. Pay Equity & Pay Gap Reporting focuses specifically on fairness and reporting. Employee Benefits Consulting covers the non-salary elements of reward, and Executive Compensation & Share Schemes applies specifically to senior leadership reward design, including share scheme structuring considerations.",
+      "Salary Benchmarking compares current pay to the external market. Job Evaluation & Pay Structures builds the internal framework (pay bands and levels) that benchmarking data feeds into. Reward Strategy sits above both, setting the overall approach to pay, benefits and recognition. Pay Equity & Pay Gap Reporting focuses specifically on fairness and reporting. Employee Benefits Consulting covers the non-salary elements of reward, and Executive Compensation & Share Schemes applies specifically to senior leadership reward design, including share scheme structuring considerations.",
     outcomes: [
       "Pay decisions that can be explained and supported with market evidence",
       "A more structured pay framework in place of ad hoc, one-off decisions",
@@ -403,13 +403,13 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
         id: "exec-comp-separate",
         question: "Is Executive Compensation part of general Reward Strategy?",
         answer:
-          "It's offered separately because senior and share-based reward involves different considerations to general employee reward — legal and tax structuring for share schemes should be confirmed with qualified legal and tax advisers.",
+          "It's offered separately because senior and share-based reward involves different considerations to general employee reward. Legal and tax structuring for share schemes should be confirmed with qualified legal and tax advisers.",
       },
       {
         id: "benefits-included",
         question: "Do you advise on employee benefits as well as pay?",
         answer:
-          "Yes — Employee Benefits Consulting covers the non-salary elements of reward, such as benefits design, alongside pay-focused services in this family.",
+          "Yes. Employee Benefits Consulting covers the non-salary elements of reward, such as benefits design, alongside pay-focused services in this family.",
       },
     ],
   },
@@ -439,7 +439,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
       { title: "Reinforce", detail: "Support managers to apply new skills after the programme ends." },
     ],
     differentiation:
-      "Leadership & Management Training is group-based, skills-focused development for managers and teams. Executive Coaching & 360 Feedback is individual, typically for a senior leader, combining structured feedback with one-to-one coaching. Learning Strategy & Capability Development sits above both — it's about the broader approach to building capability across the organisation, which training and coaching then deliver against.",
+      "Leadership & Management Training is group-based, skills-focused development for managers and teams. Executive Coaching & 360 Feedback is individual, typically for a senior leader, combining structured feedback with one-to-one coaching. Learning Strategy & Capability Development sits above both: it's about the broader approach to building capability across the organisation, which training and coaching then deliver against.",
     outcomes: [
       "Managers who feel more confident handling people-management situations",
       "Individual leaders with clearer, evidenced development priorities",
@@ -458,7 +458,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
         id: "coaching-for-underperformance",
         question: "Is Executive Coaching only for underperforming leaders?",
         answer:
-          "No. It's commonly used for capable leaders moving into a bigger role, navigating a specific challenge, or wanting structured, confidential development — not only as a response to a problem.",
+          "No. It's commonly used for capable leaders moving into a bigger role, navigating a specific challenge, or wanting structured, confidential development, not only as a response to a problem.",
       },
       {
         id: "what-is-360",
@@ -470,7 +470,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
         id: "tailored-training",
         question: "Can training be tailored to our specific managers?",
         answer:
-          "Yes — training is built around real scenarios relevant to your teams rather than delivered as generic, off-the-shelf content.",
+          "Yes. Training is built around real scenarios relevant to your teams rather than delivered as generic, off-the-shelf content.",
       },
     ],
   },
@@ -500,7 +500,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
       { title: "Embed", detail: "Train managers and monitor how the approach is working." },
     ],
     differentiation:
-      "Performance Management is the ongoing process of setting expectations and reviewing individual performance. Succession Planning & Talent Mapping looks ahead, identifying key roles and potential successors before a gap arises. Competency Frameworks underpin both — they define the expectations and standards that performance reviews and succession decisions are measured against.",
+      "Performance Management is the ongoing process of setting expectations and reviewing individual performance. Succession Planning & Talent Mapping looks ahead, identifying key roles and potential successors before a gap arises. Competency Frameworks underpin both: they define the expectations and standards that performance reviews and succession decisions are measured against.",
     outcomes: [
       "More consistent performance conversations across the organisation",
       "Greater visibility of key-person risk in critical roles",
@@ -525,7 +525,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
         id: "existing-reviews",
         question: "Can this family help if performance reviews already exist but aren't working well?",
         answer:
-          "Yes — Apex HR can review an existing performance process and redesign the parts that aren't delivering consistent, useful outcomes, rather than starting from scratch.",
+          "Yes. Apex HR can review an existing performance process and redesign the parts that aren't delivering consistent, useful outcomes, rather than starting from scratch.",
       },
       {
         id: "org-size",
@@ -560,7 +560,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
       { title: "Sustain", detail: "Track progress and keep the plan current." },
     ],
     differentiation:
-      "Employee Experience Strategy sets the overall direction. Employee Engagement Surveys & Action Planning measures how employees actually experience work and turns that into a plan. Employer Branding & Employee Value Proposition (EVP) focuses specifically on how the organisation is presented to candidates and employees. Workplace Wellbeing & Mental Health addresses everyday wellbeing practice — this is HR-led workplace support, not clinical or occupational-health provision. Diversity, Equity & Inclusion (DEI) Consulting focuses specifically on fairness and inclusion across people practices.",
+      "Employee Experience Strategy sets the overall direction. Employee Engagement Surveys & Action Planning measures how employees actually experience work and turns that into a plan. Employer Branding & Employee Value Proposition (EVP) focuses specifically on how the organisation is presented to candidates and employees. Workplace Wellbeing & Mental Health addresses everyday wellbeing practice. This is HR-led workplace support, not clinical or occupational-health provision. Diversity, Equity & Inclusion (DEI) Consulting focuses specifically on fairness and inclusion across people practices.",
     outcomes: [
       "A clearer picture of how employees actually experience the organisation",
       "An employer brand and EVP more closely aligned with what employees actually experience",
@@ -573,13 +573,13 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
         id: "survey-before-plan",
         question: "Do we need a survey before an action plan?",
         answer:
-          "Employee Engagement Surveys & Action Planning is designed to work as one connected service — the survey data directly shapes the plan, rather than being a separate step.",
+          "Employee Engagement Surveys & Action Planning is designed to work as one connected service: the survey data directly shapes the plan, rather than being a separate step.",
       },
       {
         id: "wellbeing-not-clinical",
         question: "Is Workplace Wellbeing & Mental Health a clinical or occupational-health service?",
         answer:
-          "No. This is HR-led support for embedding wellbeing practice into everyday management — it is not clinical treatment or occupational-health provision, and complex individual health matters should involve an appropriately qualified professional.",
+          "No. This is HR-led support for embedding wellbeing practice into everyday management. It is not clinical treatment or occupational-health provision, and complex individual health matters should involve an appropriately qualified professional.",
       },
       {
         id: "dei-vs-strategy",
@@ -591,7 +591,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
         id: "evp-in-recruitment",
         question: "Can Employer Branding work be used in recruitment?",
         answer:
-          "Yes — an EVP built through this service is designed to be used consistently across recruitment and existing-employee communications, not just one or the other.",
+          "Yes. An EVP built through this service is designed to be used consistently across recruitment and existing-employee communications, not just one or the other.",
       },
     ],
   },
@@ -621,7 +621,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
       { title: "Adopt", detail: "Support rollout, training and change management." },
     ],
     differentiation:
-      "HR Software Selection helps choose the right system before anything is built. HRIS Implementation is the delivery of a chosen system. People Analytics & HR Dashboards is about using the data a system produces, rather than the system itself. Digital HR Transformation is broader again — the wider change programme that technology sits within. AI Workplace Policy & HR Integration is distinct from all of these: it's about how AI is used responsibly within HR and the wider workplace, not a specific software system.",
+      "HR Software Selection helps choose the right system before anything is built. HRIS Implementation is the delivery of a chosen system. People Analytics & HR Dashboards is about using the data a system produces, rather than the system itself. Digital HR Transformation is broader again: the wider change programme that technology sits within. AI Workplace Policy & HR Integration is distinct from all of these: it's about how AI is used responsibly within HR and the wider workplace, not a specific software system.",
     outcomes: [
       "More time available for higher-value HR work, instead of manual administration",
       "HR technology that's more likely to be properly adopted, not left underused",
@@ -640,19 +640,19 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
         id: "analytics-vs-transformation",
         question: "What's the difference between People Analytics and Digital HR Transformation?",
         answer:
-          "People Analytics & HR Dashboards focuses on using workforce data you already have. Digital HR Transformation is the broader change programme — which may include new systems, analytics and process change together.",
+          "People Analytics & HR Dashboards focuses on using workforce data you already have. Digital HR Transformation is the broader change programme, which may include new systems, analytics and process change together.",
       },
       {
         id: "vendor-independence",
         question: "Is Apex HR affiliated with any HR software vendor?",
         answer:
-          "No — recommendations are independent of any one vendor, which is what allows this service to focus on fit for your business rather than a specific product.",
+          "No. Recommendations are independent of any one vendor, which is what allows this service to focus on fit for your business rather than a specific product.",
       },
       {
         id: "ai-policy-scope",
         question: "What does AI Workplace Policy & HR Integration cover?",
         answer:
-          "It covers how AI tools are used responsibly within HR and the wider workplace, including policy considerations — it is not a specific software implementation.",
+          "It covers how AI tools are used responsibly within HR and the wider workplace, including policy considerations. It is not a specific software implementation.",
       },
     ],
   },
@@ -682,7 +682,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
       { title: "Advise", detail: "Provide ongoing strategic input as plans evolve." },
     ],
     differentiation:
-      "People Strategy is the overarching direction — how the people function supports business goals. Strategic Workforce Planning is more specific: forecasting the roles, skills and headcount the organisation will need. Global Mobility & Expatriate HR Management applies specifically where people move across borders, covering the HR considerations of international assignments.",
+      "People Strategy is the overarching direction: how the people function supports business goals. Strategic Workforce Planning is more specific: forecasting the roles, skills and headcount the organisation will need. Global Mobility & Expatriate HR Management applies specifically where people move across borders, covering the HR considerations of international assignments.",
     outcomes: [
       "A people strategy more clearly connected to business goals",
       "Workforce planning based on a forecast, rather than reactive hiring under pressure",
@@ -701,7 +701,7 @@ export const serviceCategoryContent: ServiceCategoryContent[] = [
         id: "mobility-small-numbers",
         question: "Do we need Global Mobility support if we only have a few international staff?",
         answer:
-          "It can still help — the HR considerations around even a small number of international assignments, such as employment terms and coordination across locations, benefit from a structured approach, though scope is adapted to the organisation's actual needs.",
+          "It can still help: the HR considerations around even a small number of international assignments, such as employment terms and coordination across locations, benefit from a structured approach, though scope is adapted to the organisation's actual needs.",
       },
       {
         id: "large-orgs-only",
@@ -728,7 +728,7 @@ export const serviceContent: ServiceContent[] = [
     primaryKeyword: "retained HR services",
     heroSummary: "Ongoing HR support and advice, so your business always has someone to call when a people issue comes up.",
     employerChallenge:
-      "Without a dedicated HR function, people issues tend to land on whoever is available — a founder, office manager or finance lead — often without the confidence to know what's required or defensible.",
+      "Without a dedicated HR function, people issues tend to land on whoever is available (a founder, office manager or finance lead), often without the confidence to know what's required or defensible.",
     businessOutcomes: [
       "A consistent, single point of contact for day-to-day HR questions",
       "Less time spent by founders and managers on routine HR administration",
@@ -763,13 +763,13 @@ export const serviceContent: ServiceContent[] = [
       { id: "response", question: "How quickly can Apex HR respond to an issue?", answer: "Response expectations are agreed as part of the engagement, so you know what to expect before a situation arises." },
     ],
     outOfScope: [
-      "A specific guaranteed response time — expectations are agreed as part of the engagement, not promised upfront",
+      "A specific guaranteed response time: expectations are agreed as part of the engagement, not promised upfront",
       "Unlimited or 24/7 availability",
       "Replacing a dedicated in-house HR team for organisations that need one",
       "Payroll processing or formal HR compliance certification",
     ],
     differentiationNote:
-      "Retained HR Services provides ongoing, operational HR advisory access — distinct from a one-off HR Compliance Audit (a fixed-scope review), Employee Handbooks & HR Policies (a specific drafting deliverable), and a Fractional HR Director or Chief People Officer (senior strategic leadership, not day-to-day advisory support).",
+      "Retained HR Services provides ongoing, operational HR advisory access: distinct from a one-off HR Compliance Audit (a fixed-scope review), Employee Handbooks & HR Policies (a specific drafting deliverable), and a Fractional HR Director or Chief People Officer (senior strategic leadership, not day-to-day advisory support).",
     additionalFaqs: [
       {
         id: "vs-inhouse",
@@ -787,7 +787,7 @@ export const serviceContent: ServiceContent[] = [
     primaryKeyword: "HR support for startups",
     heroSummary: "Right-sized HR support for small businesses and startups, so people processes are in place from the start without slowing you down.",
     employerChallenge:
-      "Early-stage businesses often delay HR until a problem forces the issue — by which point contracts, policies or decisions may already be exposed to risk.",
+      "Early-stage businesses often delay HR until a problem forces the issue, by which point contracts, policies or decisions may already be exposed to risk.",
     businessOutcomes: [
       "Foundational HR set up correctly from an early stage",
       "More time for founders to focus on the business, rather than HR administration",
@@ -826,13 +826,13 @@ export const serviceContent: ServiceContent[] = [
       "Formal HR compliance certification",
     ],
     differentiationNote:
-      "This service is scoped to the size and stage of an early business — foundational contracts, policies and first-hire support — rather than the broader ongoing advisory access of Retained HR Services or the senior strategic focus of a Fractional HR Director/CPO.",
+      "This service is scoped to the size and stage of an early business (foundational contracts, policies and first-hire support) rather than the broader ongoing advisory access of Retained HR Services or the senior strategic focus of a Fractional HR Director/CPO.",
     additionalFaqs: [
       {
         id: "one-size",
         question: "Do all startups need the same HR support?",
         answer:
-          "No. Needs vary by team size, sector and growth plans — support is scoped to your specific stage and priorities rather than a standard package.",
+          "No. Needs vary by team size, sector and growth plans. Support is scoped to your specific stage and priorities rather than a standard package.",
       },
     ],
     legalReviewRequired: false,
@@ -880,10 +880,10 @@ export const serviceContent: ServiceContent[] = [
     outOfScope: [
       "Acting as a statutory company director, company secretary or other legal officer",
       "Day-to-day operational HR administration (see Retained HR Services)",
-      "Internal management authority over your existing staff — decisions remain with your organisation",
+      "Internal management authority over your existing staff: decisions remain with your organisation",
     ],
     differentiationNote:
-      "This is senior, strategic HR leadership — distinct from Retained HR Services, which provides ongoing operational advisory access rather than leadership-team-level strategic input.",
+      "This is senior, strategic HR leadership: distinct from Retained HR Services, which provides ongoing operational advisory access rather than leadership-team-level strategic input.",
     additionalFaqs: [
       {
         id: "statutory-officer",
@@ -954,13 +954,13 @@ export const serviceContent: ServiceContent[] = [
       "A substitute for advice from a qualified employment lawyer",
     ],
     differentiationNote:
-      "An audit is a fixed-scope review producing findings and recommendations — distinct from Retained HR Services (ongoing advisory support) and Employee Handbooks & HR Policies (specific document drafting), though audit findings often lead into one of those services.",
+      "An audit is a fixed-scope review producing findings and recommendations: distinct from Retained HR Services (ongoing advisory support) and Employee Handbooks & HR Policies (specific document drafting), though audit findings often lead into one of those services.",
     additionalFaqs: [
       {
         id: "certification",
         question: "Does a completed audit guarantee legal compliance?",
         answer:
-          "No. The audit identifies gaps and gives practical recommendations based on the evidence reviewed — it is not a certification or guarantee, and higher-risk findings may still need review by a qualified employment lawyer.",
+          "No. The audit identifies gaps and gives practical recommendations based on the evidence reviewed. It is not a certification or guarantee, and higher-risk findings may still need review by a qualified employment lawyer.",
       },
     ],
     legalReviewRequired: true,
@@ -1002,7 +1002,7 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["hr-compliance-audit", "retained-hr-services", "hr-support-for-small-businesses-and-startups"],
     relatedSectorSlugs: ["professional-services", "care-homes", "hospitality"],
     faqs: [
-      { id: "template", question: "Are these generic templates?", answer: "No — policies are drafted around how your business actually operates, then refined with your input." },
+      { id: "template", question: "Are these generic templates?", answer: "No. Policies are drafted around how your business actually operates, then refined with your input." },
       { id: "update", question: "How often should policies be reviewed?", answer: "Good practice is an annual review, or sooner if employment practice or your business changes materially." },
     ],
     outOfScope: [
@@ -1016,7 +1016,7 @@ export const serviceContent: ServiceContent[] = [
         id: "no-guarantee",
         question: "Does a new handbook guarantee legal compliance?",
         answer:
-          "No document can guarantee compliance on its own — policies are drafted to reflect current good practice and your business, but should be kept under review as law and circumstances change.",
+          "No document can guarantee compliance on its own: policies are drafted to reflect current good practice and your business, but should be kept under review as law and circumstances change.",
       },
     ],
     legalReviewRequired: true,
@@ -1054,27 +1054,27 @@ export const serviceContent: ServiceContent[] = [
     ],
     engagementOptions: ["One-off payroll process review", "Provider selection support", "Ongoing advisory retainer"],
     whyApex:
-      "This is advisory support around your payroll process and provider relationship, not payroll processing itself — so it stays independent of any one provider.",
+      "This is advisory support around your payroll process and provider relationship, not payroll processing itself, so it stays independent of any one provider.",
     relatedServiceSlugs: ["hr-compliance-audit", "hris-implementation", "reward-strategy"],
     relatedSectorSlugs: ["professional-services", "manufacturers", "distribution"],
     faqs: [
-      { id: "process-payroll", question: "Does Apex HR run our payroll?", answer: "This service is advisory — reviewing and improving your payroll processes and provider relationship, not processing payroll itself." },
+      { id: "process-payroll", question: "Does Apex HR run our payroll?", answer: "This service is advisory: reviewing and improving your payroll processes and provider relationship, not processing payroll itself." },
       { id: "provider", question: "Can you help us choose a new payroll provider?", answer: "Yes, this includes support comparing providers against your specific requirements." },
     ],
     outOfScope: [
       "Processing payroll or running payroll on your behalf",
       "Filing taxes or providing regulated tax advice",
       "Acting as your accountant",
-      "Guaranteeing payroll accuracy — this sits with your payroll provider or system",
+      "Guaranteeing payroll accuracy: this sits with your payroll provider or system",
     ],
     differentiationNote:
-      "This is advisory support around payroll process, controls and provider relationships — distinct from payroll processing (a payroll bureau or software), tax filing (an accountant or tax adviser) and regulated financial advice.",
+      "This is advisory support around payroll process, controls and provider relationships: distinct from payroll processing (a payroll bureau or software), tax filing (an accountant or tax adviser) and regulated financial advice.",
     additionalFaqs: [
       {
         id: "tax-filing",
         question: "Does Apex HR file our payroll taxes?",
         answer:
-          "No. Apex HR does not file taxes or provide regulated tax or accounting advice — for tax-specific matters, an accountant or qualified tax adviser should be involved.",
+          "No. Apex HR does not file taxes or provide regulated tax or accounting advice. For tax-specific matters, an accountant or qualified tax adviser should be involved.",
       },
       {
         id: "accuracy",
@@ -1124,12 +1124,12 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["executive-search", "contract-staffing", "recruitment-process-outsourcing-rpo", "graduate-schemes-and-early-careers-design"],
     relatedSectorSlugs: ["professional-services", "technology", "financial-services"],
     faqs: [
-      { id: "timescale", question: "How long does permanent recruitment typically take?", answer: "Timescales vary by role and market, and are discussed as part of scoping — Apex HR does not commit to a fixed placement time without understanding the role first." },
+      { id: "timescale", question: "How long does permanent recruitment typically take?", answer: "Timescales vary by role and market, and are discussed as part of scoping. Apex HR does not commit to a fixed placement time without understanding the role first." },
       { id: "guarantee", question: "Is the hire guaranteed?", answer: "Engagement terms, including any rebate or replacement arrangements, are agreed and confirmed before the search begins." },
     ],
     outOfScope: [
       "A guarantee of candidate availability, hiring speed or a successful placement",
-      "The final hiring decision — this remains with your organisation",
+      "The final hiring decision: this remains with your organisation",
       "Senior executive search (see Executive Search) or temporary and contract placements (see Contract Staffing)",
     ],
     differentiationNote:
@@ -1181,16 +1181,16 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["permanent-recruitment", "fractional-hr-director-chief-people-officer", "succession-planning-and-talent-mapping"],
     relatedSectorSlugs: ["financial-services", "professional-services", "life-sciences"],
     faqs: [
-      { id: "confidential", question: "Can a search be run confidentially?", answer: "Confidential search — including for replacement hires — is Apex HR's standard approach for senior appointments, though the extent of confidentiality achievable depends on the specific situation and is agreed and managed case by case." },
+      { id: "confidential", question: "Can a search be run confidentially?", answer: "Confidential search (including for replacement hires) is Apex HR's standard approach for senior appointments, though the extent of confidentiality achievable depends on the specific situation and is agreed and managed case by case." },
       { id: "levels", question: "What seniority levels does this cover?", answer: "Typically senior leadership, director and executive-level roles, agreed at the outset of the engagement." },
     ],
     outOfScope: [
       "A guarantee of a particular success rate, placement outcome or timescale",
-      "An exclusive or proprietary candidate database — search draws on genuine market mapping and direct approach, not a claimed private network",
+      "An exclusive or proprietary candidate database: search draws on genuine market mapping and direct approach, not a claimed private network",
       "Absolute, unconditional confidentiality in every circumstance",
     ],
     differentiationNote:
-      "Executive Search is reserved for senior leadership, executive or other business-critical roles where a targeted, confidential search is more effective than standard advertising — distinct from Permanent Recruitment, which covers standard permanent hiring more broadly.",
+      "Executive Search is reserved for senior leadership, executive or other business-critical roles where a targeted, confidential search is more effective than standard advertising: distinct from Permanent Recruitment, which covers standard permanent hiring more broadly.",
     additionalFaqs: [
       {
         id: "exclusive-network",
@@ -1241,17 +1241,17 @@ export const serviceContent: ServiceContent[] = [
     ],
     outOfScope: [
       "Acting as the legal employer, agency worker provider, payroll operator or tax adviser, unless separately verified and agreed for a specific engagement",
-      "Formal determination of employment status or IR35 position — this should be confirmed with a qualified adviser",
+      "Formal determination of employment status or IR35 position: this should be confirmed with a qualified adviser",
       "Permanent recruitment (see Permanent Recruitment) or an ongoing outsourced recruitment function (see Recruitment Process Outsourcing)",
     ],
     differentiationNote:
-      "Contract Staffing covers fixed-term, interim or temporary placements — distinct from Permanent Recruitment (permanent roles) and Recruitment Process Outsourcing (an ongoing recruitment function across multiple hires). The specific contractual, employment-status and tax arrangements depend on the actual engagement model agreed for each placement.",
+      "Contract Staffing covers fixed-term, interim or temporary placements: distinct from Permanent Recruitment (permanent roles) and Recruitment Process Outsourcing (an ongoing recruitment function across multiple hires). The specific contractual, employment-status and tax arrangements depend on the actual engagement model agreed for each placement.",
     additionalFaqs: [
       {
         id: "who-employs",
         question: "Does Apex HR employ the contractor or interim worker?",
         answer:
-          "This depends on the engagement model agreed for the specific placement, and is not assumed to be Apex HR by default — arrangements are confirmed when setting up each engagement, with formal employment-status questions referred to a qualified adviser.",
+          "This depends on the engagement model agreed for the specific placement, and is not assumed to be Apex HR by default. Arrangements are confirmed when setting up each engagement, with formal employment-status questions referred to a qualified adviser.",
       },
     ],
     legalReviewRequired: true,
@@ -1300,7 +1300,7 @@ export const serviceContent: ServiceContent[] = [
       "General outsourced HR support beyond recruitment (see Outsourced HR Services)",
     ],
     differentiationNote:
-      "Recruitment Process Outsourcing (RPO) hands Apex HR an ongoing recruitment function or programme, covering multiple hires over time as an extension of your own team — distinct from a single recruitment campaign (Permanent Recruitment or Executive Search) and from Outsourced HR Services, which covers wider HR advisory rather than recruitment delivery specifically.",
+      "Recruitment Process Outsourcing (RPO) hands Apex HR an ongoing recruitment function or programme, covering multiple hires over time as an extension of your own team: distinct from a single recruitment campaign (Permanent Recruitment or Executive Search) and from Outsourced HR Services, which covers wider HR advisory rather than recruitment delivery specifically.",
     additionalFaqs: [
       {
         id: "governance",
@@ -1318,7 +1318,7 @@ export const serviceContent: ServiceContent[] = [
     primaryKeyword: "graduate scheme design",
     heroSummary: "Design and delivery support for graduate schemes and early-careers programmes that build a genuine talent pipeline.",
     employerChallenge:
-      "Early-careers hiring requires a different approach to experienced hiring — assessment, onboarding and development all need to be designed with less work history to go on.",
+      "Early-careers hiring requires a different approach to experienced hiring: assessment, onboarding and development all need to be designed with less work history to go on.",
     businessOutcomes: [
       "A structured, fair early-careers assessment process",
       "A more structured onboarding experience, designed to support early retention",
@@ -1347,14 +1347,14 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["permanent-recruitment", "recruitment-process-outsourcing-rpo", "learning-strategy-and-capability-development"],
     relatedSectorSlugs: ["professional-services", "financial-services", "engineers"],
     faqs: [
-      { id: "size", question: "Does this suit smaller employers, or only large graduate schemes?", answer: "Programmes are scaled to the employer — this can support a small, structured early-careers intake as well as larger schemes." },
+      { id: "size", question: "Does this suit smaller employers, or only large graduate schemes?", answer: "Programmes are scaled to the employer: this can support a small, structured early-careers intake as well as larger schemes." },
     ],
     outOfScope: [
       "A guarantee of graduate hiring volumes, access to particular universities, or specific diversity outcomes",
       "Filling a single, individual permanent vacancy (see Permanent Recruitment)",
     ],
     differentiationNote:
-      "This service is about designing and running a structured, repeatable early-careers programme — assessment, onboarding and development built for candidates with less work history — rather than filling one individual permanent vacancy.",
+      "This service is about designing and running a structured, repeatable early-careers programme (assessment, onboarding and development built for candidates with less work history) rather than filling one individual permanent vacancy.",
     additionalFaqs: [
       {
         id: "universities",
@@ -1400,7 +1400,7 @@ export const serviceContent: ServiceContent[] = [
     ],
     engagementOptions: ["Full process support", "Documentation and planning only", "Manager coaching through an existing process"],
     whyApex:
-      "This is informational HR process support, not legal advice — Apex HR recommends qualified legal review for complex, large-scale or contested situations.",
+      "This is informational HR process support, not legal advice. Apex HR recommends qualified legal review for complex, large-scale or contested situations.",
     relatedServiceSlugs: ["tupe-advisory", "outplacement-and-career-transition-services", "employment-tribunal-hr-support"],
     relatedSectorSlugs: ["manufacturers", "construction", "distribution"],
     faqs: [
@@ -1408,13 +1408,13 @@ export const serviceContent: ServiceContent[] = [
       { id: "timeline", question: "How long does a redundancy process take?", answer: "Timelines depend on the number of affected employees and any statutory consultation requirements, and are planned as part of the process." },
     ],
     outOfScope: [
-      "A determination of whether a specific redundancy or restructuring process is fair or lawful — this is a legal question for a qualified employment lawyer",
+      "A determination of whether a specific redundancy or restructuring process is fair or lawful: this is a legal question for a qualified employment lawyer",
       "A guarantee that the process will avoid disputes, grievances or tribunal claims",
-      "Setting or confirming statutory consultation thresholds or timescales — these should be confirmed against current GOV.UK/Acas guidance and legal advice",
+      "Setting or confirming statutory consultation thresholds or timescales: these should be confirmed against current GOV.UK/Acas guidance and legal advice",
       "Ongoing support for departing employees after they leave (see Outplacement & Career Transition Services)",
     ],
     differentiationNote:
-      "This service covers the HR process and people side of planning and running a redundancy or restructuring exercise — distinct from Outplacement & Career Transition Services, which supports employees after they leave, and from TUPE Advisory, which applies specifically to business transfers rather than headcount reduction. Management remains responsible for the underlying business decision and any legal sign-off; Apex HR does not determine whether a process is fair or lawful.",
+      "This service covers the HR process and people side of planning and running a redundancy or restructuring exercise: distinct from Outplacement & Career Transition Services, which supports employees after they leave, and from TUPE Advisory, which applies specifically to business transfers rather than headcount reduction. Management remains responsible for the underlying business decision and any legal sign-off; Apex HR does not determine whether a process is fair or lawful.",
     additionalFaqs: [
       {
         id: "management-responsibility",
@@ -1431,9 +1431,9 @@ export const serviceContent: ServiceContent[] = [
     metaDescription: "Apex HR is a TUPE advisory firm helping UK employers manage transfers with clear process, communication and integration support.",
     primaryKeyword: "TUPE advisory",
     heroSummary:
-      "Practical HR support through a TUPE transfer — the Transfer of Undertakings (Protection of Employment) Regulations — covering process, employee communication and integration planning.",
+      "Practical HR support through a TUPE transfer, the Transfer of Undertakings (Protection of Employment) Regulations, covering process, employee communication and integration planning.",
     employerChallenge:
-      "Whether TUPE applies depends on the specific circumstances of a transaction, and getting this wrong has real consequences — yet transfers often move on a tight timeline with significant people-management complexity. Apex HR supports the HR process and communication around a transfer; the legal determination of whether and how TUPE applies should come from a qualified employment lawyer.",
+      "Whether TUPE applies depends on the specific circumstances of a transaction, and getting this wrong has real consequences, yet transfers often move on a tight timeline with significant people-management complexity. Apex HR supports the HR process and communication around a transfer; the legal determination of whether and how TUPE applies should come from a qualified employment lawyer.",
     businessOutcomes: [
       "A clearer, better-managed transfer process",
       "Reduced disruption to transferring employees",
@@ -1458,25 +1458,25 @@ export const serviceContent: ServiceContent[] = [
     ],
     engagementOptions: ["Full transfer support", "Communication and integration support only"],
     whyApex:
-      "This is HR process and communication support alongside your legal advisers — TUPE has specific legal requirements that should be confirmed with a qualified employment lawyer.",
+      "This is HR process and communication support alongside your legal advisers. TUPE has specific legal requirements that should be confirmed with a qualified employment lawyer.",
     relatedServiceSlugs: ["redundancy-and-restructuring-support", "organisation-design", "ma-people-due-diligence-and-post-merger-integration"],
     relatedSectorSlugs: ["care-homes", "construction", "distribution"],
     faqs: [
-      { id: "legal", question: "Does Apex HR provide the legal TUPE assessment?", answer: "No — Apex HR provides HR process and communication support. Legal assessment of whether and how TUPE applies should come from a qualified employment lawyer." },
+      { id: "legal", question: "Does Apex HR provide the legal TUPE assessment?", answer: "No. Apex HR provides HR process and communication support. Legal assessment of whether and how TUPE applies should come from a qualified employment lawyer." },
     ],
     outOfScope: [
-      "The legal determination of whether TUPE applies to a specific transaction — this is a legal question for a qualified employment lawyer",
+      "The legal determination of whether TUPE applies to a specific transaction: this is a legal question for a qualified employment lawyer",
       "Drafting or advising on the legal transfer agreement itself",
       "A guarantee of a smooth or dispute-free transfer",
     ],
     differentiationNote:
-      "TUPE Advisory applies specifically to business, contract or service transfers where TUPE may be relevant — distinct from Redundancy & Restructuring Support, which applies to headcount reduction rather than a change of employer, though the two are sometimes relevant to the same wider transaction.",
+      "TUPE Advisory applies specifically to business, contract or service transfers where TUPE may be relevant: distinct from Redundancy & Restructuring Support, which applies to headcount reduction rather than a change of employer, though the two are sometimes relevant to the same wider transaction.",
     additionalFaqs: [
       {
         id: "applies-always",
         question: "Does TUPE always apply to a business transfer?",
         answer:
-          "Not necessarily — whether TUPE applies depends on the specific facts of the transaction. Apex HR supports the HR process around a transfer; the legal determination should be confirmed with a qualified employment lawyer.",
+          "Not necessarily. Whether TUPE applies depends on the specific facts of the transaction. Apex HR supports the HR process around a transfer; the legal determination should be confirmed with a qualified employment lawyer.",
       },
     ],
     legalReviewRequired: true,
@@ -1514,27 +1514,27 @@ export const serviceContent: ServiceContent[] = [
     ],
     engagementOptions: ["Full investigation support", "Investigation support alongside internal HR"],
     whyApex:
-      "The investigator's role is to establish the facts fairly and consistently — any subsequent decision remains yours, informed by the findings and appropriate advice.",
+      "The investigator's role is to establish the facts fairly and consistently. Any subsequent decision remains yours, informed by the findings and appropriate advice.",
     relatedServiceSlugs: ["workplace-mediation-and-conflict-resolution", "employment-tribunal-hr-support", "hr-compliance-audit"],
     relatedSectorSlugs: ["professional-services", "care-homes", "education"],
     faqs: [
-      { id: "outcome", question: "Does Apex HR decide the outcome?", answer: "No — an investigation establishes the facts. Any disciplinary or other decision remains the employer's, informed by the findings and appropriate advice." },
+      { id: "outcome", question: "Does Apex HR decide the outcome?", answer: "No. An investigation establishes the facts. Any disciplinary or other decision remains the employer's, informed by the findings and appropriate advice." },
     ],
     outOfScope: [
-      "A guarantee of complete confidentiality — information may need to be shared as part of a fair process, and this is explained at the outset",
+      "A guarantee of complete confidentiality: information may need to be shared as part of a fair process, and this is explained at the outset",
       "A guarantee of legal privilege over the investigation or its findings",
-      "The disciplinary or other management decision — this remains the employer's",
+      "The disciplinary or other management decision: this remains the employer's",
       "Any criminal investigation or law-enforcement authority",
       "A guarantee of a particular finding or outcome",
     ],
     differentiationNote:
-      "An investigation is fact-finding — establishing what happened in relation to a specific concern — distinct from Workplace Mediation & Conflict Resolution, which is a facilitated conversation aimed at resolving a relationship rather than establishing facts. The two are sometimes used in sequence, but serve different purposes.",
+      "An investigation is fact-finding (establishing what happened in relation to a specific concern), distinct from Workplace Mediation & Conflict Resolution, which is a facilitated conversation aimed at resolving a relationship rather than establishing facts. The two are sometimes used in sequence, but serve different purposes.",
     additionalFaqs: [
       {
         id: "confidentiality",
         question: "Is the investigation completely confidential?",
         answer:
-          "Information is handled sensitively and only shared with those who genuinely need it, but complete confidentiality cannot be guaranteed — a fair process may require sharing relevant information with the people involved, and this is explained before the investigation begins.",
+          "Information is handled sensitively and only shared with those who genuinely need it, but complete confidentiality cannot be guaranteed: a fair process may require sharing relevant information with the people involved, and this is explained before the investigation begins.",
       },
       {
         id: "privilege",
@@ -1582,16 +1582,16 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["workplace-investigations", "employee-experience-strategy", "leadership-and-management-training"],
     relatedSectorSlugs: ["professional-services", "health-care", "education"],
     faqs: [
-      { id: "voluntary", question: "Is mediation voluntary?", answer: "Mediation works best when all parties engage voluntarily and in good faith — this is discussed and agreed before a session takes place." },
+      { id: "voluntary", question: "Is mediation voluntary?", answer: "Mediation works best when all parties engage voluntarily and in good faith: this is discussed and agreed before a session takes place." },
     ],
     outOfScope: [
       "A guarantee that mediation will resolve the conflict or that parties will reach agreement",
-      "A determination of who is right or wrong — mediation is not an investigation or a disciplinary process",
+      "A determination of who is right or wrong: mediation is not an investigation or a disciplinary process",
       "Legal advice on any underlying employment-law question raised during a session",
-      "Suitability for every workplace dispute — mediation is not always the appropriate route, and this is assessed before proceeding",
+      "Suitability for every workplace dispute: mediation is not always the appropriate route, and this is assessed before proceeding",
     ],
     differentiationNote:
-      "Mediation is a facilitated conversation aimed at helping parties find their own way forward — distinct from Workplace Investigations, which establishes facts about a specific concern, and from formal legal advice. Not every workplace dispute is suitable for mediation; suitability is assessed as part of scoping.",
+      "Mediation is a facilitated conversation aimed at helping parties find their own way forward: distinct from Workplace Investigations, which establishes facts about a specific concern, and from formal legal advice. Not every workplace dispute is suitable for mediation; suitability is assessed as part of scoping.",
     additionalFaqs: [
       {
         id: "guaranteed-resolution",
@@ -1603,7 +1603,7 @@ export const serviceContent: ServiceContent[] = [
         id: "suitable-for-all",
         question: "Is mediation suitable for every workplace dispute?",
         answer:
-          "No. Mediation suits situations where a facilitated conversation could help — it is not appropriate for every dispute, and suitability is assessed before proceeding.",
+          "No. Mediation suits situations where a facilitated conversation could help. It is not appropriate for every dispute, and suitability is assessed before proceeding.",
       },
     ],
     legalReviewRequired: true,
@@ -1639,21 +1639,21 @@ export const serviceContent: ServiceContent[] = [
     ],
     engagementOptions: ["Full tribunal support", "Documentation and evidence preparation only"],
     whyApex:
-      "This service supports your legal representation with HR process and evidence — it is not a substitute for qualified legal representation at tribunal.",
+      "This service supports your legal representation with HR process and evidence. It is not a substitute for qualified legal representation at tribunal.",
     relatedServiceSlugs: ["workplace-investigations", "redundancy-and-restructuring-support", "hr-compliance-audit"],
     relatedSectorSlugs: ["professional-services", "manufacturers", "care-homes"],
     faqs: [
-      { id: "represent", question: "Does Apex HR represent us at tribunal?", answer: "No — Apex HR provides HR-side support and evidence preparation. Tribunal representation should come from a qualified solicitor or barrister." },
+      { id: "represent", question: "Does Apex HR represent us at tribunal?", answer: "No. Apex HR provides HR-side support and evidence preparation. Tribunal representation should come from a qualified solicitor or barrister." },
     ],
     outOfScope: [
       "Legal strategy or advice on the merits of the claim",
-      "Legal representation at tribunal — this should come from a qualified solicitor or barrister",
+      "Legal representation at tribunal: this should come from a qualified solicitor or barrister",
       "Drafting tribunal pleadings or other formal legal filings",
       "Predicting or guaranteeing the outcome of a tribunal claim",
       "Any claim of legal privilege over materials Apex HR prepares",
     ],
     differentiationNote:
-      "This service supports the HR and evidence-organisation side of a tribunal claim, working alongside your appointed legal representation — distinct from Workplace Investigations (fact-finding before a claim arises) and from the legal representation itself, which remains your solicitor or barrister's responsibility.",
+      "This service supports the HR and evidence-organisation side of a tribunal claim, working alongside your appointed legal representation: distinct from Workplace Investigations (fact-finding before a claim arises) and from the legal representation itself, which remains your solicitor or barrister's responsibility.",
     additionalFaqs: [
       {
         id: "privilege",
@@ -1705,10 +1705,10 @@ export const serviceContent: ServiceContent[] = [
       "A guarantee of interviews, job offers or placement into a new role",
       "A specific guaranteed timescale for finding new employment",
       "Access to a particular set of employers or vacancies",
-      "Automatic entry into Apex HR's candidate or talent-pool database — participants are never added without their own informed agreement",
+      "Automatic entry into Apex HR's candidate or talent-pool database: participants are never added without their own informed agreement",
     ],
     differentiationNote:
-      "This service supports employees during their transition to new employment after a decision has been made — distinct from Redundancy & Restructuring Support, which covers the HR process of planning and running the redundancy or restructuring itself. Any move for a participant into Apex HR's own candidate pathways happens only with the participant's informed, separate agreement, never automatically.",
+      "This service supports employees during their transition to new employment after a decision has been made, distinct from Redundancy & Restructuring Support, which covers the HR process of planning and running the redundancy or restructuring itself. Any move for a participant into Apex HR's own candidate pathways happens only with the participant's informed, separate agreement, never automatically.",
     additionalFaqs: [
       {
         id: "database",
@@ -1720,7 +1720,7 @@ export const serviceContent: ServiceContent[] = [
         id: "guarantee",
         question: "Does outplacement guarantee a new job?",
         answer:
-          "No. Outplacement provides practical career-transition support — it cannot guarantee interviews, offers, placement or a specific timescale for finding new employment.",
+          "No. Outplacement provides practical career-transition support. It cannot guarantee interviews, offers, placement or a specific timescale for finding new employment.",
       },
     ],
     legalReviewRequired: false,
@@ -1757,7 +1757,7 @@ export const serviceContent: ServiceContent[] = [
     ],
     engagementOptions: ["Negotiation preparation support", "Ongoing industrial relations advisory"],
     whyApex:
-      "This is informational HR support — specific legal questions about collective bargaining obligations should be confirmed with a qualified employment lawyer.",
+      "This is informational HR support. Specific legal questions about collective bargaining obligations should be confirmed with a qualified employment lawyer.",
     relatedServiceSlugs: ["redundancy-and-restructuring-support", "employee-engagement-surveys-and-action-planning", "reward-strategy"],
     relatedSectorSlugs: ["manufacturers", "distribution", "construction"],
     faqs: [
@@ -1771,13 +1771,13 @@ export const serviceContent: ServiceContent[] = [
       "A guarantee of a specific negotiation result",
     ],
     differentiationNote:
-      "This service covers employer-side preparation and process support for engaging with a recognised trade union or works council on collective matters — distinct from Workplace Mediation & Conflict Resolution, which addresses individual or team-level conflict, and from Redundancy & Restructuring Support, which covers organisational change rather than ongoing collective engagement.",
+      "This service covers employer-side preparation and process support for engaging with a recognised trade union or works council on collective matters: distinct from Workplace Mediation & Conflict Resolution, which addresses individual or team-level conflict, and from Redundancy & Restructuring Support, which covers organisational change rather than ongoing collective engagement.",
     additionalFaqs: [
       {
         id: "not-legal-counsel",
         question: "Does Apex HR act as our legal counsel or negotiate as the union?",
         answer:
-          "No. Apex HR supports your organisation's own preparation and process as the employer — it does not act as your legal counsel or as the trade union, and specific legal questions about collective bargaining obligations should be confirmed with a qualified employment lawyer.",
+          "No. Apex HR supports your organisation's own preparation and process as the employer. It does not act as your legal counsel or as the trade union, and specific legal questions about collective bargaining obligations should be confirmed with a qualified employment lawyer.",
       },
     ],
     legalReviewRequired: true,
@@ -1789,7 +1789,7 @@ export const serviceContent: ServiceContent[] = [
     primaryKeyword: "skilled worker sponsorship HR support",
     heroSummary: "HR-side process support for employers sponsoring international talent, working alongside qualified immigration advisers.",
     employerChallenge:
-      "Skilled Worker sponsorship involves detailed record-keeping and process obligations that sit alongside — but are distinct from — the formal immigration application itself.",
+      "Skilled Worker sponsorship involves detailed record-keeping and process obligations that sit alongside, but are distinct from, the formal immigration application itself.",
     businessOutcomes: [
       "Clearer internal sponsorship processes",
       "Better-organised right-to-work and compliance records",
@@ -1814,16 +1814,16 @@ export const serviceContent: ServiceContent[] = [
     ],
     engagementOptions: ["HR process review", "Ongoing sponsorship HR support"],
     whyApex:
-      "This is HR process support only — formal sponsor licence applications, compliance and immigration status questions must be handled by a qualified immigration adviser or solicitor.",
+      "This is HR process support only. Formal sponsor licence applications, compliance and immigration status questions must be handled by a qualified immigration adviser or solicitor.",
     relatedServiceSlugs: ["hr-compliance-audit", "employee-handbooks-and-hr-policies", "permanent-recruitment"],
     relatedSectorSlugs: ["technology", "health-care", "life-sciences"],
     faqs: [
-      { id: "immigration-advice", question: "Does Apex HR provide immigration advice?", answer: "No. This is HR process support alongside your qualified immigration adviser — Apex HR does not provide immigration or visa legal advice." },
+      { id: "immigration-advice", question: "Does Apex HR provide immigration advice?", answer: "No. This is HR process support alongside your qualified immigration adviser. Apex HR does not provide immigration or visa legal advice." },
     ],
     outOfScope: [
-      "Determining whether a specific individual qualifies for a Skilled Worker visa — this is an immigration-law question",
+      "Determining whether a specific individual qualifies for a Skilled Worker visa: this is an immigration-law question",
       "Guaranteeing a sponsor licence, visa approval or any immigration outcome",
-      "Current salary thresholds, fees or processing times — these change and should be confirmed against current GOV.UK guidance",
+      "Current salary thresholds, fees or processing times: these change and should be confirmed against current GOV.UK guidance",
       "Acting as an immigration adviser or government body",
     ],
     differentiationNote:
@@ -1876,19 +1876,19 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["change-management", "strategic-workforce-planning", "competency-frameworks"],
     relatedSectorSlugs: ["professional-services", "technology", "financial-services"],
     faqs: [
-      { id: "redundancy", question: "Does organisation design always involve redundancies?", answer: "No — design changes can involve role changes without headcount reduction. Where redundancies are involved, this is planned separately and carefully." },
+      { id: "redundancy", question: "Does organisation design always involve redundancies?", answer: "No. Design changes can involve role changes without headcount reduction. Where redundancies are involved, this is planned separately and carefully." },
     ],
     outOfScope: [
-      "Legal advice on changing employment terms or contracts — this should be obtained from a qualified employment lawyer alongside any structural change.",
-      "An assumption that redesign automatically requires redundancies — many structural changes involve no headcount reduction.",
-      "Final decisions on organisational structure — these remain with your leadership team, with Apex HR providing analysis, options and design support.",
+      "Legal advice on changing employment terms or contracts: this should be obtained from a qualified employment lawyer alongside any structural change.",
+      "An assumption that redesign automatically requires redundancies: many structural changes involve no headcount reduction.",
+      "Final decisions on organisational structure: these remain with your leadership team, with Apex HR providing analysis, options and design support.",
       "Guaranteed efficiency, productivity or cost savings from a new structure.",
     ],
     differentiationNote:
-      "Organisation Design focuses on the structure itself — roles, reporting lines, accountability and decision rights. Change Management, a related service, focuses on how people move through a transition once a new structure or way of working has been agreed.",
+      "Organisation Design focuses on the structure itself: roles, reporting lines, accountability and decision rights. Change Management, a related service, focuses on how people move through a transition once a new structure or way of working has been agreed.",
     additionalFaqs: [
       { id: "decision-rights", question: "What are 'decision rights' in organisation design?", answer: "Decision rights describe who is accountable for making which decisions within a structure. Clarifying this alongside reporting lines can help reduce duplicated effort and slow decision-making." },
-      { id: "final-say", question: "Does Apex HR make the final decision on our structure?", answer: "No — Apex HR provides analysis and design options. Final decisions on organisational structure remain with your leadership team." },
+      { id: "final-say", question: "Does Apex HR make the final decision on our structure?", answer: "No. Apex HR provides analysis and design options. Final decisions on organisational structure remain with your leadership team." },
     ],
     legalReviewRequired: false,
   },
@@ -1899,7 +1899,7 @@ export const serviceContent: ServiceContent[] = [
     primaryKeyword: "change management",
     heroSummary: "Practical change management support, helping you plan the people side of organisational change through clear communication, engagement and adoption planning.",
     employerChallenge:
-      "Change initiatives often fail not because the plan was wrong, but because the people side of change — communication, engagement and support — wasn't managed well.",
+      "Change initiatives often fail not because the plan was wrong, but because the people side of change (communication, engagement and support) wasn't managed well.",
     businessOutcomes: [
       "A structured, well-communicated change process",
       "Higher employee engagement through the transition",
@@ -1928,19 +1928,19 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["organisation-design", "culture-transformation", "employee-experience-strategy"],
     relatedSectorSlugs: ["professional-services", "manufacturers", "technology"],
     faqs: [
-      { id: "size", question: "Does this only apply to large-scale change?", answer: "No — the same principles apply to smaller changes, scaled to fit the size of the initiative." },
+      { id: "size", question: "Does this only apply to large-scale change?", answer: "No. The same principles apply to smaller changes, scaled to fit the size of the initiative." },
     ],
     outOfScope: [
       "Guaranteed employee acceptance, adoption rates or elimination of resistance to change.",
-      "Project management of the underlying business change itself, such as IT delivery, systems implementation or construction — this sits with your project or programme management function.",
+      "Project management of the underlying business change itself, such as IT delivery, systems implementation or construction: this sits with your project or programme management function.",
       "Guaranteed delivery timescales for the wider change initiative.",
-      "Guaranteed project success — outcomes depend on many factors beyond the people-change workstream.",
+      "Guaranteed project success: outcomes depend on many factors beyond the people-change workstream.",
     ],
     differentiationNote:
-      "Change Management here covers the people side of change — communication, engagement, readiness and adoption support. It is not project management of the underlying change itself, and it is distinct from Organisation Design, which focuses on the target structure rather than how people move through the transition to it.",
+      "Change Management here covers the people side of change: communication, engagement, readiness and adoption support. It is not project management of the underlying change itself, and it is distinct from Organisation Design, which focuses on the target structure rather than how people move through the transition to it.",
     additionalFaqs: [
-      { id: "project-management", question: "Is this the same as project management?", answer: "No — Apex HR's change management support focuses on the people side of change, such as communication, engagement and manager support. It works alongside, not in place of, project or programme management for the underlying change itself." },
-      { id: "resistance", question: "Can you guarantee employees will accept the change?", answer: "No — Apex HR cannot guarantee acceptance, adoption rates or the elimination of resistance. The aim is a structured, well-communicated process that gives the change the best practical chance of success." },
+      { id: "project-management", question: "Is this the same as project management?", answer: "No. Apex HR's change management support focuses on the people side of change, such as communication, engagement and manager support. It works alongside, not in place of, project or programme management for the underlying change itself." },
+      { id: "resistance", question: "Can you guarantee employees will accept the change?", answer: "No. Apex HR cannot guarantee acceptance, adoption rates or the elimination of resistance. The aim is a structured, well-communicated process that gives the change the best practical chance of success." },
     ],
     legalReviewRequired: false,
   },
@@ -1980,19 +1980,19 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["change-management", "employee-experience-strategy", "leadership-and-management-training"],
     relatedSectorSlugs: ["technology", "startups-scale-ups", "professional-services"],
     faqs: [
-      { id: "quick-fix", question: "How quickly can culture change?", answer: "Genuine culture change takes sustained effort over time — Apex HR does not promise a quick fix, but focuses on practical, visible initiatives." },
+      { id: "quick-fix", question: "How quickly can culture change?", answer: "Genuine culture change takes sustained effort over time. Apex HR does not promise a quick fix, but focuses on practical, visible initiatives." },
     ],
     outOfScope: [
       "Guaranteed improvements to engagement, retention or productivity.",
       "Psychological diagnosis or assessment of individual employees.",
-      "Culture change delivered independently of leadership behaviour — genuine culture change depends on visible leadership commitment, not an external initiative alone.",
+      "Culture change delivered independently of leadership behaviour: genuine culture change depends on visible leadership commitment, not an external initiative alone.",
       "A single workshop, away-day or values document, presented on its own as complete culture transformation.",
     ],
     differentiationNote:
-      "Culture Transformation focuses on how the organisation actually behaves day to day — leadership signals, working practices and lived experience. It is distinct from Employee Experience & Engagement, which focuses more specifically on structured listening and the end-to-end employee journey.",
+      "Culture Transformation focuses on how the organisation actually behaves day to day: leadership signals, working practices and lived experience. It is distinct from Employee Experience & Engagement, which focuses more specifically on structured listening and the end-to-end employee journey.",
     additionalFaqs: [
       { id: "leadership-role", question: "What role does leadership play in culture transformation?", answer: "A central one. Culture is shaped by leadership behaviour more than any single initiative, so Apex HR's work is designed to support leaders, not to impose culture independently of them." },
-      { id: "psychological", question: "Does this involve psychologically assessing individual employees?", answer: "No — this work looks at organisational culture, systems and behaviours as a whole, not psychological assessment of individual employees." },
+      { id: "psychological", question: "Does this involve psychologically assessing individual employees?", answer: "No. This work looks at organisational culture, systems and behaviours as a whole, not psychological assessment of individual employees." },
     ],
     legalReviewRequired: false,
   },
@@ -2003,7 +2003,7 @@ export const serviceContent: ServiceContent[] = [
     primaryKeyword: "M&A people due diligence",
     heroSummary: "People due diligence and post-merger integration support for Mergers and Acquisitions (M&A), so workforce risk is understood before a transaction and managed after it.",
     employerChallenge:
-      "People risk is often under-assessed during M&A due diligence, and integration issues — culture clashes, duplicated roles, unclear reporting lines — can undermine the value of the deal.",
+      "People risk is often under-assessed during M&A due diligence, and integration issues (culture clashes, duplicated roles, unclear reporting lines) can undermine the value of the deal.",
     businessOutcomes: [
       "A clearer picture of people risk ahead of a transaction",
       "A structured integration plan post-completion",
@@ -2031,20 +2031,20 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["organisation-design", "change-management", "tupe-advisory"],
     relatedSectorSlugs: ["professional-services", "financial-services", "technology"],
     faqs: [
-      { id: "scope", question: "Does this replace financial or legal due diligence?", answer: "No — this focuses specifically on people and organisational risk, alongside your financial and legal due diligence workstreams." },
+      { id: "scope", question: "Does this replace financial or legal due diligence?", answer: "No. This focuses specifically on people and organisational risk, alongside your financial and legal due diligence workstreams." },
     ],
     outOfScope: [
-      "Financial, legal, tax or investment due diligence — these should be provided by your qualified financial, legal and tax advisers.",
+      "Financial, legal, tax or investment due diligence: these should be provided by your qualified financial, legal and tax advisers.",
       "Valuation of the business or certification of transaction risk.",
       "Guarantees of deal completion or successful integration outcomes.",
-      "Legal conclusions about employee transfers or liabilities, including TUPE — these require advice from a qualified employment lawyer.",
+      "Legal conclusions about employee transfers or liabilities, including TUPE: these require advice from a qualified employment lawyer.",
     ],
     differentiationNote:
-      "This service covers people-related due diligence and post-merger integration specifically — workforce information, organisational structure, culture and leadership considerations. It works alongside, and does not replace, financial, legal, tax and transaction-professional advice, and is distinct from Change Management, which supports the people side of change more generally rather than the specific context of a merger or acquisition.",
+      "This service covers people-related due diligence and post-merger integration specifically: workforce information, organisational structure, culture and leadership considerations. It works alongside, and does not replace, financial, legal, tax and transaction-professional advice, and is distinct from Change Management, which supports the people side of change more generally rather than the specific context of a merger or acquisition.",
     additionalFaqs: [
       { id: "pre-vs-post", question: "What is the difference between the due diligence stage and post-merger integration?", answer: "Due diligence takes place before a transaction completes, reviewing people-related risk to inform the deal. Post-merger integration takes place afterwards, focusing on bringing structures, culture and processes together." },
-      { id: "legal-transfers", question: "Does this cover the legal position on employee transfers, such as TUPE?", answer: "No — Apex HR does not provide legal conclusions on employee transfers or liabilities. Where TUPE or similar considerations apply, a qualified employment lawyer should be involved; see also TUPE Advisory." },
-      { id: "financial-diligence", question: "Does this replace financial or legal due diligence on the transaction?", answer: "No — this service focuses specifically on people and organisational due diligence, working alongside your financial, legal and tax advisers rather than replacing them." },
+      { id: "legal-transfers", question: "Does this cover the legal position on employee transfers, such as TUPE?", answer: "No. Apex HR does not provide legal conclusions on employee transfers or liabilities. Where TUPE or similar considerations apply, a qualified employment lawyer should be involved; see also TUPE Advisory." },
+      { id: "financial-diligence", question: "Does this replace financial or legal due diligence on the transaction?", answer: "No. This service focuses specifically on people and organisational due diligence, working alongside your financial, legal and tax advisers rather than replacing them." },
     ],
     legalReviewRequired: true,
   },
@@ -2089,18 +2089,18 @@ export const serviceContent: ServiceContent[] = [
       { id: "data-source", question: "Where does the benchmarking data come from?", answer: "Benchmarking draws on relevant available market data sources appropriate to the roles and sector being reviewed." },
     ],
     outOfScope: [
-      "Proprietary or exclusive salary data — recommendations draw on relevant available external market sources, not a private Apex HR dataset.",
-      "Real-time or fully exhaustive market coverage — data reflects the sources available at the time of the exercise, not every role and employer in the market.",
+      "Proprietary or exclusive salary data: recommendations draw on relevant available external market sources, not a private Apex HR dataset.",
+      "Real-time or fully exhaustive market coverage: data reflects the sources available at the time of the exercise, not every role and employer in the market.",
       "Guaranteed recruitment or retention outcomes from adopting benchmarked pay levels.",
-      "A determination of legally correct or fair pay — benchmarking informs pay decisions; it does not itself establish legal compliance, such as equal pay obligations.",
+      "A determination of legally correct or fair pay: benchmarking informs pay decisions; it does not itself establish legal compliance, such as equal pay obligations.",
       "A specific salary figure for your organisation without current, relevant market data to support it.",
     ],
     differentiationNote:
-      "Salary Benchmarking compares roles and pay against relevant external market data. It is distinct from Job Evaluation & Pay Structures, which assesses role value and consistency inside your own organisation — the two are often used together but answer different questions: where a role sits in the market, versus how it compares to other roles within your business.",
+      "Salary Benchmarking compares roles and pay against relevant external market data. It is distinct from Job Evaluation & Pay Structures, which assesses role value and consistency inside your own organisation; the two are often used together but answer different questions: where a role sits in the market, versus how it compares to other roles within your business.",
     additionalFaqs: [
       { id: "vs-job-evaluation", question: "How is salary benchmarking different from job evaluation?", answer: "Salary benchmarking compares a role's pay against the external market. Job evaluation assesses a role's value and consistency relative to other roles inside your own organisation. The two are complementary but answer different questions." },
-      { id: "data-quality", question: "How reliable is the benchmarking data?", answer: "Results depend on the quality, coverage and date of the market data available for the roles and sector in question — data sources and their limitations are made clear as part of the exercise." },
-      { id: "decision", question: "Does the benchmark tell us exactly what to pay?", answer: "No — market data informs pay decisions rather than dictating them. Final pay decisions remain with your organisation, taking the benchmark alongside your own budget, strategy and internal equity considerations." },
+      { id: "data-quality", question: "How reliable is the benchmarking data?", answer: "Results depend on the quality, coverage and date of the market data available for the roles and sector in question: data sources and their limitations are made clear as part of the exercise." },
+      { id: "decision", question: "Does the benchmark tell us exactly what to pay?", answer: "No. Market data informs pay decisions rather than dictating them. Final pay decisions remain with your organisation, taking the benchmark alongside your own budget, strategy and internal equity considerations." },
     ],
     legalReviewRequired: false,
   },
@@ -2143,18 +2143,18 @@ export const serviceContent: ServiceContent[] = [
       { id: "maintain", question: "Who maintains the structure afterwards?", answer: "Guidance is provided so your team can apply and maintain the structure, with ongoing support available if needed." },
     ],
     outOfScope: [
-      "Guaranteed equal pay compliance — a consistent evaluation approach can support a defensible position, but does not itself certify legal compliance.",
-      "Legal defensibility as a certified or guaranteed outcome — where legal assurance is required, this should be obtained from a qualified employment lawyer.",
+      "Guaranteed equal pay compliance: a consistent evaluation approach can support a defensible position, but does not itself certify legal compliance.",
+      "Legal defensibility as a certified or guaranteed outcome: where legal assurance is required, this should be obtained from a qualified employment lawyer.",
       "Guaranteed employee acceptance of grading outcomes.",
       "Elimination of pay disputes.",
       "A guaranteed grading outcome for any specific role, decided in advance of the evaluation.",
-      "Assessment of an individual employee's personal performance — job evaluation assesses the role, not the person currently in it.",
+      "Assessment of an individual employee's personal performance: job evaluation assesses the role, not the person currently in it.",
     ],
     differentiationNote:
-      "Job Evaluation & Pay Structures assesses the value of roles and builds internal consistency, distinct from Salary Benchmarking (which compares pay to the external market) and Pay Equity & Pay Gap Reporting (which analyses pay outcomes for equity and reporting purposes). It also does not assess individual employee performance — that sits with performance management.",
+      "Job Evaluation & Pay Structures assesses the value of roles and builds internal consistency, distinct from Salary Benchmarking (which compares pay to the external market) and Pay Equity & Pay Gap Reporting (which analyses pay outcomes for equity and reporting purposes). It also does not assess individual employee performance: that sits with performance management.",
     additionalFaqs: [
-      { id: "vs-performance", question: "Is job evaluation the same as assessing an employee's performance?", answer: "No — job evaluation assesses the role itself, including its responsibilities and organisational value, not the performance of the person currently doing it. Performance is assessed separately through performance management." },
-      { id: "vs-benchmarking", question: "How does this differ from salary benchmarking?", answer: "Job evaluation looks at internal consistency — how roles compare to each other within your organisation. Salary benchmarking looks externally, comparing pay to the market. They work well together but ask different questions." },
+      { id: "vs-performance", question: "Is job evaluation the same as assessing an employee's performance?", answer: "No. Job evaluation assesses the role itself, including its responsibilities and organisational value, not the performance of the person currently doing it. Performance is assessed separately through performance management." },
+      { id: "vs-benchmarking", question: "How does this differ from salary benchmarking?", answer: "Job evaluation looks at internal consistency: how roles compare to each other within your organisation. Salary benchmarking looks externally, comparing pay to the market. They work well together but ask different questions." },
       { id: "final-decision", question: "Who makes the final pay decision?", answer: "Job evaluation and the resulting structure inform pay decisions, but final decisions on individual pay remain with your organisation's management." },
     ],
     legalReviewRequired: true,
@@ -2166,7 +2166,7 @@ export const serviceContent: ServiceContent[] = [
     primaryKeyword: "reward strategy",
     heroSummary: "A reward strategy that connects pay, benefits and recognition to your business goals and what your people actually value.",
     employerChallenge:
-      "Reward decisions are often made piecemeal — a benefit added here, a pay review there — without an underlying strategy connecting them to business goals.",
+      "Reward decisions are often made piecemeal, a benefit added here, a pay review there, without an underlying strategy connecting them to business goals.",
     businessOutcomes: [
       "A coherent reward approach aligned to strategy",
       "Reward that supports recruitment and retention priorities",
@@ -2195,23 +2195,23 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["salary-benchmarking", "employee-benefits-consulting", "executive-compensation-and-share-schemes"],
     relatedSectorSlugs: ["technology", "startups-scale-ups", "professional-services"],
     faqs: [
-      { id: "budget", question: "Does this require increasing reward spend?", answer: "Not necessarily — strategy work often focuses on using existing spend more effectively, as well as identifying where investment would have the most impact." },
+      { id: "budget", question: "Does this require increasing reward spend?", answer: "Not necessarily. Strategy work often focuses on using existing spend more effectively, as well as identifying where investment would have the most impact." },
     ],
     outOfScope: [
       "Guaranteed improvements to retention, engagement or performance from a new reward strategy.",
       "Guaranteed cost savings.",
       "Guaranteed employee acceptance of reward changes.",
-      "Tax efficiency advice or guaranteed tax outcomes — this requires a qualified tax adviser or accountant.",
-      "Legal, tax, accounting, financial or other regulated advice — this sits with qualified, appropriately regulated professionals.",
-      "Administration of individual employee benefits — this is a strategic, organisation-wide service, not day-to-day benefits administration.",
+      "Tax efficiency advice or guaranteed tax outcomes: this requires a qualified tax adviser or accountant.",
+      "Legal, tax, accounting, financial or other regulated advice: this sits with qualified, appropriately regulated professionals.",
+      "Administration of individual employee benefits: this is a strategic, organisation-wide service, not day-to-day benefits administration.",
       "Guaranteed outcomes from any particular incentive scheme.",
     ],
     differentiationNote:
       "Reward Strategy sets an organisation-wide approach connecting pay, benefits, incentives and recognition to your business and people goals. It is distinct from Employee Benefits Consulting, which focuses on the design and administration of specific benefits, and from Executive Compensation & Share Schemes, which focuses specifically on senior executive and share-based reward.",
     additionalFaqs: [
       { id: "vs-benefits", question: "How does this differ from employee benefits consulting?", answer: "Reward Strategy sets the overall, organisation-wide approach connecting pay, benefits, incentives and recognition to your goals. Employee Benefits Consulting focuses more specifically on the design and administration of individual benefits within that approach." },
-      { id: "vs-executive", question: "Does this cover executive pay and share schemes?", answer: "Not specifically — executive pay and share-based reward are covered by Executive Compensation & Share Schemes. Reward Strategy sets the organisation-wide approach that executive reward typically sits within." },
-      { id: "tax", question: "Does Apex HR provide tax advice on reward or benefits?", answer: "No — tax, accounting and other regulated financial advice is outside Apex HR's scope. Qualified tax or financial advisers should be involved wherever a reward decision has tax or accounting implications." },
+      { id: "vs-executive", question: "Does this cover executive pay and share schemes?", answer: "Not specifically. Executive pay and share-based reward are covered by Executive Compensation & Share Schemes. Reward Strategy sets the organisation-wide approach that executive reward typically sits within." },
+      { id: "tax", question: "Does Apex HR provide tax advice on reward or benefits?", answer: "No. Tax, accounting and other regulated financial advice is outside Apex HR's scope. Qualified tax or financial advisers should be involved wherever a reward decision has tax or accounting implications." },
     ],
     legalReviewRequired: false,
   },
@@ -2222,7 +2222,7 @@ export const serviceContent: ServiceContent[] = [
     primaryKeyword: "pay equity and pay gap reporting",
     heroSummary: "Pay equity analysis and reporting support, helping you understand pay disparities and plan a considered response.",
     employerChallenge:
-      "Understanding whether pay gaps exist — and why — requires careful analysis, and getting reporting or messaging wrong can create reputational risk.",
+      "Understanding whether pay gaps exist, and why, requires careful analysis, and getting reporting or messaging wrong can create reputational risk.",
     businessOutcomes: [
       "A clearer, evidence-based understanding of pay gaps",
       "A considered narrative and action plan",
@@ -2255,18 +2255,18 @@ export const serviceContent: ServiceContent[] = [
     ],
     outOfScope: [
       "Certification of equal pay compliance.",
-      "A legal determination of whether unlawful pay discrimination has occurred — this requires qualified legal advice.",
+      "A legal determination of whether unlawful pay discrimination has occurred: this requires qualified legal advice.",
       "A guarantee that identified pay gaps will close or narrow by any particular amount.",
-      "A guarantee of statutory reporting compliance — employers remain responsible for confirming their own statutory reporting obligations.",
+      "A guarantee of statutory reporting compliance: employers remain responsible for confirming their own statutory reporting obligations.",
       "Legal representation in connection with a pay equity or discrimination claim.",
-      "Statutory reporting thresholds, deadlines or calculation rules — these should be confirmed against current GOV.UK guidance, as they can change.",
+      "Statutory reporting thresholds, deadlines or calculation rules: these should be confirmed against current GOV.UK guidance, as they can change.",
     ],
     differentiationNote:
-      "Pay Equity & Pay Gap Reporting analyses pay outcomes across groups and supports reporting and action planning. It is distinct from Salary Benchmarking (external market comparison), Job Evaluation & Pay Structures (internal role-value consistency) and Reward Strategy (the broader, organisation-wide reward approach) — though findings from this analysis often inform work in those areas.",
+      "Pay Equity & Pay Gap Reporting analyses pay outcomes across groups and supports reporting and action planning. It is distinct from Salary Benchmarking (external market comparison), Job Evaluation & Pay Structures (internal role-value consistency) and Reward Strategy (the broader, organisation-wide reward approach), though findings from this analysis often inform work in those areas.",
     additionalFaqs: [
       { id: "vs-benchmarking-evaluation", question: "How does pay equity analysis differ from salary benchmarking or job evaluation?", answer: "Salary benchmarking compares pay to the external market, and job evaluation assesses internal role consistency. Pay equity analysis looks specifically at whether pay patterns differ in ways connected to protected characteristics or other groupings, which is a distinct question from either." },
-      { id: "discrimination", question: "Does this determine whether unlawful pay discrimination has taken place?", answer: "No — Apex HR's analysis identifies patterns and questions that may need further investigation. A legal determination of unlawful discrimination requires qualified legal advice." },
-      { id: "close-gap", question: "Can you guarantee that identified pay gaps will close?", answer: "No — Apex HR can support analysis, reporting and action planning, but closing a pay gap depends on decisions and actions your organisation takes over time, and no guaranteed outcome can be promised." },
+      { id: "discrimination", question: "Does this determine whether unlawful pay discrimination has taken place?", answer: "No. Apex HR's analysis identifies patterns and questions that may need further investigation. A legal determination of unlawful discrimination requires qualified legal advice." },
+      { id: "close-gap", question: "Can you guarantee that identified pay gaps will close?", answer: "No. Apex HR can support analysis, reporting and action planning, but closing a pay gap depends on decisions and actions your organisation takes over time, and no guaranteed outcome can be promised." },
     ],
     legalReviewRequired: true,
   },
@@ -2306,22 +2306,22 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["reward-strategy", "workplace-wellbeing-and-mental-health", "salary-benchmarking"],
     relatedSectorSlugs: ["technology", "professional-services", "startups-scale-ups"],
     faqs: [
-      { id: "provider", question: "Does Apex HR arrange the benefits providers?", answer: "No — Apex HR is not an insurance broker, financial adviser or pension adviser, and does not arrange, select or endorse specific benefits providers. This service focuses on reviewing your current benefits and helping design a considered benefits approach; any provider decision, and any regulated advice around it, remain with your organisation and appropriately regulated advisers." },
+      { id: "provider", question: "Does Apex HR arrange the benefits providers?", answer: "No. Apex HR is not an insurance broker, financial adviser or pension adviser, and does not arrange, select or endorse specific benefits providers. This service focuses on reviewing your current benefits and helping design a considered benefits approach; any provider decision, and any regulated advice around it, remain with your organisation and appropriately regulated advisers." },
     ],
     outOfScope: [
-      "Regulated financial advice, investment advice or insurance broking — Apex HR is not authorised to provide these and does not act as your insurance broker.",
-      "Pension advice — this requires a qualified, regulated pension adviser.",
+      "Regulated financial advice, investment advice or insurance broking: Apex HR is not authorised to provide these and does not act as your insurance broker.",
+      "Pension advice: this requires a qualified, regulated pension adviser.",
       "Tax or legal advice on benefits arrangements.",
       "Guaranteed savings from switching or renegotiating a benefits provider.",
       "Guaranteed employee uptake or satisfaction with any benefits offering.",
       "Endorsement or recommendation of a specific benefits provider.",
     ],
     differentiationNote:
-      "Employee Benefits Consulting focuses on reviewing and designing the specific benefits an organisation offers. It is distinct from Reward Strategy, which sets the organisation-wide approach connecting pay, benefits, incentives and recognition to broader business goals — Reward Strategy is the umbrella, and Employee Benefits Consulting works within it on the benefits component specifically.",
+      "Employee Benefits Consulting focuses on reviewing and designing the specific benefits an organisation offers. It is distinct from Reward Strategy, which sets the organisation-wide approach connecting pay, benefits, incentives and recognition to broader business goals: Reward Strategy is the umbrella, and Employee Benefits Consulting works within it on the benefits component specifically.",
     additionalFaqs: [
       { id: "vs-reward-strategy", question: "How does Employee Benefits Consulting differ from Reward Strategy?", answer: "Reward Strategy sets the organisation-wide approach connecting pay, benefits, incentives and recognition to your goals. Employee Benefits Consulting focuses specifically on reviewing and designing the benefits component within that approach." },
-      { id: "regulated-advice", question: "Does Apex HR provide financial, insurance, pension or tax advice on benefits?", answer: "No — these are regulated activities requiring a qualified, authorised adviser. Apex HR's role is reviewing and designing your benefits approach from an HR and workforce perspective, working alongside your regulated advisers where needed." },
-      { id: "provider-savings", question: "Can you guarantee savings from switching benefits providers?", answer: "No — any potential savings depend on your current arrangements, the market and decisions your organisation makes. Apex HR does not guarantee provider savings, uptake or employee satisfaction." },
+      { id: "regulated-advice", question: "Does Apex HR provide financial, insurance, pension or tax advice on benefits?", answer: "No. These are regulated activities requiring a qualified, authorised adviser. Apex HR's role is reviewing and designing your benefits approach from an HR and workforce perspective, working alongside your regulated advisers where needed." },
+      { id: "provider-savings", question: "Can you guarantee savings from switching benefits providers?", answer: "No. Any potential savings depend on your current arrangements, the market and decisions your organisation makes. Apex HR does not guarantee provider savings, uptake or employee satisfaction." },
     ],
     legalReviewRequired: false,
   },
@@ -2357,28 +2357,28 @@ export const serviceContent: ServiceContent[] = [
     ],
     engagementOptions: ["Executive reward review", "Design plus implementation support"],
     whyApex:
-      "This is reward design and market-context advisory support — share scheme legal and tax structuring must be confirmed with qualified legal and tax advisers.",
+      "This is reward design and market-context advisory support: share scheme legal and tax structuring must be confirmed with qualified legal and tax advisers.",
     relatedServiceSlugs: ["reward-strategy", "fractional-hr-director-chief-people-officer", "salary-benchmarking"],
     relatedSectorSlugs: ["financial-services", "technology", "professional-services"],
     faqs: [
-      { id: "tax", question: "Does Apex HR provide tax advice on share schemes?", answer: "No — share scheme structuring should always involve qualified legal and tax advisers. Apex HR advises on reward design and market context." },
+      { id: "tax", question: "Does Apex HR provide tax advice on share schemes?", answer: "No. Share scheme structuring should always involve qualified legal and tax advisers. Apex HR advises on reward design and market context." },
     ],
     outOfScope: [
-      "Legal, tax, accounting, investment or securities advice — share scheme structuring and any securities-law considerations must be confirmed with qualified legal, tax and, where relevant, regulated advisers.",
+      "Legal, tax, accounting, investment or securities advice: share scheme structuring and any securities-law considerations must be confirmed with qualified legal, tax and, where relevant, regulated advisers.",
       "Valuation of the company or its shares.",
       "Drafting share-scheme legal documentation or scheme rules.",
       "Regulatory approval or clearance of any scheme.",
-      "Shareholder approval of any scheme or arrangement — this is a decision for your shareholders and governing body.",
+      "Shareholder approval of any scheme or arrangement: this is a decision for your shareholders and governing body.",
       "Guaranteed tax efficiency of any structure.",
       "Guaranteed performance outcomes from an incentive design.",
-      "Fiduciary or remuneration-committee decision-making authority — final decisions remain with your board or remuneration committee.",
+      "Fiduciary or remuneration-committee decision-making authority: final decisions remain with your board or remuneration committee.",
     ],
     differentiationNote:
       "Executive Compensation & Share Schemes focuses specifically on senior executive and share-based reward, including governance and market-context considerations. It is distinct from Reward Strategy, which covers organisation-wide reward for the whole workforce, and from Employee Benefits Consulting, which focuses on broader employee benefits rather than executive-level share and incentive arrangements. This service does not extend into Mergers and Acquisitions (M&A) advisory; where a transaction is involved, see M&A People Due Diligence & Post-Merger Integration for people-related M&A support.",
     additionalFaqs: [
       { id: "vs-reward-strategy", question: "How does Executive Compensation & Share Schemes differ from Reward Strategy?", answer: "Reward Strategy covers pay, benefits, incentives and recognition across the whole organisation. Executive Compensation & Share Schemes focuses specifically on senior executive and share-based reward, including the governance considerations that come with it." },
-      { id: "share-scheme-legal", question: "Does Apex HR draft share scheme legal documents or provide tax advice?", answer: "No — share scheme legal documentation, tax structuring and securities-law considerations must be confirmed with qualified legal, tax and, where relevant, regulated advisers. Apex HR supports reward design and market context, not legal or tax execution." },
-      { id: "committee-authority", question: "Does Apex HR make the final decision on executive reward?", answer: "No — final decisions remain with your board or remuneration committee. Apex HR provides advisory support and market context to inform that decision." },
+      { id: "share-scheme-legal", question: "Does Apex HR draft share scheme legal documents or provide tax advice?", answer: "No. Share scheme legal documentation, tax structuring and securities-law considerations must be confirmed with qualified legal, tax and, where relevant, regulated advisers. Apex HR supports reward design and market context, not legal or tax execution." },
+      { id: "committee-authority", question: "Does Apex HR make the final decision on executive reward?", answer: "No. Final decisions remain with your board or remuneration committee. Apex HR provides advisory support and market context to inform that decision." },
     ],
     legalReviewRequired: true,
   },
@@ -2423,7 +2423,7 @@ export const serviceContent: ServiceContent[] = [
       { id: "format", question: "Is training delivered in person or online?", answer: "Format is agreed based on your team's needs and preferences, including in-person, virtual or blended delivery." },
     ],
     outOfScope: [
-      "Accredited or externally certified qualifications — unless a specific accreditation is confirmed and verified for your programme, training is not presented as leading to a formal qualification.",
+      "Accredited or externally certified qualifications: unless a specific accreditation is confirmed and verified for your programme, training is not presented as leading to a formal qualification.",
       "Guaranteed changes in manager behaviour, team productivity or performance as a direct result of training.",
       "Guaranteed promotion or career progression for participants.",
       "An assumption that the same training format or content suits every organisation or every manager.",
@@ -2434,7 +2434,7 @@ export const serviceContent: ServiceContent[] = [
     additionalFaqs: [
       { id: "vs-coaching", question: "How is this different from executive coaching?", answer: "Leadership & Management Training is typically delivered to groups of managers around shared skills and topics. Executive Coaching & 360 Feedback is individual, one-to-one development work, usually for senior leaders." },
       { id: "vs-strategy", question: "How does this relate to learning strategy?", answer: "Learning Strategy & Capability Development sets the organisation-wide approach to learning and development. Leadership & Management Training is one form of delivery that can sit within that strategy." },
-      { id: "accreditation", question: "Does this lead to a formal qualification?", answer: "Not by default — training is designed around your management context rather than a fixed accredited course. Where a specific accreditation is relevant and available, this would be confirmed separately." },
+      { id: "accreditation", question: "Does this lead to a formal qualification?", answer: "Not by default. Training is designed around your management context rather than a fixed accredited course. Where a specific accreditation is relevant and available, this would be confirmed separately." },
     ],
     legalReviewRequired: false,
   },
@@ -2477,19 +2477,19 @@ export const serviceContent: ServiceContent[] = [
       { id: "confidential", question: "Is coaching confidential?", answer: "Coaching conversations are treated as confidential between coach and leader, with themes (not verbatim content) shared with sponsors where agreed in advance." },
     ],
     outOfScope: [
-      "Psychological diagnosis, treatment or therapy — coaching is a development conversation, not a clinical or medical service. Where a participant may benefit from therapeutic or medical support, this sits outside coaching and should be sought separately.",
-      "A guarantee of confidentiality in every circumstance — there are limited situations, such as safeguarding or legal obligations, where confidentiality may need to be limited; this is explained as part of any coaching arrangement.",
+      "Psychological diagnosis, treatment or therapy: coaching is a development conversation, not a clinical or medical service. Where a participant may benefit from therapeutic or medical support, this sits outside coaching and should be sought separately.",
+      "A guarantee of confidentiality in every circumstance: there are limited situations, such as safeguarding or legal obligations, where confidentiality may need to be limited; this is explained as part of any coaching arrangement.",
       "Guaranteed leadership improvement, promotion or performance outcomes from coaching or 360 feedback.",
-      "Certified or accredited coaching credentials — unless a specific coach's accreditation is confirmed and verified, none is claimed.",
-      "360-degree feedback presented as an objective clinical or psychological assessment — it reflects the perceptions of colleagues who provide feedback, not a validated diagnostic instrument.",
+      "Certified or accredited coaching credentials: unless a specific coach's accreditation is confirmed and verified, none is claimed.",
+      "360-degree feedback presented as an objective clinical or psychological assessment: it reflects the perceptions of colleagues who provide feedback, not a validated diagnostic instrument.",
     ],
     differentiationNote:
       "Executive Coaching & 360 Feedback is individual development work for senior leaders, distinct from Leadership & Management Training (group-delivered training), from performance management (which assesses job performance against objectives, owned by the organisation) and from therapy or counselling (which addresses clinical or personal wellbeing needs, not organisational leadership development).",
     additionalFaqs: [
       { id: "vs-training", question: "How does coaching differ from leadership training?", answer: "Executive Coaching & 360 Feedback is individual, one-to-one development work tailored to a specific leader. Leadership & Management Training is typically delivered to groups of managers around shared topics." },
-      { id: "vs-therapy", question: "Is coaching a form of therapy or counselling?", answer: "No — coaching is a development conversation focused on leadership and organisational goals, not a clinical or medical service. Where therapeutic or medical support may be helpful, this is outside coaching and should be sought separately, such as through a GP or qualified therapist." },
-      { id: "confidentiality-limits", question: "Are there any limits to coaching confidentiality?", answer: "Coaching conversations are treated as confidential between coach and leader, with only agreed themes shared with sponsors. There are limited circumstances, such as safeguarding concerns or legal obligations, where confidentiality may need to be limited — this is explained as part of any coaching arrangement." },
-      { id: "vs-performance-management", question: "Is 360 feedback the same as a performance appraisal?", answer: "No — 360-degree feedback gathers colleagues' perceptions to inform coaching and development, and is not a validated clinical or psychological assessment. Performance appraisal is a separate, organisation-owned process assessing performance against job objectives; see Performance Management." },
+      { id: "vs-therapy", question: "Is coaching a form of therapy or counselling?", answer: "No. Coaching is a development conversation focused on leadership and organisational goals, not a clinical or medical service. Where therapeutic or medical support may be helpful, this is outside coaching and should be sought separately, such as through a GP or qualified therapist." },
+      { id: "confidentiality-limits", question: "Are there any limits to coaching confidentiality?", answer: "Coaching conversations are treated as confidential between coach and leader, with only agreed themes shared with sponsors. There are limited circumstances, such as safeguarding concerns or legal obligations, where confidentiality may need to be limited: this is explained as part of any coaching arrangement." },
+      { id: "vs-performance-management", question: "Is 360 feedback the same as a performance appraisal?", answer: "No. 360-degree feedback gathers colleagues' perceptions to inform coaching and development, and is not a validated clinical or psychological assessment. Performance appraisal is a separate, organisation-owned process assessing performance against job objectives; see Performance Management." },
     ],
     legalReviewRequired: false,
   },
@@ -2500,7 +2500,7 @@ export const serviceContent: ServiceContent[] = [
     primaryKeyword: "learning strategy",
     heroSummary: "Learning strategy support to help you build a coherent, sustainable approach to developing your workforce.",
     employerChallenge:
-      "Training often happens reactively — a course here, a workshop there — without a strategy connecting it to the capabilities the business actually needs.",
+      "Training often happens reactively (a course here, a workshop there) without a strategy connecting it to the capabilities the business actually needs.",
     businessOutcomes: [
       "A learning approach connected to business capability needs",
       "More efficient use of learning and development budget",
@@ -2541,9 +2541,9 @@ export const serviceContent: ServiceContent[] = [
     differentiationNote:
       "Learning Strategy & Capability Development sets the organisation-wide approach to learning, prioritisation and governance. It is distinct from Leadership & Management Training, which delivers specific training programmes, and from Strategic Workforce Planning, which focuses on future workforce numbers and structure rather than learning content and capability-building activity.",
     additionalFaqs: [
-      { id: "vs-training", question: "How does this differ from leadership training?", answer: "Learning Strategy & Capability Development sets the organisation-wide learning approach and priorities. Leadership & Management Training is one form of delivery — a specific training programme — that can sit within that strategy." },
+      { id: "vs-training", question: "How does this differ from leadership training?", answer: "Learning Strategy & Capability Development sets the organisation-wide learning approach and priorities. Leadership & Management Training is one form of delivery (a specific training programme) that can sit within that strategy." },
       { id: "vs-workforce-planning", question: "How does this differ from strategic workforce planning?", answer: "Strategic Workforce Planning focuses on future workforce numbers, structure and roles. Learning Strategy & Capability Development focuses on the learning and capability-building activity needed to develop your existing and future workforce." },
-      { id: "roi", question: "Can you guarantee a return on our learning investment?", answer: "No — measurement and evaluation can be planned as part of the strategy, but return on investment depends on many factors beyond the strategy itself, including how it's implemented and adopted." },
+      { id: "roi", question: "Can you guarantee a return on our learning investment?", answer: "No. Measurement and evaluation can be planned as part of the strategy, but return on investment depends on many factors beyond the strategy itself, including how it's implemented and adopted." },
     ],
     legalReviewRequired: false,
   },
@@ -2585,22 +2585,22 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["succession-planning-and-talent-mapping", "competency-frameworks", "leadership-and-management-training"],
     relatedSectorSlugs: ["professional-services", "technology", "manufacturers"],
     faqs: [
-      { id: "annual", question: "Does this have to be an annual review process?", answer: "No — many organisations now prefer more frequent, lighter-touch check-ins. The right cadence is designed around your context." },
+      { id: "annual", question: "Does this have to be an annual review process?", answer: "No. Many organisations now prefer more frequent, lighter-touch check-ins. The right cadence is designed around your context." },
     ],
     outOfScope: [
       "Guaranteed performance improvement as a direct result of a new process.",
       "Guaranteed employee engagement.",
-      "Legal compliance or legal defensibility of your performance process — this should be confirmed with a qualified employment lawyer, particularly where the process feeds into formal decisions.",
+      "Legal compliance or legal defensibility of your performance process: this should be confirmed with a qualified employment lawyer, particularly where the process feeds into formal decisions.",
       "Elimination of bias or the elimination of performance-related disputes.",
-      "Disciplinary, dismissal, promotion or pay decisions — these remain decisions for your organisation's management, informed by the process but not made by Apex HR.",
-      "An assumption that a performance rating is automatically objective — ratings reflect structured judgement, not an automatically neutral measurement.",
+      "Disciplinary, dismissal, promotion or pay decisions: these remain decisions for your organisation's management, informed by the process but not made by Apex HR.",
+      "An assumption that a performance rating is automatically objective: ratings reflect structured judgement, not an automatically neutral measurement.",
     ],
     differentiationNote:
-      "Performance Management designs the ongoing process for setting expectations, giving feedback and reviewing performance — distinct from Executive Coaching & 360 Feedback, which is individual development work for a specific leader, and from Competency Frameworks, which defines the skills, knowledge and behaviours a performance process can then be assessed against.",
+      "Performance Management designs the ongoing process for setting expectations, giving feedback and reviewing performance: distinct from Executive Coaching & 360 Feedback, which is individual development work for a specific leader, and from Competency Frameworks, which defines the skills, knowledge and behaviours a performance process can then be assessed against.",
     additionalFaqs: [
-      { id: "vs-annual-appraisal", question: "Is this the same as an annual appraisal?", answer: "Not necessarily — this service can support an ongoing performance process with regular feedback, an annual appraisal, or a combination, depending on what fits your organisation. An annual appraisal alone is one possible design choice, not the only one." },
+      { id: "vs-annual-appraisal", question: "Is this the same as an annual appraisal?", answer: "Not necessarily. This service can support an ongoing performance process with regular feedback, an annual appraisal, or a combination, depending on what fits your organisation. An annual appraisal alone is one possible design choice, not the only one." },
       { id: "vs-coaching", question: "How does this differ from executive coaching?", answer: "Performance Management designs the organisation-wide process for setting expectations and reviewing performance. Executive Coaching & 360 Feedback is individual, one-to-one development work for a specific leader." },
-      { id: "decisions", question: "Does Apex HR make performance-related decisions, such as pay or promotion?", answer: "No — Apex HR designs the process and supports managers in using it. Decisions such as pay, promotion, disciplinary action or dismissal remain with your organisation's management." },
+      { id: "decisions", question: "Does Apex HR make performance-related decisions, such as pay or promotion?", answer: "No. Apex HR designs the process and supports managers in using it. Decisions such as pay, promotion, disciplinary action or dismissal remain with your organisation's management." },
     ],
     legalReviewRequired: true,
   },
@@ -2636,25 +2636,25 @@ export const serviceContent: ServiceContent[] = [
     ],
     engagementOptions: ["Succession risk review", "Full talent mapping and development planning"],
     whyApex:
-      "The focus is on practical readiness — real development plans, not just a list of names on an org chart.",
+      "The focus is on practical readiness: real development plans, not just a list of names on an org chart.",
     relatedServiceSlugs: ["performance-management", "competency-frameworks", "executive-coaching-and-360-feedback"],
     relatedSectorSlugs: ["professional-services", "manufacturers", "financial-services"],
     faqs: [
-      { id: "small-business", question: "Is this only relevant for large organisations?", answer: "No — even a small leadership team benefits from understanding succession risk in a handful of critical roles." },
+      { id: "small-business", question: "Is this only relevant for large organisations?", answer: "No. Even a small leadership team benefits from understanding succession risk in a handful of critical roles." },
     ],
     outOfScope: [
-      "A guarantee of succession readiness — readiness is assessed and developed, not guaranteed in advance.",
-      "A promise of promotion or appointment to any individual — identification as a potential successor is not a commitment of a future role.",
+      "A guarantee of succession readiness: readiness is assessed and developed, not guaranteed in advance.",
+      "A promise of promotion or appointment to any individual: identification as a potential successor is not a commitment of a future role.",
       "A description of any employee as objectively 'high potential' without explaining that this depends on defined evidence and judgement, not a fixed, universal measure.",
       "A guarantee of confidentiality in every circumstance.",
       "A claim that bias has been eliminated from succession or talent-mapping judgements.",
-      "Selection criteria that exclude or disadvantage people based on protected characteristics — succession and talent decisions must be made on fair, job-relevant criteria.",
-      "Automated tools making final talent or succession decisions — any tools used inform, but do not replace, management judgement.",
+      "Selection criteria that exclude or disadvantage people based on protected characteristics: succession and talent decisions must be made on fair, job-relevant criteria.",
+      "Automated tools making final talent or succession decisions: any tools used inform, but do not replace, management judgement.",
     ],
     differentiationNote:
-      "Succession Planning & Talent Mapping identifies critical roles and internal talent considerations, distinct from Strategic Workforce Planning (broader future workforce numbers and structure across the organisation), from external recruitment (which looks outside the organisation), and from a promise of promotion — identification as a potential successor is not a guaranteed future appointment.",
+      "Succession Planning & Talent Mapping identifies critical roles and internal talent considerations, distinct from Strategic Workforce Planning (broader future workforce numbers and structure across the organisation), from external recruitment (which looks outside the organisation), and from a promise of promotion: identification as a potential successor is not a guaranteed future appointment.",
     additionalFaqs: [
-      { id: "promotion-guarantee", question: "Does being identified as a potential successor guarantee promotion?", answer: "No — identification as a potential successor is not a commitment or promise of a future role. Appointment decisions are made by your organisation when a role actually becomes available, based on the circumstances at the time." },
+      { id: "promotion-guarantee", question: "Does being identified as a potential successor guarantee promotion?", answer: "No. Identification as a potential successor is not a commitment or promise of a future role. Appointment decisions are made by your organisation when a role actually becomes available, based on the circumstances at the time." },
       { id: "vs-workforce-planning", question: "How does this differ from strategic workforce planning?", answer: "Strategic Workforce Planning looks at future workforce numbers, structure and roles across the organisation. Succession Planning & Talent Mapping focuses specifically on critical roles and the internal talent who could step into them." },
       { id: "vs-recruitment", question: "How does talent mapping differ from recruitment?", answer: "Talent mapping considers internal talent already within your organisation. External recruitment looks outside the organisation to fill a role. The two are often used together, particularly where internal readiness gaps exist." },
       { id: "data-handling", question: "How is employee information handled in this process?", answer: "Succession and talent-mapping discussions involve identifiable information about individuals. This should be handled carefully, on a need-to-know basis, consistent with your data-protection obligations." },
@@ -2699,19 +2699,19 @@ export const serviceContent: ServiceContent[] = [
       { id: "roles", question: "Does the framework cover every role individually?", answer: "Frameworks typically define core organisation-wide competencies plus role-family-specific ones, rather than a unique framework per individual role." },
     ],
     outOfScope: [
-      "Scientific or psychological validation of the framework — competency frameworks are structured HR tools, not clinically validated instruments.",
-      "Guaranteed objectivity — a framework reduces inconsistency but reflects structured judgement, not an automatically neutral measurement.",
+      "Scientific or psychological validation of the framework: competency frameworks are structured HR tools, not clinically validated instruments.",
+      "Guaranteed objectivity: a framework reduces inconsistency but reflects structured judgement, not an automatically neutral measurement.",
       "Legal compliance guaranteed simply by using the framework.",
       "Elimination of bias in recruitment, performance or development decisions that use the framework.",
       "Guaranteed performance improvement from adopting a framework.",
-      "A determination of an employee's personal worth or suitability — the framework assesses observable skills, knowledge and behaviours relevant to a role, not a person's inherent worth.",
+      "A determination of an employee's personal worth or suitability: the framework assesses observable skills, knowledge and behaviours relevant to a role, not a person's inherent worth.",
     ],
     differentiationNote:
-      "Competency Frameworks define the skills, knowledge and behaviours expected at a role or level, providing a shared reference point that Job Evaluation, Performance Management and other HR processes can draw on. It is distinct from Job Evaluation & Pay Structures (which assesses a role's relative value for pay purposes) and from Performance Management (which uses a framework, among other inputs, to assess actual performance) — and it is not a psychometric or personality assessment of any individual.",
+      "Competency Frameworks define the skills, knowledge and behaviours expected at a role or level, providing a shared reference point that Job Evaluation, Performance Management and other HR processes can draw on. It is distinct from Job Evaluation & Pay Structures (which assesses a role's relative value for pay purposes) and from Performance Management (which uses a framework, among other inputs, to assess actual performance), and it is not a psychometric or personality assessment of any individual.",
     additionalFaqs: [
       { id: "vs-job-evaluation", question: "How does this differ from job evaluation?", answer: "Job evaluation assesses a role's relative value for pay purposes. A competency framework defines the skills, knowledge and behaviours expected at a role or level, and can be used alongside job evaluation, performance management and recruitment." },
       { id: "vs-performance-management", question: "How does this relate to performance management?", answer: "A competency framework can provide one of the reference points a performance process assesses people against. Performance Management is the broader process design; the framework is one input into it." },
-      { id: "psychometric", question: "Is this a psychometric or personality assessment?", answer: "No — a competency framework defines observable skills, knowledge and behaviours relevant to a role, not a clinical, personality or psychometric assessment of an individual." },
+      { id: "psychometric", question: "Is this a psychometric or personality assessment?", answer: "No. A competency framework defines observable skills, knowledge and behaviours relevant to a role, not a clinical, personality or psychometric assessment of an individual." },
     ],
     legalReviewRequired: false,
   },
@@ -2722,9 +2722,9 @@ export const serviceContent: ServiceContent[] = [
     categorySlug: "employee-experience-and-engagement",
     metaDescription: "Apex HR is an employee experience firm helping UK employers design a coherent approach across the full employee journey, from attraction through to exit.",
     primaryKeyword: "employee experience strategy",
-    heroSummary: "An employee experience strategy that looks at the full journey — from attraction through to exit — not just isolated initiatives.",
+    heroSummary: "An employee experience strategy that looks at the full journey (from attraction through to exit), not just isolated initiatives.",
     employerChallenge:
-      "Employee experience initiatives often happen in isolation — a wellbeing session here, an onboarding tweak there — without a coherent view of the whole journey.",
+      "Employee experience initiatives often happen in isolation (a wellbeing session here, an onboarding tweak there) without a coherent view of the whole journey.",
     businessOutcomes: [
       "A coherent view of the employee journey",
       "Better-prioritised experience investments",
@@ -2753,20 +2753,20 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["employee-engagement-surveys-and-action-planning", "culture-transformation", "workplace-wellbeing-and-mental-health"],
     relatedSectorSlugs: ["technology", "hospitality", "professional-services"],
     faqs: [
-      { id: "size", question: "Does this suit smaller employers?", answer: "Yes — journey mapping and prioritisation scale to the size of the organisation and the resources available." },
+      { id: "size", question: "Does this suit smaller employers?", answer: "Yes. Journey mapping and prioritisation scale to the size of the organisation and the resources available." },
     ],
     outOfScope: [
       "Guaranteed engagement, retention, productivity or cultural change from an experience strategy.",
-      "A survey alone — employee experience strategy considers the wider journey, not only a single engagement survey (see Employee Engagement Surveys & Action Planning for that specific service).",
-      "Final decisions on experience priorities or implementation — these remain with your leadership and management team; employee feedback informs decisions but does not transfer decision-making authority to Apex HR.",
+      "A survey alone: employee experience strategy considers the wider journey, not only a single engagement survey (see Employee Engagement Surveys & Action Planning for that specific service).",
+      "Final decisions on experience priorities or implementation: these remain with your leadership and management team; employee feedback informs decisions but does not transfer decision-making authority to Apex HR.",
       "An objective measurement of every aspect of employee experience, or a diagnosis of individual employee psychology.",
     ],
     differentiationNote:
-      "Employee Experience Strategy looks at the wider employee journey — the moments and touchpoints that shape how people experience working for you — and is distinct from Employee Engagement Surveys & Action Planning, which is a specific listening exercise that can inform this wider strategy, and from Culture Transformation, which focuses more directly on organisational behaviours and ways of working rather than the end-to-end journey.",
+      "Employee Experience Strategy looks at the wider employee journey (the moments and touchpoints that shape how people experience working for you) and is distinct from Employee Engagement Surveys & Action Planning, which is a specific listening exercise that can inform this wider strategy, and from Culture Transformation, which focuses more directly on organisational behaviours and ways of working rather than the end-to-end journey.",
     additionalFaqs: [
-      { id: "vs-survey", question: "Is this the same as an engagement survey?", answer: "No — an engagement survey is one way of listening to employees and can inform this work, but Employee Experience Strategy looks at the wider employee journey, not only survey data. See Employee Engagement Surveys & Action Planning for that specific service." },
+      { id: "vs-survey", question: "Is this the same as an engagement survey?", answer: "No. An engagement survey is one way of listening to employees and can inform this work, but Employee Experience Strategy looks at the wider employee journey, not only survey data. See Employee Engagement Surveys & Action Planning for that specific service." },
       { id: "vs-culture", question: "How does this differ from culture transformation?", answer: "Employee Experience Strategy focuses on the journey and touchpoints employees move through. Culture Transformation focuses more directly on organisational behaviours and ways of working. The two are related and often connected, but address different questions." },
-      { id: "decisions", question: "Does employee feedback automatically determine the resulting decisions?", answer: "No — feedback informs the strategy and priorities, but decisions remain with your leadership and management team. Feedback does not transfer decision-making authority to Apex HR." },
+      { id: "decisions", question: "Does employee feedback automatically determine the resulting decisions?", answer: "No. Feedback informs the strategy and priorities, but decisions remain with your leadership and management team. Feedback does not transfer decision-making authority to Apex HR." },
     ],
     legalReviewRequired: false,
   },
@@ -2777,7 +2777,7 @@ export const serviceContent: ServiceContent[] = [
     primaryKeyword: "employee engagement survey",
     heroSummary: "Employee engagement surveys designed to get honest input, paired with practical action planning that turns results into change.",
     employerChallenge:
-      "Engagement surveys often generate a report that sits unread, with no clear follow-through — which can make employees more sceptical about being asked again.",
+      "Engagement surveys often generate a report that sits unread, with no clear follow-through, which can make employees more sceptical about being asked again.",
     businessOutcomes: [
       "Honest, useful engagement data",
       "A practical action plan managers can actually deliver",
@@ -2809,20 +2809,20 @@ export const serviceContent: ServiceContent[] = [
       { id: "anonymous", question: "Are survey responses anonymous?", answer: "Anonymity or confidentiality settings are agreed upfront and clearly communicated to employees before the survey is launched." },
     ],
     outOfScope: [
-      "A guarantee that individual respondents cannot be identified — this is harder to assure in small teams or through detailed free-text comments, and should be considered when agreeing the survey approach.",
+      "A guarantee that individual respondents cannot be identified: this is harder to assure in small teams or through detailed free-text comments, and should be considered when agreeing the survey approach.",
       "Guaranteed participation, response rates or candid answers.",
       "Guaranteed engagement improvement or successful implementation of the resulting action plan.",
       "Scientific, psychometric or clinical validation of the survey instrument.",
-      "Survey results presented as objective truth — results are one input that informs, rather than replaces, management judgement.",
-      "A named survey platform, benchmark database or proprietary scoring system — the specific tools and data sources used are agreed as part of the engagement.",
-      "Data access, reporting thresholds, free-text handling, retention and employee communications assumed by default — these are agreed and confirmed as part of setting up the engagement.",
+      "Survey results presented as objective truth: results are one input that informs, rather than replaces, management judgement.",
+      "A named survey platform, benchmark database or proprietary scoring system: the specific tools and data sources used are agreed as part of the engagement.",
+      "Data access, reporting thresholds, free-text handling, retention and employee communications assumed by default: these are agreed and confirmed as part of setting up the engagement.",
     ],
     differentiationNote:
-      "Employee Engagement Surveys & Action Planning is a specific listening exercise — designing, running and acting on a survey. It is distinct from Employee Experience Strategy, which looks at the wider employee journey beyond any one survey; from Culture Transformation, which focuses on organisational behaviours rather than survey data specifically; from Workplace Wellbeing & Mental Health, which addresses wellbeing specifically rather than engagement broadly; and from general performance-management processes, which assess individual performance rather than aggregate employee sentiment.",
+      "Employee Engagement Surveys & Action Planning is a specific listening exercise: designing, running and acting on a survey. It is distinct from Employee Experience Strategy, which looks at the wider employee journey beyond any one survey; from Culture Transformation, which focuses on organisational behaviours rather than survey data specifically; from Workplace Wellbeing & Mental Health, which addresses wellbeing specifically rather than engagement broadly; and from general performance-management processes, which assess individual performance rather than aggregate employee sentiment.",
     additionalFaqs: [
-      { id: "anonymous-vs-confidential", question: "What is the difference between an anonymous and a confidential survey?", answer: "An anonymous survey is designed so responses cannot be traced back to an individual at all. A confidential survey means identifiable responses are handled carefully and only shared in a controlled way, but are not fully anonymous. Which approach is used — and its practical limits, especially in small teams or with free-text answers — is agreed and clearly explained to employees before the survey is launched." },
+      { id: "anonymous-vs-confidential", question: "What is the difference between an anonymous and a confidential survey?", answer: "An anonymous survey is designed so responses cannot be traced back to an individual at all. A confidential survey means identifiable responses are handled carefully and only shared in a controlled way, but are not fully anonymous. Which approach is used, and its practical limits, especially in small teams or with free-text answers, is agreed and clearly explained to employees before the survey is launched." },
       { id: "small-groups", question: "Can employees in small teams be identified from their answers?", answer: "It's possible, particularly in small teams or through detailed free-text comments, even where a survey is intended to be anonymous or confidential. Reporting thresholds and free-text handling are agreed as part of the engagement to manage this risk, but it cannot be entirely eliminated." },
-      { id: "objective-truth", question: "Are survey results treated as the final word on engagement?", answer: "No — survey results are one useful input alongside management's own knowledge and judgement, not an objective, standalone truth or a substitute for management decision-making." },
+      { id: "objective-truth", question: "Are survey results treated as the final word on engagement?", answer: "No. Survey results are one useful input alongside management's own knowledge and judgement, not an objective, standalone truth or a substitute for management decision-making." },
     ],
     legalReviewRequired: false,
   },
@@ -2833,7 +2833,7 @@ export const serviceContent: ServiceContent[] = [
     primaryKeyword: "employer branding and EVP",
     heroSummary: "Employer branding and Employee Value Proposition development that reflects what it's genuinely like to work for you.",
     employerChallenge:
-      "An employer brand that overstates the real Employee Value Proposition (EVP) — what it's actually like to work for you — can attract candidates for the wrong reasons, leading to early disappointment and attrition.",
+      "An employer brand that overstates the real Employee Value Proposition (EVP), what it's actually like to work for you, can attract candidates for the wrong reasons, leading to early disappointment and attrition.",
     businessOutcomes: [
       "A clearer, more honest employer value proposition",
       "Stronger alignment between recruitment marketing and reality",
@@ -2868,16 +2868,16 @@ export const serviceContent: ServiceContent[] = [
       "Guaranteed applicant numbers, quality of hire, candidate acceptance, retention or reputation improvement.",
       "Exclusive access to candidates or recruitment channels, or a proprietary applicant database.",
       "Guaranteed reach, search ranking, engagement or recruitment outcomes from EVP or employer-brand messaging.",
-      "Endorsement of your employer brand by employees — messaging reflects genuine research, not a claimed formal endorsement.",
+      "Endorsement of your employer brand by employees: messaging reflects genuine research, not a claimed formal endorsement.",
       "Ownership, management or guaranteed influence over third-party employer review platforms.",
-      "Delivery of recruitment campaigns or recruitment marketing execution — this service defines the EVP and messaging framework; creative and campaign delivery sits with your marketing function, agency, or Apex HR's recruitment services separately.",
+      "Delivery of recruitment campaigns or recruitment marketing execution: this service defines the EVP and messaging framework; creative and campaign delivery sits with your marketing function, agency, or Apex HR's recruitment services separately.",
     ],
     differentiationNote:
       "Employer Branding & Employee Value Proposition (EVP) work defines and communicates what it is genuinely like to work for you. It is distinct from Apex HR's recruitment delivery services, such as Permanent Recruitment, which fill specific vacancies, from recruitment marketing campaign execution, and from Employee Experience Strategy, which addresses the wider employee journey rather than how that experience is defined and communicated externally.",
     additionalFaqs: [
-      { id: "vs-recruitment", question: "Is this the same as recruitment marketing or advertising?", answer: "No — this service focuses on defining the Employee Value Proposition (EVP) and messaging framework. Recruitment marketing campaign execution and specific vacancy delivery are separate activities, which can be coordinated with your marketing function, agency, or Apex HR's recruitment services." },
-      { id: "employee-endorsement", question: "Does the EVP imply that all employees endorse it?", answer: "No — messaging is grounded in genuine research into what employees value, but it is not presented as a formal endorsement by every employee, and individual employee statements are not fabricated or attributed without basis." },
-      { id: "guarantees", question: "Can you guarantee this will improve our applicant numbers or retention?", answer: "No — a genuine, well-communicated EVP can support attraction and retention, but Apex HR cannot guarantee applicant numbers, quality of hire, acceptance rates, retention or reputation outcomes, which depend on many factors beyond messaging." },
+      { id: "vs-recruitment", question: "Is this the same as recruitment marketing or advertising?", answer: "No. This service focuses on defining the Employee Value Proposition (EVP) and messaging framework. Recruitment marketing campaign execution and specific vacancy delivery are separate activities, which can be coordinated with your marketing function, agency, or Apex HR's recruitment services." },
+      { id: "employee-endorsement", question: "Does the EVP imply that all employees endorse it?", answer: "No. Messaging is grounded in genuine research into what employees value, but it is not presented as a formal endorsement by every employee, and individual employee statements are not fabricated or attributed without basis." },
+      { id: "guarantees", question: "Can you guarantee this will improve our applicant numbers or retention?", answer: "No. A genuine, well-communicated EVP can support attraction and retention, but Apex HR cannot guarantee applicant numbers, quality of hire, acceptance rates, retention or reputation outcomes, which depend on many factors beyond messaging." },
     ],
     legalReviewRequired: false,
   },
@@ -2913,27 +2913,27 @@ export const serviceContent: ServiceContent[] = [
     ],
     engagementOptions: ["Wellbeing strategy review", "Strategy plus manager training"],
     whyApex:
-      "This is HR strategy and manager-capability support — it is not a substitute for clinical or occupational health advice, which is signposted where appropriate.",
+      "This is HR strategy and manager-capability support. It is not a substitute for clinical or occupational health advice, which is signposted where appropriate.",
     relatedServiceSlugs: ["employee-experience-strategy", "culture-transformation", "employee-engagement-surveys-and-action-planning"],
     relatedSectorSlugs: ["care-homes", "health-care", "education"],
     faqs: [
       { id: "clinical", question: "Does Apex HR provide clinical mental health support?", answer: "No. This is HR strategy and manager-capability support. Employees needing clinical support should be signposted to appropriate occupational health or medical services." },
     ],
     outOfScope: [
-      "Medical care, diagnosis, treatment, therapy, counselling or occupational-health provision — this is workplace and HR support, not a clinical service.",
-      "A decision on whether an individual employee is medically fit for work — this is a clinical or occupational-health judgement, not an HR one.",
-      "Diagnostic, treatment or emergency guidance for any individual — complex or urgent individual health questions require appropriately qualified professional input, sought separately.",
+      "Medical care, diagnosis, treatment, therapy, counselling or occupational-health provision: this is workplace and HR support, not a clinical service.",
+      "A decision on whether an individual employee is medically fit for work: this is a clinical or occupational-health judgement, not an HR one.",
+      "Diagnostic, treatment or emergency guidance for any individual: complex or urgent individual health questions require appropriately qualified professional input, sought separately.",
       "Guaranteed improved health, reduced absence, reduced stress, productivity, engagement or legal compliance.",
       "A guarantee of confidentiality where employer processes, safeguarding duties or information-sharing requirements may apply.",
       "An assumption that any policy, workshop or wellbeing programme can prevent every workplace or health problem.",
-      "A suggestion that employee wellbeing is solely the individual employee's responsibility — organisational and management factors are part of this work.",
+      "A suggestion that employee wellbeing is solely the individual employee's responsibility: organisational and management factors are part of this work.",
     ],
     differentiationNote:
-      "Workplace Wellbeing & Mental Health is HR-led organisational support — reviewing working conditions, building manager capability and designing a wellbeing approach — distinct from occupational health (clinical assessment and fitness-for-work judgements), employee assistance programmes (individual, confidential support services), and clinical or therapeutic services (diagnosis and treatment). It also differs from Employee Engagement Surveys & Action Planning, which addresses engagement broadly rather than wellbeing specifically, and from general Culture Transformation work, which addresses organisational behaviours more widely.",
+      "Workplace Wellbeing & Mental Health is HR-led organisational support (reviewing working conditions, building manager capability and designing a wellbeing approach), distinct from occupational health (clinical assessment and fitness-for-work judgements), employee assistance programmes (individual, confidential support services), and clinical or therapeutic services (diagnosis and treatment). It also differs from Employee Engagement Surveys & Action Planning, which addresses engagement broadly rather than wellbeing specifically, and from general Culture Transformation work, which addresses organisational behaviours more widely.",
     additionalFaqs: [
-      { id: "fit-for-work", question: "Does Apex HR decide whether an employee is fit for work?", answer: "No — fitness-for-work decisions are a clinical or occupational-health judgement, not something Apex HR's HR strategy and manager-capability support provides." },
-      { id: "vs-eap", question: "Is this the same as an employee assistance programme?", answer: "No — an employee assistance programme provides confidential, individual support services directly to employees. This service is HR-led organisational and manager-capability support; the two can complement each other." },
-      { id: "confidentiality-limits", question: "Is everything discussed as part of this work kept confidential?", answer: "Not in every circumstance — employer safeguarding duties and information-sharing requirements can mean some information needs to be shared or acted on. This is explained as part of any engagement, rather than assumed by default." },
+      { id: "fit-for-work", question: "Does Apex HR decide whether an employee is fit for work?", answer: "No. Fitness-for-work decisions are a clinical or occupational-health judgement, not something Apex HR's HR strategy and manager-capability support provides." },
+      { id: "vs-eap", question: "Is this the same as an employee assistance programme?", answer: "No. An employee assistance programme provides confidential, individual support services directly to employees. This service is HR-led organisational and manager-capability support; the two can complement each other." },
+      { id: "confidentiality-limits", question: "Is everything discussed as part of this work kept confidential?", answer: "Not in every circumstance. Employer safeguarding duties and information-sharing requirements can mean some information needs to be shared or acted on. This is explained as part of any engagement, rather than assumed by default." },
     ],
     legalReviewRequired: false,
   },
@@ -2978,20 +2978,20 @@ export const serviceContent: ServiceContent[] = [
     outOfScope: [
       "Guaranteed representation, hiring, promotion, retention, belonging, inclusion or cultural outcomes.",
       "A claim that any process, policy or training eliminates bias or discrimination.",
-      "Legal compliance, certification or regulatory approval — equality-law compliance should be confirmed with a qualified employment lawyer.",
-      "Employment decisions made by Apex HR — hiring, promotion, retention and other employment decisions remain with your organisation.",
-      "Invented workforce demographics, pay gaps, protected-characteristic findings or benchmark data — any data used is your organisation's own, agreed as part of the engagement.",
+      "Legal compliance, certification or regulatory approval: equality-law compliance should be confirmed with a qualified employment lawyer.",
+      "Employment decisions made by Apex HR: hiring, promotion, retention and other employment decisions remain with your organisation.",
+      "Invented workforce demographics, pay gaps, protected-characteristic findings or benchmark data: any data used is your organisation's own, agreed as part of the engagement.",
       "A description of any process as automatically fair, unbiased or objective.",
       "Automated decision-making or profiling based on protected characteristics.",
       "Treating employees as interchangeable representatives of a demographic group.",
     ],
     differentiationNote:
-      "Diversity, Equity & Inclusion (DEI) Consulting supports organisational strategy, policy and practice. It is distinct from Culture Transformation (broader organisational behaviours), Employee Experience Strategy (the wider employee journey), Employee Engagement Surveys & Action Planning (a specific listening exercise), Pay Equity & Pay Gap Reporting (pay-specific analysis and reporting), and general recruitment services (filling specific vacancies) — though DEI considerations can connect to all of these.",
+      "Diversity, Equity & Inclusion (DEI) Consulting supports organisational strategy, policy and practice. It is distinct from Culture Transformation (broader organisational behaviours), Employee Experience Strategy (the wider employee journey), Employee Engagement Surveys & Action Planning (a specific listening exercise), Pay Equity & Pay Gap Reporting (pay-specific analysis and reporting), and general recruitment services (filling specific vacancies), though DEI considerations can connect to all of these.",
     additionalFaqs: [
-      { id: "vs-pay-equity", question: "Is this the same as a pay equity or pay gap review?", answer: "No — Pay Equity & Pay Gap Reporting analyses pay patterns specifically. DEI Consulting covers the wider organisational strategy, policy and practice; the two are often connected but are separate services." },
-      { id: "bias-elimination", question: "Can DEI initiatives eliminate bias completely?", answer: "No — practical initiatives can reduce identified risks and improve practice over time, but no process, policy or training can be said to eliminate bias or discrimination entirely." },
-      { id: "data", question: "Does this involve analysing our workforce demographic data?", answer: "It can, where relevant and agreed — data sources, access, purpose and reporting approach are agreed as part of the engagement. No workforce demographics, pay gaps or protected-characteristic findings are assumed or invented in advance." },
-      { id: "employment-decisions", question: "Does Apex HR make hiring or promotion decisions as part of this work?", answer: "No — Apex HR supports strategy, policy and practice. Hiring, promotion, retention and other employment decisions remain with your organisation." },
+      { id: "vs-pay-equity", question: "Is this the same as a pay equity or pay gap review?", answer: "No. Pay Equity & Pay Gap Reporting analyses pay patterns specifically. DEI Consulting covers the wider organisational strategy, policy and practice; the two are often connected but are separate services." },
+      { id: "bias-elimination", question: "Can DEI initiatives eliminate bias completely?", answer: "No. Practical initiatives can reduce identified risks and improve practice over time, but no process, policy or training can be said to eliminate bias or discrimination entirely." },
+      { id: "data", question: "Does this involve analysing our workforce demographic data?", answer: "It can, where relevant and agreed: data sources, access, purpose and reporting approach are agreed as part of the engagement. No workforce demographics, pay gaps or protected-characteristic findings are assumed or invented in advance." },
+      { id: "employment-decisions", question: "Does Apex HR make hiring or promotion decisions as part of this work?", answer: "No. Apex HR supports strategy, policy and practice. Hiring, promotion, retention and other employment decisions remain with your organisation." },
     ],
     legalReviewRequired: true,
   },
@@ -3033,21 +3033,21 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["hr-software-selection", "people-analytics-and-hr-dashboards", "digital-hr-transformation"],
     relatedSectorSlugs: ["professional-services", "technology", "manufacturers"],
     faqs: [
-      { id: "vendor", question: "Does Apex HR sell HR software?", answer: "No — Apex HR is not a software vendor or reseller. Implementation support focuses on your processes, requirements and data, not on selling any particular system." },
+      { id: "vendor", question: "Does Apex HR sell HR software?", answer: "No. Apex HR is not a software vendor or reseller. Implementation support focuses on your processes, requirements and data, not on selling any particular system." },
     ],
     outOfScope: [
-      "Error-free data migration — data quality is reviewed and planned for, but migration risk cannot be guaranteed away entirely.",
+      "Error-free data migration: data quality is reviewed and planned for, but migration risk cannot be guaranteed away entirely.",
       "Guaranteed system compatibility, uninterrupted operation, or guaranteed data accuracy after migration.",
-      "Security or privacy compliance certification — this should be confirmed with the software vendor and, where needed, a qualified data-protection or information-security professional.",
+      "Security or privacy compliance certification: this should be confirmed with the software vendor and, where needed, a qualified data-protection or information-security professional.",
       "Guaranteed user adoption, fixed delivery dates, or guaranteed financial savings from the implementation.",
-      "Acting as the software vendor, hosting provider, cybersecurity assessor or data controller for the system — these roles sit with the vendor and your organisation as data controller.",
+      "Acting as the software vendor, hosting provider, cybersecurity assessor or data controller for the system: these roles sit with the vendor and your organisation as data controller.",
     ],
     differentiationNote:
       "HRIS Implementation supports planning and delivering the implementation of a specific HR system once selected. It is distinct from HR Software Selection, which supports choosing which system to implement, and from Digital HR Transformation, which is a wider organisational change effort that can extend well beyond any single system implementation.",
     additionalFaqs: [
-      { id: "vs-selection", question: "Is this the same as choosing which HR software to buy?", answer: "No — HR Software Selection supports choosing which system to implement. HRIS Implementation supports planning and delivering the implementation once a system has been selected." },
+      { id: "vs-selection", question: "Is this the same as choosing which HR software to buy?", answer: "No. HR Software Selection supports choosing which system to implement. HRIS Implementation supports planning and delivering the implementation once a system has been selected." },
       { id: "vs-transformation", question: "How does this differ from digital HR transformation?", answer: "Digital HR Transformation is a wider organisational change effort spanning processes, data and ways of working, which can involve more than one system. HRIS Implementation focuses specifically on implementing a particular HR information system." },
-      { id: "data-controller", question: "Does Apex HR act as the data controller for our HR system?", answer: "No — data controller responsibilities remain with your organisation. Apex HR supports the implementation project, not the ongoing hosting, security or data-controller role for the system." },
+      { id: "data-controller", question: "Does Apex HR act as the data controller for our HR system?", answer: "No. Data controller responsibilities remain with your organisation. Apex HR supports the implementation project, not the ongoing hosting, security or data-controller role for the system." },
     ],
     legalReviewRequired: false,
   },
@@ -3087,20 +3087,20 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["hris-implementation", "people-analytics-and-hr-dashboards", "digital-hr-transformation"],
     relatedSectorSlugs: ["professional-services", "technology", "financial-services"],
     faqs: [
-      { id: "independent", question: "Is Apex HR affiliated with any software vendor?", answer: "No — Apex HR is not affiliated with, and does not receive commission from, any software vendor. Recommendations are based on your requirements, not a vendor relationship." },
+      { id: "independent", question: "Is Apex HR affiliated with any software vendor?", answer: "No. Apex HR is not affiliated with, and does not receive commission from, any software vendor. Recommendations are based on your requirements, not a vendor relationship." },
     ],
     outOfScope: [
       "A guarantee of best fit, price, compatibility, security or compliance for any recommended system.",
-      "A guarantee of implementation success or return on investment — this service covers selection, not implementation delivery, which is a separate activity (see HRIS Implementation).",
-      "The purchasing decision itself — requirements and evaluation support inform the decision, but the client makes the final purchasing decision.",
-      "Vendor partnerships, private vendor data, or product certifications — Apex HR is not a reseller and does not claim exclusive or private vendor relationships.",
+      "A guarantee of implementation success or return on investment: this service covers selection, not implementation delivery, which is a separate activity (see HRIS Implementation).",
+      "The purchasing decision itself: requirements and evaluation support inform the decision, but the client makes the final purchasing decision.",
+      "Vendor partnerships, private vendor data, or product certifications: Apex HR is not a reseller and does not claim exclusive or private vendor relationships.",
     ],
     differentiationNote:
       "HR Software Selection helps define requirements and assess suitable systems, distinct from HRIS Implementation, which delivers the implementation once a system is chosen. The client makes the final purchasing decision; this service informs that decision rather than making it.",
     additionalFaqs: [
-      { id: "decision-owner", question: "Who makes the final decision on which software to buy?", answer: "You do — this service supports requirements gathering, market review and evaluation, but the purchasing decision remains with your organisation." },
-      { id: "vs-implementation", question: "Does this include implementing the chosen system?", answer: "No — implementation is a separate activity. See HRIS Implementation for support once a system has been selected." },
-      { id: "roi", question: "Can you guarantee the system will deliver a return on investment?", answer: "No — a well-matched system supported by good requirements work improves the odds of a good outcome, but return on investment depends on many factors beyond selection, including implementation and adoption." },
+      { id: "decision-owner", question: "Who makes the final decision on which software to buy?", answer: "You do. This service supports requirements gathering, market review and evaluation, but the purchasing decision remains with your organisation." },
+      { id: "vs-implementation", question: "Does this include implementing the chosen system?", answer: "No. Implementation is a separate activity. See HRIS Implementation for support once a system has been selected." },
+      { id: "roi", question: "Can you guarantee the system will deliver a return on investment?", answer: "No. A well-matched system supported by good requirements work improves the odds of a good outcome, but return on investment depends on many factors beyond selection, including implementation and adoption." },
     ],
     legalReviewRequired: false,
   },
@@ -3143,21 +3143,21 @@ export const serviceContent: ServiceContent[] = [
       { id: "system", question: "Do we need a specific HR system for this?", answer: "Analytics can often be built from existing data sources; a dedicated system can make this easier but isn't always essential to get started." },
     ],
     outOfScope: [
-      "Predictive certainty — analytics can highlight patterns and inform decisions, not predict outcomes with certainty.",
-      "Causation drawn from dashboard correlations — a correlation shown on a dashboard does not by itself prove one factor causes another.",
-      "Complete or error-free data — analysis and dashboards are only as reliable as the underlying data provided.",
-      "Automatic anonymity or guaranteed confidentiality of underlying employee data — data handling, access and reporting thresholds are agreed as part of the engagement.",
-      "A claim that dashboards or metrics are objective or bias-free — metric design and interpretation involve judgement.",
+      "Predictive certainty: analytics can highlight patterns and inform decisions, not predict outcomes with certainty.",
+      "Causation drawn from dashboard correlations: a correlation shown on a dashboard does not by itself prove one factor causes another.",
+      "Complete or error-free data: analysis and dashboards are only as reliable as the underlying data provided.",
+      "Automatic anonymity or guaranteed confidentiality of underlying employee data: data handling, access and reporting thresholds are agreed as part of the engagement.",
+      "A claim that dashboards or metrics are objective or bias-free: metric design and interpretation involve judgement.",
       "Identification of individual employee intentions, such as an intention to resign.",
-      "Automated final employment decisions based on dashboard data — decisions remain with your organisation's management, informed by, not determined by, the data.",
-      "A proprietary algorithm or benchmark dataset — metrics and dashboards are built around your own data and agreed definitions.",
+      "Automated final employment decisions based on dashboard data: decisions remain with your organisation's management, informed by, not determined by, the data.",
+      "A proprietary algorithm or benchmark dataset: metrics and dashboards are built around your own data and agreed definitions.",
     ],
     differentiationNote:
       "People Analytics & HR Dashboards defines workforce measures and presents HR reporting to inform decisions on an ongoing basis. It differs from reporting delivered as part of a specific, one-off analysis in other services, such as Pay Equity & Pay Gap Reporting's pay-specific analysis, by focusing on broader, ongoing workforce metrics and dashboards.",
     additionalFaqs: [
-      { id: "predictive", question: "Can dashboards predict who will leave the organisation?", answer: "No — analytics can highlight patterns that may be worth investigating, such as trends associated with turnover, but cannot identify individual employee intentions or predict outcomes with certainty." },
+      { id: "predictive", question: "Can dashboards predict who will leave the organisation?", answer: "No. Analytics can highlight patterns that may be worth investigating, such as trends associated with turnover, but cannot identify individual employee intentions or predict outcomes with certainty." },
       { id: "data-quality", question: "How reliable are the dashboards?", answer: "Reliability depends on the quality, completeness and context of the underlying data. Data limitations are made clear as part of the engagement rather than presented as complete or error-free." },
-      { id: "decisions", question: "Do dashboards make employment decisions for us?", answer: "No — dashboards and analytics inform decisions. Final employment decisions remain with your organisation's management, applying judgement alongside the data." },
+      { id: "decisions", question: "Do dashboards make employment decisions for us?", answer: "No. Dashboards and analytics inform decisions. Final employment decisions remain with your organisation's management, applying judgement alongside the data." },
     ],
     legalReviewRequired: false,
   },
@@ -3197,20 +3197,20 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["hris-implementation", "hr-software-selection", "people-analytics-and-hr-dashboards"],
     relatedSectorSlugs: ["professional-services", "manufacturers", "financial-services"],
     faqs: [
-      { id: "scope", question: "Does transformation always mean a new system?", answer: "Not necessarily — transformation can include process redesign and better use of existing systems, not only new technology." },
+      { id: "scope", question: "Does transformation always mean a new system?", answer: "Not necessarily. Transformation can include process redesign and better use of existing systems, not only new technology." },
     ],
     outOfScope: [
       "Guaranteed adoption, productivity gains or financial savings from a transformation programme.",
       "A guaranteed completion date or disruption-free delivery.",
-      "A guarantee that transformation succeeds — success depends on factors including leadership commitment and change adoption, not the roadmap alone.",
-      "Purchasing or installing a single system as a complete transformation — this is broader organisational change spanning processes, data, technology and ways of working.",
+      "A guarantee that transformation succeeds: success depends on factors including leadership commitment and change adoption, not the roadmap alone.",
+      "Purchasing or installing a single system as a complete transformation: this is broader organisational change spanning processes, data, technology and ways of working.",
     ],
     differentiationNote:
-      "Digital HR Transformation is a wider organisational change effort spanning HR processes, data, technology and ways of working — broader than implementing one system (HRIS Implementation) or selecting software (HR Software Selection), and distinct from general Change Management, which supports the people side of change more generally rather than HR-technology-led transformation specifically.",
+      "Digital HR Transformation is a wider organisational change effort spanning HR processes, data, technology and ways of working, broader than implementing one system (HRIS Implementation) or selecting software (HR Software Selection), and distinct from general Change Management, which supports the people side of change more generally rather than HR-technology-led transformation specifically.",
     additionalFaqs: [
-      { id: "vs-single-system", question: "Is this the same as implementing a new HR system?", answer: "Not necessarily — implementing a single system is covered by HRIS Implementation. Digital HR Transformation is broader, often spanning multiple processes, data sources and systems." },
+      { id: "vs-single-system", question: "Is this the same as implementing a new HR system?", answer: "Not necessarily. Implementing a single system is covered by HRIS Implementation. Digital HR Transformation is broader, often spanning multiple processes, data sources and systems." },
       { id: "vs-change-management", question: "How does this differ from change management?", answer: "Change Management supports the people side of change generally. Digital HR Transformation is specifically about modernising HR technology, data and processes, and can draw on change management support as part of delivery." },
-      { id: "timescale", question: "Can you guarantee when the transformation will be complete?", answer: "No — timescales depend on scope, resourcing and how the organisation adopts change. A realistic roadmap is built together, but a fixed completion date cannot be guaranteed in advance." },
+      { id: "timescale", question: "Can you guarantee when the transformation will be complete?", answer: "No. Timescales depend on scope, resourcing and how the organisation adopts change. A realistic roadmap is built together, but a fixed completion date cannot be guaranteed in advance." },
     ],
     legalReviewRequired: false,
   },
@@ -3246,7 +3246,7 @@ export const serviceContent: ServiceContent[] = [
     ],
     engagementOptions: ["AI policy drafting", "Policy plus wider HR-process AI advisory"],
     whyApex:
-      "This is HR policy and process guidance, not legal or data-protection advice — specific legal questions should be confirmed with a qualified adviser.",
+      "This is HR policy and process guidance, not legal or data-protection advice. Specific legal questions should be confirmed with a qualified adviser.",
     relatedServiceSlugs: ["employee-handbooks-and-hr-policies", "digital-hr-transformation", "hr-compliance-audit"],
     relatedSectorSlugs: ["technology", "professional-services", "financial-services"],
     faqs: [
@@ -3255,18 +3255,18 @@ export const serviceContent: ServiceContent[] = [
     outOfScope: [
       "A claim of legal or regulatory compliance, cybersecurity assurance, or formal data-protection compliance certification.",
       "Formal auditing or certification of AI systems or tools.",
-      "A claim that AI is accurate, safe, explainable or unbiased — this depends on the specific tool and its use, not something Apex HR certifies.",
+      "A claim that AI is accurate, safe, explainable or unbiased: this depends on the specific tool and its use, not something Apex HR certifies.",
       "A claim that a policy alone eliminates misuse, discrimination or other risk from AI tools.",
-      "Automated employment decisions made by Apex HR, or a claim that automated decisions are compliant without human oversight — meaningful human responsibility is expected to remain in employment decisions.",
-      "Certainty about future AI regulation — the regulatory landscape is still developing and specific requirements should be confirmed against current authoritative guidance.",
-      "Software development, technical AI implementation or system security work — this is workplace HR policy and process guidance, not technical AI build or security assessment.",
+      "Automated employment decisions made by Apex HR, or a claim that automated decisions are compliant without human oversight: meaningful human responsibility is expected to remain in employment decisions.",
+      "Certainty about future AI regulation: the regulatory landscape is still developing and specific requirements should be confirmed against current authoritative guidance.",
+      "Software development, technical AI implementation or system security work: this is workplace HR policy and process guidance, not technical AI build or security assessment.",
     ],
     differentiationNote:
       "AI Workplace Policy & HR Integration covers workplace policy, governance and HR-process considerations for how AI tools are used by people at work. It is distinct from software development, technical AI implementation and system security work, which are specialist technical disciplines, not part of this HR policy service.",
     additionalFaqs: [
-      { id: "compliance", question: "Does this guarantee our AI use is legally compliant?", answer: "No — this is HR policy and process guidance. Specific legal, regulatory, cybersecurity or data-protection compliance questions should be confirmed with qualified specialist advisers, particularly as AI regulation continues to develop." },
-      { id: "human-oversight", question: "Does Apex HR make employment decisions using AI on our behalf?", answer: "No — Apex HR does not make employment decisions using AI, automated or otherwise. Meaningful human responsibility is expected to remain in employment decisions, and policy guidance reflects that." },
-      { id: "vs-technical", question: "Does this include building or securing AI systems?", answer: "No — this covers workplace HR policy and governance. Software development, technical AI implementation and system security are separate, specialist technical disciplines." },
+      { id: "compliance", question: "Does this guarantee our AI use is legally compliant?", answer: "No. This is HR policy and process guidance. Specific legal, regulatory, cybersecurity or data-protection compliance questions should be confirmed with qualified specialist advisers, particularly as AI regulation continues to develop." },
+      { id: "human-oversight", question: "Does Apex HR make employment decisions using AI on our behalf?", answer: "No. Apex HR does not make employment decisions using AI, automated or otherwise. Meaningful human responsibility is expected to remain in employment decisions, and policy guidance reflects that." },
+      { id: "vs-technical", question: "Does this include building or securing AI systems?", answer: "No. This covers workplace HR policy and governance. Software development, technical AI implementation and system security are separate, specialist technical disciplines." },
     ],
     legalReviewRequired: true,
   },
@@ -3308,19 +3308,19 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["strategic-workforce-planning", "fractional-hr-director-chief-people-officer", "organisation-design"],
     relatedSectorSlugs: ["technology", "professional-services", "startups-scale-ups"],
     faqs: [
-      { id: "size", question: "Is this only relevant for larger organisations?", answer: "No — even a small leadership team benefits from a clear, deliberate people strategy connected to business goals." },
+      { id: "size", question: "Is this only relevant for larger organisations?", answer: "No. Even a small leadership team benefits from a clear, deliberate people strategy connected to business goals." },
     ],
     outOfScope: [
       "Guaranteed growth, engagement, retention, productivity, workforce performance or financial results.",
-      "Corporate or commercial strategy decisions — this is people strategy aligned to business goals, not a substitute for your organisation's overall corporate strategy, which remains a leadership responsibility.",
-      "Final decisions on organisational direction — leadership retains responsibility for organisational decisions; this service informs and supports, not replaces, that responsibility.",
+      "Corporate or commercial strategy decisions: this is people strategy aligned to business goals, not a substitute for your organisation's overall corporate strategy, which remains a leadership responsibility.",
+      "Final decisions on organisational direction: leadership retains responsibility for organisational decisions; this service informs and supports, not replaces, that responsibility.",
     ],
     differentiationNote:
       "People Strategy connects HR priorities to organisational needs at a strategic level. It is distinct from Strategic Workforce Planning, which focuses specifically on future headcount, capability and skills modelling; from Organisation Design, which focuses on structure; from Fractional HR Director/Chief People Officer support, which provides ongoing senior HR leadership capacity; and from ongoing outsourced HR, which delivers day-to-day HR operational support.",
     additionalFaqs: [
       { id: "vs-workforce-planning", question: "How does this differ from strategic workforce planning?", answer: "Strategic Workforce Planning focuses specifically on future headcount, capability and skills needs. People Strategy is broader, connecting overall HR priorities to what the business is trying to achieve." },
-      { id: "vs-fractional", question: "How does this differ from a fractional HR director?", answer: "A Fractional HR Director/Chief People Officer provides ongoing, part-time senior HR leadership capacity. People Strategy is a defined piece of strategic work — the two are often used together, but are separate services." },
-      { id: "corporate-strategy", question: "Does this set our overall corporate strategy?", answer: "No — this connects HR and people priorities to your existing business goals. Overall corporate strategy remains a leadership responsibility." },
+      { id: "vs-fractional", question: "How does this differ from a fractional HR director?", answer: "A Fractional HR Director/Chief People Officer provides ongoing, part-time senior HR leadership capacity. People Strategy is a defined piece of strategic work; the two are often used together, but are separate services." },
+      { id: "corporate-strategy", question: "Does this set our overall corporate strategy?", answer: "No. This connects HR and people priorities to your existing business goals. Overall corporate strategy remains a leadership responsibility." },
     ],
     legalReviewRequired: false,
   },
@@ -3360,19 +3360,19 @@ export const serviceContent: ServiceContent[] = [
     relatedServiceSlugs: ["people-strategy", "permanent-recruitment", "recruitment-process-outsourcing-rpo"],
     relatedSectorSlugs: ["technology", "manufacturers", "financial-services"],
     faqs: [
-      { id: "accuracy", question: "How accurate can workforce planning really be?", answer: "Workforce plans are a planning tool based on reasonable assumptions, reviewed and adjusted as circumstances change — not a guarantee of exact future headcount." },
+      { id: "accuracy", question: "How accurate can workforce planning really be?", answer: "Workforce plans are a planning tool based on reasonable assumptions, reviewed and adjusted as circumstances change, not a guarantee of exact future headcount." },
     ],
     outOfScope: [
-      "Guaranteed headcount forecasts — scenarios and forecasts are planning tools based on reasonable assumptions, not certain predictions.",
+      "Guaranteed headcount forecasts: scenarios and forecasts are planning tools based on reasonable assumptions, not certain predictions.",
       "Guaranteed hiring success or guaranteed cost savings.",
       "Guaranteed workforce performance.",
-      "Bias-free modelling — modelling reflects the data and assumptions used, which involve judgement and should be reviewed critically, not treated as neutral by default.",
-      "Automated decisions about individual employees based on workforce modelling — modelling informs organisation-level planning, not individual employment decisions.",
+      "Bias-free modelling: modelling reflects the data and assumptions used, which involve judgement and should be reviewed critically, not treated as neutral by default.",
+      "Automated decisions about individual employees based on workforce modelling: modelling informs organisation-level planning, not individual employment decisions.",
     ],
     differentiationNote:
       "Strategic Workforce Planning considers future workforce demand, supply, capability and skills at an organisation-wide level. It is distinct from People Strategy, which is broader HR strategic alignment; from Organisation Design, which focuses on structure rather than future headcount; from Succession Planning & Talent Mapping, which focuses on specific critical roles and internal successors; and from recruitment services, which fill identified vacancies rather than plan future workforce needs.",
     additionalFaqs: [
-      { id: "certainty", question: "Are workforce planning scenarios guaranteed predictions?", answer: "No — scenarios and forecasts are planning tools based on reasonable assumptions at the time, reviewed and adjusted as circumstances change. They are not certain predictions of the future." },
+      { id: "certainty", question: "Are workforce planning scenarios guaranteed predictions?", answer: "No. Scenarios and forecasts are planning tools based on reasonable assumptions at the time, reviewed and adjusted as circumstances change. They are not certain predictions of the future." },
       { id: "vs-succession", question: "How does this differ from succession planning?", answer: "Succession Planning & Talent Mapping focuses on specific critical roles and the internal people who could step into them. Strategic Workforce Planning looks more broadly at future workforce numbers, capability and skills across the organisation." },
       { id: "vs-people-strategy", question: "How does this differ from people strategy?", answer: "People Strategy is broader, connecting overall HR priorities to business goals. Strategic Workforce Planning focuses specifically on future workforce demand, supply, capability and skills modelling." },
     ],
@@ -3410,27 +3410,27 @@ export const serviceContent: ServiceContent[] = [
     ],
     engagementOptions: ["Single assignment support", "Global mobility process design"],
     whyApex:
-      "This is HR process and coordination support — immigration, tax and local employment law advice must come from qualified specialists in each relevant jurisdiction.",
+      "This is HR process and coordination support: immigration, tax and local employment law advice must come from qualified specialists in each relevant jurisdiction.",
     relatedServiceSlugs: ["skilled-worker-sponsorship-hr-support", "strategic-workforce-planning", "people-strategy"],
     relatedSectorSlugs: ["financial-services", "technology", "life-sciences"],
     faqs: [
-      { id: "tax-legal", question: "Does Apex HR handle tax and immigration for the assignment?", answer: "No — Apex HR coordinates the HR process. Tax, immigration and local employment law must be handled by qualified specialists in the relevant jurisdiction." },
+      { id: "tax-legal", question: "Does Apex HR handle tax and immigration for the assignment?", answer: "No. Apex HR coordinates the HR process. Tax, immigration and local employment law must be handled by qualified specialists in the relevant jurisdiction." },
     ],
     outOfScope: [
-      "Visa or sponsorship eligibility decisions — these are made by the relevant immigration authority, not Apex HR.",
+      "Visa or sponsorship eligibility decisions: these are made by the relevant immigration authority, not Apex HR.",
       "Guaranteed visas, permissions or immigration outcomes.",
-      "Cross-border legal or tax compliance guaranteed by Apex HR — this requires qualified legal, tax and immigration advisers in each relevant jurisdiction.",
-      "Complete knowledge of every jurisdiction's immigration, tax or employment-law requirements — specialist local advisers are required for each relevant country.",
-      "Regulated immigration-adviser status or government authority — Apex HR is not a government body or a regulated immigration adviser.",
+      "Cross-border legal or tax compliance guaranteed by Apex HR: this requires qualified legal, tax and immigration advisers in each relevant jurisdiction.",
+      "Complete knowledge of every jurisdiction's immigration, tax or employment-law requirements: specialist local advisers are required for each relevant country.",
+      "Regulated immigration-adviser status or government authority: Apex HR is not a government body or a regulated immigration adviser.",
       "Fixed processing times for visas, permits or relocations.",
       "Guaranteed assignment or relocation outcomes.",
     ],
     differentiationNote:
-      "Global Mobility & Expatriate HR Management coordinates the HR side of employees working across borders — assignment planning, process and employee experience — working alongside, and clearly distinct from, specialist immigration advice, legal advice, tax advice, payroll advice and relocation services, each of which must come from qualified specialists in the relevant jurisdiction.",
+      "Global Mobility & Expatriate HR Management coordinates the HR side of employees working across borders (assignment planning, process and employee experience), working alongside, and clearly distinct from, specialist immigration advice, legal advice, tax advice, payroll advice and relocation services, each of which must come from qualified specialists in the relevant jurisdiction.",
     additionalFaqs: [
-      { id: "immigration-decision", question: "Does Apex HR decide visa or sponsorship eligibility?", answer: "No — visa and sponsorship eligibility decisions are made by the relevant immigration authority. Apex HR coordinates the HR side of an assignment, working alongside your qualified immigration adviser." },
-      { id: "jurisdictions", question: "Does Apex HR know the requirements for every country?", answer: "No — immigration, tax and employment-law requirements vary by jurisdiction and change over time. Specialist local advisers are required for each relevant country; Apex HR coordinates the HR process around their input." },
-      { id: "processing-times", question: "Can you guarantee how long a visa or relocation will take?", answer: "No — processing times depend on the relevant immigration authority, jurisdiction and individual circumstances, and cannot be guaranteed in advance." },
+      { id: "immigration-decision", question: "Does Apex HR decide visa or sponsorship eligibility?", answer: "No. Visa and sponsorship eligibility decisions are made by the relevant immigration authority. Apex HR coordinates the HR side of an assignment, working alongside your qualified immigration adviser." },
+      { id: "jurisdictions", question: "Does Apex HR know the requirements for every country?", answer: "No. Immigration, tax and employment-law requirements vary by jurisdiction and change over time. Specialist local advisers are required for each relevant country; Apex HR coordinates the HR process around their input." },
+      { id: "processing-times", question: "Can you guarantee how long a visa or relocation will take?", answer: "No. Processing times depend on the relevant immigration authority, jurisdiction and individual circumstances, and cannot be guaranteed in advance." },
     ],
     legalReviewRequired: true,
   },

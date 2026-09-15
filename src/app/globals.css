@@ -196,4 +196,137 @@
   .marquee-right:focus-within {
     animation-play-state: paused;
   }
+
+  /*
+   * Styles sanitised WordPress/Gutenberg article body HTML (see
+   * src/lib/wordpress/sanitize.ts and article-page-template.tsx) to read
+   * consistently with the rest of Apex HR, per DESIGN.md section 18.6
+   * "Insight article": reading comfort over decorative layout, no bare
+   * unstyled tables/images overflowing the reading column. Only ordinary
+   * editorial elements reach this markup — sanitize-html strips anything
+   * else before it is ever rendered.
+   */
+  .wp-content {
+    color: var(--text-primary);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
+  .wp-content > * + * {
+    margin-top: var(--space-5);
+  }
+
+  .wp-content h2,
+  .wp-content h3,
+  .wp-content h4 {
+    margin-top: var(--space-7);
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-navy);
+  }
+
+  .wp-content h2 {
+    font-size: var(--text-h2);
+    line-height: var(--leading-h2);
+  }
+
+  .wp-content h3 {
+    font-size: var(--text-h3);
+    line-height: var(--leading-h3);
+  }
+
+  .wp-content h4 {
+    font-size: var(--text-h4);
+    line-height: var(--leading-h4);
+  }
+
+  .wp-content a {
+    color: var(--color-gold-ink);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .wp-content ul,
+  .wp-content ol {
+    padding-left: var(--space-6);
+  }
+
+  .wp-content ul {
+    list-style: disc;
+  }
+
+  .wp-content ol {
+    list-style: decimal;
+  }
+
+  .wp-content li + li {
+    margin-top: var(--space-2);
+  }
+
+  .wp-content blockquote {
+    border-left: 3px solid var(--color-gold);
+    padding-left: var(--space-5);
+    font-style: italic;
+    color: var(--text-secondary);
+  }
+
+  .wp-content pre {
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+    background-color: var(--color-navy);
+    color: var(--color-white);
+    padding: var(--space-5);
+    font-size: var(--text-small);
+  }
+
+  .wp-content code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9em;
+  }
+
+  .wp-content :not(pre) > code {
+    background-color: var(--surface-warm);
+    border-radius: var(--radius-sm);
+    padding: 0.15em 0.4em;
+  }
+
+  .wp-content img,
+  .wp-content figure {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+  }
+
+  .wp-content figcaption {
+    margin-top: var(--space-2);
+    font-size: var(--text-small);
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
+  .wp-content table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: var(--text-small);
+  }
+
+  .wp-content th,
+  .wp-content td {
+    border: 1px solid var(--border-subtle);
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+  }
+
+  .wp-content th {
+    background-color: var(--surface-warm);
+    font-weight: 600;
+  }
+
+  .wp-content hr {
+    border: none;
+    border-top: 1px solid var(--border-subtle);
+    margin: var(--space-6) 0;
+  }
 }

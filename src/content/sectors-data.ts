@@ -37,7 +37,7 @@ export const sectorContent: SectorContent[] = [
       "Scaling management capability as the team grows",
     ],
     recruitmentConsiderations:
-      "Early hires often need to be generalists comfortable with ambiguity, and hiring speed matters — but so does getting the foundational team right, since early mistakes are costly to unwind.",
+      "Early hires often need to be generalists comfortable with ambiguity, and hiring speed matters, but so does getting the foundational team right, since early mistakes are costly to unwind.",
     howApexHelps:
       "Apex HR can support startups and scale-ups with right-sized HR foundations, fast and structured recruitment, and fractional HR leadership that flexes as the business grows.",
     relatedServiceSlugs: ["hr-support-for-small-businesses-and-startups", "fractional-hr-director-chief-people-officer", "permanent-recruitment"],
@@ -65,7 +65,7 @@ export const sectorContent: SectorContent[] = [
     relatedServiceSlugs: ["executive-search", "succession-planning-and-talent-mapping", "performance-management"],
     relatedTalentRoleSlugs: ["consultancy-directors", "business-sales-executives", "financial-accounting-technicians"],
     faqs: [
-      { id: "distinct", question: "Is this different from your IT/Technology sector support?", answer: "Yes — Professional Services and Technology are treated as distinct sectors with different workforce and recruitment dynamics." },
+      { id: "distinct", question: "Is this different from your IT/Technology sector support?", answer: "Yes. Professional Services and Technology are treated as distinct sectors with different workforce and recruitment dynamics." },
     ],
   },
   {
@@ -131,7 +131,7 @@ export const sectorContent: SectorContent[] = [
     relatedServiceSlugs: ["permanent-recruitment", "salary-benchmarking", "hr-support-for-small-businesses-and-startups"],
     relatedTalentRoleSlugs: ["it-business-analysts-architects-systems-designers", "it-operations-technicians", "it-user-support-technicians", "data-analysts"],
     faqs: [
-      { id: "it-not-professional", question: "Is this the same as Professional Services?", answer: "No — IT/Technology is treated as its own distinct sector, separate from Professional Services." },
+      { id: "it-not-professional", question: "Is this the same as Professional Services?", answer: "No. IT/Technology is treated as its own distinct sector, separate from Professional Services." },
     ],
   },
   {

@@ -27,7 +27,7 @@ export default function CaseStudiesPage() {
         </p>
       </div>
       <div className="mt-10">
-        <EmptyEditorialState message="No verified case studies are published yet — none are fabricated to fill this page." />
+        <EmptyEditorialState message="No verified case studies are published yet. None are fabricated to fill this page." />
       </div>
     </Section>
   );

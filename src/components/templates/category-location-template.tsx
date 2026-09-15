@@ -91,7 +91,7 @@ export function CategoryLocationTemplate({
           <FadeUp delay={0.15} className="flex flex-col gap-6">
             <p className="max-w-lg text-lead text-white/70">{categorySummary}</p>
             <p className="max-w-lg text-body text-white/60">
-              This page covers the full {categoryTitle.toLowerCase()} picture in {locationTitle} —{" "}
+              This page covers the full {categoryTitle.toLowerCase()} picture in {locationTitle},{" "}
               {childServices.map((service) => service.title).join(" and ")} together. For a closer
               look at one specialism on its own, visit its dedicated page below.
             </p>

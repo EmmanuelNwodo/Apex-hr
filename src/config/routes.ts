@@ -104,25 +104,27 @@ export const routes = {
     readyToIndex: false,
   },
   // insights/resources/caseStudies: the routes and their URLs are approved
-  // (status stays "confirmed") but readyToIndex is deliberately false —
-  // per SEO audit Batch 1, per this file's own documented rule above
-  // ("Confirmed... routes with genuine authored content are indexable"),
-  // a route being Confirmed doesn't by itself make it indexable if there's
-  // no real content behind it yet. /insights/, all 8 /insights/[category]/
-  // pages, /resources/ and /case-study/ currently render only an honest
-  // "nothing published yet" EmptyEditorialState — no articles, resources
-  // or case studies exist. Each page's own generateMetadata() reads
-  // readyToIndex directly, so flipping it here is the single source of
-  // truth for both its <meta robots> tag and sitemap.ts inclusion — no
-  // second place needs updating. Flip back to true (an explicit status
-  // change, not an automatic one — there is no content array yet to gate
-  // on automatically) the first time real content is published under each.
+  // (status stays "confirmed"), but per this file's own documented rule
+  // above ("Confirmed... routes with genuine authored content are
+  // indexable"), a route being Confirmed doesn't by itself make it
+  // indexable if there's no real content behind it yet. Each page's own
+  // generateMetadata() reads readyToIndex directly, so flipping it here is
+  // the single source of truth for both its <meta robots> tag and
+  // sitemap.ts inclusion — no second place needs updating.
+  //
+  // insights: flipped to true (docs/URL-DECISION-REGISTER.md D-016) once
+  // WordPress became the live source of truth for this route and genuine
+  // published articles existed to index — not automatic, an explicit
+  // status change made at that point. /resources/ and /case-study/ remain
+  // false below: both still render only an honest "nothing published yet"
+  // EmptyEditorialState, since no resources or case studies exist yet.
+  // Flip each back to true the first time real content is published there.
   insights: {
     id: "insights",
     label: "Insights",
     path: "/insights/",
     status: "confirmed",
-    readyToIndex: false,
+    readyToIndex: true,
   },
   resources: {
     id: "resources",

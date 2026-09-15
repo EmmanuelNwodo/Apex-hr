@@ -216,7 +216,7 @@ export default function ForCandidatesPage() {
               <div className="mt-10 flex flex-col items-start gap-6 rounded-md border border-dashed border-white/25 p-8 sm:flex-row sm:items-center sm:justify-between">
                 <p className="max-w-xl text-body text-white/70">
                   The searchable jobs archive is being built out as the recruitment platform
-                  develops — no vacancies are listed here until they&apos;re genuine, live roles.
+                  develops: no vacancies are listed here until they&apos;re genuine, live roles.
                   In the meantime, search current vacancies directly or join the talent pool to
                   hear about suitable roles as they arise.
                 </p>
@@ -242,7 +242,7 @@ export default function ForCandidatesPage() {
               </RevealHeading>
               <FadeUp delay={0.15}>
                 <p className="mt-4 max-w-md text-body text-text-secondary">
-                  Clear communication, useful feedback and thoughtful role matching — from the
+                  Clear communication, useful feedback and thoughtful role matching, from the
                   first conversation to your first day.
                 </p>
               </FadeUp>

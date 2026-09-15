@@ -152,7 +152,7 @@ export function LocationMap({ location, region }: LocationMapProps) {
       </p>
 
       <p className="pointer-events-none absolute bottom-1 left-1/2 -translate-x-1/2 text-[10px] text-text-secondary/60">
-        Map data: ONS, OS — Open Government Licence
+        Map data: ONS, OS (Open Government Licence)
       </p>
     </div>
   );

@@ -118,8 +118,8 @@ export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPag
                 </h2>
               </div>
               <p className="text-body text-text-secondary">
-                Sector context shapes which HR and recruitment priorities matter most —
-                here&apos;s where Apex HR most often helps {title.toLowerCase()} employers.
+                Sector context shapes which HR and recruitment priorities matter most.
+                Here&apos;s where Apex HR most often helps {title.toLowerCase()} employers.
               </p>
             </RevealHeading>
 

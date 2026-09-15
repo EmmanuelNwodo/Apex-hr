@@ -216,7 +216,7 @@ export default function ForEmployersPage() {
               </div>
               <p className="text-body text-white/70">
                 Apex HR can support a defined project, provide ongoing cover, or add senior
-                capability temporarily — whichever fits how your organisation needs to work.
+                capability temporarily, whichever fits how your organisation needs to work.
               </p>
             </RevealHeading>
 

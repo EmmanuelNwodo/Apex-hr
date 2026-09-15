@@ -24,7 +24,7 @@ export interface LocationContent {
 const noOfficeFaq: ContentFaqItem = {
   id: "office",
   question: "Does Apex HR have a physical office here?",
-  answer: "Apex HR supports employers in this location remotely and, where useful, on-site — this page does not represent a confirmed local office.",
+  answer: "Apex HR supports employers in this location remotely and, where useful, on-site: this page does not represent a confirmed local office.",
 };
 
 export const locationContent: LocationContent[] = [

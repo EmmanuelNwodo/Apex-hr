@@ -20,7 +20,6 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { getOrganizationJsonLd, getWebsiteJsonLd, toJsonLdScript } from "@/lib/seo/structured-data";
 import { routes } from "@/config/routes";
 import { siteConfig } from "@/config/site";
-import { insightPreviews } from "@/content/home";
 
 // The homepage shares the root layout's own segment, so the layout's
 // title.template (which only applies to *child* segments) does not apply
@@ -69,14 +68,14 @@ export default function HomePage() {
       <CaseStudiesSection />
       <ExpertsSection />
       <CandidateGatewaySection />
-      {/* SEO audit Phase 3 Batch 4 corrective pass: Insights only appears
-          once BOTH real published content exists AND the destination route
-          is approved indexable — checking preview data alone isn't enough,
-          since /insights/ is readyToIndex: false in routes.ts (the single
-          source of truth) while it stays empty. Deriving directly from
-          routes.insights.readyToIndex here avoids a second, duplicated
-          readiness flag. */}
-      {insightPreviews.length > 0 && routes.insights.readyToIndex && <InsightsSection />}
+      {/* InsightsSection (src/components/sections/insights-section.tsx) is
+          an async server component that fetches live WordPress posts and
+          renders nothing at all unless BOTH real published content exists
+          AND routes.insights.readyToIndex is true — the same two-condition
+          gate this file used to apply inline (SEO audit Phase 3 Batch 4),
+          now owned by the section itself so this file doesn't need its own
+          WordPress fetch just to decide whether to render it. */}
+      <InsightsSection />
       <FaqSection />
       <FinalCtaSection />
     </>
