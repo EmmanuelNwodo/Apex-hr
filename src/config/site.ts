@@ -12,14 +12,16 @@ export const siteConfig = {
    * per the WordPress/Insights integration decision recorded in
    * docs/URL-DECISION-REGISTER.md) so canonical/OG/sitemap URLs across the
    * whole site — not only WordPress article pages — resolve to the current
-   * production domain. Falls back to the previous hard-coded domain when
-   * the env var is unset OR set to an empty string (some platforms define
-   * a variable with no value rather than omitting it entirely) — `||`
-   * deliberately, not `??`, since `undefined ?? fallback` alone would leave
-   * an empty string unfallen-back-to and `new URL(path, "")` throws,
+   * production domain. Falls back to the confirmed production domain
+   * (https://www.apexhrllc.co.uk, never the retired apexhrllc.com — see
+   * the indexability incident recorded in docs/URL-DECISION-REGISTER.md)
+   * when the env var is unset OR set to an empty string (some platforms
+   * define a variable with no value rather than omitting it entirely) —
+   * `||` deliberately, not `??`, since `undefined ?? fallback` alone would
+   * leave an empty string unfallen-back-to and `new URL(path, "")` throws,
    * breaking metadata generation for every page on the site.
    */
-  productionUrl: (process.env.NEXT_PUBLIC_SITE_URL || "https://apexhrllc.com").replace(/\/+$/, ""),
+  productionUrl: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.apexhrllc.co.uk").replace(/\/+$/, ""),
   defaultLocale: "en-GB",
   titleTemplate: "%s | Apex HR",
   defaultTitle: "Apex HR — HR Company in the UK",

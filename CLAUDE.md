@@ -5,7 +5,7 @@
 ## 1. Document status
 
 - Project: Apex HR Website
-- Production domain: `https://apexhrllc.com`
+- Production domain: `https://www.apexhrllc.co.uk`
 - Document status: Working implementation brief
 - Last consolidated: 2 September 2026
 - Primary market direction: United Kingdom, with verified international capability where supported by evidence

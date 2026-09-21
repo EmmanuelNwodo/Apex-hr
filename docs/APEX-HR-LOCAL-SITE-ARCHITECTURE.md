@@ -1,7 +1,7 @@
 # Apex HR — Local Website Architecture
 
 **Purpose:** show the team lead how the local Next.js codebase is actually structured, right now.
-**Scope:** the local repository only. No page on `apexhrllc.com` was visited, crawled, or used as a source. No old-site sitemap, no Google-indexed page, no production response was consulted. Every route, count and relationship below was read directly from local files (`src/app/`, `src/config/`, `src/content/`) or derived with small local scripts run against those same files.
+**Scope:** the local repository only. No page on `www.apexhrllc.co.uk` was visited, crawled, or used as a source. No old-site sitemap, no Google-indexed page, no production response was consulted. Every route, count and relationship below was read directly from local files (`src/app/`, `src/config/`, `src/content/`) or derived with small local scripts run against those same files.
 **No code was changed.** `src/app/sitemap.ts` was not modified. No route, page, content, metadata or component was altered. This is a read-only audit.
 **URL format:** every URL in this document is a relative local path (e.g. `/services/`), never prefixed with a domain.
 
@@ -720,5 +720,5 @@ None found. No duplicate public routes, no conflicting dynamic routes, no missin
 - Every dynamic URL was resolved against its local dataset: `src/config/services.ts` (58 records: 10 categories + 48 services), `src/config/sectors.ts` (17), `src/config/locations.ts` (16), `src/config/service-locations.ts` (50 combos, computed programmatically and cross-checked against `src/config/redirects.ts`'s 44 D-015 rules), `src/content/talent-roles-data.ts` (62), `src/config/insight-categories.ts` (8).
 - All 226 public pages, all 10 parent services, all 48 child services (each under its correct parent, verified programmatically), all 17 sectors and all 16 locations appear in this document.
 - Technical routes (§7.4) are kept in a separate section from public pages (§7.1) throughout.
-- No information was obtained from `apexhrllc.com` — every fact in this document traces to a local file path cited next to it.
-- Every URL in this document is a relative local path; no `https://apexhrllc.com` prefix appears anywhere.
+- No information was obtained from `www.apexhrllc.co.uk` — every fact in this document traces to a local file path cited next to it.
+- Every URL in this document is a relative local path; no `https://www.apexhrllc.co.uk` prefix appears anywhere.

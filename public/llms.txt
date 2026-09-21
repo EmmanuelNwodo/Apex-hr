@@ -4,66 +4,66 @@ Apex HR is a UK HR, recruitment and people-consulting partner for employers, bas
 
 Phone: +44 7762 272692
 Email: info@apexhrllc.com
-Website: https://apexhrllc.com
+Website: https://www.apexhrllc.co.uk
 
-This file is a concise, curated index for AI assistants and answer engines. It intentionally excludes pages with no substantive content yet and other provisional/unapproved routes — see https://apexhrllc.com/sitemap.xml for the full indexable set, and the site's own pages for authoritative visible content.
+This file is a concise, curated index for AI assistants and answer engines. It intentionally excludes pages with no substantive content yet and other provisional/unapproved routes — see https://www.apexhrllc.co.uk/sitemap.xml for the full indexable set, and the site's own pages for authoritative visible content.
 
 ## Core pages
 
-- [Home](https://apexhrllc.com/): Apex HR's employer-first overview — HR company in the UK.
-- [About Apex HR](https://apexhrllc.com/about/): What Apex HR is, how it works, and who it supports.
-- [Contact Apex HR](https://apexhrllc.com/contact/): Phone, email and enquiry form.
-- [For Employers](https://apexhrllc.com/for-employers/): Where to start for HR, recruitment and workforce support.
-- [For Candidates](https://apexhrllc.com/for-candidates/): Jobs, the Apex talent pool and career resources.
+- [Home](https://www.apexhrllc.co.uk/): Apex HR's employer-first overview — HR company in the UK.
+- [About Apex HR](https://www.apexhrllc.co.uk/about/): What Apex HR is, how it works, and who it supports.
+- [Contact Apex HR](https://www.apexhrllc.co.uk/contact/): Phone, email and enquiry form.
+- [For Employers](https://www.apexhrllc.co.uk/for-employers/): Where to start for HR, recruitment and workforce support.
+- [For Candidates](https://www.apexhrllc.co.uk/for-candidates/): Jobs, the Apex talent pool and career resources.
 
 ## Service families
 
-- [Outsourced HR Services](https://apexhrllc.com/services/outsourced-hr-services/)
-- [Recruitment & Talent Acquisition](https://apexhrllc.com/services/recruitment-talent-acquisition/)
-- [Employment Law & Employee Relations](https://apexhrllc.com/services/employment-law-and-employee-relations/)
-- [Organisation Development & Change Management](https://apexhrllc.com/services/organisation-development-change-management/)
-- [Compensation, Reward & Benefits](https://apexhrllc.com/services/compensation-reward-and-benefits/)
-- [Learning & Leadership Development](https://apexhrllc.com/services/learning-and-leadership-development/)
-- [Performance & Talent Management](https://apexhrllc.com/services/performance-and-talent-management/)
-- [Employee Experience & Engagement](https://apexhrllc.com/services/employee-experience-and-engagement/)
-- [HR Technology & People Analytics](https://apexhrllc.com/services/hr-technology-and-people-analytics/)
-- [Strategic HR & Workforce Advisory](https://apexhrllc.com/services/strategic-hr-and-workforce-advisory/)
+- [Outsourced HR Services](https://www.apexhrllc.co.uk/services/outsourced-hr-services/)
+- [Recruitment & Talent Acquisition](https://www.apexhrllc.co.uk/services/recruitment-talent-acquisition/)
+- [Employment Law & Employee Relations](https://www.apexhrllc.co.uk/services/employment-law-and-employee-relations/)
+- [Organisation Development & Change Management](https://www.apexhrllc.co.uk/services/organisation-development-change-management/)
+- [Compensation, Reward & Benefits](https://www.apexhrllc.co.uk/services/compensation-reward-and-benefits/)
+- [Learning & Leadership Development](https://www.apexhrllc.co.uk/services/learning-and-leadership-development/)
+- [Performance & Talent Management](https://www.apexhrllc.co.uk/services/performance-and-talent-management/)
+- [Employee Experience & Engagement](https://www.apexhrllc.co.uk/services/employee-experience-and-engagement/)
+- [HR Technology & People Analytics](https://www.apexhrllc.co.uk/services/hr-technology-and-people-analytics/)
+- [Strategic HR & Workforce Advisory](https://www.apexhrllc.co.uk/services/strategic-hr-and-workforce-advisory/)
 
 ## Featured services
 
 One representative child service per family — the full 48-service catalogue is linked from each family page above.
 
-- [Retained HR Services](https://apexhrllc.com/services/retained-hr-services/)
-- [Permanent Recruitment](https://apexhrllc.com/services/permanent-recruitment/)
-- [Workplace Investigations](https://apexhrllc.com/services/workplace-investigations/)
-- [Organisation Design](https://apexhrllc.com/services/organisation-design/)
-- [Salary Benchmarking](https://apexhrllc.com/services/salary-benchmarking/)
-- [Leadership & Management Training](https://apexhrllc.com/services/leadership-and-management-training/)
-- [Performance Management](https://apexhrllc.com/services/performance-management/)
-- [Employee Engagement Surveys & Action Planning](https://apexhrllc.com/services/employee-engagement-surveys-and-action-planning/)
-- [HRIS Implementation](https://apexhrllc.com/services/hris-implementation/)
-- [Strategic Workforce Planning](https://apexhrllc.com/services/strategic-workforce-planning/)
+- [Retained HR Services](https://www.apexhrllc.co.uk/services/retained-hr-services/)
+- [Permanent Recruitment](https://www.apexhrllc.co.uk/services/permanent-recruitment/)
+- [Workplace Investigations](https://www.apexhrllc.co.uk/services/workplace-investigations/)
+- [Organisation Design](https://www.apexhrllc.co.uk/services/organisation-design/)
+- [Salary Benchmarking](https://www.apexhrllc.co.uk/services/salary-benchmarking/)
+- [Leadership & Management Training](https://www.apexhrllc.co.uk/services/leadership-and-management-training/)
+- [Performance Management](https://www.apexhrllc.co.uk/services/performance-management/)
+- [Employee Engagement Surveys & Action Planning](https://www.apexhrllc.co.uk/services/employee-engagement-surveys-and-action-planning/)
+- [HRIS Implementation](https://www.apexhrllc.co.uk/services/hris-implementation/)
+- [Strategic Workforce Planning](https://www.apexhrllc.co.uk/services/strategic-workforce-planning/)
 
 ## Sectors
 
-- [Startups & Scale-ups](https://apexhrllc.com/sector/startups-scale-ups/)
-- [Professional Services](https://apexhrllc.com/sector/professional-services/)
-- [Healthcare](https://apexhrllc.com/sector/health-care/)
-- [Life Sciences](https://apexhrllc.com/sector/life-sciences/)
-- [IT](https://apexhrllc.com/sector/technology/)
-- [Financial Services](https://apexhrllc.com/sector/financial-services/)
-- [Accountants](https://apexhrllc.com/sector/accountants/)
-- [Architects](https://apexhrllc.com/sector/architects/)
-- [Care Homes](https://apexhrllc.com/sector/care-homes/)
-- [Charity](https://apexhrllc.com/sector/charity/)
-- [Construction](https://apexhrllc.com/sector/construction/)
-- [Distribution](https://apexhrllc.com/sector/distribution/)
-- [Education](https://apexhrllc.com/sector/education/)
-- [Engineers](https://apexhrllc.com/sector/engineers/)
-- [Leisure](https://apexhrllc.com/sector/leisure/)
-- [Manufacturers](https://apexhrllc.com/sector/manufacturers/)
-- [Hospitality](https://apexhrllc.com/sector/hospitality/)
+- [Startups & Scale-ups](https://www.apexhrllc.co.uk/sector/startups-scale-ups/)
+- [Professional Services](https://www.apexhrllc.co.uk/sector/professional-services/)
+- [Healthcare](https://www.apexhrllc.co.uk/sector/health-care/)
+- [Life Sciences](https://www.apexhrllc.co.uk/sector/life-sciences/)
+- [IT](https://www.apexhrllc.co.uk/sector/technology/)
+- [Financial Services](https://www.apexhrllc.co.uk/sector/financial-services/)
+- [Accountants](https://www.apexhrllc.co.uk/sector/accountants/)
+- [Architects](https://www.apexhrllc.co.uk/sector/architects/)
+- [Care Homes](https://www.apexhrllc.co.uk/sector/care-homes/)
+- [Charity](https://www.apexhrllc.co.uk/sector/charity/)
+- [Construction](https://www.apexhrllc.co.uk/sector/construction/)
+- [Distribution](https://www.apexhrllc.co.uk/sector/distribution/)
+- [Education](https://www.apexhrllc.co.uk/sector/education/)
+- [Engineers](https://www.apexhrllc.co.uk/sector/engineers/)
+- [Leisure](https://www.apexhrllc.co.uk/sector/leisure/)
+- [Manufacturers](https://www.apexhrllc.co.uk/sector/manufacturers/)
+- [Hospitality](https://www.apexhrllc.co.uk/sector/hospitality/)
 
 ## Locations
 
-- [Locations we support](https://apexhrllc.com/locations/): UK-wide HR and recruitment support directory, with all 16 individual location pages linked from there — see the sitemap for the full set.
+- [Locations we support](https://www.apexhrllc.co.uk/locations/): UK-wide HR and recruitment support directory, with all 16 individual location pages linked from there — see the sitemap for the full set.

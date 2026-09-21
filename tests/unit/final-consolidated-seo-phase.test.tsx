@@ -318,7 +318,7 @@ describe("Hub pages — CollectionPage/ItemList structured data matches visible 
       items: serviceCategories.map((c) => ({ name: c.title, path: `/services/${c.slug}/` })),
     });
     expect(jsonLd.mainEntity.itemListElement).toHaveLength(10);
-    expect(jsonLd.mainEntity.itemListElement.every((item) => item.url.startsWith("https://apexhrllc.com/services/"))).toBe(true);
+    expect(jsonLd.mainEntity.itemListElement.every((item) => item.url.startsWith("https://www.apexhrllc.co.uk/services/"))).toBe(true);
   });
 
   it("Sectors hub lists all 17 sectors; Locations hub lists all 16 locations", () => {
@@ -399,7 +399,7 @@ describe("Talent-acquisition role pages — no live-vacancy or fabrication claim
 
 describe("llms.txt — canonical link validity against route configuration", () => {
   const llmsTxt = fs.readFileSync(path.join(process.cwd(), "public/llms.txt"), "utf8");
-  const links = [...llmsTxt.matchAll(/\((https:\/\/apexhrllc\.com[^)]*)\)/g)].map((m) => m[1]);
+  const links = [...llmsTxt.matchAll(/\((https:\/\/www\.apexhrllc\.co\.uk[^)]*)\)/g)].map((m) => m[1]);
 
   it("has no duplicate links", () => {
     expect(new Set(links).size).toBe(links.length);
@@ -433,6 +433,13 @@ describe("llms.txt — canonical link validity against route configuration", () 
     expect(llmsTxt).toContain("+44 7762 272692");
     expect(llmsTxt).toContain("info@apexhrllc.com");
     expect(llmsTxt).not.toMatch(/\bpostcode\b|\bregistration number\b|\bcompany number\b/i);
+  });
+
+  it("uses the current www.apexhrllc.co.uk website domain throughout, with the @apexhrllc.com email preserved as the one legitimate exception", () => {
+    expect(links.length).toBeGreaterThan(0);
+    const withoutEmail = llmsTxt.replace("info@apexhrllc.com", "");
+    expect(withoutEmail).not.toContain("apexhrllc.com");
+    expect(llmsTxt).toContain("https://www.apexhrllc.co.uk");
   });
 });
 

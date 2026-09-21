@@ -71,8 +71,8 @@ describe("Insights archive — SEO metadata", () => {
     expect(configuredDomain.siteConfig.productionUrl).toBe("https://www.apexhrllc.co.uk");
   });
 
-  it("falls back to the previous domain only when NEXT_PUBLIC_SITE_URL is genuinely unset — not a silently broken empty host", () => {
-    expect(unsetDomain.siteConfig.productionUrl).toBe("https://apexhrllc.com");
-    expect(String(unsetDomain.metadata.alternates?.canonical ?? "")).toBe("https://apexhrllc.com/insights/");
+  it("falls back to the confirmed production domain (never the old apexhrllc.com) when NEXT_PUBLIC_SITE_URL is genuinely unset — not a silently broken empty host", () => {
+    expect(unsetDomain.siteConfig.productionUrl).toBe("https://www.apexhrllc.co.uk");
+    expect(String(unsetDomain.metadata.alternates?.canonical ?? "")).toBe("https://www.apexhrllc.co.uk/insights/");
   });
 });
