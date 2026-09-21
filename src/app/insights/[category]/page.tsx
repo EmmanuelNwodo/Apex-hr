@@ -8,6 +8,7 @@ import { getInsightCategory, insightCategories } from "@/config/insight-categori
 import { buildMetadata } from "@/lib/seo/metadata";
 import { routes } from "@/config/routes";
 import type { RouteRecord } from "@/types/route";
+import { getBreadcrumbJsonLd, getCollectionPageJsonLd, toJsonLdScript } from "@/lib/seo/structured-data";
 
 interface PageProps {
   params: Promise<{ category: string }>;
@@ -44,8 +45,27 @@ export default async function InsightCategoryPage({ params }: PageProps) {
     readyToIndex: routes.insights.readyToIndex,
   };
 
+  // SEO renderability audit remediation: CollectionPage/ItemList JSON-LD
+  // for this category. `items` is genuinely empty because this page does
+  // not yet fetch or list any category-filtered articles — it currently
+  // always renders EmptyEditorialState below. Wiring up real
+  // category-filtered WordPress articles is a separate, out-of-scope
+  // change; this schema accurately reflects the page's real current
+  // content rather than fabricating an article list. Update `items` here
+  // if/when this page starts rendering real per-category articles.
+  const jsonLd = [
+    getCollectionPageJsonLd({
+      path: categoryRoute.path,
+      name: `${category.title} Insights`,
+      description: category.summary,
+      items: [],
+    }),
+    getBreadcrumbJsonLd(routes.home.label, [routes.insights, categoryRoute]),
+  ];
+
   return (
     <Section tone="page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLdScript(jsonLd) }} />
       <Breadcrumbs trail={[routes.insights, categoryRoute]} />
       <div className="mt-6 max-w-[var(--container-reading)]">
         <SectionKicker>Insights</SectionKicker>

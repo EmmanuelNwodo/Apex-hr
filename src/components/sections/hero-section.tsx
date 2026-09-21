@@ -25,15 +25,15 @@ const trustIcons = [MapPin, UsersRound, Target];
  * position value mostly matters at the narrower/taller aspect ratios
  * (mobile, some tablet sizes) where real horizontal cropping occurs.
  *
- * PROTECTED: the animated H1 is `<TypewriterLoop text={hero.heading} />`
- * inside an `<h1 aria-label={hero.heading}>` — the exact pairing already
- * used before this redesign. TypewriterLoop's own file
- * (src/components/motion/typewriter-loop.tsx) is not touched at all, and
- * this call site changes only surrounding presentation classes (colour,
- * size, positioning), never the component's props, text, or defaults
- * (typing/deleting speed, five-second hold, cursor/fade behaviour, reduced-
- * motion handling all come from that file's own default prop values,
- * unchanged and not overridden here).
+ * The animated H1 is `<TypewriterLoop text={hero.heading} />` inside an
+ * `<h1 aria-label={hero.heading}>`. SEO renderability audit remediation:
+ * TypewriterLoop itself now renders the complete `hero.heading` text as a
+ * plain, real text node for the server-rendered HTML and first client
+ * paint (see its own doc comment / useHasMounted), so the H1's visible
+ * text is never empty pre-hydration — only the typing/fade animation is
+ * deferred until after mount. This call site's own props (typing/deleting
+ * speed, five-second hold, cursor/fade behaviour, reduced-motion handling)
+ * are all still that file's unchanged default values, not overridden here.
  *
  * Layering (bottom to top): HeroVideo (full-bleed, absolute, z-0) ->
  * gradient overlays (absolute, z-1) -> content column + trust row

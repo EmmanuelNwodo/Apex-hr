@@ -5,6 +5,7 @@ import { SectionKicker } from "@/components/ui/section-kicker";
 import { LinkButton } from "@/components/ui/link-button";
 import { FaqWithContactForm } from "@/components/content/faq-with-contact-form";
 import { SectorServiceExplorer } from "@/components/content/sector-service-explorer";
+import { CrawlableLinkList } from "@/components/content/crawlable-link-list";
 import { RevealHeading } from "@/components/motion/reveal-heading";
 import { FadeUp } from "@/components/motion/fade-up";
 import { SlideInLeft, SlideInRight } from "@/components/motion/slide-in";
@@ -183,6 +184,21 @@ export function SectorPageTemplate({ title, breadcrumbTrail, sector }: SectorPag
               <AnimatedSection delay={0.1} className="mt-10">
                 <SectorServiceExplorer services={relatedServices} />
               </AnimatedSection>
+
+              {/*
+               * SEO renderability audit remediation: SectorServiceExplorer
+               * only exposes the currently-active related service's own
+               * link inside its interactive picker. This compact,
+               * always-server-rendered list gives every one of this
+               * sector's curated relatedServiceSlugs a real crawlable
+               * <a href> in the initial HTML — the same, already-curated
+               * relationships, no new or unrelated services added.
+               */}
+              <CrawlableLinkList
+                className="mt-4"
+                caption="Related services:"
+                items={relatedServices.map((service) => ({ label: service.title, href: `/services/${service.slug}/` }))}
+              />
             </section>
           )}
 

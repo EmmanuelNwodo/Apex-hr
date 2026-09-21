@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, BadgePoundSterling, ChevronRight, Presentation, ShieldCheck, UserRoundSearch } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SectionKicker } from "@/components/ui/section-kicker";
+import { CrawlableLinkList } from "@/components/content/crawlable-link-list";
 import type { EmployerProblem, EmployerProblemIcon } from "@/content/home";
 
 const icons: Record<EmployerProblemIcon, typeof ShieldCheck> = {
@@ -92,6 +93,21 @@ export function EmployerChallengeNavigator({ problems }: EmployerChallengeNaviga
             </span>
           </Link>
         </div>
+      </div>
+
+      {/*
+       * SEO renderability audit remediation: the picker above only exposes
+       * the currently-active problem's single service link as a real
+       * anchor. This compact, always-server-rendered list gives every
+       * problem/solution pair's service destination a real crawlable
+       * <a href> in the initial HTML, without repeating each problem's
+       * copy — the challenge/solution wording itself is unchanged.
+       */}
+      <div className="mx-4 mb-4 sm:mx-6 sm:mb-6 lg:mx-8 lg:mb-8">
+        <CrawlableLinkList
+          caption="Related services:"
+          items={problems.map((problem) => ({ label: problem.serviceLabel, href: problem.href }))}
+        />
       </div>
     </div>
   );

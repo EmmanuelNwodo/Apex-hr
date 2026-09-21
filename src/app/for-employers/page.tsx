@@ -19,7 +19,9 @@ import { SlideInRight } from "@/components/motion/slide-in";
 import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 import { FaqWithContactForm } from "@/components/content/faq-with-contact-form";
 import { EmployerNeedsExplorer } from "@/components/content/employer-needs-explorer";
+import { CrawlableLinkList } from "@/components/content/crawlable-link-list";
 import { forEmployersPageContent } from "@/content/supporting-pages-data";
+import { employerNeeds } from "@/content/employer-needs";
 import { serviceCategoryContent } from "@/content/services-data";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getBreadcrumbJsonLd, toJsonLdScript } from "@/lib/seo/structured-data";
@@ -36,6 +38,15 @@ export const metadata = buildMetadata({
   path: routes.forEmployers.path,
   index: routes.forEmployers.readyToIndex,
 });
+
+// SEO renderability audit remediation: every service destination
+// EmployerNeedsExplorer exposes (only for its currently-active need),
+// deduplicated by href, for the always-server-rendered CrawlableLinkList
+// fallback below — the exact same data the interactive picker uses, not a
+// second hand-typed list.
+const employerNeedServiceLinks = Array.from(
+  new Map(employerNeeds.flatMap((need) => need.tags).map((tag) => [tag.href, tag])).values(),
+);
 
 // Reuses the same three real service categories highlighted on the About
 // page — see src/content/services-data.ts.
@@ -204,6 +215,19 @@ export default function ForEmployersPage() {
             <AnimatedSection delay={0.1} className="mt-10">
               <EmployerNeedsExplorer />
             </AnimatedSection>
+
+            {/*
+             * SEO renderability audit remediation: EmployerNeedsExplorer
+             * only exposes the currently-active need's 4 service tags as
+             * real links. This compact, always-server-rendered list gives
+             * every service destination across all 5 needs a real
+             * crawlable <a href> in the initial HTML.
+             */}
+            <CrawlableLinkList
+              className="mt-4"
+              caption="Related services:"
+              items={employerNeedServiceLinks}
+            />
           </section>
 
           <section className="bg-navy p-8 sm:p-10 lg:p-14">

@@ -10,6 +10,7 @@ import { insightCategories } from "@/config/insight-categories";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getPosts, toInsightPreview } from "@/lib/wordpress";
 import { routes } from "@/config/routes";
+import { getBreadcrumbJsonLd, getCollectionPageJsonLd, toJsonLdScript } from "@/lib/seo/structured-data";
 
 export const metadata = buildMetadata({
   title: "Insights",
@@ -32,8 +33,27 @@ export default async function InsightsPage({ searchParams }: InsightsPageProps) 
   const { posts, totalPages, unavailable } = await getPosts({ page, perPage: POSTS_PER_PAGE });
   const insights = posts.map(toInsightPreview);
 
+  // SEO renderability audit remediation: CollectionPage/ItemList JSON-LD
+  // for the 8 insight categories — the hub's own always-rendered,
+  // unconditional link list (see the <ul> below), matching exactly how
+  // the Services and Sector hubs already describe their own category
+  // grids. Deliberately not built from the paginated `insights` articles
+  // above: that list changes per page/session, while the category grid
+  // is the hub's durable, canonical content — and per-article schema
+  // already exists on each article's own page (BlogPosting).
+  const jsonLd = [
+    getCollectionPageJsonLd({
+      path: routes.insights.path,
+      name: "HR and workforce insights",
+      description: "HR and workforce insights from Apex HR, organised by topic.",
+      items: insightCategories.map((category) => ({ name: category.title, path: `/insights/${category.slug}/` })),
+    }),
+    getBreadcrumbJsonLd(routes.home.label, [routes.insights]),
+  ];
+
   return (
     <Section tone="page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLdScript(jsonLd) }} />
       <Breadcrumbs trail={[routes.insights]} />
       <div className="mt-6 max-w-[var(--container-reading)]">
         <SectionKicker>Insights</SectionKicker>

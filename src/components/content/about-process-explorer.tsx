@@ -28,6 +28,17 @@ interface AboutProcessExplorerProps {
  * each step is a native `button` (keyboard-operable by default) and the
  * detail panel is `aria-live` so assistive technology announces the
  * update.
+ *
+ * SEO renderability audit remediation decision: left unchanged. Unlike
+ * the service/sector explorers, every step here routes to the same single
+ * `routes.contact.path` CTA rather than five distinct destinations, so
+ * there is no missing crawlable-link set to add. The step titles/details
+ * for the four non-active steps are not in this page's DOM, but that same
+ * five-step content already exists as a fully static, always-rendered
+ * grid on the homepage (see ProcessSection / "How Apex works") — adding a
+ * second static copy here would duplicate a meaningful block of body copy
+ * for a low-severity, already-mitigated finding, which the audit
+ * remediation brief explicitly asks to avoid.
  */
 export function AboutProcessExplorer({ steps }: AboutProcessExplorerProps) {
   const [activeIndex, setActiveIndex] = useState(0);

@@ -8,6 +8,7 @@ import { FadeUp } from "@/components/motion/fade-up";
 import { AnimatedSection } from "@/components/motion/animated-section";
 import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 import { ServiceFamilyNavigator } from "@/components/content/service-family-navigator";
+import { CrawlableLinkList } from "@/components/content/crawlable-link-list";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getBreadcrumbJsonLd, getCollectionPageJsonLd, toJsonLdScript } from "@/lib/seo/structured-data";
 import { routes } from "@/config/routes";
@@ -146,9 +147,26 @@ export default function ServicesPage() {
             </p>
           </RevealHeading>
 
-      <AnimatedSection delay={0.1} className="px-5 pb-8 sm:px-0 sm:pb-10 lg:pb-14">
+      <AnimatedSection delay={0.1} className="px-5 pb-6 sm:px-0 sm:pb-8 lg:pb-10">
         <ServiceFamilyNavigator />
       </AnimatedSection>
+
+      {/*
+       * SEO renderability audit remediation: ServiceFamilyNavigator only
+       * exposes the currently-active family's own link inside its
+       * interactive picker (the other 9 are plain button labels, not
+       * anchors). This compact, always-server-rendered list gives every
+       * one of the 10 families a real crawlable <a href> in the initial
+       * HTML, reusing the exact pill style already used inside the
+       * navigator's own child-service links — no new visual pattern, no
+       * duplicated descriptions, just the missing links.
+       */}
+      <div className="px-5 pb-8 sm:px-0 sm:pb-10 lg:pb-14">
+        <CrawlableLinkList
+          caption="All service families:"
+          items={serviceCategories.map((category) => ({ label: category.title, href: `/services/${category.slug}/` }))}
+        />
+      </div>
 
       <div className="flex flex-col gap-6 bg-navy p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-14">
         <RevealHeading>

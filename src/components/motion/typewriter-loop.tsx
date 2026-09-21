@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
+import { useHasMounted } from "@/components/motion/use-has-mounted";
 
 interface TypewriterLoopProps {
   text: string;
@@ -24,10 +25,19 @@ interface TypewriterLoopProps {
  * timer is cleared on unmount. Reduced-motion users see the complete
  * heading immediately, with the loop disabled entirely.
  *
- * Mark this span `aria-hidden` and put the plain string in an
- * `aria-label` on the parent heading: the visible text is blank for part
- * of every cycle (mid-clear, mid-fade), so the accessible name must not
- * depend on it.
+ * SEO renderability audit remediation: renders the complete, plain `text`
+ * (an ordinary, non-`aria-hidden` text node — never only an `aria-label`)
+ * for the server-rendered HTML and the very first client paint, exactly
+ * like every other entrance-animation primitive in this folder
+ * (useHasMounted — see its own doc comment). The typewriter effect is a
+ * purely visual enhancement layered on top of real content, never a
+ * substitute for it: search engines and no-JS visitors always receive the
+ * full heading text. Once mounted, this switches to the animated
+ * `aria-hidden` span below and the existing typing cycle proceeds
+ * completely unchanged (same clear/type/hold/fade timing); the parent
+ * heading's `aria-label` continues to carry the accessible name throughout
+ * that animated phase, exactly as before this fix. Reduced-motion users
+ * are unaffected — they already saw the complete heading immediately.
  */
 export function TypewriterLoop({
   text,
@@ -40,6 +50,7 @@ export function TypewriterLoop({
   const [visibleText, setVisibleText] = useState("");
   const [isFading, setIsFading] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  const hasMounted = useHasMounted();
   const cancelledRef = useRef(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -95,12 +106,8 @@ export function TypewriterLoop({
     };
   }, [text, charDelayMs, startDelayMs, holdMs, fadeMs, shouldReduceMotion]);
 
-  if (shouldReduceMotion) {
-    return (
-      <span aria-hidden="true" className={className}>
-        {text}
-      </span>
-    );
+  if (shouldReduceMotion || !hasMounted) {
+    return <span className={className}>{text}</span>;
   }
 
   return (
