@@ -7,7 +7,7 @@ import { locationContent } from "@/content/locations-data";
 import { talentRoleContent } from "@/content/talent-roles-data";
 import { serviceLocationCombos, categoryLocationCombos } from "@/config/service-locations";
 import { redirectRules } from "@/config/redirects";
-import sitemap from "@/app/sitemap";
+import { getSitemapGroups, flattenSitemapGroups } from "@/lib/seo/sitemap-data";
 
 /**
  * URL-to-H1 Alignment Audit implementation regression coverage
@@ -227,7 +227,7 @@ describe("7. Both category-location pages still exist", () => {
 
 describe("8 & 9. Sitemap contains only new canonical service/sector URLs; old URLs are absent", () => {
   it("every /services/ and /sector/ sitemap URL matches a live service, category, sector or service-location slug", async () => {
-    const entries = await sitemap();
+    const entries = flattenSitemapGroups(await getSitemapGroups());
     const liveServiceSlugs = new Set(services.map((s) => `/services/${s.slug}/`));
     const liveCategorySlugs = new Set(serviceCategories.map((c) => `/services/${c.slug}/`));
     const liveSectorSlugs = new Set(sectors.map((s) => `/sector/${s.slug}/`));
@@ -237,7 +237,7 @@ describe("8 & 9. Sitemap contains only new canonical service/sector URLs; old UR
 
     const offenders: string[] = [];
     for (const entry of entries) {
-      const path = new URL(entry.url).pathname;
+      const path = new URL(entry.loc).pathname;
       if (path === "/services/" || path === "/sector/") continue;
       if (path.startsWith("/services/") || path.startsWith("/sector/")) {
         const known =
@@ -249,10 +249,10 @@ describe("8 & 9. Sitemap contains only new canonical service/sector URLs; old UR
   });
 
   it("does not contain any legacy pre-rename service or sector slug pattern lacking 'firm-in-the-uk' / 'hr-company-for'", async () => {
-    const entries = await sitemap();
+    const entries = flattenSitemapGroups(await getSitemapGroups());
     const offenders: string[] = [];
     for (const entry of entries) {
-      const path = new URL(entry.url).pathname;
+      const path = new URL(entry.loc).pathname;
       if (path === "/services/" || path === "/sector/") continue;
       if (/^\/services\//.test(path) && !path.includes("firm-in-the-uk")) offenders.push(path);
       if (/^\/sector\//.test(path) && !path.includes("hr-company-for-")) offenders.push(path);

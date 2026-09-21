@@ -17,7 +17,7 @@ import { buildLocationFaqs } from "@/components/templates/location-page-template
 import { getCollectionPageJsonLd } from "@/lib/seo/structured-data";
 import { routes } from "@/config/routes";
 import { insightCategories } from "@/config/insight-categories";
-import sitemap from "@/app/sitemap";
+import { getSitemapGroups, flattenSitemapGroups } from "@/lib/seo/sitemap-data";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -262,18 +262,18 @@ describe("Route inventory and sitemap", () => {
     // hub and its 8 category pages, now indexable per
     // docs/URL-DECISION-REGISTER.md D-016 (routes.insights.readyToIndex
     // flipped to true once WordPress had genuine published content).
-    const entries = await sitemap();
+    const entries = flattenSitemapGroups(await getSitemapGroups());
     expect(entries.length).toBe(220);
     expect(entries.length).toBe(contentManifest.filter((e) => e.indexable).length);
     for (const entry of entries) {
-      expect(entry).not.toHaveProperty("lastModified");
+      expect(entry.lastModified).toBeUndefined();
     }
   });
 
   it("116 redirect rules exist and none point to a sitemap URL as a competing duplicate source", async () => {
     expect(redirectRules.length).toBe(116);
-    const entries = await sitemap();
-    const sitemapPaths = new Set(entries.map((e) => new URL(e.url).pathname));
+    const entries = flattenSitemapGroups(await getSitemapGroups());
+    const sitemapPaths = new Set(entries.map((e) => new URL(e.loc).pathname));
     for (const rule of redirectRules) {
       expect(sitemapPaths.has(rule.source)).toBe(false);
     }
@@ -292,16 +292,16 @@ describe("Route inventory and sitemap", () => {
       routes.caseStudies.path,
       routes.experts.path,
     ];
-    const entries = await sitemap();
-    const sitemapPaths = new Set(entries.map((e) => new URL(e.url).pathname));
+    const entries = flattenSitemapGroups(await getSitemapGroups());
+    const sitemapPaths = new Set(entries.map((e) => new URL(e.loc).pathname));
     for (const p of noindexPaths) {
       expect(sitemapPaths.has(p), `${p} should not be in the sitemap`).toBe(false);
     }
   });
 
   it("/insights/ and all 8 insight category pages now appear in the sitemap", async () => {
-    const entries = await sitemap();
-    const sitemapPaths = new Set(entries.map((e) => new URL(e.url).pathname));
+    const entries = flattenSitemapGroups(await getSitemapGroups());
+    const sitemapPaths = new Set(entries.map((e) => new URL(e.loc).pathname));
     expect(sitemapPaths.has(routes.insights.path)).toBe(true);
     for (const category of insightCategories) {
       expect(sitemapPaths.has(`/insights/${category.slug}/`)).toBe(true);
