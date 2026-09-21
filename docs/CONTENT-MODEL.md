@@ -418,7 +418,7 @@ Fields:
 - `seo`
 - `workflow`
 
-Seed the 17 approved records. Professional Services uses `/sector/professional-services/`; IT uses `/sector/technology/`.
+Seed the 17 approved records. Professional Services uses `/sector/hr-company-for-professional-services-in-the-uk/`; IT uses `/sector/hr-company-for-it-in-the-uk/` (see `docs/URL-DECISION-REGISTER.md` D-017 for the current sector URL convention).
 
 ### 10.2 `location`
 

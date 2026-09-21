@@ -40,9 +40,9 @@ export const metadata = buildMetadata({
 // Reuses the same three real service categories highlighted on the About
 // page — see src/content/services-data.ts.
 const supportPillars = [
-  { categorySlug: "recruitment-talent-acquisition", title: "Recruitment", icon: UserRoundSearch },
-  { categorySlug: "outsourced-hr-services", title: "Outsourced HR", icon: UsersRound },
-  { categorySlug: "strategic-hr-and-workforce-advisory", title: "People advisory", icon: ShieldCheck },
+  { categorySlug: "recruitment-and-talent-acquisition-firm-in-the-uk", title: "Recruitment", icon: UserRoundSearch },
+  { categorySlug: "outsourced-hr-services-firm-in-the-uk", title: "Outsourced HR", icon: UsersRound },
+  { categorySlug: "strategic-hr-and-workforce-advisory-firm-in-the-uk", title: "People advisory", icon: ShieldCheck },
 ];
 
 // Original, non-quantified descriptions of how an engagement can be

@@ -355,25 +355,27 @@ Routes explicitly marked Provisional remain gated even when their URL pattern is
 
 `/sector/` is canonical. `/industries/` and known children are redirect-only aliases.
 
+Per `docs/URL-DECISION-REGISTER.md` D-017, every sector URL follows `/sector/hr-company-for-{sector-slug}-in-the-uk/`.
+
 | Sector label | Canonical URL | Status |
 |---|---|---|
-| Startups & Scale-ups | `/sector/startups-scale-ups/` | Confirmed |
-| Professional Services | `/sector/professional-services/` | Corrected; distinct from IT |
-| Healthcare | `/sector/health-care/` | Confirmed |
-| Life Sciences | `/sector/life-sciences/` | Confirmed |
-| IT | `/sector/technology/` | Confirmed; Technology URL represents IT only |
-| Financial Services | `/sector/financial-services/` | Confirmed |
-| Accountants | `/sector/accountants/` | Confirmed |
-| Architects | `/sector/architects/` | Confirmed |
-| Care Homes | `/sector/care-homes/` | Confirmed |
-| Charity | `/sector/charity/` | Confirmed |
-| Construction | `/sector/construction/` | Corrected |
-| Distribution | `/sector/distribution/` | Corrected |
-| Education | `/sector/education/` | Confirmed |
-| Engineers | `/sector/engineers/` | Confirmed |
-| Leisure | `/sector/leisure/` | Confirmed |
-| Manufacturers | `/sector/manufacturers/` | Confirmed |
-| Hospitality | `/sector/hospitality/` | Confirmed |
+| Startups & Scale-ups | `/sector/hr-company-for-startups-and-scale-ups-in-the-uk/` | Confirmed |
+| Professional Services | `/sector/hr-company-for-professional-services-in-the-uk/` | Corrected; distinct from IT |
+| Healthcare | `/sector/hr-company-for-healthcare-in-the-uk/` | Confirmed |
+| Life Sciences | `/sector/hr-company-for-life-sciences-in-the-uk/` | Confirmed |
+| IT | `/sector/hr-company-for-it-in-the-uk/` | Confirmed; Technology URL represents IT only |
+| Financial Services | `/sector/hr-company-for-financial-services-in-the-uk/` | Confirmed |
+| Accountants | `/sector/hr-company-for-accountants-in-the-uk/` | Confirmed |
+| Architects | `/sector/hr-company-for-architects-in-the-uk/` | Confirmed |
+| Care Homes | `/sector/hr-company-for-care-homes-in-the-uk/` | Confirmed |
+| Charity | `/sector/hr-company-for-charity-in-the-uk/` | Confirmed |
+| Construction | `/sector/hr-company-for-construction-in-the-uk/` | Corrected |
+| Distribution | `/sector/hr-company-for-distribution-in-the-uk/` | Corrected |
+| Education | `/sector/hr-company-for-education-in-the-uk/` | Confirmed |
+| Engineers | `/sector/hr-company-for-engineers-in-the-uk/` | Confirmed |
+| Leisure | `/sector/hr-company-for-leisure-in-the-uk/` | Confirmed |
+| Manufacturers | `/sector/hr-company-for-manufacturers-in-the-uk/` | Confirmed |
+| Hospitality | `/sector/hr-company-for-hospitality-in-the-uk/` | Confirmed |
 
 Do not publish `/industries/.../` pages. Implement the approved `301` rules from the Redirects sheet of the master register.
 
@@ -402,11 +404,11 @@ The canonical spellings are Nottingham, Worcester and Staffordshire. Redirect th
 
 ### Service-location pages
 
-The master matrix contains flat public URLs such as:
+The master matrix contains flat public URLs such as (service slugs carry the `-firm-in-the-uk` suffix per `docs/URL-DECISION-REGISTER.md` D-017):
 
 ```text
-/services/retained-hr-services-london/
-/services/executive-search-manchester/
+/services/retained-hr-services-firm-in-the-uk-london/
+/services/executive-search-firm-in-the-uk-manchester/
 ```
 
 Preserve the public URL format from the approved matrix even if the internal implementation uses a dynamic resolver. Do not replace these with `/services/[service]/[location]/` without explicit approval and a migration plan.
@@ -431,7 +433,7 @@ The workbook defines 62 role pages beneath `/talent-acquisition/`. Exact labels 
 
 ## 10. Service catalogue
 
-The `Services` sheet defines the canonical catalogue: 10 parent families and 48 child services. Canonical services use flat `/services/[service-slug]/` URLs from `docs/MASTER-SITEMAP.md` and the master workbook.
+The `Services` sheet defines the canonical catalogue: 10 parent families and 48 child services. Canonical services use flat `/services/[service-slug]-firm-in-the-uk/` URLs (D-017) from `docs/MASTER-SITEMAP.md` and the master workbook.
 
 ### Outsourced HR Services
 
@@ -1301,14 +1303,15 @@ The canonical sitemap decisions are recorded in `docs/URL-DECISION-REGISTER.md`.
 | Decision | Approved rule |
 |---|---|
 | Taxonomy root | Use `/sector/`; redirect `/industries/` aliases |
-| Professional Services | Use `/sector/professional-services/` |
-| IT | Use `/sector/technology/` |
+| Professional Services | Use `/sector/hr-company-for-professional-services-in-the-uk/` |
+| IT | Use `/sector/hr-company-for-it-in-the-uk/` |
 | Contact | Use `/contact/`; keep `/about/` as a separate valid page |
 | Locations | Use Nottingham, Worcester and Staffordshire spellings |
 | Service catalogue | Use 10 parent families and 48 children from the Services sheet |
-| Service routes | Use flat `/services/[service-slug]/` canonicals |
+| Service routes | Use flat `/services/[service-slug]-firm-in-the-uk/` canonicals (D-017) |
+| Sector routes | Use flat `/sector/hr-company-for-[sector-slug]-in-the-uk/` canonicals (D-017) |
 | Spelling errors | Use corrected canonicals and direct `301` redirects for known requestable legacy URLs |
-| Service-location routes | Use `/services/[service-slug]-[location-slug]/`; keep all 816 combinations Provisional |
+| Service-location routes | Use `/services/[service-slug]-firm-in-the-uk-[location-slug]/`; keep all 816 combinations Provisional |
 | Formatting | Lowercase, hyphenated, trailing-slash URLs |
 | Route states | Confirmed, Corrected, Redirected, Provisional or Future |
 

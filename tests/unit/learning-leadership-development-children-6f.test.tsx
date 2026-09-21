@@ -18,15 +18,15 @@ import { routes } from "@/config/routes";
  */
 
 const APPROVED_THREE = [
-  "leadership-and-management-training",
-  "executive-coaching-and-360-feedback",
-  "learning-strategy-and-capability-development",
+  "leadership-and-management-training-firm-in-the-uk",
+  "executive-coaching-and-360-feedback-firm-in-the-uk",
+  "learning-strategy-and-capability-development-firm-in-the-uk",
 ];
 
 const APPROVED_INTENTS: Record<string, string> = {
-  "leadership-and-management-training": "Structured training for managers and organisational leaders",
-  "executive-coaching-and-360-feedback": "Individual leadership coaching and structured multi-source feedback",
-  "learning-strategy-and-capability-development": "Organisation-wide learning strategy and workforce capability planning",
+  "leadership-and-management-training-firm-in-the-uk": "Structured training for managers and organisational leaders",
+  "executive-coaching-and-360-feedback-firm-in-the-uk": "Individual leadership coaching and structured multi-source feedback",
+  "learning-strategy-and-capability-development-firm-in-the-uk": "Organisation-wide learning strategy and workforce capability planning",
 };
 
 const NOINDEX_HUB_PATHS = ["/insights/", "/resources/", "/case-study/"];
@@ -39,9 +39,9 @@ function buildBreadcrumbTrail(serviceTitle: string, serviceSlug: string) {
   return [
     routes.services,
     {
-      id: "learning-and-leadership-development",
+      id: "learning-and-leadership-development-firm-in-the-uk",
       label: "Learning & Leadership Development",
-      path: "/services/learning-and-leadership-development/",
+      path: "/services/learning-and-leadership-development-firm-in-the-uk/",
       status: "confirmed" as const,
       readyToIndex: true,
     },
@@ -51,12 +51,12 @@ function buildBreadcrumbTrail(serviceTitle: string, serviceSlug: string) {
 
 describe("Preliminary check (Batch 6F) — Pay Equity & Pay Gap Reporting public-facing language", () => {
   it("has no internal QA/workflow language anywhere in its public-facing content", () => {
-    const content = serviceContent.find((c) => c.slug === "pay-equity-and-pay-gap-reporting")!;
+    const content = serviceContent.find((c) => c.slug === "pay-equity-and-pay-gap-reporting-firm-in-the-uk")!;
     expect(INTERNAL_QA_LANGUAGE.test(JSON.stringify(content))).toBe(false);
   });
 
   it("its outOfScope statutory-detail boundary reads as natural visitor-facing wording, not a literal 'no invented thresholds/figures' phrase", () => {
-    const content = serviceContent.find((c) => c.slug === "pay-equity-and-pay-gap-reporting")!;
+    const content = serviceContent.find((c) => c.slug === "pay-equity-and-pay-gap-reporting-firm-in-the-uk")!;
     const scope = (content.outOfScope ?? []).join(" ");
     expect(scope).not.toMatch(/invented thresholds?/i);
     expect(scope).not.toMatch(/invented figures?/i);
@@ -65,7 +65,7 @@ describe("Preliminary check (Batch 6F) — Pay Equity & Pay Gap Reporting public
 });
 
 describe("Learning & Leadership Development children (Batch 6F) — catalogue integrity", () => {
-  const family = getServicesByCategory("learning-and-leadership-development");
+  const family = getServicesByCategory("learning-and-leadership-development-firm-in-the-uk");
 
   it("has exactly these three approved services and no others", () => {
     expect(family.length).toBe(3);
@@ -146,11 +146,11 @@ describe("Learning & Leadership Development children (Batch 6F) — catalogue in
       expect(combos, `${slug} unexpectedly has service-location combos`).toEqual([]);
     }
     const categorySlugs = categoryLocationCombos.map((c) => c.categorySlug);
-    expect(categorySlugs).not.toContain("learning-and-leadership-development");
+    expect(categorySlugs).not.toContain("learning-and-leadership-development-firm-in-the-uk");
   });
 
   it("Leadership & Management Training excludes unverified accreditation, guaranteed behaviour/productivity/performance change, guaranteed promotion and universal suitability", () => {
-    const content = serviceContent.find((c) => c.slug === "leadership-and-management-training")!;
+    const content = serviceContent.find((c) => c.slug === "leadership-and-management-training-firm-in-the-uk")!;
     const scope = (content.outOfScope ?? []).join(" ").toLowerCase();
     expect(scope).toMatch(/accredited or externally certified qualifications/);
     expect(scope).toMatch(/guaranteed changes in manager behaviour, team productivity or performance/);
@@ -159,14 +159,14 @@ describe("Learning & Leadership Development children (Batch 6F) — catalogue in
   });
 
   it("Leadership & Management Training is distinguished from coaching and from learning strategy", () => {
-    const content = serviceContent.find((c) => c.slug === "leadership-and-management-training")!;
+    const content = serviceContent.find((c) => c.slug === "leadership-and-management-training-firm-in-the-uk")!;
     const note = content.differentiationNote?.toLowerCase() ?? "";
     expect(note).toMatch(/executive coaching & 360 feedback/);
     expect(note).toMatch(/learning strategy & capability development/);
   });
 
   it("Executive Coaching & 360 Feedback is not presented as therapy, medical support or clinical/psychological diagnosis anywhere in its visible content", () => {
-    const content = serviceContent.find((c) => c.slug === "executive-coaching-and-360-feedback")!;
+    const content = serviceContent.find((c) => c.slug === "executive-coaching-and-360-feedback-firm-in-the-uk")!;
     // The disclaimer text itself legitimately contains these words to
     // *rule them out* — check instead that every match sits inside a
     // negation ("not", "outside", "no") within the same sentence.
@@ -190,7 +190,7 @@ describe("Learning & Leadership Development children (Batch 6F) — catalogue in
   });
 
   it("Executive Coaching & 360 Feedback excludes guaranteed confidentiality, guaranteed outcomes, unverified accreditation and clinical framing of 360 feedback", () => {
-    const content = serviceContent.find((c) => c.slug === "executive-coaching-and-360-feedback")!;
+    const content = serviceContent.find((c) => c.slug === "executive-coaching-and-360-feedback-firm-in-the-uk")!;
     const scope = (content.outOfScope ?? []).join(" ").toLowerCase();
     expect(scope).toMatch(/guarantee of confidentiality in every circumstance/);
     expect(scope).toMatch(/guaranteed leadership improvement, promotion or performance outcomes/);
@@ -199,13 +199,13 @@ describe("Learning & Leadership Development children (Batch 6F) — catalogue in
   });
 
   it("Executive Coaching & 360 Feedback explains the limits of confidentiality", () => {
-    const content = serviceContent.find((c) => c.slug === "executive-coaching-and-360-feedback")!;
+    const content = serviceContent.find((c) => c.slug === "executive-coaching-and-360-feedback-firm-in-the-uk")!;
     const allFaqs = [...content.faqs, ...(content.additionalFaqs ?? [])];
     expect(allFaqs.some((f) => /limit/i.test(f.question) && /safeguarding|legal obligation/i.test(f.answer))).toBe(true);
   });
 
   it("Executive Coaching & 360 Feedback is distinguished from training, performance management and therapy", () => {
-    const content = serviceContent.find((c) => c.slug === "executive-coaching-and-360-feedback")!;
+    const content = serviceContent.find((c) => c.slug === "executive-coaching-and-360-feedback-firm-in-the-uk")!;
     const note = content.differentiationNote?.toLowerCase() ?? "";
     expect(note).toMatch(/leadership & management training/);
     expect(note).toMatch(/performance management/);
@@ -213,12 +213,12 @@ describe("Learning & Leadership Development children (Batch 6F) — catalogue in
   });
 
   it("Executive Coaching & 360 Feedback is not flagged with legalReviewRequired (data-protection/coaching review is tracked separately in docs/CONTENT-REVIEW.md)", () => {
-    const content = serviceContent.find((c) => c.slug === "executive-coaching-and-360-feedback")!;
+    const content = serviceContent.find((c) => c.slug === "executive-coaching-and-360-feedback-firm-in-the-uk")!;
     expect(content.legalReviewRequired).toBe(false);
   });
 
   it("Learning Strategy & Capability Development excludes guaranteed skills-gap closure, participation, adoption, productivity and ROI", () => {
-    const content = serviceContent.find((c) => c.slug === "learning-strategy-and-capability-development")!;
+    const content = serviceContent.find((c) => c.slug === "learning-strategy-and-capability-development-firm-in-the-uk")!;
     const scope = (content.outOfScope ?? []).join(" ").toLowerCase();
     expect(scope).toMatch(/guarantee of closing every identified skills gap/);
     expect(scope).toMatch(/guaranteed employee participation/);
@@ -228,7 +228,7 @@ describe("Learning & Leadership Development children (Batch 6F) — catalogue in
   });
 
   it("Learning Strategy & Capability Development is distinguished from training delivery and from Strategic Workforce Planning", () => {
-    const content = serviceContent.find((c) => c.slug === "learning-strategy-and-capability-development")!;
+    const content = serviceContent.find((c) => c.slug === "learning-strategy-and-capability-development-firm-in-the-uk")!;
     const note = content.differentiationNote?.toLowerCase() ?? "";
     expect(note).toMatch(/leadership & management training/);
     expect(note).toMatch(/strategic workforce planning/);
@@ -261,7 +261,7 @@ describe("Learning & Leadership Development children (Batch 6F) — rendered con
           />,
         );
         const links = getAllByRole("link").map((el) => el.getAttribute("href")?.replace(/\/$/, ""));
-        expect(links).toContain("/services/learning-and-leadership-development");
+        expect(links).toContain("/services/learning-and-leadership-development-firm-in-the-uk");
         expect(links).toContain("/for-employers");
       });
 

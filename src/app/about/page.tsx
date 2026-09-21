@@ -44,9 +44,9 @@ export const metadata = buildMetadata({
 // The three pillars reuse real, already-authored service-family content
 // and link to real category pages — see src/content/services-data.ts.
 const pillars = [
-  { categorySlug: "recruitment-talent-acquisition", title: "Recruitment & talent", icon: UserRoundSearch },
-  { categorySlug: "outsourced-hr-services", title: "Practical HR support", icon: UsersRound },
-  { categorySlug: "strategic-hr-and-workforce-advisory", title: "Workforce advisory", icon: Telescope },
+  { categorySlug: "recruitment-and-talent-acquisition-firm-in-the-uk", title: "Recruitment & talent", icon: UserRoundSearch },
+  { categorySlug: "outsourced-hr-services-firm-in-the-uk", title: "Practical HR support", icon: UsersRound },
+  { categorySlug: "strategic-hr-and-workforce-advisory-firm-in-the-uk", title: "Workforce advisory", icon: Telescope },
 ];
 
 // Original, non-quantified positioning statements — see the doc comment

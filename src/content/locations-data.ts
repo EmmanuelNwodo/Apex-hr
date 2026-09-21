@@ -35,8 +35,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across London, including remote and hybrid teams based in the capital.",
     localContext:
       "London's labour market is large, competitive and fast-moving, with strong demand across financial services, professional services and technology. Employers here typically compete on both reward and employer brand to attract talent.",
-    relatedServiceSlugs: ["executive-search", "salary-benchmarking", "employer-branding-and-employee-value-proposition-evp"],
-    relatedSectorSlugs: ["financial-services", "professional-services", "technology"],
+    relatedServiceSlugs: ["executive-search-firm-in-the-uk", "salary-benchmarking-firm-in-the-uk", "employer-branding-and-employee-value-proposition-evp-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-financial-services-in-the-uk", "hr-company-for-professional-services-in-the-uk", "hr-company-for-it-in-the-uk"],
     faqs: [noOfficeFaq],
   },
   {
@@ -46,8 +46,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Manchester and the wider North West.",
     localContext:
       "Manchester has a strong and growing technology and digital sector alongside established professional services and manufacturing employers, creating varied recruitment demand across the city region.",
-    relatedServiceSlugs: ["permanent-recruitment", "hris-implementation", "strategic-workforce-planning"],
-    relatedSectorSlugs: ["technology", "professional-services", "manufacturers"],
+    relatedServiceSlugs: ["permanent-recruitment-firm-in-the-uk", "hris-implementation-firm-in-the-uk", "strategic-workforce-planning-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-it-in-the-uk", "hr-company-for-professional-services-in-the-uk", "hr-company-for-manufacturers-in-the-uk"],
     faqs: [noOfficeFaq],
   },
   {
@@ -57,8 +57,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Birmingham and the wider West Midlands.",
     localContext:
       "Birmingham's economy spans manufacturing, professional services, logistics and a growing services sector, with strong transport links supporting regional and national hiring.",
-    relatedServiceSlugs: ["permanent-recruitment", "hr-compliance-audit", "strategic-workforce-planning"],
-    relatedSectorSlugs: ["manufacturers", "distribution", "professional-services"],
+    relatedServiceSlugs: ["permanent-recruitment-firm-in-the-uk", "hr-compliance-audit-firm-in-the-uk", "strategic-workforce-planning-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-manufacturers-in-the-uk", "hr-company-for-distribution-in-the-uk", "hr-company-for-professional-services-in-the-uk"],
     faqs: [noOfficeFaq],
   },
   {
@@ -68,8 +68,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Leeds and the wider Yorkshire region.",
     localContext:
       "Leeds has an established financial and professional services base alongside a growing digital and technology sector, with strong regional connectivity across Yorkshire.",
-    relatedServiceSlugs: ["salary-benchmarking", "permanent-recruitment", "hris-implementation"],
-    relatedSectorSlugs: ["financial-services", "professional-services", "technology"],
+    relatedServiceSlugs: ["salary-benchmarking-firm-in-the-uk", "permanent-recruitment-firm-in-the-uk", "hris-implementation-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-financial-services-in-the-uk", "hr-company-for-professional-services-in-the-uk", "hr-company-for-it-in-the-uk"],
     faqs: [noOfficeFaq],
   },
   {
@@ -79,8 +79,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Bristol and the wider South West.",
     localContext:
       "Bristol has a strong technology, creative and engineering base, with competitive demand for digital and technical talent across the city.",
-    relatedServiceSlugs: ["permanent-recruitment", "salary-benchmarking", "hr-support-for-small-businesses-and-startups"],
-    relatedSectorSlugs: ["technology", "engineers", "professional-services"],
+    relatedServiceSlugs: ["permanent-recruitment-firm-in-the-uk", "salary-benchmarking-firm-in-the-uk", "hr-support-for-small-businesses-and-startups-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-it-in-the-uk", "hr-company-for-engineers-in-the-uk", "hr-company-for-professional-services-in-the-uk"],
     faqs: [noOfficeFaq],
   },
   {
@@ -90,8 +90,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Edinburgh and the wider Scottish market.",
     localContext:
       "Edinburgh has a well-established financial and professional services sector, alongside a growing technology scene, with its own distinct employment-law and market context within Scotland.",
-    relatedServiceSlugs: ["executive-search", "salary-benchmarking", "hr-compliance-audit"],
-    relatedSectorSlugs: ["financial-services", "professional-services", "technology"],
+    relatedServiceSlugs: ["executive-search-firm-in-the-uk", "salary-benchmarking-firm-in-the-uk", "hr-compliance-audit-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-financial-services-in-the-uk", "hr-company-for-professional-services-in-the-uk", "hr-company-for-it-in-the-uk"],
     faqs: [
       noOfficeFaq,
       { id: "scots-law", question: "Does Scottish employment practice differ?", answer: "Some employment-law and practical HR considerations differ in Scotland; specific legal questions should be confirmed with a qualified adviser familiar with the relevant jurisdiction." },
@@ -104,8 +104,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Glasgow and the wider West of Scotland.",
     localContext:
       "Glasgow combines a manufacturing and engineering heritage with a growing professional services and technology sector, supported by strong regional transport links.",
-    relatedServiceSlugs: ["permanent-recruitment", "strategic-workforce-planning", "hr-compliance-audit"],
-    relatedSectorSlugs: ["manufacturers", "professional-services", "technology"],
+    relatedServiceSlugs: ["permanent-recruitment-firm-in-the-uk", "strategic-workforce-planning-firm-in-the-uk", "hr-compliance-audit-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-manufacturers-in-the-uk", "hr-company-for-professional-services-in-the-uk", "hr-company-for-it-in-the-uk"],
     faqs: [noOfficeFaq],
   },
   {
@@ -115,8 +115,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Nottingham and the wider East Midlands.",
     localContext:
       "Nottingham has a strong life sciences and healthcare research base alongside established manufacturing and distribution employers across the East Midlands.",
-    relatedServiceSlugs: ["permanent-recruitment", "hr-compliance-audit", "strategic-workforce-planning"],
-    relatedSectorSlugs: ["life-sciences", "manufacturers", "distribution"],
+    relatedServiceSlugs: ["permanent-recruitment-firm-in-the-uk", "hr-compliance-audit-firm-in-the-uk", "strategic-workforce-planning-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-life-sciences-in-the-uk", "hr-company-for-manufacturers-in-the-uk", "hr-company-for-distribution-in-the-uk"],
     faqs: [noOfficeFaq],
   },
   {
@@ -126,8 +126,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Newcastle and the wider North East.",
     localContext:
       "Newcastle has a developing digital and technology sector alongside established professional services and manufacturing employers across the North East.",
-    relatedServiceSlugs: ["permanent-recruitment", "hr-support-for-small-businesses-and-startups", "salary-benchmarking"],
-    relatedSectorSlugs: ["technology", "professional-services", "manufacturers"],
+    relatedServiceSlugs: ["permanent-recruitment-firm-in-the-uk", "hr-support-for-small-businesses-and-startups-firm-in-the-uk", "salary-benchmarking-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-it-in-the-uk", "hr-company-for-professional-services-in-the-uk", "hr-company-for-manufacturers-in-the-uk"],
     faqs: [noOfficeFaq],
   },
   {
@@ -137,8 +137,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Warwickshire.",
     localContext:
       "Warwickshire's economy includes a strong engineering and advanced manufacturing base, alongside professional services supporting the wider West Midlands region.",
-    relatedServiceSlugs: ["permanent-recruitment", "competency-frameworks", "strategic-workforce-planning"],
-    relatedSectorSlugs: ["engineers", "manufacturers", "professional-services"],
+    relatedServiceSlugs: ["permanent-recruitment-firm-in-the-uk", "competency-frameworks-firm-in-the-uk", "strategic-workforce-planning-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-engineers-in-the-uk", "hr-company-for-manufacturers-in-the-uk", "hr-company-for-professional-services-in-the-uk"],
     faqs: [noOfficeFaq],
   },
   {
@@ -148,8 +148,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Worcester and the surrounding area.",
     localContext:
       "Worcester's economy includes a mix of manufacturing, professional services and construction employers, supported by good regional transport connections.",
-    relatedServiceSlugs: ["permanent-recruitment", "hr-support-for-small-businesses-and-startups", "hr-compliance-audit"],
-    relatedSectorSlugs: ["manufacturers", "construction", "professional-services"],
+    relatedServiceSlugs: ["permanent-recruitment-firm-in-the-uk", "hr-support-for-small-businesses-and-startups-firm-in-the-uk", "hr-compliance-audit-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-manufacturers-in-the-uk", "hr-company-for-construction-in-the-uk", "hr-company-for-professional-services-in-the-uk"],
     faqs: [noOfficeFaq],
   },
   {
@@ -159,8 +159,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Yorkshire.",
     localContext:
       "Yorkshire covers a broad and varied economy, from manufacturing and distribution to financial and professional services concentrated around its major cities.",
-    relatedServiceSlugs: ["permanent-recruitment", "strategic-workforce-planning", "salary-benchmarking"],
-    relatedSectorSlugs: ["manufacturers", "distribution", "professional-services"],
+    relatedServiceSlugs: ["permanent-recruitment-firm-in-the-uk", "strategic-workforce-planning-firm-in-the-uk", "salary-benchmarking-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-manufacturers-in-the-uk", "hr-company-for-distribution-in-the-uk", "hr-company-for-professional-services-in-the-uk"],
     faqs: [noOfficeFaq],
   },
   {
@@ -170,8 +170,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Staffordshire.",
     localContext:
       "Staffordshire has a strong manufacturing and logistics base, supported by its central location and transport connections across the wider Midlands.",
-    relatedServiceSlugs: ["permanent-recruitment", "redundancy-and-restructuring-support", "hr-compliance-audit"],
-    relatedSectorSlugs: ["manufacturers", "distribution", "construction"],
+    relatedServiceSlugs: ["permanent-recruitment-firm-in-the-uk", "redundancy-and-restructuring-support-firm-in-the-uk", "hr-compliance-audit-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-manufacturers-in-the-uk", "hr-company-for-distribution-in-the-uk", "hr-company-for-construction-in-the-uk"],
     faqs: [noOfficeFaq],
   },
   {
@@ -181,8 +181,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Liverpool and the wider Merseyside region.",
     localContext:
       "Liverpool's economy is shaped by its port and logistics heritage alongside growing professional and creative services sectors.",
-    relatedServiceSlugs: ["permanent-recruitment", "recruitment-process-outsourcing-rpo", "hr-compliance-audit"],
-    relatedSectorSlugs: ["distribution", "professional-services", "manufacturers"],
+    relatedServiceSlugs: ["permanent-recruitment-firm-in-the-uk", "recruitment-process-outsourcing-rpo-firm-in-the-uk", "hr-compliance-audit-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-distribution-in-the-uk", "hr-company-for-professional-services-in-the-uk", "hr-company-for-manufacturers-in-the-uk"],
     faqs: [noOfficeFaq],
   },
   {
@@ -192,8 +192,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Oxford and the surrounding area.",
     localContext:
       "Oxford has a significant life sciences and research base alongside a growing technology sector, with strong competition for specialist scientific and technical talent.",
-    relatedServiceSlugs: ["executive-search", "strategic-workforce-planning", "salary-benchmarking"],
-    relatedSectorSlugs: ["life-sciences", "technology", "professional-services"],
+    relatedServiceSlugs: ["executive-search-firm-in-the-uk", "strategic-workforce-planning-firm-in-the-uk", "salary-benchmarking-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-life-sciences-in-the-uk", "hr-company-for-it-in-the-uk", "hr-company-for-professional-services-in-the-uk"],
     faqs: [noOfficeFaq],
   },
   {
@@ -203,8 +203,8 @@ export const locationContent: LocationContent[] = [
     coverageStatement: "Apex HR can support employers hiring and managing people across Leicester and the wider East Midlands.",
     localContext:
       "Leicester has a diverse economy spanning manufacturing, distribution and professional services, with a well-connected central location within the East Midlands.",
-    relatedServiceSlugs: ["permanent-recruitment", "hr-compliance-audit", "strategic-workforce-planning"],
-    relatedSectorSlugs: ["manufacturers", "distribution", "professional-services"],
+    relatedServiceSlugs: ["permanent-recruitment-firm-in-the-uk", "hr-compliance-audit-firm-in-the-uk", "strategic-workforce-planning-firm-in-the-uk"],
+    relatedSectorSlugs: ["hr-company-for-manufacturers-in-the-uk", "hr-company-for-distribution-in-the-uk", "hr-company-for-professional-services-in-the-uk"],
     faqs: [noOfficeFaq],
   },
 ];

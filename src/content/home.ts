@@ -279,7 +279,7 @@ export const employerProblems: EmployerProblem[] = [
     detail:
       "Keep policies, contracts and people processes current, consistent and legally sound, before small gaps become costly risks.",
     serviceLabel: "HR Compliance Audit",
-    href: "/services/hr-compliance-audit/",
+    href: "/services/hr-compliance-audit-firm-in-the-uk/",
   },
   {
     id: "slow-hiring",
@@ -289,7 +289,7 @@ export const employerProblems: EmployerProblem[] = [
     detail:
       "Reduce long vacancies and avoid poor-fit hires with a focused recruitment process built around the role and your organisation.",
     serviceLabel: "Permanent Recruitment",
-    href: "/services/permanent-recruitment/",
+    href: "/services/permanent-recruitment-firm-in-the-uk/",
   },
   {
     id: "unclear-reward",
@@ -299,7 +299,7 @@ export const employerProblems: EmployerProblem[] = [
     detail:
       "Bring consistency to pay decisions with robust market benchmarking, clear salary bands and an approach employees can trust.",
     serviceLabel: "Salary Benchmarking",
-    href: "/services/salary-benchmarking/",
+    href: "/services/salary-benchmarking-firm-in-the-uk/",
   },
   {
     id: "leadership-gaps",
@@ -309,7 +309,7 @@ export const employerProblems: EmployerProblem[] = [
     detail:
       "Develop confident people leaders who can communicate clearly, manage performance and bring out the best in their teams.",
     serviceLabel: "Leadership & Management Training",
-    href: "/services/leadership-and-management-training/",
+    href: "/services/leadership-and-management-training-firm-in-the-uk/",
   },
 ];
 
@@ -329,32 +329,32 @@ export interface FeaturedServiceGroup {
 // (CLAUDE.md section 31) — original, non-quantified capability summaries for
 // each Confirmed service category; no claims, figures or outcomes asserted.
 const featuredServiceCategories: Record<string, { description: string; imageSrc: string }> = {
-  "outsourced-hr-services": {
+  "outsourced-hr-services-firm-in-the-uk": {
     description:
       "Ongoing HR support from an embedded partner who knows your business, covering everything from day-to-day people queries to full HR management.",
     imageSrc: "/images/outsourced-hr-services.png",
   },
-  "recruitment-talent-acquisition": {
+  "recruitment-and-talent-acquisition-firm-in-the-uk": {
     description:
       "Permanent, contract and executive hiring delivered by recruiters who understand HR as well as talent, so you find the right people without compromising on fit.",
     imageSrc: "/images/recruitment-talent-acquisition.png",
   },
-  "employment-law-and-employee-relations": {
+  "employment-law-and-employee-relations-firm-in-the-uk": {
     description:
       "Practical, informed support through redundancies, investigations, disputes and tribunal processes, so sensitive situations are handled with confidence.",
     imageSrc: "/images/employment-law-and-employee-relations.png",
   },
-  "compensation-reward-and-benefits": {
+  "compensation-reward-and-benefits-firm-in-the-uk": {
     description:
       "Salary benchmarking, pay structures and reward strategy that keep your offer competitive and fair, helping you attract and retain the people you need.",
     imageSrc: "/images/compensation-reward-and-benefits.png",
   },
-  "learning-and-leadership-development": {
+  "learning-and-leadership-development-firm-in-the-uk": {
     description:
       "Leadership training, coaching and capability programmes built around your people's real challenges, developing managers who get the best from their teams.",
     imageSrc: "/images/learning-and-leadership-development.png",
   },
-  "strategic-hr-and-workforce-advisory": {
+  "strategic-hr-and-workforce-advisory-firm-in-the-uk": {
     description:
       "People strategy and workforce planning that align your HR function with where the business is heading, so you can plan ahead with confidence.",
     imageSrc: "/images/strategic-hr-and-workforce-advisory.png",
@@ -393,10 +393,10 @@ export const recruitmentSpotlight: RecruitmentSpotlightContent = {
     "From single permanent hires to executive search and full RPO, Apex HR combines recruitment delivery with HR expertise.",
   cta: { label: "Find Talent", href: routes.findTalent.path, analyticsId: "recruitment-spotlight-find-talent" },
   features: [
-    { title: "Permanent Recruitment", href: "/services/permanent-recruitment/" },
-    { title: "Executive Search", href: "/services/executive-search/" },
-    { title: "Contract Staffing", href: "/services/contract-staffing/" },
-    { title: "Recruitment Process Outsourcing (RPO)", href: "/services/recruitment-process-outsourcing-rpo/" },
+    { title: "Permanent Recruitment", href: "/services/permanent-recruitment-firm-in-the-uk/" },
+    { title: "Executive Search", href: "/services/executive-search-firm-in-the-uk/" },
+    { title: "Contract Staffing", href: "/services/contract-staffing-firm-in-the-uk/" },
+    { title: "Recruitment Process Outsourcing (RPO)", href: "/services/recruitment-process-outsourcing-rpo-firm-in-the-uk/" },
   ],
 };
 
@@ -460,14 +460,14 @@ export interface FeaturedSector {
 // Chosen to match the sectors with an approved photo (see
 // featuredSectorImages below); swap in other sectors as more photos land.
 const featuredSectorSlugs = [
-  "startups-scale-ups",
-  "professional-services",
-  "health-care",
-  "technology",
-  "construction",
-  "distribution",
-  "manufacturers",
-  "hospitality",
+  "hr-company-for-startups-and-scale-ups-in-the-uk",
+  "hr-company-for-professional-services-in-the-uk",
+  "hr-company-for-healthcare-in-the-uk",
+  "hr-company-for-it-in-the-uk",
+  "hr-company-for-construction-in-the-uk",
+  "hr-company-for-distribution-in-the-uk",
+  "hr-company-for-manufacturers-in-the-uk",
+  "hr-company-for-hospitality-in-the-uk",
 ];
 
 export const featuredSectors: FeaturedSector[] = sectors

@@ -61,7 +61,7 @@ describe("MobileMenu", () => {
     // though the real app serves it correctly (verified separately via build).
     expect(
       screen.getByRole("link", { name: /permanent recruitment/i }).getAttribute("href")?.replace(/\/$/, ""),
-    ).toBe("/services/permanent-recruitment");
+    ).toBe("/services/permanent-recruitment-firm-in-the-uk");
     expect(
       screen.getByRole("link", { name: /view all services/i }).getAttribute("href")?.replace(/\/$/, ""),
     ).toBe("/services");

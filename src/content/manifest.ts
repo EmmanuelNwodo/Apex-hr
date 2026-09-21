@@ -80,10 +80,12 @@ function buildManifest(): ContentManifestEntry[] {
 
   for (const category of serviceCategories) {
     const content = serviceCategoryContent.find((entry) => entry.slug === category.slug);
-    // SEO audit Phase 3 Batch 5 corrective pass: h1 is category.title — the
-    // service-family name — per the corrected ServiceCategoryTemplate
-    // hero (H1 = family name, tagline demoted to supporting text below
-    // it, per the explicit "every H1 must be descriptive" instruction).
+    // URL-to-H1 alignment correction (docs/URL-DECISION-REGISTER.md D-017):
+    // h1/metaTitle now match the actual rendered hero exactly —
+    // `{title} Firm in the UK`, per ServiceCategoryTemplate's <h1> JSX —
+    // rather than the bare family name this field previously (incorrectly)
+    // recorded. The rendered <title> tag also carries the root layout's
+    // " | Apex HR" template on top of this metaTitle value.
     // relatedPages lists the real links the page renders: every child
     // service plus each related family from content.relatedFamilySlugs.
     const childPaths = getServicesByCategory(category.slug).map((service) => `/services/${service.slug}/`);
@@ -100,9 +102,9 @@ function buildManifest(): ContentManifestEntry[] {
       primaryAudience: "employer",
       primaryIntent: `Introduce the ${category.title} service family`,
       primaryKeyword: category.title.toLowerCase(),
-      metaTitle: `${category.title} | Apex HR`,
+      metaTitle: `${category.title} Firm in the UK | Apex HR`,
       metaDescription: content?.summary ?? "",
-      h1: category.title,
+      h1: `${category.title} Firm in the UK`,
       parent: routes.services.path,
       relatedPages: [...childPaths, ...relatedFamilyPaths],
       legalReviewRequired: false,
@@ -116,65 +118,65 @@ function buildManifest(): ContentManifestEntry[] {
   // Compliance Audit no longer share a near-identical recorded intent.
   const primaryIntentOverrides: Record<string, string> = {
     // Batch 6A — Outsourced HR Services
-    "retained-hr-services": "Ongoing retained HR support for UK employers",
-    "hr-support-for-small-businesses-and-startups": "HR support for UK small businesses and startups",
-    "fractional-hr-director-chief-people-officer": "Part-time senior HR leadership",
-    "hr-compliance-audit": "Review of an organisation's HR compliance, policies and processes",
-    "employee-handbooks-and-hr-policies": "Creation and review of employee handbooks and workplace policies",
-    "payroll-advisory": "HR-focused payroll guidance and process support",
+    "retained-hr-services-firm-in-the-uk": "Ongoing retained HR support for UK employers",
+    "hr-support-for-small-businesses-and-startups-firm-in-the-uk": "HR support for UK small businesses and startups",
+    "fractional-hr-director-chief-people-officer-firm-in-the-uk": "Part-time senior HR leadership",
+    "hr-compliance-audit-firm-in-the-uk": "Review of an organisation's HR compliance, policies and processes",
+    "employee-handbooks-and-hr-policies-firm-in-the-uk": "Creation and review of employee handbooks and workplace policies",
+    "payroll-advisory-firm-in-the-uk": "HR-focused payroll guidance and process support",
     // Batch 6B — Recruitment & Talent Acquisition
-    "permanent-recruitment": "Recruitment support for permanent employees",
-    "executive-search": "Search and recruitment for senior, executive and leadership appointments",
-    "contract-staffing": "Recruitment support for temporary, interim or contract staffing needs",
-    "recruitment-process-outsourcing-rpo": "Outsourcing some or all recruitment-process activity",
-    "graduate-schemes-and-early-careers-design": "Designing structured graduate and early-career recruitment programmes",
+    "permanent-recruitment-firm-in-the-uk": "Recruitment support for permanent employees",
+    "executive-search-firm-in-the-uk": "Search and recruitment for senior, executive and leadership appointments",
+    "contract-staffing-firm-in-the-uk": "Recruitment support for temporary, interim or contract staffing needs",
+    "recruitment-process-outsourcing-rpo-firm-in-the-uk": "Outsourcing some or all recruitment-process activity",
+    "graduate-schemes-and-early-careers-design-firm-in-the-uk": "Designing structured graduate and early-career recruitment programmes",
     // Batch 6C1 — Employment Law & Employee Relations (first four)
-    "redundancy-and-restructuring-support": "HR process and people support during redundancy or organisational restructuring",
-    "tupe-advisory": "HR and people-process support for organisational transfers where TUPE may be relevant",
-    "workplace-investigations": "Structured workplace fact-finding and investigation support",
-    "workplace-mediation-and-conflict-resolution": "Facilitated workplace mediation and conflict-resolution support",
+    "redundancy-and-restructuring-support-firm-in-the-uk": "HR process and people support during redundancy or organisational restructuring",
+    "tupe-advisory-firm-in-the-uk": "HR and people-process support for organisational transfers where TUPE may be relevant",
+    "workplace-investigations-firm-in-the-uk": "Structured workplace fact-finding and investigation support",
+    "workplace-mediation-and-conflict-resolution-firm-in-the-uk": "Facilitated workplace mediation and conflict-resolution support",
     // Batch 6C2 — Employment Law & Employee Relations (remaining four)
-    "employment-tribunal-hr-support": "HR documentation, process and management support connected with employment tribunal matters",
-    "outplacement-and-career-transition-services": "Employer-funded support for employees leaving an organisation and moving towards new employment",
-    "industrial-relations-and-trade-union-negotiations": "Employer-side HR support for trade-union engagement and collective workplace matters",
-    "skilled-worker-sponsorship-hr-support": "HR process and workforce support connected with UK Skilled Worker sponsorship",
+    "employment-tribunal-hr-support-firm-in-the-uk": "HR documentation, process and management support connected with employment tribunal matters",
+    "outplacement-and-career-transition-services-firm-in-the-uk": "Employer-funded support for employees leaving an organisation and moving towards new employment",
+    "industrial-relations-and-trade-union-negotiations-firm-in-the-uk": "Employer-side HR support for trade-union engagement and collective workplace matters",
+    "skilled-worker-sponsorship-hr-support-firm-in-the-uk": "HR process and workforce support connected with UK Skilled Worker sponsorship",
     // Batch 6D — Organisation Development & Change Management
-    "organisation-design": "Designing organisational structures, roles, responsibilities and ways of working",
-    "change-management": "Supporting the people side of organisational change and adoption",
-    "culture-transformation": "Assessing and intentionally developing workplace culture and behaviours",
-    "ma-people-due-diligence-and-post-merger-integration": "Identifying and managing people-related considerations before and after mergers or acquisitions",
+    "organisation-design-firm-in-the-uk": "Designing organisational structures, roles, responsibilities and ways of working",
+    "change-management-firm-in-the-uk": "Supporting the people side of organisational change and adoption",
+    "culture-transformation-firm-in-the-uk": "Assessing and intentionally developing workplace culture and behaviours",
+    "ma-people-due-diligence-and-post-merger-integration-firm-in-the-uk": "Identifying and managing people-related considerations before and after mergers or acquisitions",
     // Batch 6E1 — Compensation, Reward & Benefits (first three)
-    "salary-benchmarking": "Comparing roles and pay against relevant external market data",
-    "job-evaluation-and-pay-structures": "Assessing role value and developing consistent job grades, pay bands or structures",
-    "reward-strategy": "Developing an organisation-wide approach to pay, recognition, incentives and benefits",
+    "salary-benchmarking-firm-in-the-uk": "Comparing roles and pay against relevant external market data",
+    "job-evaluation-and-pay-structures-firm-in-the-uk": "Assessing role value and developing consistent job grades, pay bands or structures",
+    "reward-strategy-firm-in-the-uk": "Developing an organisation-wide approach to pay, recognition, incentives and benefits",
     // Batch 6E2 — Compensation, Reward & Benefits (remaining three)
-    "pay-equity-and-pay-gap-reporting": "Reviewing pay patterns and supporting appropriate pay-gap analysis and reporting",
-    "employee-benefits-consulting": "Helping employers review and develop employee-benefits arrangements",
-    "executive-compensation-and-share-schemes": "Supporting the design and governance of executive reward and employee share arrangements",
+    "pay-equity-and-pay-gap-reporting-firm-in-the-uk": "Reviewing pay patterns and supporting appropriate pay-gap analysis and reporting",
+    "employee-benefits-consulting-firm-in-the-uk": "Helping employers review and develop employee-benefits arrangements",
+    "executive-compensation-and-share-schemes-firm-in-the-uk": "Supporting the design and governance of executive reward and employee share arrangements",
     // Batch 6F — Learning & Leadership Development
-    "leadership-and-management-training": "Structured training for managers and organisational leaders",
-    "executive-coaching-and-360-feedback": "Individual leadership coaching and structured multi-source feedback",
-    "learning-strategy-and-capability-development": "Organisation-wide learning strategy and workforce capability planning",
+    "leadership-and-management-training-firm-in-the-uk": "Structured training for managers and organisational leaders",
+    "executive-coaching-and-360-feedback-firm-in-the-uk": "Individual leadership coaching and structured multi-source feedback",
+    "learning-strategy-and-capability-development-firm-in-the-uk": "Organisation-wide learning strategy and workforce capability planning",
     // Batch 6G — Performance & Talent Management
-    "performance-management": "Designing and improving structured employee-performance processes",
-    "succession-planning-and-talent-mapping": "Identifying critical roles, succession needs and internal talent considerations",
-    "competency-frameworks": "Defining the skills, knowledge and behaviours associated with roles or organisational levels",
+    "performance-management-firm-in-the-uk": "Designing and improving structured employee-performance processes",
+    "succession-planning-and-talent-mapping-firm-in-the-uk": "Identifying critical roles, succession needs and internal talent considerations",
+    "competency-frameworks-firm-in-the-uk": "Defining the skills, knowledge and behaviours associated with roles or organisational levels",
     // Batch 6H — Employee Experience & Engagement
-    "employee-experience-strategy": "Designing a coherent employee-experience approach across relevant stages of the employee journey",
-    "employee-engagement-surveys-and-action-planning": "Supporting the design, delivery and interpretation of employee-engagement surveys and turning findings into practical action planning",
-    "employer-branding-and-employee-value-proposition-evp": "Helping an employer define and communicate what it offers employees and prospective employees",
-    "workplace-wellbeing-and-mental-health": "HR-led support for workplace wellbeing and organisational approaches to mental-health-related work issues",
-    "diversity-equity-and-inclusion-dei-consulting": "Organisational HR support for diversity, equity and inclusion strategy, policies, practices and implementation",
+    "employee-experience-strategy-firm-in-the-uk": "Designing a coherent employee-experience approach across relevant stages of the employee journey",
+    "employee-engagement-surveys-and-action-planning-firm-in-the-uk": "Supporting the design, delivery and interpretation of employee-engagement surveys and turning findings into practical action planning",
+    "employer-branding-and-employee-value-proposition-evp-firm-in-the-uk": "Helping an employer define and communicate what it offers employees and prospective employees",
+    "workplace-wellbeing-and-mental-health-firm-in-the-uk": "HR-led support for workplace wellbeing and organisational approaches to mental-health-related work issues",
+    "diversity-equity-and-inclusion-dei-consulting-firm-in-the-uk": "Organisational HR support for diversity, equity and inclusion strategy, policies, practices and implementation",
     // Final consolidated phase — HR Technology & People Analytics
-    "hris-implementation": "Planning and implementing a Human Resources Information System (HRIS)",
-    "hr-software-selection": "Helping employers define requirements and assess suitable HR software",
-    "people-analytics-and-hr-dashboards": "Defining workforce measures, analysing people data and presenting useful HR reporting",
-    "digital-hr-transformation": "Wider organisational change involving HR technology, processes, data and working practices",
-    "ai-workplace-policy-and-hr-integration": "Workplace policy, governance and HR-process considerations involving artificial intelligence",
+    "hris-implementation-firm-in-the-uk": "Planning and implementing a Human Resources Information System (HRIS)",
+    "hr-software-selection-firm-in-the-uk": "Helping employers define requirements and assess suitable HR software",
+    "people-analytics-and-hr-dashboards-firm-in-the-uk": "Defining workforce measures, analysing people data and presenting useful HR reporting",
+    "digital-hr-transformation-firm-in-the-uk": "Wider organisational change involving HR technology, processes, data and working practices",
+    "ai-workplace-policy-and-hr-integration-firm-in-the-uk": "Workplace policy, governance and HR-process considerations involving artificial intelligence",
     // Final consolidated phase — Strategic HR & Workforce Advisory
-    "people-strategy": "Helping employers align people priorities with organisational needs",
-    "strategic-workforce-planning": "Considering future workforce demand, supply, capability, skills and possible scenarios",
-    "global-mobility-and-expatriate-hr-management": "HR coordination for employees working across borders",
+    "people-strategy-firm-in-the-uk": "Helping employers align people priorities with organisational needs",
+    "strategic-workforce-planning-firm-in-the-uk": "Considering future workforce demand, supply, capability, skills and possible scenarios",
+    "global-mobility-and-expatriate-hr-management-firm-in-the-uk": "HR coordination for employees working across borders",
   };
 
   for (const service of services) {
@@ -192,9 +194,9 @@ function buildManifest(): ContentManifestEntry[] {
       primaryAudience: "employer",
       primaryIntent: primaryIntentOverrides[service.slug] ?? `Convert employer interest in ${service.title}`,
       primaryKeyword: content.primaryKeyword,
-      metaTitle: `${service.title} | Apex HR`,
+      metaTitle: `${service.title} Firm in the UK | Apex HR`,
       metaDescription: content.metaDescription,
-      h1: service.title,
+      h1: `${service.title} Firm in the UK`,
       parent: `/services/${service.categorySlug}/`,
       relatedPages: content.relatedServiceSlugs.map((slug) => `/services/${slug}/`),
       sourceReferences: ["docs/MASTER-SITEMAP.md", "docs/Apex_HR_Master_Sitemap_and_URL_Register.xlsx"],
@@ -235,9 +237,9 @@ function buildManifest(): ContentManifestEntry[] {
       primaryAudience: "employer",
       primaryIntent: `Explain how Apex HR can support ${sector.title} employers`,
       primaryKeyword: `HR support for ${sector.title.toLowerCase()}`,
-      metaTitle: `${sector.title} | Apex HR`,
+      metaTitle: `HR Company for ${sector.title} in the UK | Apex HR`,
       metaDescription: content.metaDescription,
-      h1: sector.title,
+      h1: `HR Company for ${sector.title} in the UK`,
       parent: routes.sectors.path,
       relatedPages: content.relatedServiceSlugs.map((slug) => `/services/${slug}/`),
       legalReviewRequired: false,

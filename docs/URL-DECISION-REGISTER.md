@@ -24,6 +24,7 @@
 | D-014 | Curated service-location subset | Confirm only each location's already-curated `relatedServiceSlugs` combinations (and their parent categories), not the full 816/160 cross-products | Generate pages from existing curated data only; give every combination a unique meta description and genuine local-context content |
 | D-015 | Category-location cannibalisation resolution | Redirect the 44 category-location pages backed by only one curated child service to that child's service-location page; retain the 2 pages backed by two curated child services as independently indexable | Raise the category-location curation threshold to 2+ services in `src/config/service-locations.ts`; add 44 permanent redirects to `src/config/redirects.ts`; reposition the 2 retained pages around both child services |
 | D-016 | Headless WordPress for Insights/blog | WordPress (`blog.apexhrllc.co.uk`) becomes the editorial source of truth for Insights/blog articles only. The archive stays at `/insights/`; individual articles are root-level `/[slug]/`, never `/insights/[slug]/`. `www.apexhrllc.co.uk` is the only public canonical host; `blog.apexhrllc.co.uk` is CMS/API-origin only | Add `src/lib/wordpress/`; add `src/app/[slug]/page.tsx` guarded by `src/config/reserved-slugs.ts`; read `NEXT_PUBLIC_SITE_URL`/`WORDPRESS_API_URL`/`WORDPRESS_SITE_URL` from environment; extend `sitemap.ts`. Sanity and Supabase are unaffected — see the full entry below |
+| D-017 | URL-to-H1 alignment for Services and Sectors | All 58 service/category URLs renamed to `/services/{service-name}-firm-in-the-uk/`; all 17 sector URLs renamed to `/sector/hr-company-for-{sector-name}-in-the-uk/`, matching each page's existing rendered H1. `"&"` becomes `"and"` in slugs (never deleted); `"M&A"` becomes `"ma"` (pre-existing convention preserved). No redirects were added for retired service/sector URLs (never indexed); existing redirect rule *sources* were left untouched, only *destinations* pointing at renamed pages were updated | Rename slugs in `src/config/services.ts`/`src/config/sectors.ts`; update every cross-reference in `src/content/*.ts`; update `src/config/redirects.ts` destinations only; correct `src/content/manifest.ts` `h1`/`metaTitle`; update lookup tables and hardcoded links found via a full-repository sweep; update `public/llms.txt` — see the full entry below |
 
 ## D-001 — Sector is canonical
 
@@ -238,6 +239,40 @@ Individual location pages' breadcrumbs now run Home → Locations → [location]
 - `src/app/sitemap.ts` — now async; appends every currently-published WordPress article (root-level URL, `lastModified` from WordPress's own `modified` date) to the existing manifest-driven entries, filtered against the same reserved-slug guard.
 - `src/config/site.ts` — `productionUrl` now reads `NEXT_PUBLIC_SITE_URL` (falling back to the previous hard-coded domain when unset), so canonical/OG/sitemap URLs across the **whole site**, not only WordPress articles, resolve to the confirmed production domain already configured in `.env.local` and on Vercel.
 - `next.config.ts` — `images.remotePatterns` narrowly allows `blog.apexhrllc.co.uk` for WordPress-hosted media; no other external host is permitted.
+
+## D-017 — URL-to-H1 alignment for Services and Sectors
+
+**Decision:** All 58 service/category URLs and all 17 sector URLs are renamed so each URL closely mirrors its own rendered H1, replacing the prior slug conventions recorded in D-005/D-006:
+
+- **Service and service-category H1:** `{Service or Category Name} Firm in the UK` → URL: `/services/{service-or-category-name}-firm-in-the-uk/`.
+- **Sector H1:** `HR Company for {Sector Name} in the UK` → URL: `/sector/hr-company-for-{sector-name}-in-the-uk/`.
+- The rendered H1 text itself did not change (it already matched this convention on every page, per `tests/unit/master-seo-firm-keyphrase.test.tsx`, which predates this rename) — only the URL slug changed to match it.
+
+**Slug punctuation rules:**
+
+- `"&"` is represented as `"and"` in the slug — never deleted. E.g. "Recruitment & Talent Acquisition Firm in the UK" → `/services/recruitment-and-talent-acquisition-firm-in-the-uk/`.
+- **M&A special case (preserved exactly):** "M&A People Due Diligence & Post-Merger Integration Firm in the UK" → `/services/ma-people-due-diligence-and-post-merger-integration-firm-in-the-uk/`. `"M&A"` becomes `"ma"` (the pre-existing project convention, no separator), while the second `"&"` in the same title still becomes `"and"`.
+- Commas are removed; parentheses are removed while preserving their inner text (e.g. "Recruitment Process Outsourcing (RPO)" → `...outsourcing-rpo-firm-in-the-uk`); `"/"` becomes a word boundary (e.g. "Fractional HR Director / Chief People Officer" → `fractional-hr-director-chief-people-officer-firm-in-the-uk`); the whole slug is lowercased with single hyphens between words and no duplicate hyphens or leftover punctuation.
+
+**Rationale:** Requested by explicit later user instruction (URL-to-H1 Alignment Audit, approved for implementation). A URL that does not resemble its own page's heading is a poor match for what the page is about, in both user-facing clarity and search-engine relevance signals. Because none of the affected service/sector URLs were indexed by Google at the time of this decision, the rename could be made cleanly without leaving behind indexed-URL equity to protect — see the no-redirects rule below.
+
+**No redirects from old to new service/sector URLs:** Unlike D-007's corrected-spelling redirects, this rename deliberately creates **no** `301`/`308` redirect from any retired service or sector URL to its renamed replacement. The old URLs were never indexed, so there is no external link equity or search ranking to preserve, and adding 75 purely-cosmetic redirect rules would add permanent maintenance weight for no benefit. Old service/sector URLs simply stop being generated, canonical, sitemapped, internally linked, or listed in `public/llms.txt` as of this decision. `tests/unit/url-h1-alignment.test.tsx` asserts no such redirect was added (the total rule count stays at the pre-rename baseline of 116).
+
+**Existing redirect architecture is preserved, not reopened:** The 116 existing redirect rules in `src/config/redirects.ts` (including the 44 D-015 category-location redirects and the D-007 corrected-spelling redirects) serve decisions unrelated to this rename. Per this rename:
+
+- Every rule's `source` field is a historical/legacy URL and was left **completely untouched** — a source predates this rename and must keep matching whatever historical URL a visitor, bookmark or external link might still request.
+- Every rule's `destination` field that pointed at an old service/sector/category/service-location URL was updated to the renamed destination, so the redirect keeps landing on a real, live page instead of silently 404ing or landing on a page that itself redirects again (no redirect chains were introduced).
+
+**Implementation:**
+
+- `src/config/services.ts` / `src/config/sectors.ts` — canonical slug source of truth; `slug` fields renamed, titles unchanged.
+- `src/content/services-data.ts` / `src/content/sectors-data.ts` / `src/content/locations-data.ts` / `src/content/talent-roles-data.ts` — every `slug`, `categorySlug`, `relatedServiceSlugs`, `relatedFamilySlugs` and `relatedSectorSlugs` cross-reference updated so no internal link silently broke.
+- `src/config/service-locations.ts` mechanically derives every service-location and category-location combo slug from the live service/category slug (`` `${serviceSlug}-${location.slug}` ``), so all 48 service-location pages and both retained category-location pages (Outsourced HR Services–Worcester, Recruitment & Talent Acquisition–Liverpool) continue to be generated automatically under their new combo URLs (e.g. `/services/executive-search-london/` mechanically became `/services/executive-search-firm-in-the-uk-london/`) — no service-location architecture decision (D-008/D-009/D-014/D-015) was reopened.
+- `src/config/redirects.ts` — only `destination` fields updated (109 of the 116 rules); no `source` field changed; no rule added or removed.
+- `src/content/manifest.ts` — `h1`/`metaTitle` fields corrected to accurately reflect the actual rendered H1/title (they had drifted from the true rendered output); `canonicalPath`/`childPaths`/`relatedFamilyPaths`/`relatedPages` are all derived dynamically from the live slugs at build time and needed no direct edits.
+- `src/lib/sector-icons.ts`, `src/lib/sector-images.ts`, `src/lib/service-category-icons.ts`, `src/app/about/page.tsx`, `src/app/for-employers/page.tsx`, `src/app/sector/page.tsx`, `src/components/content/sector-explorer.tsx` — lookup-table keys and hardcoded slug references updated; found via an exhaustive repository-wide string-literal sweep, not from the original file list, since these lookup structures fail silently (empty result, not a build error) when their keys go stale.
+- `public/llms.txt` — all Service/Sector section links updated to the renamed URLs.
+- New regression coverage: `tests/unit/url-h1-alignment.test.tsx` (URL pattern conformance for all 58 service/category and 17 sector slugs, H1-to-URL correspondence, cross-reference resolution, service-location/category-location page presence, sitemap-only-new-URLs, no-new-redirects). `tests/unit/batch3-category-location-redirects.test.tsx` was updated to reconstruct the frozen historical D-015 redirect-source slugs independently of the now-renamed live category slugs, since redirect sources are intentionally never rewritten.
 
 ## Redirect implementation checklist
 

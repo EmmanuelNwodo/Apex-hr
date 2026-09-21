@@ -17,12 +17,12 @@ import { routes } from "@/config/routes";
  */
 
 const APPROVED_SIX = [
-  "retained-hr-services",
-  "hr-support-for-small-businesses-and-startups",
-  "fractional-hr-director-chief-people-officer",
-  "hr-compliance-audit",
-  "employee-handbooks-and-hr-policies",
-  "payroll-advisory",
+  "retained-hr-services-firm-in-the-uk",
+  "hr-support-for-small-businesses-and-startups-firm-in-the-uk",
+  "fractional-hr-director-chief-people-officer-firm-in-the-uk",
+  "hr-compliance-audit-firm-in-the-uk",
+  "employee-handbooks-and-hr-policies-firm-in-the-uk",
+  "payroll-advisory-firm-in-the-uk",
 ];
 
 const NOINDEX_HUB_PATHS = ["/insights/", "/resources/", "/case-study/"];
@@ -38,7 +38,7 @@ function buildBreadcrumbTrail(serviceTitle: string, categoryTitle: string, categ
 }
 
 describe("Outsourced HR Services children — catalogue integrity", () => {
-  const family = getServicesByCategory("outsourced-hr-services");
+  const family = getServicesByCategory("outsourced-hr-services-firm-in-the-uk");
 
   it("has exactly six children, matching the approved slug list exactly", () => {
     expect(family.length).toBe(6);
@@ -139,7 +139,7 @@ describe("Outsourced HR Services children — rendered content, per service", ()
         const { getAllByRole } = render(
           <ServicePageTemplate
             title={service.title}
-            breadcrumbTrail={buildBreadcrumbTrail(service.title, "Outsourced HR Services", "outsourced-hr-services", slug)}
+            breadcrumbTrail={buildBreadcrumbTrail(service.title, "Outsourced HR Services", "outsourced-hr-services-firm-in-the-uk", slug)}
             service={content}
           />,
         );
@@ -152,19 +152,19 @@ describe("Outsourced HR Services children — rendered content, per service", ()
         const { getAllByRole } = render(
           <ServicePageTemplate
             title={service.title}
-            breadcrumbTrail={buildBreadcrumbTrail(service.title, "Outsourced HR Services", "outsourced-hr-services", slug)}
+            breadcrumbTrail={buildBreadcrumbTrail(service.title, "Outsourced HR Services", "outsourced-hr-services-firm-in-the-uk", slug)}
             service={content}
           />,
         );
         const links = getAllByRole("link").map((el) => el.getAttribute("href")?.replace(/\/$/, ""));
-        expect(links).toContain("/services/outsourced-hr-services");
+        expect(links).toContain("/services/outsourced-hr-services-firm-in-the-uk");
       });
 
       it("never links to a redirect source or an empty noindex hub", () => {
         const { getAllByRole } = render(
           <ServicePageTemplate
             title={service.title}
-            breadcrumbTrail={buildBreadcrumbTrail(service.title, "Outsourced HR Services", "outsourced-hr-services", slug)}
+            breadcrumbTrail={buildBreadcrumbTrail(service.title, "Outsourced HR Services", "outsourced-hr-services-firm-in-the-uk", slug)}
             service={content}
             showForEmployersLink
           />,
@@ -188,7 +188,7 @@ describe("Outsourced HR Services children — rendered content, per service", ()
         const { container, getByText } = render(
           <ServicePageTemplate
             title={service.title}
-            breadcrumbTrail={buildBreadcrumbTrail(service.title, "Outsourced HR Services", "outsourced-hr-services", slug)}
+            breadcrumbTrail={buildBreadcrumbTrail(service.title, "Outsourced HR Services", "outsourced-hr-services-firm-in-the-uk", slug)}
             service={content}
           />,
         );
@@ -213,7 +213,7 @@ describe("Outsourced HR Services children — rendered content, per service", ()
         expect(serviceLd.description).toBe(content.metaDescription);
         expect(serviceLd.url).toContain(path);
 
-        const trail = buildBreadcrumbTrail(service.title, "Outsourced HR Services", "outsourced-hr-services", slug);
+        const trail = buildBreadcrumbTrail(service.title, "Outsourced HR Services", "outsourced-hr-services-firm-in-the-uk", slug);
         const breadcrumbLd = getBreadcrumbJsonLd(routes.home.label, trail);
         expect(breadcrumbLd.itemListElement.some((item) => item.name === "Outsourced HR Services")).toBe(true);
         expect(breadcrumbLd.itemListElement.at(-1)?.name).toBe(service.title);
@@ -231,8 +231,8 @@ describe("Outsourced HR Services children — service-location pages unaffected"
   // fields (outOfScope, differentiationNote, additionalFaqs) never reached
   // location-page rendering.
   const AFFECTED = [
-    { serviceSlug: "hr-compliance-audit", locationSlug: "birmingham", locationTitle: "Birmingham" },
-    { serviceSlug: "hr-support-for-small-businesses-and-startups", locationSlug: "bristol", locationTitle: "Bristol" },
+    { serviceSlug: "hr-compliance-audit-firm-in-the-uk", locationSlug: "birmingham", locationTitle: "Birmingham" },
+    { serviceSlug: "hr-support-for-small-businesses-and-startups-firm-in-the-uk", locationSlug: "bristol", locationTitle: "Bristol" },
   ];
 
   for (const { serviceSlug, locationSlug, locationTitle } of AFFECTED) {

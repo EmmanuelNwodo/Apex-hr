@@ -18,17 +18,17 @@ import { routes } from "@/config/routes";
  */
 
 const APPROVED_FOUR = [
-  "organisation-design",
-  "change-management",
-  "culture-transformation",
-  "ma-people-due-diligence-and-post-merger-integration",
+  "organisation-design-firm-in-the-uk",
+  "change-management-firm-in-the-uk",
+  "culture-transformation-firm-in-the-uk",
+  "ma-people-due-diligence-and-post-merger-integration-firm-in-the-uk",
 ];
 
 const APPROVED_INTENTS: Record<string, string> = {
-  "organisation-design": "Designing organisational structures, roles, responsibilities and ways of working",
-  "change-management": "Supporting the people side of organisational change and adoption",
-  "culture-transformation": "Assessing and intentionally developing workplace culture and behaviours",
-  "ma-people-due-diligence-and-post-merger-integration":
+  "organisation-design-firm-in-the-uk": "Designing organisational structures, roles, responsibilities and ways of working",
+  "change-management-firm-in-the-uk": "Supporting the people side of organisational change and adoption",
+  "culture-transformation-firm-in-the-uk": "Assessing and intentionally developing workplace culture and behaviours",
+  "ma-people-due-diligence-and-post-merger-integration-firm-in-the-uk":
     "Identifying and managing people-related considerations before and after mergers or acquisitions",
 };
 
@@ -41,9 +41,9 @@ function buildBreadcrumbTrail(serviceTitle: string, serviceSlug: string) {
   return [
     routes.services,
     {
-      id: "organisation-development-change-management",
+      id: "organisation-development-and-change-management-firm-in-the-uk",
       label: "Organisation Development & Change Management",
-      path: "/services/organisation-development-change-management/",
+      path: "/services/organisation-development-and-change-management-firm-in-the-uk/",
       status: "confirmed" as const,
       readyToIndex: true,
     },
@@ -52,7 +52,7 @@ function buildBreadcrumbTrail(serviceTitle: string, serviceSlug: string) {
 }
 
 describe("Organisation Development & Change Management children (Batch 6D) — catalogue integrity", () => {
-  const family = getServicesByCategory("organisation-development-change-management");
+  const family = getServicesByCategory("organisation-development-and-change-management-firm-in-the-uk");
 
   it("has exactly these four approved services and no others", () => {
     expect(family.length).toBe(4);
@@ -139,14 +139,14 @@ describe("Organisation Development & Change Management children (Batch 6D) — c
   });
 
   it("expands 'M&A' as 'Mergers and Acquisitions (M&A)' on first meaningful use in the M&A page's visible hero copy", () => {
-    const content = serviceContent.find((c) => c.slug === "ma-people-due-diligence-and-post-merger-integration")!;
+    const content = serviceContent.find((c) => c.slug === "ma-people-due-diligence-and-post-merger-integration-firm-in-the-uk")!;
     expect(content.heroSummary).toMatch(/Mergers and Acquisitions \(M&A\)/);
   });
 
   it("marks only M&A People Due Diligence & Post-Merger Integration for legal review among the four", () => {
     for (const slug of APPROVED_FOUR) {
       const content = serviceContent.find((c) => c.slug === slug)!;
-      const expected = slug === "ma-people-due-diligence-and-post-merger-integration";
+      const expected = slug === "ma-people-due-diligence-and-post-merger-integration-firm-in-the-uk";
       expect(content.legalReviewRequired, `${slug} legalReviewRequired mismatch`).toBe(expected);
     }
   });
@@ -157,11 +157,11 @@ describe("Organisation Development & Change Management children (Batch 6D) — c
       expect(combos, `${slug} unexpectedly has service-location combos`).toEqual([]);
     }
     const categorySlugs = categoryLocationCombos.map((c) => c.categorySlug);
-    expect(categorySlugs).not.toContain("organisation-development-change-management");
+    expect(categorySlugs).not.toContain("organisation-development-and-change-management-firm-in-the-uk");
   });
 
   it("Organisation Design excludes legal advice on employment terms, redundancy assumptions and final structural decision-making", () => {
-    const content = serviceContent.find((c) => c.slug === "organisation-design")!;
+    const content = serviceContent.find((c) => c.slug === "organisation-design-firm-in-the-uk")!;
     const scope = (content.outOfScope ?? []).join(" ").toLowerCase();
     expect(scope).toMatch(/legal advice on changing employment terms/);
     expect(scope).toMatch(/redesign automatically requires redundancies/);
@@ -169,7 +169,7 @@ describe("Organisation Development & Change Management children (Batch 6D) — c
   });
 
   it("Change Management excludes guaranteed acceptance/adoption/resistance elimination and generic project management", () => {
-    const content = serviceContent.find((c) => c.slug === "change-management")!;
+    const content = serviceContent.find((c) => c.slug === "change-management-firm-in-the-uk")!;
     const scope = (content.outOfScope ?? []).join(" ").toLowerCase();
     expect(scope).toMatch(/guaranteed employee acceptance, adoption rates or elimination of resistance/);
     expect(scope).toMatch(/project management of the underlying business change itself/);
@@ -178,7 +178,7 @@ describe("Organisation Development & Change Management children (Batch 6D) — c
   });
 
   it("Culture Transformation excludes guaranteed engagement/retention/productivity, psychological diagnosis and culture imposed without leadership", () => {
-    const content = serviceContent.find((c) => c.slug === "culture-transformation")!;
+    const content = serviceContent.find((c) => c.slug === "culture-transformation-firm-in-the-uk")!;
     const scope = (content.outOfScope ?? []).join(" ").toLowerCase();
     expect(scope).toMatch(/guaranteed improvements to engagement, retention or productivity/);
     expect(scope).toMatch(/psychological diagnosis or assessment of individual employees/);
@@ -187,7 +187,7 @@ describe("Organisation Development & Change Management children (Batch 6D) — c
   });
 
   it("M&A excludes financial/legal/tax due diligence, valuation, transaction-risk certification, deal/integration guarantees and legal transfer conclusions", () => {
-    const content = serviceContent.find((c) => c.slug === "ma-people-due-diligence-and-post-merger-integration")!;
+    const content = serviceContent.find((c) => c.slug === "ma-people-due-diligence-and-post-merger-integration-firm-in-the-uk")!;
     const scope = (content.outOfScope ?? []).join(" ").toLowerCase();
     expect(scope).toMatch(/financial, legal, tax or investment due diligence/);
     expect(scope).toMatch(/valuation of the business or certification of transaction risk/);
@@ -222,7 +222,7 @@ describe("Organisation Development & Change Management children (Batch 6D) — r
           />,
         );
         const links = getAllByRole("link").map((el) => el.getAttribute("href")?.replace(/\/$/, ""));
-        expect(links).toContain("/services/organisation-development-change-management");
+        expect(links).toContain("/services/organisation-development-and-change-management-firm-in-the-uk");
         expect(links).toContain("/for-employers");
       });
 

@@ -4,6 +4,8 @@
 
 **Authority for this content:** CLAUDE.md section 31 (content-authoring authorisation, recorded 3 September 2026).
 
+**Historical URLs:** every `/services/[slug]/` URL and bare content-record slug (e.g. "the `reward-strategy` entry") referenced below reflects the slug in effect at the time that batch was recorded, before `docs/URL-DECISION-REGISTER.md` D-017 renamed all 58 service/category URLs to the `{service-name}-firm-in-the-uk` pattern and all 17 sector URLs to the `hr-company-for-{sector-name}-in-the-uk` pattern. The content decisions themselves (what each page does and does not claim) are unaffected and remain current; only the URL/slug shown against each entry is now retired — see `docs/MASTER-SITEMAP.md` and `src/config/services.ts`/`src/config/sectors.ts` for the current canonical slug of any service or sector named here.
+
 ---
 
 ## 0. Release blockers

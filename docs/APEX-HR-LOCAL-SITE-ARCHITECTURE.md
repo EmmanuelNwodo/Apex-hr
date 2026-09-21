@@ -67,58 +67,58 @@ flowchart TD
 ```mermaid
 flowchart TD
     ServicesHub["/services/"]
-    ServicesHub --> OHR["/services/outsourced-hr-services/\n(6 children)"]
-    ServicesHub --> RTA["/services/recruitment-talent-acquisition/\n(5 children)"]
-    ServicesHub --> ELR["/services/employment-law-and-employee-relations/\n(8 children)"]
-    ServicesHub --> ODC["/services/organisation-development-change-management/\n(4 children)"]
-    ServicesHub --> CRB["/services/compensation-reward-and-benefits/\n(6 children)"]
-    ServicesHub --> LLD["/services/learning-and-leadership-development/\n(3 children)"]
-    ServicesHub --> PTM["/services/performance-and-talent-management/\n(3 children)"]
-    ServicesHub --> EEE["/services/employee-experience-and-engagement/\n(5 children)"]
-    ServicesHub --> HRT["/services/hr-technology-and-people-analytics/\n(5 children)"]
-    ServicesHub --> SHR["/services/strategic-hr-and-workforce-advisory/\n(3 children)"]
+    ServicesHub --> OHR["/services/outsourced-hr-services-firm-in-the-uk/\n(6 children)"]
+    ServicesHub --> RTA["/services/recruitment-and-talent-acquisition-firm-in-the-uk/\n(5 children)"]
+    ServicesHub --> ELR["/services/employment-law-and-employee-relations-firm-in-the-uk/\n(8 children)"]
+    ServicesHub --> ODC["/services/organisation-development-and-change-management-firm-in-the-uk/\n(4 children)"]
+    ServicesHub --> CRB["/services/compensation-reward-and-benefits-firm-in-the-uk/\n(6 children)"]
+    ServicesHub --> LLD["/services/learning-and-leadership-development-firm-in-the-uk/\n(3 children)"]
+    ServicesHub --> PTM["/services/performance-and-talent-management-firm-in-the-uk/\n(3 children)"]
+    ServicesHub --> EEE["/services/employee-experience-and-engagement-firm-in-the-uk/\n(5 children)"]
+    ServicesHub --> HRT["/services/hr-technology-and-people-analytics-firm-in-the-uk/\n(5 children)"]
+    ServicesHub --> SHR["/services/strategic-hr-and-workforce-advisory-firm-in-the-uk/\n(3 children)"]
 
-    OHR --> OHR1["retained-hr-services"]
-    OHR --> OHR2["hr-support-for-small-businesses-and-startups"]
-    OHR --> OHR3["fractional-hr-director-chief-people-officer"]
-    OHR --> OHR4["hr-compliance-audit"]
-    OHR --> OHR5["employee-handbooks-and-hr-policies"]
-    OHR --> OHR6["payroll-advisory"]
+    OHR --> OHR1["retained-hr-services-firm-in-the-uk"]
+    OHR --> OHR2["hr-support-for-small-businesses-and-startups-firm-in-the-uk"]
+    OHR --> OHR3["fractional-hr-director-chief-people-officer-firm-in-the-uk"]
+    OHR --> OHR4["hr-compliance-audit-firm-in-the-uk"]
+    OHR --> OHR5["employee-handbooks-and-hr-policies-firm-in-the-uk"]
+    OHR --> OHR6["payroll-advisory-firm-in-the-uk"]
 
-    RTA --> RTA1["permanent-recruitment"]
-    RTA --> RTA2["executive-search"]
-    RTA --> RTA3["contract-staffing"]
-    RTA --> RTA4["recruitment-process-outsourcing-rpo"]
-    RTA --> RTA5["graduate-schemes-and-early-careers-design"]
+    RTA --> RTA1["permanent-recruitment-firm-in-the-uk"]
+    RTA --> RTA2["executive-search-firm-in-the-uk"]
+    RTA --> RTA3["contract-staffing-firm-in-the-uk"]
+    RTA --> RTA4["recruitment-process-outsourcing-rpo-firm-in-the-uk"]
+    RTA --> RTA5["graduate-schemes-and-early-careers-design-firm-in-the-uk"]
 ```
 
-*Route template for every card above: `/services/[slug]/`. The remaining 8 families' 37 children (Employment Law 8, Org Development 4, Compensation 6, Learning 3, Performance 3, Employee Experience 5, HR Technology 5, Strategic HR 3) are omitted from this diagram to keep it readable — the full list is in §3.2's table.*
+*Route template for every card above: `/services/[slug]-firm-in-the-uk/` (D-017). The remaining 8 families' 37 children (Employment Law 8, Org Development 4, Compensation 6, Learning 3, Performance 3, Employee Experience 5, HR Technology 5, Strategic HR 3) are omitted from this diagram to keep it readable — the full list is in §3.2's table.*
 
 ### 1.3 Sectors
 
 ```mermaid
 flowchart TD
     SectorsHub["/sector/ (17 sectors)"]
-    SectorsHub --> S1["startups-scale-ups"]
-    SectorsHub --> S2["professional-services"]
-    SectorsHub --> S3["health-care"]
-    SectorsHub --> S4["life-sciences"]
-    SectorsHub --> S5["technology (IT)"]
-    SectorsHub --> S6["financial-services"]
-    SectorsHub --> S7["accountants"]
-    SectorsHub --> S8["architects"]
-    SectorsHub --> S9["care-homes"]
-    SectorsHub --> S10["charity"]
-    SectorsHub --> S11["construction"]
-    SectorsHub --> S12["distribution"]
-    SectorsHub --> S13["education"]
-    SectorsHub --> S14["engineers"]
-    SectorsHub --> S15["leisure"]
-    SectorsHub --> S16["manufacturers"]
-    SectorsHub --> S17["hospitality"]
+    SectorsHub --> S1["hr-company-for-startups-and-scale-ups-in-the-uk"]
+    SectorsHub --> S2["hr-company-for-professional-services-in-the-uk"]
+    SectorsHub --> S3["hr-company-for-healthcare-in-the-uk"]
+    SectorsHub --> S4["hr-company-for-life-sciences-in-the-uk"]
+    SectorsHub --> S5["hr-company-for-it-in-the-uk (IT)"]
+    SectorsHub --> S6["hr-company-for-financial-services-in-the-uk"]
+    SectorsHub --> S7["hr-company-for-accountants-in-the-uk"]
+    SectorsHub --> S8["hr-company-for-architects-in-the-uk"]
+    SectorsHub --> S9["hr-company-for-care-homes-in-the-uk"]
+    SectorsHub --> S10["hr-company-for-charity-in-the-uk"]
+    SectorsHub --> S11["hr-company-for-construction-in-the-uk"]
+    SectorsHub --> S12["hr-company-for-distribution-in-the-uk"]
+    SectorsHub --> S13["hr-company-for-education-in-the-uk"]
+    SectorsHub --> S14["hr-company-for-engineers-in-the-uk"]
+    SectorsHub --> S15["hr-company-for-leisure-in-the-uk"]
+    SectorsHub --> S16["hr-company-for-manufacturers-in-the-uk"]
+    SectorsHub --> S17["hr-company-for-hospitality-in-the-uk"]
 ```
 
-*Route template: `/sector/[slug]/`. Note `technology` is IT's slug — see §4 for the "shared URL" question this raises and why it's not actually a conflict.*
+*Route template: `/sector/hr-company-for-[slug]-in-the-uk/` (D-017). Note `hr-company-for-it-in-the-uk` is IT's slug — see §4 for the "shared URL" question this raises and why it's not actually a conflict.*
 
 ### 1.4 Locations and location-service pages
 
@@ -129,19 +129,19 @@ flowchart TD
     LocationsHub --> Manchester["/locations/manchester/"]
     LocationsHub --> Other["...13 more location pages"]
 
-    London --> LSvc1["/services/executive-search-london/"]
-    London --> LSvc2["/services/salary-benchmarking-london/"]
-    London --> LSvc3["/services/employer-branding-and-employee-value-proposition-evp-london/"]
+    London --> LSvc1["/services/executive-search-firm-in-the-uk-london/"]
+    London --> LSvc2["/services/salary-benchmarking-firm-in-the-uk-london/"]
+    London --> LSvc3["/services/employer-branding-and-employee-value-proposition-evp-firm-in-the-uk-london/"]
 
-    Worcester["/locations/worcester/"] --> WSvc1["/services/permanent-recruitment-worcester/"]
-    Worcester --> WSvc2["/services/hr-support-for-small-businesses-and-startups-worcester/"]
-    Worcester --> WSvc3["/services/hr-compliance-audit-worcester/"]
-    Worcester -. "generated, but not linked from any page — see §10" .-> WCat["/services/outsourced-hr-services-worcester/"]
+    Worcester["/locations/worcester/"] --> WSvc1["/services/permanent-recruitment-firm-in-the-uk-worcester/"]
+    Worcester --> WSvc2["/services/hr-support-for-small-businesses-and-startups-firm-in-the-uk-worcester/"]
+    Worcester --> WSvc3["/services/hr-compliance-audit-firm-in-the-uk-worcester/"]
+    Worcester -. "generated, but not linked from any page — see §10" .-> WCat["/services/outsourced-hr-services-firm-in-the-uk-worcester/"]
 
-    Liverpool["/locations/liverpool/"] --> LivSvc1["/services/permanent-recruitment-liverpool/"]
-    Liverpool --> LivSvc2["/services/recruitment-process-outsourcing-rpo-liverpool/"]
-    Liverpool --> LivSvc3["/services/hr-compliance-audit-liverpool/"]
-    Liverpool -. "generated, but not linked from any page — see §10" .-> LivCat["/services/recruitment-talent-acquisition-liverpool/"]
+    Liverpool["/locations/liverpool/"] --> LivSvc1["/services/permanent-recruitment-firm-in-the-uk-liverpool/"]
+    Liverpool --> LivSvc2["/services/recruitment-process-outsourcing-rpo-firm-in-the-uk-liverpool/"]
+    Liverpool --> LivSvc3["/services/hr-compliance-audit-firm-in-the-uk-liverpool/"]
+    Liverpool -. "generated, but not linked from any page — see §10" .-> LivCat["/services/recruitment-and-talent-acquisition-firm-in-the-uk-liverpool/"]
 ```
 
 *Full 16×3 curated matrix is in §7.2 (too large for one diagram). The two dotted edges are the two category-location pages this audit found have no internal link pointing to them at all — flagged in §10 and §12.*
@@ -195,91 +195,91 @@ flowchart TD
 ├── /case-study/                                    [noindex]
 │
 ├── /services/
-│   ├── /services/outsourced-hr-services/
-│   │   ├── /services/retained-hr-services/
-│   │   ├── /services/hr-support-for-small-businesses-and-startups/
-│   │   ├── /services/fractional-hr-director-chief-people-officer/
-│   │   ├── /services/hr-compliance-audit/
-│   │   ├── /services/employee-handbooks-and-hr-policies/
-│   │   └── /services/payroll-advisory/
-│   ├── /services/recruitment-talent-acquisition/
-│   │   ├── /services/permanent-recruitment/
-│   │   ├── /services/executive-search/
-│   │   ├── /services/contract-staffing/
-│   │   ├── /services/recruitment-process-outsourcing-rpo/
-│   │   └── /services/graduate-schemes-and-early-careers-design/
-│   ├── /services/employment-law-and-employee-relations/
-│   │   ├── /services/redundancy-and-restructuring-support/
-│   │   ├── /services/tupe-advisory/
-│   │   ├── /services/workplace-investigations/
-│   │   ├── /services/workplace-mediation-and-conflict-resolution/
-│   │   ├── /services/employment-tribunal-hr-support/
-│   │   ├── /services/outplacement-and-career-transition-services/
-│   │   ├── /services/industrial-relations-and-trade-union-negotiations/
-│   │   └── /services/skilled-worker-sponsorship-hr-support/
-│   ├── /services/organisation-development-change-management/
-│   │   ├── /services/organisation-design/
-│   │   ├── /services/change-management/
-│   │   ├── /services/culture-transformation/
-│   │   └── /services/ma-people-due-diligence-and-post-merger-integration/
-│   ├── /services/compensation-reward-and-benefits/
-│   │   ├── /services/salary-benchmarking/
-│   │   ├── /services/job-evaluation-and-pay-structures/
-│   │   ├── /services/reward-strategy/
-│   │   ├── /services/pay-equity-and-pay-gap-reporting/
-│   │   ├── /services/employee-benefits-consulting/
-│   │   └── /services/executive-compensation-and-share-schemes/
-│   ├── /services/learning-and-leadership-development/
-│   │   ├── /services/leadership-and-management-training/
-│   │   ├── /services/executive-coaching-and-360-feedback/
-│   │   └── /services/learning-strategy-and-capability-development/
-│   ├── /services/performance-and-talent-management/
-│   │   ├── /services/performance-management/
-│   │   ├── /services/succession-planning-and-talent-mapping/
-│   │   └── /services/competency-frameworks/
-│   ├── /services/employee-experience-and-engagement/
-│   │   ├── /services/employee-experience-strategy/
-│   │   ├── /services/employee-engagement-surveys-and-action-planning/
-│   │   ├── /services/employer-branding-and-employee-value-proposition-evp/
-│   │   ├── /services/workplace-wellbeing-and-mental-health/
-│   │   └── /services/diversity-equity-and-inclusion-dei-consulting/
-│   ├── /services/hr-technology-and-people-analytics/
-│   │   ├── /services/hris-implementation/
-│   │   ├── /services/hr-software-selection/
-│   │   ├── /services/people-analytics-and-hr-dashboards/
-│   │   ├── /services/digital-hr-transformation/
-│   │   └── /services/ai-workplace-policy-and-hr-integration/
-│   ├── /services/strategic-hr-and-workforce-advisory/
-│   │   ├── /services/people-strategy/
-│   │   ├── /services/strategic-workforce-planning/
-│   │   └── /services/global-mobility-and-expatriate-hr-management/
+│   ├── /services/outsourced-hr-services-firm-in-the-uk/
+│   │   ├── /services/retained-hr-services-firm-in-the-uk/
+│   │   ├── /services/hr-support-for-small-businesses-and-startups-firm-in-the-uk/
+│   │   ├── /services/fractional-hr-director-chief-people-officer-firm-in-the-uk/
+│   │   ├── /services/hr-compliance-audit-firm-in-the-uk/
+│   │   ├── /services/employee-handbooks-and-hr-policies-firm-in-the-uk/
+│   │   └── /services/payroll-advisory-firm-in-the-uk/
+│   ├── /services/recruitment-and-talent-acquisition-firm-in-the-uk/
+│   │   ├── /services/permanent-recruitment-firm-in-the-uk/
+│   │   ├── /services/executive-search-firm-in-the-uk/
+│   │   ├── /services/contract-staffing-firm-in-the-uk/
+│   │   ├── /services/recruitment-process-outsourcing-rpo-firm-in-the-uk/
+│   │   └── /services/graduate-schemes-and-early-careers-design-firm-in-the-uk/
+│   ├── /services/employment-law-and-employee-relations-firm-in-the-uk/
+│   │   ├── /services/redundancy-and-restructuring-support-firm-in-the-uk/
+│   │   ├── /services/tupe-advisory-firm-in-the-uk/
+│   │   ├── /services/workplace-investigations-firm-in-the-uk/
+│   │   ├── /services/workplace-mediation-and-conflict-resolution-firm-in-the-uk/
+│   │   ├── /services/employment-tribunal-hr-support-firm-in-the-uk/
+│   │   ├── /services/outplacement-and-career-transition-services-firm-in-the-uk/
+│   │   ├── /services/industrial-relations-and-trade-union-negotiations-firm-in-the-uk/
+│   │   └── /services/skilled-worker-sponsorship-hr-support-firm-in-the-uk/
+│   ├── /services/organisation-development-and-change-management-firm-in-the-uk/
+│   │   ├── /services/organisation-design-firm-in-the-uk/
+│   │   ├── /services/change-management-firm-in-the-uk/
+│   │   ├── /services/culture-transformation-firm-in-the-uk/
+│   │   └── /services/ma-people-due-diligence-and-post-merger-integration-firm-in-the-uk/
+│   ├── /services/compensation-reward-and-benefits-firm-in-the-uk/
+│   │   ├── /services/salary-benchmarking-firm-in-the-uk/
+│   │   ├── /services/job-evaluation-and-pay-structures-firm-in-the-uk/
+│   │   ├── /services/reward-strategy-firm-in-the-uk/
+│   │   ├── /services/pay-equity-and-pay-gap-reporting-firm-in-the-uk/
+│   │   ├── /services/employee-benefits-consulting-firm-in-the-uk/
+│   │   └── /services/executive-compensation-and-share-schemes-firm-in-the-uk/
+│   ├── /services/learning-and-leadership-development-firm-in-the-uk/
+│   │   ├── /services/leadership-and-management-training-firm-in-the-uk/
+│   │   ├── /services/executive-coaching-and-360-feedback-firm-in-the-uk/
+│   │   └── /services/learning-strategy-and-capability-development-firm-in-the-uk/
+│   ├── /services/performance-and-talent-management-firm-in-the-uk/
+│   │   ├── /services/performance-management-firm-in-the-uk/
+│   │   ├── /services/succession-planning-and-talent-mapping-firm-in-the-uk/
+│   │   └── /services/competency-frameworks-firm-in-the-uk/
+│   ├── /services/employee-experience-and-engagement-firm-in-the-uk/
+│   │   ├── /services/employee-experience-strategy-firm-in-the-uk/
+│   │   ├── /services/employee-engagement-surveys-and-action-planning-firm-in-the-uk/
+│   │   ├── /services/employer-branding-and-employee-value-proposition-evp-firm-in-the-uk/
+│   │   ├── /services/workplace-wellbeing-and-mental-health-firm-in-the-uk/
+│   │   └── /services/diversity-equity-and-inclusion-dei-consulting-firm-in-the-uk/
+│   ├── /services/hr-technology-and-people-analytics-firm-in-the-uk/
+│   │   ├── /services/hris-implementation-firm-in-the-uk/
+│   │   ├── /services/hr-software-selection-firm-in-the-uk/
+│   │   ├── /services/people-analytics-and-hr-dashboards-firm-in-the-uk/
+│   │   ├── /services/digital-hr-transformation-firm-in-the-uk/
+│   │   └── /services/ai-workplace-policy-and-hr-integration-firm-in-the-uk/
+│   ├── /services/strategic-hr-and-workforce-advisory-firm-in-the-uk/
+│   │   ├── /services/people-strategy-firm-in-the-uk/
+│   │   ├── /services/strategic-workforce-planning-firm-in-the-uk/
+│   │   └── /services/global-mobility-and-expatriate-hr-management-firm-in-the-uk/
 │   │
 │   └── (50 location-combination pages, flat under /services/, see §7.2 for the full list)
-│       ├── /services/executive-search-london/
-│       ├── /services/salary-benchmarking-london/
-│       ├── /services/employer-branding-and-employee-value-proposition-evp-london/
-│       ├── /services/outsourced-hr-services-worcester/        [category page — orphaned, see §10]
-│       ├── /services/recruitment-talent-acquisition-liverpool/ [category page — orphaned, see §10]
+│       ├── /services/executive-search-firm-in-the-uk-london/
+│       ├── /services/salary-benchmarking-firm-in-the-uk-london/
+│       ├── /services/employer-branding-and-employee-value-proposition-evp-firm-in-the-uk-london/
+│       ├── /services/outsourced-hr-services-firm-in-the-uk-worcester/        [category page — orphaned, see §10]
+│       ├── /services/recruitment-and-talent-acquisition-firm-in-the-uk-liverpool/ [category page — orphaned, see §10]
 │       └── ... 45 more service-location pages
 │
 ├── /sector/
-│   ├── /sector/startups-scale-ups/
-│   ├── /sector/professional-services/
-│   ├── /sector/health-care/
-│   ├── /sector/life-sciences/
-│   ├── /sector/technology/                          (IT sector)
-│   ├── /sector/financial-services/
-│   ├── /sector/accountants/
-│   ├── /sector/architects/
-│   ├── /sector/care-homes/
-│   ├── /sector/charity/
-│   ├── /sector/construction/
-│   ├── /sector/distribution/
-│   ├── /sector/education/
-│   ├── /sector/engineers/
-│   ├── /sector/leisure/
-│   ├── /sector/manufacturers/
-│   └── /sector/hospitality/
+│   ├── /sector/hr-company-for-startups-and-scale-ups-in-the-uk/
+│   ├── /sector/hr-company-for-professional-services-in-the-uk/
+│   ├── /sector/hr-company-for-healthcare-in-the-uk/
+│   ├── /sector/hr-company-for-life-sciences-in-the-uk/
+│   ├── /sector/hr-company-for-it-in-the-uk/                          (IT sector)
+│   ├── /sector/hr-company-for-financial-services-in-the-uk/
+│   ├── /sector/hr-company-for-accountants-in-the-uk/
+│   ├── /sector/hr-company-for-architects-in-the-uk/
+│   ├── /sector/hr-company-for-care-homes-in-the-uk/
+│   ├── /sector/hr-company-for-charity-in-the-uk/
+│   ├── /sector/hr-company-for-construction-in-the-uk/
+│   ├── /sector/hr-company-for-distribution-in-the-uk/
+│   ├── /sector/hr-company-for-education-in-the-uk/
+│   ├── /sector/hr-company-for-engineers-in-the-uk/
+│   ├── /sector/hr-company-for-leisure-in-the-uk/
+│   ├── /sector/hr-company-for-manufacturers-in-the-uk/
+│   └── /sector/hr-company-for-hospitality-in-the-uk/
 │
 ├── /locations/
 │   ├── /locations/london/
@@ -349,16 +349,16 @@ All tables use the required columns: **Page name | Relative URL | Page type | Pa
 
 | Page name | Relative URL | Parent page | Static/Dynamic | Source | Indexing status | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| Outsourced HR Services | `/services/outsourced-hr-services/` | `/services/` | Dynamic (`[slug]`, static-generated) | `src/config/services.ts` | Indexable | Implemented |
-| Recruitment & Talent Acquisition | `/services/recruitment-talent-acquisition/` | `/services/` | Dynamic | same | Indexable | Implemented |
-| Employment Law & Employee Relations | `/services/employment-law-and-employee-relations/` | `/services/` | Dynamic | same | Indexable | Implemented |
-| Organisation Development & Change Management | `/services/organisation-development-change-management/` | `/services/` | Dynamic | same | Indexable | Implemented |
-| Compensation, Reward & Benefits | `/services/compensation-reward-and-benefits/` | `/services/` | Dynamic | same | Indexable | Implemented |
-| Learning & Leadership Development | `/services/learning-and-leadership-development/` | `/services/` | Dynamic | same | Indexable | Implemented |
-| Performance & Talent Management | `/services/performance-and-talent-management/` | `/services/` | Dynamic | same | Indexable | Implemented |
-| Employee Experience & Engagement | `/services/employee-experience-and-engagement/` | `/services/` | Dynamic | same | Indexable | Implemented |
-| HR Technology & People Analytics | `/services/hr-technology-and-people-analytics/` | `/services/` | Dynamic | same | Indexable | Implemented |
-| Strategic HR & Workforce Advisory | `/services/strategic-hr-and-workforce-advisory/` | `/services/` | Dynamic | same | Indexable | Implemented |
+| Outsourced HR Services | `/services/outsourced-hr-services-firm-in-the-uk/` | `/services/` | Dynamic (`[slug]`, static-generated) | `src/config/services.ts` | Indexable | Implemented |
+| Recruitment & Talent Acquisition | `/services/recruitment-and-talent-acquisition-firm-in-the-uk/` | `/services/` | Dynamic | same | Indexable | Implemented |
+| Employment Law & Employee Relations | `/services/employment-law-and-employee-relations-firm-in-the-uk/` | `/services/` | Dynamic | same | Indexable | Implemented |
+| Organisation Development & Change Management | `/services/organisation-development-and-change-management-firm-in-the-uk/` | `/services/` | Dynamic | same | Indexable | Implemented |
+| Compensation, Reward & Benefits | `/services/compensation-reward-and-benefits-firm-in-the-uk/` | `/services/` | Dynamic | same | Indexable | Implemented |
+| Learning & Leadership Development | `/services/learning-and-leadership-development-firm-in-the-uk/` | `/services/` | Dynamic | same | Indexable | Implemented |
+| Performance & Talent Management | `/services/performance-and-talent-management-firm-in-the-uk/` | `/services/` | Dynamic | same | Indexable | Implemented |
+| Employee Experience & Engagement | `/services/employee-experience-and-engagement-firm-in-the-uk/` | `/services/` | Dynamic | same | Indexable | Implemented |
+| HR Technology & People Analytics | `/services/hr-technology-and-people-analytics-firm-in-the-uk/` | `/services/` | Dynamic | same | Indexable | Implemented |
+| Strategic HR & Workforce Advisory | `/services/strategic-hr-and-workforce-advisory-firm-in-the-uk/` | `/services/` | Dynamic | same | Indexable | Implemented |
 
 Route template: `/services/[slug]/` (`src/app/services/[slug]/page.tsx`, `getServiceCategory()` branch).
 
@@ -368,54 +368,54 @@ Route template: `/services/[slug]/` (same file, `getService()` branch). Source f
 
 | # | Child service | Relative URL | Parent service page | Relationship valid? |
 | --: | --- | --- | --- | --- |
-| 1 | Retained HR Services | `/services/retained-hr-services/` | `/services/outsourced-hr-services/` | Yes |
-| 2 | HR Support for Small Businesses & Startups | `/services/hr-support-for-small-businesses-and-startups/` | `/services/outsourced-hr-services/` | Yes |
-| 3 | Fractional HR Director / Chief People Officer | `/services/fractional-hr-director-chief-people-officer/` | `/services/outsourced-hr-services/` | Yes |
-| 4 | HR Compliance Audit | `/services/hr-compliance-audit/` | `/services/outsourced-hr-services/` | Yes |
-| 5 | Employee Handbooks & HR Policies | `/services/employee-handbooks-and-hr-policies/` | `/services/outsourced-hr-services/` | Yes |
-| 6 | Payroll Advisory | `/services/payroll-advisory/` | `/services/outsourced-hr-services/` | Yes |
-| 7 | Permanent Recruitment | `/services/permanent-recruitment/` | `/services/recruitment-talent-acquisition/` | Yes |
-| 8 | Executive Search | `/services/executive-search/` | `/services/recruitment-talent-acquisition/` | Yes |
-| 9 | Contract Staffing | `/services/contract-staffing/` | `/services/recruitment-talent-acquisition/` | Yes |
-| 10 | Recruitment Process Outsourcing (RPO) | `/services/recruitment-process-outsourcing-rpo/` | `/services/recruitment-talent-acquisition/` | Yes |
-| 11 | Graduate Schemes & Early Careers Design | `/services/graduate-schemes-and-early-careers-design/` | `/services/recruitment-talent-acquisition/` | Yes |
-| 12 | Redundancy & Restructuring Support | `/services/redundancy-and-restructuring-support/` | `/services/employment-law-and-employee-relations/` | Yes |
-| 13 | TUPE Advisory | `/services/tupe-advisory/` | `/services/employment-law-and-employee-relations/` | Yes |
-| 14 | Workplace Investigations | `/services/workplace-investigations/` | `/services/employment-law-and-employee-relations/` | Yes |
-| 15 | Workplace Mediation & Conflict Resolution | `/services/workplace-mediation-and-conflict-resolution/` | `/services/employment-law-and-employee-relations/` | Yes |
-| 16 | Employment Tribunal HR Support | `/services/employment-tribunal-hr-support/` | `/services/employment-law-and-employee-relations/` | Yes |
-| 17 | Outplacement & Career Transition Services | `/services/outplacement-and-career-transition-services/` | `/services/employment-law-and-employee-relations/` | Yes |
-| 18 | Industrial Relations & Trade Union Negotiations | `/services/industrial-relations-and-trade-union-negotiations/` | `/services/employment-law-and-employee-relations/` | Yes |
-| 19 | Skilled Worker Sponsorship HR Support | `/services/skilled-worker-sponsorship-hr-support/` | `/services/employment-law-and-employee-relations/` | Yes |
-| 20 | Organisation Design | `/services/organisation-design/` | `/services/organisation-development-change-management/` | Yes |
-| 21 | Change Management | `/services/change-management/` | `/services/organisation-development-change-management/` | Yes |
-| 22 | Culture Transformation | `/services/culture-transformation/` | `/services/organisation-development-change-management/` | Yes |
-| 23 | M&A People Due Diligence & Post-Merger Integration | `/services/ma-people-due-diligence-and-post-merger-integration/` | `/services/organisation-development-change-management/` | Yes |
-| 24 | Salary Benchmarking | `/services/salary-benchmarking/` | `/services/compensation-reward-and-benefits/` | Yes |
-| 25 | Job Evaluation & Pay Structures | `/services/job-evaluation-and-pay-structures/` | `/services/compensation-reward-and-benefits/` | Yes |
-| 26 | Reward Strategy | `/services/reward-strategy/` | `/services/compensation-reward-and-benefits/` | Yes |
-| 27 | Pay Equity & Pay Gap Reporting | `/services/pay-equity-and-pay-gap-reporting/` | `/services/compensation-reward-and-benefits/` | Yes |
-| 28 | Employee Benefits Consulting | `/services/employee-benefits-consulting/` | `/services/compensation-reward-and-benefits/` | Yes |
-| 29 | Executive Compensation & Share Schemes | `/services/executive-compensation-and-share-schemes/` | `/services/compensation-reward-and-benefits/` | Yes |
-| 30 | Leadership & Management Training | `/services/leadership-and-management-training/` | `/services/learning-and-leadership-development/` | Yes |
-| 31 | Executive Coaching & 360 Feedback | `/services/executive-coaching-and-360-feedback/` | `/services/learning-and-leadership-development/` | Yes |
-| 32 | Learning Strategy & Capability Development | `/services/learning-strategy-and-capability-development/` | `/services/learning-and-leadership-development/` | Yes |
-| 33 | Performance Management | `/services/performance-management/` | `/services/performance-and-talent-management/` | Yes |
-| 34 | Succession Planning & Talent Mapping | `/services/succession-planning-and-talent-mapping/` | `/services/performance-and-talent-management/` | Yes |
-| 35 | Competency Frameworks | `/services/competency-frameworks/` | `/services/performance-and-talent-management/` | Yes |
-| 36 | Employee Experience Strategy | `/services/employee-experience-strategy/` | `/services/employee-experience-and-engagement/` | Yes |
-| 37 | Employee Engagement Surveys & Action Planning | `/services/employee-engagement-surveys-and-action-planning/` | `/services/employee-experience-and-engagement/` | Yes |
-| 38 | Employer Branding & Employee Value Proposition (EVP) | `/services/employer-branding-and-employee-value-proposition-evp/` | `/services/employee-experience-and-engagement/` | Yes |
-| 39 | Workplace Wellbeing & Mental Health | `/services/workplace-wellbeing-and-mental-health/` | `/services/employee-experience-and-engagement/` | Yes |
-| 40 | Diversity, Equity & Inclusion (DEI) Consulting | `/services/diversity-equity-and-inclusion-dei-consulting/` | `/services/employee-experience-and-engagement/` | Yes |
-| 41 | HRIS Implementation | `/services/hris-implementation/` | `/services/hr-technology-and-people-analytics/` | Yes |
-| 42 | HR Software Selection | `/services/hr-software-selection/` | `/services/hr-technology-and-people-analytics/` | Yes |
-| 43 | People Analytics & HR Dashboards | `/services/people-analytics-and-hr-dashboards/` | `/services/hr-technology-and-people-analytics/` | Yes |
-| 44 | Digital HR Transformation | `/services/digital-hr-transformation/` | `/services/hr-technology-and-people-analytics/` | Yes |
-| 45 | AI Workplace Policy & HR Integration | `/services/ai-workplace-policy-and-hr-integration/` | `/services/hr-technology-and-people-analytics/` | Yes |
-| 46 | People Strategy | `/services/people-strategy/` | `/services/strategic-hr-and-workforce-advisory/` | Yes |
-| 47 | Strategic Workforce Planning | `/services/strategic-workforce-planning/` | `/services/strategic-hr-and-workforce-advisory/` | Yes |
-| 48 | Global Mobility & Expatriate HR Management | `/services/global-mobility-and-expatriate-hr-management/` | `/services/strategic-hr-and-workforce-advisory/` | Yes |
+| 1 | Retained HR Services | `/services/retained-hr-services-firm-in-the-uk/` | `/services/outsourced-hr-services-firm-in-the-uk/` | Yes |
+| 2 | HR Support for Small Businesses & Startups | `/services/hr-support-for-small-businesses-and-startups-firm-in-the-uk/` | `/services/outsourced-hr-services-firm-in-the-uk/` | Yes |
+| 3 | Fractional HR Director / Chief People Officer | `/services/fractional-hr-director-chief-people-officer-firm-in-the-uk/` | `/services/outsourced-hr-services-firm-in-the-uk/` | Yes |
+| 4 | HR Compliance Audit | `/services/hr-compliance-audit-firm-in-the-uk/` | `/services/outsourced-hr-services-firm-in-the-uk/` | Yes |
+| 5 | Employee Handbooks & HR Policies | `/services/employee-handbooks-and-hr-policies-firm-in-the-uk/` | `/services/outsourced-hr-services-firm-in-the-uk/` | Yes |
+| 6 | Payroll Advisory | `/services/payroll-advisory-firm-in-the-uk/` | `/services/outsourced-hr-services-firm-in-the-uk/` | Yes |
+| 7 | Permanent Recruitment | `/services/permanent-recruitment-firm-in-the-uk/` | `/services/recruitment-and-talent-acquisition-firm-in-the-uk/` | Yes |
+| 8 | Executive Search | `/services/executive-search-firm-in-the-uk/` | `/services/recruitment-and-talent-acquisition-firm-in-the-uk/` | Yes |
+| 9 | Contract Staffing | `/services/contract-staffing-firm-in-the-uk/` | `/services/recruitment-and-talent-acquisition-firm-in-the-uk/` | Yes |
+| 10 | Recruitment Process Outsourcing (RPO) | `/services/recruitment-process-outsourcing-rpo-firm-in-the-uk/` | `/services/recruitment-and-talent-acquisition-firm-in-the-uk/` | Yes |
+| 11 | Graduate Schemes & Early Careers Design | `/services/graduate-schemes-and-early-careers-design-firm-in-the-uk/` | `/services/recruitment-and-talent-acquisition-firm-in-the-uk/` | Yes |
+| 12 | Redundancy & Restructuring Support | `/services/redundancy-and-restructuring-support-firm-in-the-uk/` | `/services/employment-law-and-employee-relations-firm-in-the-uk/` | Yes |
+| 13 | TUPE Advisory | `/services/tupe-advisory-firm-in-the-uk/` | `/services/employment-law-and-employee-relations-firm-in-the-uk/` | Yes |
+| 14 | Workplace Investigations | `/services/workplace-investigations-firm-in-the-uk/` | `/services/employment-law-and-employee-relations-firm-in-the-uk/` | Yes |
+| 15 | Workplace Mediation & Conflict Resolution | `/services/workplace-mediation-and-conflict-resolution-firm-in-the-uk/` | `/services/employment-law-and-employee-relations-firm-in-the-uk/` | Yes |
+| 16 | Employment Tribunal HR Support | `/services/employment-tribunal-hr-support-firm-in-the-uk/` | `/services/employment-law-and-employee-relations-firm-in-the-uk/` | Yes |
+| 17 | Outplacement & Career Transition Services | `/services/outplacement-and-career-transition-services-firm-in-the-uk/` | `/services/employment-law-and-employee-relations-firm-in-the-uk/` | Yes |
+| 18 | Industrial Relations & Trade Union Negotiations | `/services/industrial-relations-and-trade-union-negotiations-firm-in-the-uk/` | `/services/employment-law-and-employee-relations-firm-in-the-uk/` | Yes |
+| 19 | Skilled Worker Sponsorship HR Support | `/services/skilled-worker-sponsorship-hr-support-firm-in-the-uk/` | `/services/employment-law-and-employee-relations-firm-in-the-uk/` | Yes |
+| 20 | Organisation Design | `/services/organisation-design-firm-in-the-uk/` | `/services/organisation-development-and-change-management-firm-in-the-uk/` | Yes |
+| 21 | Change Management | `/services/change-management-firm-in-the-uk/` | `/services/organisation-development-and-change-management-firm-in-the-uk/` | Yes |
+| 22 | Culture Transformation | `/services/culture-transformation-firm-in-the-uk/` | `/services/organisation-development-and-change-management-firm-in-the-uk/` | Yes |
+| 23 | M&A People Due Diligence & Post-Merger Integration | `/services/ma-people-due-diligence-and-post-merger-integration-firm-in-the-uk/` | `/services/organisation-development-and-change-management-firm-in-the-uk/` | Yes |
+| 24 | Salary Benchmarking | `/services/salary-benchmarking-firm-in-the-uk/` | `/services/compensation-reward-and-benefits-firm-in-the-uk/` | Yes |
+| 25 | Job Evaluation & Pay Structures | `/services/job-evaluation-and-pay-structures-firm-in-the-uk/` | `/services/compensation-reward-and-benefits-firm-in-the-uk/` | Yes |
+| 26 | Reward Strategy | `/services/reward-strategy-firm-in-the-uk/` | `/services/compensation-reward-and-benefits-firm-in-the-uk/` | Yes |
+| 27 | Pay Equity & Pay Gap Reporting | `/services/pay-equity-and-pay-gap-reporting-firm-in-the-uk/` | `/services/compensation-reward-and-benefits-firm-in-the-uk/` | Yes |
+| 28 | Employee Benefits Consulting | `/services/employee-benefits-consulting-firm-in-the-uk/` | `/services/compensation-reward-and-benefits-firm-in-the-uk/` | Yes |
+| 29 | Executive Compensation & Share Schemes | `/services/executive-compensation-and-share-schemes-firm-in-the-uk/` | `/services/compensation-reward-and-benefits-firm-in-the-uk/` | Yes |
+| 30 | Leadership & Management Training | `/services/leadership-and-management-training-firm-in-the-uk/` | `/services/learning-and-leadership-development-firm-in-the-uk/` | Yes |
+| 31 | Executive Coaching & 360 Feedback | `/services/executive-coaching-and-360-feedback-firm-in-the-uk/` | `/services/learning-and-leadership-development-firm-in-the-uk/` | Yes |
+| 32 | Learning Strategy & Capability Development | `/services/learning-strategy-and-capability-development-firm-in-the-uk/` | `/services/learning-and-leadership-development-firm-in-the-uk/` | Yes |
+| 33 | Performance Management | `/services/performance-management-firm-in-the-uk/` | `/services/performance-and-talent-management-firm-in-the-uk/` | Yes |
+| 34 | Succession Planning & Talent Mapping | `/services/succession-planning-and-talent-mapping-firm-in-the-uk/` | `/services/performance-and-talent-management-firm-in-the-uk/` | Yes |
+| 35 | Competency Frameworks | `/services/competency-frameworks-firm-in-the-uk/` | `/services/performance-and-talent-management-firm-in-the-uk/` | Yes |
+| 36 | Employee Experience Strategy | `/services/employee-experience-strategy-firm-in-the-uk/` | `/services/employee-experience-and-engagement-firm-in-the-uk/` | Yes |
+| 37 | Employee Engagement Surveys & Action Planning | `/services/employee-engagement-surveys-and-action-planning-firm-in-the-uk/` | `/services/employee-experience-and-engagement-firm-in-the-uk/` | Yes |
+| 38 | Employer Branding & Employee Value Proposition (EVP) | `/services/employer-branding-and-employee-value-proposition-evp-firm-in-the-uk/` | `/services/employee-experience-and-engagement-firm-in-the-uk/` | Yes |
+| 39 | Workplace Wellbeing & Mental Health | `/services/workplace-wellbeing-and-mental-health-firm-in-the-uk/` | `/services/employee-experience-and-engagement-firm-in-the-uk/` | Yes |
+| 40 | Diversity, Equity & Inclusion (DEI) Consulting | `/services/diversity-equity-and-inclusion-dei-consulting-firm-in-the-uk/` | `/services/employee-experience-and-engagement-firm-in-the-uk/` | Yes |
+| 41 | HRIS Implementation | `/services/hris-implementation-firm-in-the-uk/` | `/services/hr-technology-and-people-analytics-firm-in-the-uk/` | Yes |
+| 42 | HR Software Selection | `/services/hr-software-selection-firm-in-the-uk/` | `/services/hr-technology-and-people-analytics-firm-in-the-uk/` | Yes |
+| 43 | People Analytics & HR Dashboards | `/services/people-analytics-and-hr-dashboards-firm-in-the-uk/` | `/services/hr-technology-and-people-analytics-firm-in-the-uk/` | Yes |
+| 44 | Digital HR Transformation | `/services/digital-hr-transformation-firm-in-the-uk/` | `/services/hr-technology-and-people-analytics-firm-in-the-uk/` | Yes |
+| 45 | AI Workplace Policy & HR Integration | `/services/ai-workplace-policy-and-hr-integration-firm-in-the-uk/` | `/services/hr-technology-and-people-analytics-firm-in-the-uk/` | Yes |
+| 46 | People Strategy | `/services/people-strategy-firm-in-the-uk/` | `/services/strategic-hr-and-workforce-advisory-firm-in-the-uk/` | Yes |
+| 47 | Strategic Workforce Planning | `/services/strategic-workforce-planning-firm-in-the-uk/` | `/services/strategic-hr-and-workforce-advisory-firm-in-the-uk/` | Yes |
+| 48 | Global Mobility & Expatriate HR Management | `/services/global-mobility-and-expatriate-hr-management-firm-in-the-uk/` | `/services/strategic-hr-and-workforce-advisory-firm-in-the-uk/` | Yes |
 
 **Result: 0 orphaned child services, 0 wrong-parent assignments, 0 duplicate child-service slugs, 0 missing child-service routes (every one of the 48 is both in `services.ts` and generated as a page via `generateStaticParams`), 0 child services present in data but not generated as a page.**
 
@@ -423,31 +423,31 @@ Route template: `/services/[slug]/` (same file, `getService()` branch). Source f
 
 | Sector | Relative URL | Source | Target keyphrase | Indexing status | Related services |
 | --- | --- | --- | --- | --- | --- |
-| Startups & Scale-ups | `/sector/startups-scale-ups/` | `src/config/sectors.ts` + `src/content/sectors-data.ts` | HR company for Startups & Scale-ups in the UK | Indexable | HR Support for Small Businesses & Startups, Fractional HR Director, Permanent Recruitment |
-| Professional Services | `/sector/professional-services/` | same | HR company for Professional Services in the UK | Indexable | Executive Search, Succession Planning & Talent Mapping, Performance Management |
-| Healthcare | `/sector/health-care/` | same | HR company for Healthcare in the UK | Indexable | Permanent Recruitment, Workplace Wellbeing & Mental Health, HR Compliance Audit |
-| Life Sciences | `/sector/life-sciences/` | same | HR company for Life Sciences in the UK | Indexable | Executive Search, Strategic Workforce Planning, Global Mobility & Expatriate HR Management |
-| IT | `/sector/technology/` | same | HR company for IT in the UK | Indexable | Permanent Recruitment, Salary Benchmarking, HR Support for Small Businesses & Startups |
-| Financial Services | `/sector/financial-services/` | same | HR company for Financial Services in the UK | Indexable | Executive Search, Salary Benchmarking, HR Compliance Audit |
-| Accountants | `/sector/accountants/` | same | HR company for Accountants in the UK | Indexable | Permanent Recruitment, Salary Benchmarking, Workplace Wellbeing & Mental Health |
-| Architects | `/sector/architects/` | same | HR company for Architects in the UK | Indexable | Permanent Recruitment, HR Support for Small Businesses & Startups, Employee Handbooks & HR Policies |
-| Care Homes | `/sector/care-homes/` | same | HR company for Care Homes in the UK | Indexable | Permanent Recruitment, HR Compliance Audit, Workplace Wellbeing & Mental Health |
-| Charity | `/sector/charity/` | same | HR company for Charity in the UK | Indexable | HR Support for Small Businesses & Startups, Retained HR Services, Salary Benchmarking |
-| Construction | `/sector/construction/` | same | HR company for Construction in the UK | Indexable | Permanent Recruitment, Redundancy & Restructuring Support, HR Compliance Audit |
-| Distribution | `/sector/distribution/` | same | HR company for Distribution in the UK | Indexable | Recruitment Process Outsourcing (RPO), Strategic Workforce Planning, Contract Staffing |
-| Education | `/sector/education/` | same | HR company for Education in the UK | Indexable | Permanent Recruitment, Workplace Mediation & Conflict Resolution, Workplace Wellbeing & Mental Health |
-| Engineers | `/sector/engineers/` | same | HR company for Engineers in the UK | Indexable | Permanent Recruitment, Salary Benchmarking, Competency Frameworks |
-| Leisure | `/sector/leisure/` | same | HR company for Leisure in the UK | Indexable | Recruitment Process Outsourcing (RPO), Employee Experience Strategy, HR Support for Small Businesses & Startups |
-| Manufacturers | `/sector/manufacturers/` | same | HR company for Manufacturers in the UK | Indexable | Permanent Recruitment, Strategic Workforce Planning, Redundancy & Restructuring Support |
-| Hospitality | `/sector/hospitality/` | same | HR company for Hospitality in the UK | Indexable | Recruitment Process Outsourcing (RPO), Leadership & Management Training, Employee Experience Strategy |
+| Startups & Scale-ups | `/sector/hr-company-for-startups-and-scale-ups-in-the-uk/` | `src/config/sectors.ts` + `src/content/sectors-data.ts` | HR company for Startups & Scale-ups in the UK | Indexable | HR Support for Small Businesses & Startups, Fractional HR Director, Permanent Recruitment |
+| Professional Services | `/sector/hr-company-for-professional-services-in-the-uk/` | same | HR company for Professional Services in the UK | Indexable | Executive Search, Succession Planning & Talent Mapping, Performance Management |
+| Healthcare | `/sector/hr-company-for-healthcare-in-the-uk/` | same | HR company for Healthcare in the UK | Indexable | Permanent Recruitment, Workplace Wellbeing & Mental Health, HR Compliance Audit |
+| Life Sciences | `/sector/hr-company-for-life-sciences-in-the-uk/` | same | HR company for Life Sciences in the UK | Indexable | Executive Search, Strategic Workforce Planning, Global Mobility & Expatriate HR Management |
+| IT | `/sector/hr-company-for-it-in-the-uk/` | same | HR company for IT in the UK | Indexable | Permanent Recruitment, Salary Benchmarking, HR Support for Small Businesses & Startups |
+| Financial Services | `/sector/hr-company-for-financial-services-in-the-uk/` | same | HR company for Financial Services in the UK | Indexable | Executive Search, Salary Benchmarking, HR Compliance Audit |
+| Accountants | `/sector/hr-company-for-accountants-in-the-uk/` | same | HR company for Accountants in the UK | Indexable | Permanent Recruitment, Salary Benchmarking, Workplace Wellbeing & Mental Health |
+| Architects | `/sector/hr-company-for-architects-in-the-uk/` | same | HR company for Architects in the UK | Indexable | Permanent Recruitment, HR Support for Small Businesses & Startups, Employee Handbooks & HR Policies |
+| Care Homes | `/sector/hr-company-for-care-homes-in-the-uk/` | same | HR company for Care Homes in the UK | Indexable | Permanent Recruitment, HR Compliance Audit, Workplace Wellbeing & Mental Health |
+| Charity | `/sector/hr-company-for-charity-in-the-uk/` | same | HR company for Charity in the UK | Indexable | HR Support for Small Businesses & Startups, Retained HR Services, Salary Benchmarking |
+| Construction | `/sector/hr-company-for-construction-in-the-uk/` | same | HR company for Construction in the UK | Indexable | Permanent Recruitment, Redundancy & Restructuring Support, HR Compliance Audit |
+| Distribution | `/sector/hr-company-for-distribution-in-the-uk/` | same | HR company for Distribution in the UK | Indexable | Recruitment Process Outsourcing (RPO), Strategic Workforce Planning, Contract Staffing |
+| Education | `/sector/hr-company-for-education-in-the-uk/` | same | HR company for Education in the UK | Indexable | Permanent Recruitment, Workplace Mediation & Conflict Resolution, Workplace Wellbeing & Mental Health |
+| Engineers | `/sector/hr-company-for-engineers-in-the-uk/` | same | HR company for Engineers in the UK | Indexable | Permanent Recruitment, Salary Benchmarking, Competency Frameworks |
+| Leisure | `/sector/hr-company-for-leisure-in-the-uk/` | same | HR company for Leisure in the UK | Indexable | Recruitment Process Outsourcing (RPO), Employee Experience Strategy, HR Support for Small Businesses & Startups |
+| Manufacturers | `/sector/hr-company-for-manufacturers-in-the-uk/` | same | HR company for Manufacturers in the UK | Indexable | Permanent Recruitment, Strategic Workforce Planning, Redundancy & Restructuring Support |
+| Hospitality | `/sector/hr-company-for-hospitality-in-the-uk/` | same | HR company for Hospitality in the UK | Indexable | Recruitment Process Outsourcing (RPO), Leadership & Management Training, Employee Experience Strategy |
 
 **Flagged items checked and found NOT present in the current local codebase** (documented only, not corrected, per the task's instruction):
 
-- **Professional Services and IT sharing one route** — not present. Professional Services is `/sector/professional-services/`; IT alone owns `/sector/technology/`. Two distinct routes, two distinct `sectorContent` records.
-- **"Constructions" (misspelling)** — not a live route. `src/config/sectors.ts` has `construction` (singular, correct). `constructions` exists only as a redirect *source* in `src/config/redirects.ts` (two rules: `/industries/constructions/` and `/sector/constructions/`, both 301 to `/sector/construction/`).
-- **"Destributions"/"Destributors" (misspelling)** — not a live route. `src/config/sectors.ts` has `distribution` (correct). The misspelled forms exist only as redirect sources.
+- **Professional Services and IT sharing one route** — not present. Professional Services is `/sector/hr-company-for-professional-services-in-the-uk/`; IT alone owns `/sector/hr-company-for-it-in-the-uk/`. Two distinct routes, two distinct `sectorContent` records.
+- **"Constructions" (misspelling)** — not a live route. `src/config/sectors.ts` has `hr-company-for-construction-in-the-uk` (singular "construction", correct — see D-017 for the current slug convention). `constructions` exists only as a redirect *source* in `src/config/redirects.ts` (two rules: `/industries/constructions/` and `/sector/constructions/`, both 301 to `/sector/hr-company-for-construction-in-the-uk/`).
+- **"Destributions"/"Destributors" (misspelling)** — not a live route. `src/config/sectors.ts` has `hr-company-for-distribution-in-the-uk` (correct). The misspelled forms exist only as redirect sources.
 - **Duplicate sector routes / duplicate sector slugs** — none found. Verified programmatically: 17 slugs in `sectors.ts`, 17 in `sectors-data.ts`, exact 1:1 match, zero duplicates in either file.
-- **Sector names not matching their routes** — none found (every `title` in `sectors.ts` corresponds to a sensible slug; `technology` for "IT" and `health-care` for "Healthcare" are deliberate, approved slug choices, not mismatches).
+- **Sector names not matching their routes** — none found (every `title` in `sectors.ts` corresponds to a sensible slug per the D-017 `hr-company-for-{sector}-in-the-uk` convention; `hr-company-for-it-in-the-uk` for "IT" and `hr-company-for-healthcare-in-the-uk` for "Healthcare" are deliberate, approved slug choices, not mismatches).
 - **Missing sector pages** — none. All 17 approved sectors have both a config entry and a content record and both generate a live page.
 
 ### 3.5 Main location pages (16)
@@ -541,22 +541,22 @@ Per `docs/URL-DECISION-REGISTER.md` D-014, only each location's own curated serv
 
 | Location | Curated service-location pages | Category-location page |
 | --- | --- | --- |
-| London | `/services/executive-search-london/` · `/services/salary-benchmarking-london/` · `/services/employer-branding-and-employee-value-proposition-evp-london/` | — |
-| Manchester | `/services/permanent-recruitment-manchester/` · `/services/hris-implementation-manchester/` · `/services/strategic-workforce-planning-manchester/` | — |
-| Birmingham | `/services/permanent-recruitment-birmingham/` · `/services/hr-compliance-audit-birmingham/` · `/services/strategic-workforce-planning-birmingham/` | — |
-| Leeds | `/services/salary-benchmarking-leeds/` · `/services/permanent-recruitment-leeds/` · `/services/hris-implementation-leeds/` | — |
-| Bristol | `/services/permanent-recruitment-bristol/` · `/services/salary-benchmarking-bristol/` · `/services/hr-support-for-small-businesses-and-startups-bristol/` | — |
-| Edinburgh | `/services/executive-search-edinburgh/` · `/services/salary-benchmarking-edinburgh/` · `/services/hr-compliance-audit-edinburgh/` | — |
-| Glasgow | `/services/permanent-recruitment-glasgow/` · `/services/strategic-workforce-planning-glasgow/` · `/services/hr-compliance-audit-glasgow/` | — |
-| Nottingham | `/services/permanent-recruitment-nottingham/` · `/services/hr-compliance-audit-nottingham/` · `/services/strategic-workforce-planning-nottingham/` | — |
-| Newcastle | `/services/permanent-recruitment-newcastle/` · `/services/hr-support-for-small-businesses-and-startups-newcastle/` · `/services/salary-benchmarking-newcastle/` | — |
-| Warwickshire | `/services/permanent-recruitment-warwickshire/` · `/services/competency-frameworks-warwickshire/` · `/services/strategic-workforce-planning-warwickshire/` | — |
-| **Worcester** | `/services/permanent-recruitment-worcester/` · `/services/hr-support-for-small-businesses-and-startups-worcester/` · `/services/hr-compliance-audit-worcester/` | `/services/outsourced-hr-services-worcester/` **(orphaned — see §10)** |
-| Yorkshire | `/services/permanent-recruitment-yorkshire/` · `/services/strategic-workforce-planning-yorkshire/` · `/services/salary-benchmarking-yorkshire/` | — |
-| Staffordshire | `/services/permanent-recruitment-staffordshire/` · `/services/redundancy-and-restructuring-support-staffordshire/` · `/services/hr-compliance-audit-staffordshire/` | — |
-| **Liverpool** | `/services/permanent-recruitment-liverpool/` · `/services/recruitment-process-outsourcing-rpo-liverpool/` · `/services/hr-compliance-audit-liverpool/` | `/services/recruitment-talent-acquisition-liverpool/` **(orphaned — see §10)** |
-| Oxford | `/services/executive-search-oxford/` · `/services/strategic-workforce-planning-oxford/` · `/services/salary-benchmarking-oxford/` | — |
-| Leicester | `/services/permanent-recruitment-leicester/` · `/services/hr-compliance-audit-leicester/` · `/services/strategic-workforce-planning-leicester/` | — |
+| London | `/services/executive-search-firm-in-the-uk-london/` · `/services/salary-benchmarking-firm-in-the-uk-london/` · `/services/employer-branding-and-employee-value-proposition-evp-firm-in-the-uk-london/` | — |
+| Manchester | `/services/permanent-recruitment-firm-in-the-uk-manchester/` · `/services/hris-implementation-firm-in-the-uk-manchester/` · `/services/strategic-workforce-planning-firm-in-the-uk-manchester/` | — |
+| Birmingham | `/services/permanent-recruitment-firm-in-the-uk-birmingham/` · `/services/hr-compliance-audit-firm-in-the-uk-birmingham/` · `/services/strategic-workforce-planning-firm-in-the-uk-birmingham/` | — |
+| Leeds | `/services/salary-benchmarking-firm-in-the-uk-leeds/` · `/services/permanent-recruitment-firm-in-the-uk-leeds/` · `/services/hris-implementation-firm-in-the-uk-leeds/` | — |
+| Bristol | `/services/permanent-recruitment-firm-in-the-uk-bristol/` · `/services/salary-benchmarking-firm-in-the-uk-bristol/` · `/services/hr-support-for-small-businesses-and-startups-firm-in-the-uk-bristol/` | — |
+| Edinburgh | `/services/executive-search-firm-in-the-uk-edinburgh/` · `/services/salary-benchmarking-firm-in-the-uk-edinburgh/` · `/services/hr-compliance-audit-firm-in-the-uk-edinburgh/` | — |
+| Glasgow | `/services/permanent-recruitment-firm-in-the-uk-glasgow/` · `/services/strategic-workforce-planning-firm-in-the-uk-glasgow/` · `/services/hr-compliance-audit-firm-in-the-uk-glasgow/` | — |
+| Nottingham | `/services/permanent-recruitment-firm-in-the-uk-nottingham/` · `/services/hr-compliance-audit-firm-in-the-uk-nottingham/` · `/services/strategic-workforce-planning-firm-in-the-uk-nottingham/` | — |
+| Newcastle | `/services/permanent-recruitment-firm-in-the-uk-newcastle/` · `/services/hr-support-for-small-businesses-and-startups-firm-in-the-uk-newcastle/` · `/services/salary-benchmarking-firm-in-the-uk-newcastle/` | — |
+| Warwickshire | `/services/permanent-recruitment-firm-in-the-uk-warwickshire/` · `/services/competency-frameworks-firm-in-the-uk-warwickshire/` · `/services/strategic-workforce-planning-firm-in-the-uk-warwickshire/` | — |
+| **Worcester** | `/services/permanent-recruitment-firm-in-the-uk-worcester/` · `/services/hr-support-for-small-businesses-and-startups-firm-in-the-uk-worcester/` · `/services/hr-compliance-audit-firm-in-the-uk-worcester/` | `/services/outsourced-hr-services-firm-in-the-uk-worcester/` **(orphaned — see §10)** |
+| Yorkshire | `/services/permanent-recruitment-firm-in-the-uk-yorkshire/` · `/services/strategic-workforce-planning-firm-in-the-uk-yorkshire/` · `/services/salary-benchmarking-firm-in-the-uk-yorkshire/` | — |
+| Staffordshire | `/services/permanent-recruitment-firm-in-the-uk-staffordshire/` · `/services/redundancy-and-restructuring-support-firm-in-the-uk-staffordshire/` · `/services/hr-compliance-audit-firm-in-the-uk-staffordshire/` | — |
+| **Liverpool** | `/services/permanent-recruitment-firm-in-the-uk-liverpool/` · `/services/recruitment-process-outsourcing-rpo-firm-in-the-uk-liverpool/` · `/services/hr-compliance-audit-firm-in-the-uk-liverpool/` | `/services/recruitment-and-talent-acquisition-firm-in-the-uk-liverpool/` **(orphaned — see §10)** |
+| Oxford | `/services/executive-search-firm-in-the-uk-oxford/` · `/services/strategic-workforce-planning-firm-in-the-uk-oxford/` · `/services/salary-benchmarking-firm-in-the-uk-oxford/` | — |
+| Leicester | `/services/permanent-recruitment-firm-in-the-uk-leicester/` · `/services/hr-compliance-audit-firm-in-the-uk-leicester/` · `/services/strategic-workforce-planning-firm-in-the-uk-leicester/` | — |
 
 All 50 pages (48 + 2) render via the same `/services/[slug]/` route template, resolved through `getLocationCombo()` in `src/config/service-locations.ts`. All are indexable and all appear in `sitemap.ts`'s output.
 
@@ -631,7 +631,7 @@ Every page always prepends Home. Typical trails:
 | --- | --- | --- | --- |
 | 48 child services, 10 parent families, 17 sectors, 16 locations | **Yes** — directly from the header/footer/mobile nav | Yes | Fully discoverable, 1–2 clicks from anywhere |
 | 48 service-location pages | No (not in nav) | **Yes** — linked from both the relevant location page and the relevant service page | Discoverable, just not from global nav |
-| **2 category-location pages** (`/services/outsourced-hr-services-worcester/`, `/services/recruitment-talent-acquisition-liverpool/`) | No | **No — zero internal links found anywhere in the codebase.** Confirmed by searching every template and every generated link pattern. Only reachable by typing the URL, or via `sitemap.ts`'s output (not a human navigation path). | **Orphaned** |
+| **2 category-location pages** (`/services/outsourced-hr-services-firm-in-the-uk-worcester/`, `/services/recruitment-and-talent-acquisition-firm-in-the-uk-liverpool/`) | No | **No — zero internal links found anywhere in the codebase.** Confirmed by searching every template and every generated link pattern. Only reachable by typing the URL, or via `sitemap.ts`'s output (not a human navigation path). | **Orphaned** |
 | 41 of 62 talent-acquisition role pages | No | Yes — but only from one sector page each, 2 clicks deep (Home → Sector → Role), capped at 6 role links shown per sector even where a sector qualifies for more | **Weakly linked** |
 | **21 of 62 talent-acquisition role pages** (full list in §10) | No | **No — zero internal links found anywhere.** | **Orphaned** |
 | `/insights/` + 8 categories | **No** (conditionally hidden while `readyToIndex: false`) | No | **Orphaned** (intentionally, pending real content) |
@@ -678,7 +678,7 @@ None found. No duplicate public routes, no conflicting dynamic routes, no missin
 
 | Page/route | Description | Local source | Recommended action |
 | --- | --- | --- | --- |
-| `/services/outsourced-hr-services-worcester/` and `/services/recruitment-talent-acquisition-liverpool/` | Orphaned: generated, indexable, in the sitemap, but zero internal link points to either page from anywhere a visitor can browse | `src/components/templates/location-page-template.tsx` (links to individual services only, not the category combo), `src/components/templates/service-category-template.tsx` (no combo-linking logic at all) | Add a link to the category-location page from the parent location page (or the parent category page) if these two pages are meant to be found by visitors, not just crawlers |
+| `/services/outsourced-hr-services-firm-in-the-uk-worcester/` and `/services/recruitment-and-talent-acquisition-firm-in-the-uk-liverpool/` | Orphaned: generated, indexable, in the sitemap, but zero internal link points to either page from anywhere a visitor can browse | `src/components/templates/location-page-template.tsx` (links to individual services only, not the category combo), `src/components/templates/service-category-template.tsx` (no combo-linking logic at all) | Add a link to the category-location page from the parent location page (or the parent category page) if these two pages are meant to be found by visitors, not just crawlers |
 | 21 named talent-acquisition role pages (full list below) | Orphaned: zero internal link anywhere | `src/content/sectors-data.ts` (`relatedTalentRoleSlugs` never references them), no service-page equivalent exists | Either add these roles to a relevant sector's `relatedTalentRoleSlugs`, or accept they are sitemap-only discoverable |
 | `/insights/`, its 8 categories, `/resources/`, `/case-study/` | Currently unreachable from any navigation (conditionally hidden while `readyToIndex: false`) | `src/config/navigation.ts` | No action needed while genuinely empty — this is the intended behaviour; revisit once real content exists and the flag flips |
 | Talent-acquisition family | No `/talent-acquisition/` hub/index page exists | `src/config/routes.ts` (no entry for this family beyond the dynamic pattern) | Consider requesting an approved hub route if 62 individually-URL-typed pages is not an acceptable discovery path long-term |

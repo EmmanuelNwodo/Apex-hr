@@ -16,19 +16,19 @@ import { routes } from "@/config/routes";
  */
 
 const APPROVED_FIVE = [
-  "permanent-recruitment",
-  "executive-search",
-  "contract-staffing",
-  "recruitment-process-outsourcing-rpo",
-  "graduate-schemes-and-early-careers-design",
+  "permanent-recruitment-firm-in-the-uk",
+  "executive-search-firm-in-the-uk",
+  "contract-staffing-firm-in-the-uk",
+  "recruitment-process-outsourcing-rpo-firm-in-the-uk",
+  "graduate-schemes-and-early-careers-design-firm-in-the-uk",
 ];
 
 const APPROVED_INTENTS: Record<string, string> = {
-  "permanent-recruitment": "Recruitment support for permanent employees",
-  "executive-search": "Search and recruitment for senior, executive and leadership appointments",
-  "contract-staffing": "Recruitment support for temporary, interim or contract staffing needs",
-  "recruitment-process-outsourcing-rpo": "Outsourcing some or all recruitment-process activity",
-  "graduate-schemes-and-early-careers-design": "Designing structured graduate and early-career recruitment programmes",
+  "permanent-recruitment-firm-in-the-uk": "Recruitment support for permanent employees",
+  "executive-search-firm-in-the-uk": "Search and recruitment for senior, executive and leadership appointments",
+  "contract-staffing-firm-in-the-uk": "Recruitment support for temporary, interim or contract staffing needs",
+  "recruitment-process-outsourcing-rpo-firm-in-the-uk": "Outsourcing some or all recruitment-process activity",
+  "graduate-schemes-and-early-careers-design-firm-in-the-uk": "Designing structured graduate and early-career recruitment programmes",
 };
 
 const NOINDEX_HUB_PATHS = ["/insights/", "/resources/", "/case-study/"];
@@ -39,9 +39,9 @@ function buildBreadcrumbTrail(serviceTitle: string, serviceSlug: string) {
   return [
     routes.services,
     {
-      id: "recruitment-talent-acquisition",
+      id: "recruitment-and-talent-acquisition-firm-in-the-uk",
       label: "Recruitment & Talent Acquisition",
-      path: "/services/recruitment-talent-acquisition/",
+      path: "/services/recruitment-and-talent-acquisition-firm-in-the-uk/",
       status: "confirmed" as const,
       readyToIndex: true,
     },
@@ -50,7 +50,7 @@ function buildBreadcrumbTrail(serviceTitle: string, serviceSlug: string) {
 }
 
 describe("Recruitment & Talent Acquisition children — catalogue integrity", () => {
-  const family = getServicesByCategory("recruitment-talent-acquisition");
+  const family = getServicesByCategory("recruitment-and-talent-acquisition-firm-in-the-uk");
 
   it("has exactly five children, matching the approved slug list exactly", () => {
     expect(family.length).toBe(5);
@@ -128,7 +128,7 @@ describe("Recruitment & Talent Acquisition children — catalogue integrity", ()
   });
 
   it("Contract Staffing does not claim Apex HR is the legal employer, agency, payroll operator or tax adviser by default", () => {
-    const content = serviceContent.find((c) => c.slug === "contract-staffing")!;
+    const content = serviceContent.find((c) => c.slug === "contract-staffing-firm-in-the-uk")!;
     const allText = JSON.stringify(content).toLowerCase();
     // The service must acknowledge these roles only to disclaim them, not
     // assert them — checked via the explicit outOfScope/FAQ content.
@@ -138,7 +138,7 @@ describe("Recruitment & Talent Acquisition children — catalogue integrity", ()
   });
 
   it("expands RPO as 'Recruitment Process Outsourcing (RPO)' in its service title (first meaningful use = the H1)", () => {
-    const service = getService("recruitment-process-outsourcing-rpo")!;
+    const service = getService("recruitment-process-outsourcing-rpo-firm-in-the-uk")!;
     expect(service.title).toBe("Recruitment Process Outsourcing (RPO)");
   });
 });
@@ -169,7 +169,7 @@ describe("Recruitment & Talent Acquisition children — rendered content, per se
           />,
         );
         const links = getAllByRole("link").map((el) => el.getAttribute("href")?.replace(/\/$/, ""));
-        expect(links).toContain("/services/recruitment-talent-acquisition");
+        expect(links).toContain("/services/recruitment-and-talent-acquisition-firm-in-the-uk");
         expect(links).toContain("/for-employers");
       });
 
@@ -237,7 +237,7 @@ describe("Recruitment & Talent Acquisition children — service-location pages u
   // Batch 6B fields never reached location-page rendering.
   const AFFECTED = [
     {
-      serviceSlug: "permanent-recruitment",
+      serviceSlug: "permanent-recruitment-firm-in-the-uk",
       locationSlug: "manchester",
       locationTitle: "Manchester",
       heroSummary: "Permanent recruitment support from role definition through to offer, informed by genuine HR expertise, not just CV matching.",
@@ -249,7 +249,7 @@ describe("Recruitment & Talent Acquisition children — service-location pages u
       ],
     },
     {
-      serviceSlug: "executive-search",
+      serviceSlug: "executive-search-firm-in-the-uk",
       locationSlug: "london",
       locationTitle: "London",
       heroSummary: "A targeted, confidential search approach for senior and leadership hires where the wrong appointment carries real organisational risk.",

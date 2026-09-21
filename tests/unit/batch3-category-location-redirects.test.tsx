@@ -23,12 +23,34 @@ import { CategoryLocationTemplate } from "@/components/templates/category-locati
  * data ever changes.
  */
 
+// D-015's redirect rule *sources* in src/config/redirects.ts are historical
+// URLs frozen at the time that decision was recorded, and the URL-to-H1
+// alignment rename (see docs/URL-DECISION-REGISTER.md D-017) deliberately
+// left every redirect *source* untouched while renaming the live category
+// slugs in src/config/services.ts. This map lets the test reconstruct those
+// frozen historical combo URLs for comparison against the redirect sources,
+// independently of the current (renamed) category slugs used for matching
+// against today's live pages.
+const HISTORICAL_CATEGORY_SLUGS: Record<string, string> = {
+  "outsourced-hr-services-firm-in-the-uk": "outsourced-hr-services",
+  "recruitment-and-talent-acquisition-firm-in-the-uk": "recruitment-talent-acquisition",
+  "employment-law-and-employee-relations-firm-in-the-uk": "employment-law-and-employee-relations",
+  "organisation-development-and-change-management-firm-in-the-uk": "organisation-development-change-management",
+  "compensation-reward-and-benefits-firm-in-the-uk": "compensation-reward-and-benefits",
+  "learning-and-leadership-development-firm-in-the-uk": "learning-and-leadership-development",
+  "performance-and-talent-management-firm-in-the-uk": "performance-and-talent-management",
+  "employee-experience-and-engagement-firm-in-the-uk": "employee-experience-and-engagement",
+  "hr-technology-and-people-analytics-firm-in-the-uk": "hr-technology-and-people-analytics",
+  "strategic-hr-and-workforce-advisory-firm-in-the-uk": "strategic-hr-and-workforce-advisory",
+};
+
 // The 46 category-location combinations as D-014 originally defined them
 // (>=1 curated child service), recomputed independently of the current
 // >=2 threshold in src/config/service-locations.ts so this test can tell
 // "redirected" apart from "never existed."
 interface OriginalCombo {
   slug: string;
+  historicalSlug: string;
   categorySlug: string;
   locationSlug: string;
   childServiceSlugs: string[];
@@ -48,6 +70,7 @@ function computeOriginalCategoryLocationCombos(): OriginalCombo[] {
     for (const [categorySlug, childServiceSlugs] of byCategory) {
       combos.push({
         slug: `${categorySlug}-${location.slug}`,
+        historicalSlug: `${HISTORICAL_CATEGORY_SLUGS[categorySlug] ?? categorySlug}-${location.slug}`,
         categorySlug,
         locationSlug: location.slug,
         childServiceSlugs,
@@ -95,7 +118,7 @@ describe("Batch 3 — every retired combo has exactly one valid redirect", () =>
   });
 
   it("has exactly one redirect rule per retired combo source, with no source missing or duplicated", () => {
-    const retiredSources = retiredCombos.map((combo) => `/services/${combo.slug}/`);
+    const retiredSources = retiredCombos.map((combo) => `/services/${combo.historicalSlug}/`);
     const ruleSources = batch3Rules.map((rule) => rule.source);
 
     const missing = retiredSources.filter((source) => !ruleSources.includes(source));
@@ -110,7 +133,7 @@ describe("Batch 3 — every retired combo has exactly one valid redirect", () =>
   it("redirects each retired combo to its own single curated child service's service-location URL", () => {
     const mismatches: string[] = [];
     for (const combo of retiredCombos) {
-      const rule = batch3Rules.find((r) => r.source === `/services/${combo.slug}/`);
+      const rule = batch3Rules.find((r) => r.source === `/services/${combo.historicalSlug}/`);
       if (!rule) continue; // covered by the previous test
       const expectedDestination = `/services/${combo.childServiceSlugs[0]}-${combo.locationSlug}/`;
       if (rule.destination !== expectedDestination) {
@@ -174,7 +197,9 @@ describe("Batch 3 — no chains, loops or self-redirects among the D-015 rules",
 
 describe("Batch 3 — sitemap and route-record consistency", () => {
   it("has no retired combo source present in the content manifest (and therefore absent from the sitemap)", () => {
-    const stillPresent = retiredCombos.filter((combo) => manifestPathToEntry.has(`/services/${combo.slug}/`));
+    const stillPresent = retiredCombos.filter(
+      (combo) => manifestPathToEntry.has(`/services/${combo.historicalSlug}/`) || manifestPathToEntry.has(`/services/${combo.slug}/`),
+    );
     expect(
       stillPresent,
       `Retired combos still in the manifest: ${stillPresent.map((c) => c.slug).join(", ")}`,
@@ -190,7 +215,9 @@ describe("Batch 3 — sitemap and route-record consistency", () => {
 
 describe("Batch 3 — no internal link configuration points to a retired combo source", () => {
   it("has no manifest relatedPages reference to a retired combo", () => {
-    const retiredPaths = new Set(retiredCombos.map((combo) => `/services/${combo.slug}/`));
+    const retiredPaths = new Set(
+      retiredCombos.flatMap((combo) => [`/services/${combo.historicalSlug}/`, `/services/${combo.slug}/`]),
+    );
     const offenders: string[] = [];
     for (const entry of contentManifest) {
       for (const related of entry.relatedPages ?? []) {
@@ -201,7 +228,9 @@ describe("Batch 3 — no internal link configuration points to a retired combo s
   });
 
   it("has no manifest parent reference to a retired combo", () => {
-    const retiredPaths = new Set(retiredCombos.map((combo) => `/services/${combo.slug}/`));
+    const retiredPaths = new Set(
+      retiredCombos.flatMap((combo) => [`/services/${combo.historicalSlug}/`, `/services/${combo.slug}/`]),
+    );
     const offenders = contentManifest.filter((entry) => entry.parent && retiredPaths.has(entry.parent));
     expect(offenders.map((e) => e.canonicalPath)).toEqual([]);
   });
@@ -210,7 +239,9 @@ describe("Batch 3 — no internal link configuration points to a retired combo s
 describe("Batch 3 — the two retained category-location pages", () => {
   it("keeps exactly Outsourced HR Services–Worcester and Recruitment & Talent Acquisition–Liverpool indexable", () => {
     const slugs = categoryLocationCombos.map((c) => c.slug).sort();
-    expect(slugs).toEqual(["outsourced-hr-services-worcester", "recruitment-talent-acquisition-liverpool"].sort());
+    expect(slugs).toEqual(
+      ["outsourced-hr-services-firm-in-the-uk-worcester", "recruitment-and-talent-acquisition-firm-in-the-uk-liverpool"].sort(),
+    );
 
     for (const combo of categoryLocationCombos) {
       const entry = manifestPathToEntry.get(`/services/${combo.slug}/`);
@@ -283,7 +314,9 @@ describe("Batch 3 — the two retained category-location pages", () => {
 describe("Batch 3 — /llms.txt still excludes every disputed combination URL", () => {
   it("contains none of the 46 original category-location URLs, redirected or retained", () => {
     const llmsTxt = readFileSync(join(process.cwd(), "public/llms.txt"), "utf-8");
-    const present = originalCombos.filter((combo) => llmsTxt.includes(`/services/${combo.slug}/`));
+    const present = originalCombos.filter(
+      (combo) => llmsTxt.includes(`/services/${combo.historicalSlug}/`) || llmsTxt.includes(`/services/${combo.slug}/`),
+    );
     expect(present.map((c) => c.slug)).toEqual([]);
   });
 

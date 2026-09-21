@@ -47,7 +47,7 @@ const heroExamplePills = [
  * single rounded cream "page shell" card inset from the browser edges).
  */
 export default function SectorsPage() {
-  const healthCare = sectorContent.find((entry) => entry.slug === "health-care");
+  const healthCare = sectorContent.find((entry) => entry.slug === "hr-company-for-healthcare-in-the-uk");
   const jsonLd = [
     getCollectionPageJsonLd({
       path: routes.sectors.path,

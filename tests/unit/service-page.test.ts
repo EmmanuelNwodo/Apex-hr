@@ -3,13 +3,13 @@ import ServiceOrCategoryPage, { generateMetadata } from "@/app/services/[slug]/p
 
 describe("services/[slug] page — dynamic route resolution", () => {
   it("renders a known service slug without throwing", async () => {
-    const result = await ServiceOrCategoryPage({ params: Promise.resolve({ slug: "executive-search" }) });
+    const result = await ServiceOrCategoryPage({ params: Promise.resolve({ slug: "executive-search-firm-in-the-uk" }) });
     expect(result).toBeTruthy();
   });
 
   it("renders a known category slug without throwing", async () => {
     const result = await ServiceOrCategoryPage({
-      params: Promise.resolve({ slug: "recruitment-talent-acquisition" }),
+      params: Promise.resolve({ slug: "recruitment-and-talent-acquisition-firm-in-the-uk" }),
     });
     expect(result).toBeTruthy();
   });
@@ -23,7 +23,7 @@ describe("services/[slug] page — dynamic route resolution", () => {
 
 describe("services/[slug] page — metadata generation", () => {
   it("generates a title and description for a known service", async () => {
-    const metadata = await generateMetadata({ params: Promise.resolve({ slug: "executive-search" }) });
+    const metadata = await generateMetadata({ params: Promise.resolve({ slug: "executive-search-firm-in-the-uk" }) });
     expect(metadata.title).toBe("Executive Search Firm in the UK");
     expect(metadata.description).toBeTruthy();
   });

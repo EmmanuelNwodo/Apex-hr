@@ -20,29 +20,29 @@ const FILTERS: { key: FilterKey; label: string }[] = [
 ];
 
 const SECTOR_CATEGORIES: Record<string, FilterKey> = {
-  "startups-scale-ups": "business",
-  "professional-services": "business",
-  "health-care": "health",
-  "life-sciences": "health",
-  technology: "business",
-  "financial-services": "business",
-  accountants: "business",
-  architects: "built",
-  "care-homes": "health",
-  charity: "people",
-  construction: "built",
-  distribution: "operations",
-  education: "people",
-  engineers: "built",
-  leisure: "people",
-  manufacturers: "operations",
-  hospitality: "operations",
+  "hr-company-for-startups-and-scale-ups-in-the-uk": "business",
+  "hr-company-for-professional-services-in-the-uk": "business",
+  "hr-company-for-healthcare-in-the-uk": "health",
+  "hr-company-for-life-sciences-in-the-uk": "health",
+  "hr-company-for-it-in-the-uk": "business",
+  "hr-company-for-financial-services-in-the-uk": "business",
+  "hr-company-for-accountants-in-the-uk": "business",
+  "hr-company-for-architects-in-the-uk": "built",
+  "hr-company-for-care-homes-in-the-uk": "health",
+  "hr-company-for-charity-in-the-uk": "people",
+  "hr-company-for-construction-in-the-uk": "built",
+  "hr-company-for-distribution-in-the-uk": "operations",
+  "hr-company-for-education-in-the-uk": "people",
+  "hr-company-for-engineers-in-the-uk": "built",
+  "hr-company-for-leisure-in-the-uk": "people",
+  "hr-company-for-manufacturers-in-the-uk": "operations",
+  "hr-company-for-hospitality-in-the-uk": "operations",
 };
 
 // The two sectors given the larger "featured" treatment, per the approved
 // reference layout — startups/scale-ups (wide) and healthcare (tall).
-const FEATURED_WIDE_SLUG = "startups-scale-ups";
-const FEATURED_TALL_SLUG = "health-care";
+const FEATURED_WIDE_SLUG = "hr-company-for-startups-and-scale-ups-in-the-uk";
+const FEATURED_TALL_SLUG = "hr-company-for-healthcare-in-the-uk";
 
 const orderedSectors = [
   ...sectors.filter((sector) => sector.slug === FEATURED_WIDE_SLUG),

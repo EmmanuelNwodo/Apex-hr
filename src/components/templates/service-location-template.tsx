@@ -16,7 +16,7 @@ interface ServiceLocationTemplateProps {
   breadcrumbTrail: RouteRecord[];
   /** e.g. "Permanent Recruitment" or "Recruitment & Talent Acquisition" */
   entityTitle: string;
-  /** The real service or category page this combination page supports, e.g. "/services/permanent-recruitment/" */
+  /** The real service or category page this combination page supports, e.g. "/services/permanent-recruitment-firm-in-the-uk/" */
   entityHref: string;
   /** service.heroSummary or category.summary — real, unmodified per-entity copy. */
   entitySummary: string;

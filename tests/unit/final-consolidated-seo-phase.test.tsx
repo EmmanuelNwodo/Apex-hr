@@ -30,14 +30,14 @@ import path from "node:path";
  */
 
 const FINAL_EIGHT = [
-  "hris-implementation",
-  "hr-software-selection",
-  "people-analytics-and-hr-dashboards",
-  "digital-hr-transformation",
-  "ai-workplace-policy-and-hr-integration",
-  "people-strategy",
-  "strategic-workforce-planning",
-  "global-mobility-and-expatriate-hr-management",
+  "hris-implementation-firm-in-the-uk",
+  "hr-software-selection-firm-in-the-uk",
+  "people-analytics-and-hr-dashboards-firm-in-the-uk",
+  "digital-hr-transformation-firm-in-the-uk",
+  "ai-workplace-policy-and-hr-integration-firm-in-the-uk",
+  "people-strategy-firm-in-the-uk",
+  "strategic-workforce-planning-firm-in-the-uk",
+  "global-mobility-and-expatriate-hr-management-firm-in-the-uk",
 ];
 
 const GUARANTEE_LANGUAGE = /\bguarantee(d|s)?\b|\bpromise(d|s)?\b|\b100%\b/i;
@@ -59,8 +59,8 @@ function buildBreadcrumbTrail(categoryId: string, categoryLabel: string, service
 
 describe("Final eight services — catalogue integrity", () => {
   it("HR Technology & People Analytics has exactly five children; Strategic HR & Workforce Advisory has exactly three", () => {
-    expect(getServicesByCategory("hr-technology-and-people-analytics").length).toBe(5);
-    expect(getServicesByCategory("strategic-hr-and-workforce-advisory").length).toBe(3);
+    expect(getServicesByCategory("hr-technology-and-people-analytics-firm-in-the-uk").length).toBe(5);
+    expect(getServicesByCategory("strategic-hr-and-workforce-advisory-firm-in-the-uk").length).toBe(3);
   });
 
   it("all 48 individual services now carry outOfScope, differentiationNote and additionalFaqs", () => {
@@ -89,7 +89,7 @@ describe("Final eight services — catalogue integrity", () => {
     // employer wants, not a claim about Apex HR's own regulatory or
     // audited status. Only the fields that previously made that
     // positioning claim are checked here.
-    const content = serviceContent.find((c) => c.slug === "hr-software-selection")!;
+    const content = serviceContent.find((c) => c.slug === "hr-software-selection-firm-in-the-uk")!;
     const positioningFields = [
       content.metaDescription,
       content.heroSummary,
@@ -102,7 +102,7 @@ describe("Final eight services — catalogue integrity", () => {
   });
 
   it("HRIS Implementation's independence-adjacent FAQ was corrected without touching its two protected shared fields", () => {
-    const content = serviceContent.find((c) => c.slug === "hris-implementation")!;
+    const content = serviceContent.find((c) => c.slug === "hris-implementation-firm-in-the-uk")!;
     expect(content.faqs[0].answer.toLowerCase()).not.toMatch(/\bindependent\b/);
     expect(content.heroSummary).toBe(
       "Practical support implementing a new HRIS, so the rollout actually improves how HR data and processes work.",
@@ -115,12 +115,12 @@ describe("Final eight services — catalogue integrity", () => {
   });
 
   it("HRIS Implementation expands 'Human Resources Information System (HRIS)' in safely-editable copy", () => {
-    const content = serviceContent.find((c) => c.slug === "hris-implementation")!;
+    const content = serviceContent.find((c) => c.slug === "hris-implementation-firm-in-the-uk")!;
     expect(content.employerChallenge).toMatch(/Human Resources Information System \(HRIS\)/);
   });
 
   it("AI Workplace Policy & HR Integration expands 'artificial intelligence (AI)' in its hero summary", () => {
-    const content = serviceContent.find((c) => c.slug === "ai-workplace-policy-and-hr-integration")!;
+    const content = serviceContent.find((c) => c.slug === "ai-workplace-policy-and-hr-integration-firm-in-the-uk")!;
     expect(content.heroSummary).toMatch(/artificial intelligence \(AI\)/);
   });
 
@@ -146,19 +146,19 @@ describe("Final eight services — catalogue integrity", () => {
 
   it("HRIS Implementation has exactly Manchester and Leeds combos; Strategic Workforce Planning has exactly its known eight; the other six have none", () => {
     expect(
-      serviceLocationCombos.filter((c) => c.serviceSlug === "hris-implementation").map((c) => c.locationSlug).sort(),
+      serviceLocationCombos.filter((c) => c.serviceSlug === "hris-implementation-firm-in-the-uk").map((c) => c.locationSlug).sort(),
     ).toEqual(["leeds", "manchester"]);
     expect(
-      serviceLocationCombos.filter((c) => c.serviceSlug === "strategic-workforce-planning").map((c) => c.locationSlug).sort(),
+      serviceLocationCombos.filter((c) => c.serviceSlug === "strategic-workforce-planning-firm-in-the-uk").map((c) => c.locationSlug).sort(),
     ).toEqual(["birmingham", "glasgow", "leicester", "manchester", "nottingham", "oxford", "warwickshire", "yorkshire"].sort());
-    for (const slug of FINAL_EIGHT.filter((s) => s !== "hris-implementation" && s !== "strategic-workforce-planning")) {
+    for (const slug of FINAL_EIGHT.filter((s) => s !== "hris-implementation-firm-in-the-uk" && s !== "strategic-workforce-planning-firm-in-the-uk")) {
       expect(serviceLocationCombos.filter((c) => c.serviceSlug === slug)).toEqual([]);
     }
   });
 
   it("Strategic Workforce Planning's shared fields (heroSummary, whatItIncludes, first FAQ) are untouched, and no outOfScope content leaks onto its location pages", () => {
-    const content = serviceContent.find((c) => c.slug === "strategic-workforce-planning")!;
-    const combos = serviceLocationCombos.filter((c) => c.serviceSlug === "strategic-workforce-planning");
+    const content = serviceContent.find((c) => c.slug === "strategic-workforce-planning-firm-in-the-uk")!;
+    const combos = serviceLocationCombos.filter((c) => c.serviceSlug === "strategic-workforce-planning-firm-in-the-uk");
     expect(combos.length).toBeGreaterThan(0);
     for (const combo of combos) {
       const location = getLocation(combo.locationSlug);
@@ -168,7 +168,7 @@ describe("Final eight services — catalogue integrity", () => {
         <ServiceLocationTemplate
           breadcrumbTrail={[]}
           entityTitle="Strategic Workforce Planning"
-          entityHref="/services/strategic-workforce-planning/"
+          entityHref="/services/strategic-workforce-planning-firm-in-the-uk/"
           entitySummary={content.heroSummary}
           bulletListTitle="What this includes"
           bulletList={content.whatItIncludes}
@@ -190,14 +190,14 @@ describe("Final eight services — catalogue integrity", () => {
 
 describe("Final eight services — rendered content and employer-link completion", () => {
   const categoryLookup: Record<string, { id: string; label: string }> = {
-    "hris-implementation": { id: "hr-technology-and-people-analytics", label: "HR Technology & People Analytics" },
-    "hr-software-selection": { id: "hr-technology-and-people-analytics", label: "HR Technology & People Analytics" },
-    "people-analytics-and-hr-dashboards": { id: "hr-technology-and-people-analytics", label: "HR Technology & People Analytics" },
-    "digital-hr-transformation": { id: "hr-technology-and-people-analytics", label: "HR Technology & People Analytics" },
-    "ai-workplace-policy-and-hr-integration": { id: "hr-technology-and-people-analytics", label: "HR Technology & People Analytics" },
-    "people-strategy": { id: "strategic-hr-and-workforce-advisory", label: "Strategic HR & Workforce Advisory" },
-    "strategic-workforce-planning": { id: "strategic-hr-and-workforce-advisory", label: "Strategic HR & Workforce Advisory" },
-    "global-mobility-and-expatriate-hr-management": { id: "strategic-hr-and-workforce-advisory", label: "Strategic HR & Workforce Advisory" },
+    "hris-implementation-firm-in-the-uk": { id: "hr-technology-and-people-analytics-firm-in-the-uk", label: "HR Technology & People Analytics" },
+    "hr-software-selection-firm-in-the-uk": { id: "hr-technology-and-people-analytics-firm-in-the-uk", label: "HR Technology & People Analytics" },
+    "people-analytics-and-hr-dashboards-firm-in-the-uk": { id: "hr-technology-and-people-analytics-firm-in-the-uk", label: "HR Technology & People Analytics" },
+    "digital-hr-transformation-firm-in-the-uk": { id: "hr-technology-and-people-analytics-firm-in-the-uk", label: "HR Technology & People Analytics" },
+    "ai-workplace-policy-and-hr-integration-firm-in-the-uk": { id: "hr-technology-and-people-analytics-firm-in-the-uk", label: "HR Technology & People Analytics" },
+    "people-strategy-firm-in-the-uk": { id: "strategic-hr-and-workforce-advisory-firm-in-the-uk", label: "Strategic HR & Workforce Advisory" },
+    "strategic-workforce-planning-firm-in-the-uk": { id: "strategic-hr-and-workforce-advisory-firm-in-the-uk", label: "Strategic HR & Workforce Advisory" },
+    "global-mobility-and-expatriate-hr-management-firm-in-the-uk": { id: "strategic-hr-and-workforce-advisory-firm-in-the-uk", label: "Strategic HR & Workforce Advisory" },
   };
 
   for (const slug of FINAL_EIGHT) {
@@ -250,7 +250,7 @@ describe("Route inventory and sitemap", () => {
     expect(serviceLocationCombos.length).toBe(48);
     expect(categoryLocationCombos.length).toBe(2);
     expect(categoryLocationCombos.map((c) => c.slug).sort()).toEqual(
-      ["outsourced-hr-services-worcester", "recruitment-talent-acquisition-liverpool"].sort(),
+      ["outsourced-hr-services-firm-in-the-uk-worcester", "recruitment-and-talent-acquisition-firm-in-the-uk-liverpool"].sort(),
     );
   });
 

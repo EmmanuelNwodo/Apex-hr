@@ -31,19 +31,19 @@ const priorityRoutes = [
     icon: UserRoundSearch,
     title: "Hire the right people",
     detail: "Recruitment and executive search",
-    href: "/services/recruitment-talent-acquisition/",
+    href: "/services/recruitment-and-talent-acquisition-firm-in-the-uk/",
   },
   {
     icon: UsersRound,
     title: "Strengthen your HR",
     detail: "Outsourced support and compliance",
-    href: "/services/outsourced-hr-services/",
+    href: "/services/outsourced-hr-services-firm-in-the-uk/",
   },
   {
     icon: ChartNoAxesCombined,
     title: "Shape what comes next",
     detail: "Strategy, change and workforce advisory",
-    href: "/services/strategic-hr-and-workforce-advisory/",
+    href: "/services/strategic-hr-and-workforce-advisory-firm-in-the-uk/",
   },
 ];
 
