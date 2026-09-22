@@ -180,6 +180,99 @@ describe("4. Homepage trust stats: real values in SSR HTML, count-up preserved",
     expect(animateMock).toHaveBeenCalledTimes(1);
     expect(animateMock.mock.calls[0][1]).toBe(8);
     expect(animateMock.mock.calls[0][2]).toEqual({ duration: 1.6, ease: "easeOut" });
+    vi.doUnmock("motion/react");
+    vi.resetModules();
+  });
+
+  it("REGRESSION GUARD: reproduces framer's real ref-binding mechanism, not just a false -> true toggle, and proves the counter is not permanently stuck at 0", async () => {
+    // The bug this guards against: an earlier version of AnimatedStatValue
+    // rendered a plain <span> before a `hasMounted` flag flipped, then
+    // swapped to <motion.span> after — a different element type at the
+    // same tree position, which makes React unmount the first DOM node and
+    // mount a new one. Framer's REAL useInView
+    // (node_modules/framer-motion/dist/es/utils/use-in-view.mjs) attaches
+    // its IntersectionObserver in an effect keyed ONLY on the stable `ref`
+    // object:
+    //
+    //   useEffect(() => { ... observe(ref.current) ... }, [root, ref, ...])
+    //
+    // so it runs exactly once, on first mount, permanently bound to
+    // whichever node `ref.current` pointed to AT THAT MOMENT. A naive mock
+    // that just toggles a boolean (`useInView: () => true`, or a bare
+    // useState flip unconnected to `ref`) cannot catch this regression at
+    // all — it has no notion of "which DOM node" is being observed, so it
+    // reports the same true/false regardless of whether the real node was
+    // swapped out from under it. This mock instead reproduces the actual
+    // mechanism: it captures `ref.current` once (matching the `[ref]`-only
+    // dependency array) and only reports "in view" if that *original*
+    // node is still attached to the document when the intersection fires
+    // — exactly like a real IntersectionObserver, which cannot report
+    // intersection for an element that has been removed from the DOM.
+    const animateMock = vi.fn<(value: unknown, target: number, options: unknown) => { stop: () => void }>(() => ({
+      stop: vi.fn(),
+    }));
+    const fireIntersection: Array<() => void> = [];
+
+    vi.doMock("motion/react", async (importOriginal) => {
+      const actual = await importOriginal<typeof import("motion/react")>();
+      const React = await import("react");
+      return {
+        ...actual,
+        animate: animateMock,
+        useInView: (ref: React.RefObject<HTMLElement | null>) => {
+          const [inView, setInView] = React.useState(false);
+          React.useEffect(() => {
+            if (!ref.current) return;
+            // Faithful to framer: captured once, deps = [ref] only.
+            const observedNode = ref.current;
+            const onIntersect = () => {
+              if (document.body.contains(observedNode)) setInView(true);
+            };
+            fireIntersection.push(onIntersect);
+            return () => {
+              const i = fireIntersection.indexOf(onIntersect);
+              if (i !== -1) fireIntersection.splice(i, 1);
+            };
+          }, [ref]); // deliberately just [ref] — matches framer's real dependency array exactly
+          return inView;
+        },
+      };
+    });
+    vi.resetModules();
+
+    const { AnimatedStatValue: MockedAnimatedStatValue } = await import("@/components/content/animated-stat-value");
+    const { container } = render(<MockedAnimatedStatValue value="8" className="regression-stat" />);
+
+    // Before the viewport-entry transition: not yet animated, still
+    // showing the real target (this is also what SSR/pre-hydration shows).
+    expect(animateMock).not.toHaveBeenCalled();
+    const nodeBeforeTransition = container.querySelector(".regression-stat");
+    expect(nodeBeforeTransition).toBeTruthy();
+    expect(nodeBeforeTransition!.textContent).toBe("8");
+
+    // Fire the real intersection callback(s) exactly as a live
+    // IntersectionObserver would, wrapped in act() so the resulting
+    // effect run is flushed synchronously.
+    expect(fireIntersection.length, "useInView mock did not attach an observer").toBeGreaterThan(0);
+    await act(async () => {
+      fireIntersection.forEach((fn) => fn());
+    });
+
+    // The counter must have actually reached the animate() call — not be
+    // silently stuck at whatever count.set(0) last left it at. If the
+    // component still swapped element types across the mount transition,
+    // the observer above would have been bound to a now-detached node
+    // (document.body.contains(observedNode) === false) and this would
+    // fail exactly as it did in production.
+    expect(animateMock).toHaveBeenCalledTimes(1);
+    expect(animateMock.mock.calls[0][1]).toBe(8);
+    expect(animateMock.mock.calls[0][2]).toEqual({ duration: 1.6, ease: "easeOut" });
+
+    // The DOM node must be the exact same element instance before and
+    // after the transition — proving no unmount/remount happened that
+    // would have orphaned useInView's observer in the real browser.
+    const nodeAfterTransition = container.querySelector(".regression-stat");
+    expect(nodeAfterTransition).toBe(nodeBeforeTransition);
 
     vi.doUnmock("motion/react");
     vi.resetModules();
