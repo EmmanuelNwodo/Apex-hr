@@ -254,16 +254,15 @@ describe("Route inventory and sitemap", () => {
     );
   });
 
-  it("sitemap contains exactly 220 URLs, matching the indexable manifest entries, with no lastModified field", async () => {
+  it("sitemap contains exactly 221 URLs, matching the indexable manifest entries, with no lastModified field", async () => {
     // WordPress is unconfigured in the test environment (no WORDPRESS_API_URL),
     // so sitemap() contributes zero article entries here — see
     // tests/unit/wordpress.test.ts for WordPress-specific sitemap coverage
-    // with a mocked API. 220 = the previous 211 local pages + the Insights
-    // hub and its 8 category pages, now indexable per
-    // docs/URL-DECISION-REGISTER.md D-016 (routes.insights.readyToIndex
-    // flipped to true once WordPress had genuine published content).
+    // with a mocked API. 221 = the previous 220 local pages (211 + the
+    // Insights hub and its 8 category pages, per
+    // docs/URL-DECISION-REGISTER.md D-016) + the new /privacy-policy/ page.
     const entries = flattenSitemapGroups(await getSitemapGroups());
-    expect(entries.length).toBe(220);
+    expect(entries.length).toBe(221);
     expect(entries.length).toBe(contentManifest.filter((e) => e.indexable).length);
     for (const entry of entries) {
       expect(entry.lastModified).toBeUndefined();

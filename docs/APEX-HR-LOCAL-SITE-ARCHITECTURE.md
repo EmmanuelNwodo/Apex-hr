@@ -503,7 +503,7 @@ The three legacy misspellings (`nothingham`, `worchester`, `standfordshire`) are
 
 ### 3.8 Legal pages
 
-**None.** No `/privacy-policy/`, `/terms/`, `/cookie-policy/`, `/legal/` or equivalent route exists anywhere in `src/app/` or `src/config/routes.ts`.
+`/privacy-policy/` exists (`src/app/privacy-policy/page.tsx`, `routes.privacyPolicy`), Confirmed and indexable, implemented per explicit later user instruction. No `/terms/`, `/cookie-policy/` or `/legal/` route exists yet — the Privacy Policy's Section 15 (Cookies) references a Cookie Policy only as plain text, since `/cookie-policy/` doesn't exist; that route still needs to be created before that reference can safely link anywhere.
 
 ### 3.9 Admin and internal pages
 

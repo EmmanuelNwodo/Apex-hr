@@ -18,6 +18,7 @@ import {
   jobsPageContent,
   talentPoolPageContent,
 } from "@/content/supporting-pages-data";
+import { privacyPolicyLead } from "@/content/privacy-policy-data";
 
 /**
  * Machine-readable content manifest for the whole site, per this phase's
@@ -389,6 +390,11 @@ function buildManifest(): ContentManifestEntry[] {
     primaryKeyword?: string;
     /** SEO audit Phase 3 Batch 4: real internal links added/confirmed on the page. */
     relatedPages?: string[];
+    /**
+     * Overrides the loop's `false` default below — set `true` for genuinely
+     * legal content (currently only Privacy Policy) per CLAUDE.md section 31.
+     */
+    legalReviewRequired?: boolean;
   }> = [
     {
       pageType: "generalInformation",
@@ -440,6 +446,17 @@ function buildManifest(): ContentManifestEntry[] {
     { pageType: "conversionLanding", route: routes.findTalent, audience: "employer", lead: findTalentPageContent.lead, intent: "Capture an employer hiring enquiry" },
     { pageType: "conversionLanding", route: routes.jobs, audience: "candidate", lead: jobsPageContent.lead, intent: "Let candidates find current vacancies" },
     { pageType: "conversionLanding", route: routes.talentPool, audience: "candidate", lead: talentPoolPageContent.lead, intent: "Capture candidate interest for future roles" },
+    {
+      pageType: "generalInformation",
+      route: routes.privacyPolicy,
+      audience: "general",
+      lead: privacyPolicyLead,
+      intent: "Explain how Apex HR collects, uses, stores, shares and protects personal data",
+      h1: "Privacy Policy",
+      primaryKeyword: "Apex HR privacy policy",
+      relatedPages: [routes.contact.path],
+      legalReviewRequired: true,
+    },
   ];
 
   for (const page of supportingPages) {
@@ -460,7 +477,7 @@ function buildManifest(): ContentManifestEntry[] {
       metaDescription: page.lead,
       h1: page.h1 ?? page.route.label,
       relatedPages: page.relatedPages,
-      legalReviewRequired: false,
+      legalReviewRequired: page.legalReviewRequired ?? false,
     });
   }
 

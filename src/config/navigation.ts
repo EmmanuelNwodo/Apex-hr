@@ -62,5 +62,10 @@ export const footerNavigation = {
     { route: routes.experts },
     { route: routes.locations },
     { route: routes.contact },
+    // Added per explicit later user instruction (Privacy Policy
+    // implementation) — placed last in the existing "Company" column
+    // (no dedicated "Legal" column exists yet) rather than reorganising
+    // the footer's existing structure.
+    { route: routes.privacyPolicy },
   ] satisfies NavItem[],
 };

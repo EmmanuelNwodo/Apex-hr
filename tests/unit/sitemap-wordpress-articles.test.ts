@@ -100,11 +100,12 @@ describe("sitemap data — WordPress article entries", () => {
   it("contributes zero article entries (without failing) when WordPress is unavailable", async () => {
     getAllPublishedPostsForSitemap.mockResolvedValueOnce([]);
     const entries = await allEntries();
-    // 220 local, indexable manifest entries (211 + the Insights hub and its
-    // 8 categories, indexable since docs/URL-DECISION-REGISTER.md D-016) —
-    // see tests/unit/final-consolidated-seo-phase.test.tsx for the
-    // authoritative count assertion.
-    expect(entries.length).toBe(220);
+    // 221 local, indexable manifest entries (211 + the Insights hub and its
+    // 8 categories, indexable since docs/URL-DECISION-REGISTER.md D-016, +
+    // the /privacy-policy/ page) — see
+    // tests/unit/final-consolidated-seo-phase.test.tsx for the authoritative
+    // count assertion.
+    expect(entries.length).toBe(221);
   });
 
   it("handles an empty WordPress response gracefully", async () => {

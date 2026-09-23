@@ -23,10 +23,11 @@ import { serviceLocationCombos, categoryLocationCombos } from "@/config/service-
  * insight-sitemap.xml contributes zero article entries here — see
  * tests/unit/sitemap-wordpress-articles.test.ts for WordPress-specific
  * coverage with a mocked API, and tests/unit/wordpress.test.ts generally.
- * That means every count asserted here is the 220-local-page baseline,
- * not the 231 production figure (220 + live WordPress articles at build
- * time) — see the implementation report for the production build's
- * actual count.
+ * That means every count asserted here is the 221-local-page baseline
+ * (220 + the /privacy-policy/ page added per explicit later user
+ * instruction), not the 232 production figure (221 + live WordPress
+ * articles at build time) — see the implementation report for the
+ * production build's actual count.
  */
 
 const CHILD_SITEMAP_PATHS = [
@@ -109,13 +110,13 @@ describe("4 & 5. Every indexable URL appears exactly once across the child sitem
     expect(new Set(actual).size).toBe(actual.length);
   });
 
-  it("totals 220 unique URLs across the six child sitemaps in this WordPress-unconfigured test environment (231 in production, once live WordPress articles are included)", async () => {
+  it("totals 221 unique URLs across the six child sitemaps in this WordPress-unconfigured test environment (232 in production, once live WordPress articles are included)", async () => {
     const actual: string[] = [];
     for (const path of CHILD_SITEMAP_PATHS) {
       const { doc } = await xmlDocFrom(await CHILD_SITEMAP_HANDLERS[path]());
       actual.push(...locsOf(doc, "url"));
     }
-    expect(new Set(actual).size).toBe(220);
+    expect(new Set(actual).size).toBe(221);
   });
 });
 

@@ -147,6 +147,18 @@ export const routes = {
     status: "provisional",
     readyToIndex: false,
   },
+  // Added per explicit later user instruction (Privacy Policy
+  // implementation): real, complete policy content, so Confirmed +
+  // indexable per this file's own documented rule above. The
+  // "privacy-policy" segment was already reserved in
+  // src/config/reserved-slugs.ts in anticipation of this route.
+  privacyPolicy: {
+    id: "privacy-policy",
+    label: "Privacy Policy",
+    path: "/privacy-policy/",
+    status: "confirmed",
+    readyToIndex: true,
+  },
 } as const satisfies Record<string, RouteRecord>;
 
 export type RouteKey = keyof typeof routes;

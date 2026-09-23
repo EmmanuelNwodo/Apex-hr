@@ -247,3 +247,30 @@ export function getContactPageJsonLd(path: string) {
     isPartOf: { "@id": `${siteConfig.productionUrl}/#website` },
   };
 }
+
+interface WebPageJsonLdInput {
+  path: string;
+  name: string;
+  description: string;
+}
+
+/**
+ * Generic `WebPage` JSON-LD for an informational/legal page that doesn't
+ * fit a more specific schema.org page type (no `AboutPage`/`ContactPage`
+ * equivalent exists for a privacy policy) — per CLAUDE.md section 16's
+ * "use JSON-LD only when it matches visible content" and this page's own
+ * SEO brief. References the shared Organization/WebSite entities rather
+ * than duplicating or inventing organisation data.
+ */
+export function getWebPageJsonLd({ path, name, description }: WebPageJsonLdInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${absoluteUrl(path)}#webpage`,
+    url: absoluteUrl(path),
+    name,
+    description,
+    about: { "@id": `${siteConfig.productionUrl}/#organization` },
+    isPartOf: { "@id": `${siteConfig.productionUrl}/#website` },
+  };
+}
