@@ -13,6 +13,14 @@ export const metadata: Metadata = {
     default: siteConfig.defaultTitle,
   },
   description: siteConfig.defaultDescription,
+  // Site-wide Google Search Console ownership token. Declared once here (the
+  // root layout, applied to every route) rather than per-page, since
+  // buildMetadata() (src/lib/seo/metadata.ts) never sets `verification`
+  // itself — Next.js's metadata merging carries this field through to every
+  // page's <head> unchanged, so it can't be duplicated or overridden.
+  verification: {
+    google: "e0UimumOT4lUYc4E6Mbswhef7vdm9nNkkm7t3hXXUbM",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
