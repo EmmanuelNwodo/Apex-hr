@@ -307,7 +307,7 @@ export default function PartnershipPage() {
             </p>
           </RevealHeading>
 
-          <p id="partnership-table-scroll-hint" className="mt-7 flex items-center gap-2 text-small text-text-secondary lg:hidden">
+          <p id="partnership-table-scroll-hint" className="mt-7 flex items-center gap-2 text-small text-text-secondary xl:hidden">
             <ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0" />
             Scroll horizontally to compare all four partnership tiers.
           </p>
