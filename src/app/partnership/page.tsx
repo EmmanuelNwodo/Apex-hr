@@ -203,7 +203,7 @@ export default function PartnershipPage() {
       />
 
       <header className="bg-navy text-white">
-        <div className="mx-auto grid w-full max-w-[90rem] grid-cols-1 gap-10 px-5 py-10 sm:px-8 sm:py-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:px-12 lg:py-20">
+        <div className="mx-auto grid w-full max-w-360 grid-cols-1 gap-10 px-5 py-10 sm:px-8 sm:py-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:px-12 lg:py-20">
           <div className="flex flex-col items-start gap-6">
             <Breadcrumbs trail={[routes.partnership]} tone="dark" />
             <RevealHeading>
@@ -259,7 +259,7 @@ export default function PartnershipPage() {
       </header>
 
       <section id="partnership-tiers" className="scroll-mt-24 bg-white">
-        <div className="mx-auto w-full max-w-[90rem] px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
+        <div className="mx-auto w-full max-w-360 px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
           <RevealHeading className="max-w-3xl">
             <SectionKicker>Partnership tiers</SectionKicker>
             <h2 className="mt-4 font-display text-h2 font-bold text-navy">
@@ -296,7 +296,7 @@ export default function PartnershipPage() {
       </section>
 
       <section aria-labelledby="comparison-heading" className="bg-surface-page">
-        <div className="mx-auto w-full max-w-[90rem] px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
+        <div className="mx-auto w-full max-w-360 px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
           <RevealHeading className="max-w-3xl">
             <SectionKicker>Compare partnership levels</SectionKicker>
             <h2 id="comparison-heading" className="mt-4 font-display text-h2 font-bold text-navy">
@@ -318,13 +318,13 @@ export default function PartnershipPage() {
             tabIndex={0}
             className="mt-3 overflow-x-auto rounded-md border border-border-subtle focus-visible:outline-offset-4"
           >
-            <table className="w-full min-w-[1120px] table-fixed border-collapse text-left">
+            <table className="w-full min-w-280 table-fixed border-collapse text-left">
               <caption className="bg-navy px-5 py-4 text-left text-small font-semibold text-white">
                 Partnership tier comparison
               </caption>
               <colgroup>
-                <col className="w-[220px]" />
-                {partnershipPlans.map((plan) => <col key={plan.id} className="w-[225px]" />)}
+                <col className="w-55" />
+                {partnershipPlans.map((plan) => <col key={plan.id} className="w-56.25" />)}
               </colgroup>
               <thead className="bg-navy text-white">
                 <tr>
@@ -373,7 +373,7 @@ export default function PartnershipPage() {
       </section>
 
       <section className="bg-peach">
-        <div className="mx-auto w-full max-w-[90rem] px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
+        <div className="mx-auto w-full max-w-360 px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
           <RevealHeading className="max-w-3xl">
             <SectionKicker>What’s included</SectionKicker>
             <h2 className="mt-4 font-display text-h2 font-bold text-navy">Every partnership comes with this.</h2>
@@ -396,7 +396,7 @@ export default function PartnershipPage() {
       </section>
 
       <section className="bg-surface-page">
-        <div className="mx-auto w-full max-w-[90rem] px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
+        <div className="mx-auto w-full max-w-360 px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
           <RevealHeading className="max-w-3xl">
             <SectionKicker>Our global network</SectionKicker>
             <h2 className="mt-4 font-display text-h2 font-bold text-navy">Strategic partners across the world.</h2>
@@ -420,7 +420,7 @@ export default function PartnershipPage() {
       </section>
 
       <section className="bg-navy">
-        <div className="mx-auto flex w-full max-w-[90rem] flex-col items-center px-5 py-14 text-center sm:px-8 sm:py-16 lg:px-12 lg:py-20">
+        <div className="mx-auto flex w-full max-w-360 flex-col items-center px-5 py-14 text-center sm:px-8 sm:py-16 lg:px-12 lg:py-20">
           <SectionKicker tone="dark">Start a conversation</SectionKicker>
           <h2 className="mt-5 max-w-4xl font-display text-h2 font-bold text-white">
             Let’s find the right partnership for your business.
