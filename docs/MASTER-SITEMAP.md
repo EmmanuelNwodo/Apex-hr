@@ -65,6 +65,7 @@ The counts above include canonical pages, dynamic route patterns, explicit redir
 | Services | `/services/` | Confirmed | P1 |
 | Sectors | `/sector/` | Corrected | P1 |
 | About | `/about/` | Confirmed | P1 |
+| Partnership | `/partnership/` | Confirmed | P1 |
 | Contact | `/contact/` | Corrected | P1 |
 | For Employers | `/for-employers/` | Provisional | P1 |
 | Find Talent | `/find-talent/` | Provisional | P1 |

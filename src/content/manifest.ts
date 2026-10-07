@@ -413,6 +413,17 @@ function buildManifest(): ContentManifestEntry[] {
     },
     {
       pageType: "generalInformation",
+      route: routes.partnership,
+      audience: "employer",
+      lead: "Explore Apex HR’s monthly people partnership tiers, from strategic HR advisory to fractional Chief Human Resources Officer services.",
+      intent: "Compare monthly people partnership pricing and support levels",
+      title: "HR Partnership & Pricing",
+      h1: "Your dedicated people partner, on retainer.",
+      primaryKeyword: "monthly HR partnership pricing",
+      relatedPages: [routes.services.path, routes.forEmployers.path, routes.contact.path],
+    },
+    {
+      pageType: "generalInformation",
       route: routes.contact,
       audience: "general",
       lead: contactPageContent.lead,

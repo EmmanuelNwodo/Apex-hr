@@ -55,6 +55,13 @@ export const routes = {
     status: "confirmed",
     readyToIndex: true,
   },
+  partnership: {
+    id: "partnership",
+    label: "Partnership",
+    path: "/partnership/",
+    status: "confirmed",
+    readyToIndex: true,
+  },
   contact: {
     id: "contact",
     label: "Contact",

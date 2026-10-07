@@ -14,6 +14,7 @@ import type { CtaConfig, NavItem } from "@/types/navigation";
 export const primaryNavigation: NavItem[] = [
   { route: routes.about },
   { route: routes.services },
+  { route: routes.partnership },
   { route: routes.sectors },
   { route: routes.forEmployers },
   { route: routes.forCandidates },
@@ -40,6 +41,7 @@ export const footerNavigation = {
   // rationale as Insights/Resources below.
   employers: [
     { route: routes.services },
+    { route: routes.partnership },
     { route: routes.forEmployers },
     { route: routes.findTalent },
     { route: routes.sectors },
