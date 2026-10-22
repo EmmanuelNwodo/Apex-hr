@@ -63,15 +63,16 @@ describe("6. Production domain is .co.uk", () => {
   });
 });
 
-describe("7. info@apexhrllc.com remains the business email, unchanged", () => {
-  it("siteConfig.contactEmail is still info@apexhrllc.com", () => {
-    expect(siteConfig.contactEmail).toBe("info@apexhrllc.com");
+describe("7. the public business email uses the Apex HR contact address", () => {
+  it("siteConfig.contactEmail is info@apexhrllc.co.uk", () => {
+    expect(siteConfig.contactEmail).toBe("info@apexhrllc.co.uk");
   });
 
-  it("the rendered page uses info@apexhrllc.com as a real mailto link, never the .co.uk domain", () => {
+  it("the rendered page uses the configured address as a real mailto link", () => {
     const html = renderToString(<PrivacyPolicyPage />);
-    expect(html).toContain('href="mailto:info@apexhrllc.com"');
-    expect(html).not.toContain("info@apexhrllc.co.uk");
+    expect(html).toContain(`href="mailto:${siteConfig.contactEmail}"`);
+    expect(html).toContain(siteConfig.contactEmail);
+    expect(html).not.toContain(".com");
   });
 });
 
@@ -129,7 +130,7 @@ describe("8. Main policy content is server rendered (no hydration dependency)", 
     const html = renderToString(<PrivacyPolicyPage />);
     expect(html).toContain('href="/"'); // Home breadcrumb + website mentions
     expect(html).toContain('href="#introduction"'); // TOC link
-    expect(html).toContain('href="mailto:info@apexhrllc.com"');
+    expect(html).toContain(`href="mailto:${siteConfig.contactEmail}"`);
   });
 });
 

@@ -21,6 +21,8 @@
  * implementation report for the full list of resulting placeholders.
  */
 
+import { siteConfig } from "@/config/site";
+
 export interface PolicyParagraph {
   type: "paragraph";
   text: string;
@@ -110,7 +112,7 @@ export const privacyPolicySections: PolicySection[] = [
       {
         type: "contact",
         lines: [
-          { label: "Email", value: "info@apexhrllc.com", href: "mailto:info@apexhrllc.com" },
+          { label: "Email", value: siteConfig.contactEmail, href: `mailto:${siteConfig.contactEmail}` },
           { label: "Website", value: "https://www.apexhrllc.co.uk", href: "/" },
         ],
       },
@@ -500,7 +502,7 @@ export const privacyPolicySections: PolicySection[] = [
     heading: "How to exercise your rights",
     blocks: [
       p("To exercise a data-protection right or ask a question about how Apex HR handles your personal information, contact:"),
-      { type: "contact", lines: [{ label: "Email", value: "info@apexhrllc.com", href: "mailto:info@apexhrllc.com" }] },
+      { type: "contact", lines: [{ label: "Email", value: siteConfig.contactEmail, href: `mailto:${siteConfig.contactEmail}` }] },
       p("Please provide enough information for us to understand your request and, where necessary, verify your identity."),
       p("We will respond in accordance with the timeframes required by applicable data-protection law."),
     ],
@@ -558,7 +560,7 @@ export const privacyPolicySections: PolicySection[] = [
         type: "contact",
         lines: [
           { label: "", value: "Apex HR" },
-          { label: "Email", value: "info@apexhrllc.com", href: "mailto:info@apexhrllc.com" },
+          { label: "Email", value: siteConfig.contactEmail, href: `mailto:${siteConfig.contactEmail}` },
           { label: "Website", value: "https://www.apexhrllc.co.uk", href: "/" },
         ],
       },

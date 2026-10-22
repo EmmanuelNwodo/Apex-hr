@@ -11,6 +11,7 @@ import { redirectRules } from "@/config/redirects";
 import { serviceLocationCombos, categoryLocationCombos } from "@/config/service-locations";
 import { getLocation } from "@/config/locations";
 import { contentManifest } from "@/content/manifest";
+import { siteConfig } from "@/config/site";
 import { ServicePageTemplate } from "@/components/templates/service-page-template";
 import { ServiceLocationTemplate } from "@/components/templates/service-location-template";
 import { buildLocationFaqs } from "@/components/templates/location-page-template";
@@ -430,13 +431,13 @@ describe("llms.txt — canonical link validity against route configuration", () 
 
   it("contains the verified phone and email, and no fabricated street address or registration number", () => {
     expect(llmsTxt).toContain("+44 7762 272692");
-    expect(llmsTxt).toContain("info@apexhrllc.com");
+    expect(llmsTxt).toContain(siteConfig.contactEmail);
     expect(llmsTxt).not.toMatch(/\bpostcode\b|\bregistration number\b|\bcompany number\b/i);
   });
 
-  it("uses the current www.apexhrllc.co.uk website domain throughout, with the @apexhrllc.com email preserved as the one legitimate exception", () => {
+  it("uses the current www.apexhrllc.co.uk website domain throughout", () => {
     expect(links.length).toBeGreaterThan(0);
-    const withoutEmail = llmsTxt.replace("info@apexhrllc.com", "");
+    const withoutEmail = llmsTxt.replace(siteConfig.contactEmail, "");
     expect(withoutEmail).not.toContain("apexhrllc.com");
     expect(llmsTxt).toContain("https://www.apexhrllc.co.uk");
   });

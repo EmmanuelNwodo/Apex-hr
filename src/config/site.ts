@@ -36,7 +36,7 @@ export const siteConfig = {
     whatsapp: "447762272692",
   },
   /** Confirmed via the approved contact-page reference design, at the real production domain — used by the contact page and site footer. */
-  contactEmail: "info@apexhrllc.com",
+  contactEmail: "info@apexhrllc.co.uk",
 };
 
 export function absoluteUrl(path: string): string {
