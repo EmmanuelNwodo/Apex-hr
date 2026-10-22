@@ -62,6 +62,7 @@ export function JobApplicationForm({ vacancy }: { vacancy: Vacancy }) {
     const submissionKey = idempotencyKey ?? crypto.randomUUID();
     if (!idempotencyKey) setIdempotencyKey(submissionKey);
     const formData = new FormData();
+    formData.set("website", "");
     formData.set("firstName", values.firstName);
     formData.set("lastName", values.lastName);
     formData.set("email", values.email);

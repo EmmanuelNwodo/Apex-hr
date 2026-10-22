@@ -158,11 +158,27 @@ async function verifyTurnstile(token: string, ipAddress: string): Promise<void> 
     throw new ApplicationServiceError("security-check-failed", 400, "Complete the security check before submitting your application.");
   }
 
-  const expectedHost = new URL(process.env.NEXT_PUBLIC_SITE_URL || siteConfig.productionUrl).hostname.toLowerCase();
-  const hostname = "hostname" in result && typeof result.hostname === "string" ? result.hostname.toLowerCase() : "";
-  if (hostname !== expectedHost) {
-    throw new ApplicationServiceError("security-check-failed", 400, "Complete the security check before submitting your application.");
-  }
+  const productionHost = new URL(
+  process.env.NEXT_PUBLIC_SITE_URL || siteConfig.productionUrl,
+).hostname.toLowerCase();
+
+const hostname =
+  "hostname" in result && typeof result.hostname === "string"
+    ? result.hostname.toLowerCase()
+    : "";
+
+const allowedHostnames =
+  process.env.NODE_ENV === "production"
+    ? [productionHost]
+    : [productionHost, "localhost", "127.0.0.1"];
+
+if (!allowedHostnames.includes(hostname)) {
+  throw new ApplicationServiceError(
+    "security-check-failed",
+    400,
+    "Complete the security check before submitting your application.",
+  );
+}
 }
 
 function getWordPressEndpoint(): { url: URL; username: string; password: string } {
@@ -235,6 +251,14 @@ async function forwardApplication(submission: ApplicationSubmission): Promise<Wo
       "Applications are temporarily unavailable. Please try again later.",
     );
   }
+
+  if (!response.ok && process.env.NODE_ENV !== "production") {
+  const wordpressError = await response.clone().text();
+
+  console.error(
+    `[job-applications] WordPress rejected submission (${response.status}): ${wordpressError.slice(0, 1000)}`,
+  );
+}
 
   if (!response.ok) {
     if (response.status === 409) {
