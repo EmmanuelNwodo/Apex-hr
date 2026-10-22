@@ -632,7 +632,7 @@ Present Understand → Diagnose → Recommend → Implement → Measure as an or
 ### 17.9 Candidate gateway
 
 - Visually distinct but subordinate to the employer proposition.
-- Three clear actions: Search Jobs, Upload CV and Join Talent Pool.
+- Three clear actions: Job Board, Upload CV and Join Talent Pool.
 - Do not imply a candidate portal in phase one.
 
 ### 17.10 Insights, FAQs and final CTA
@@ -969,7 +969,7 @@ Preferred CTA examples:
 - Find Talent
 - Explore HR Services
 - Talk to an Expert
-- Search Jobs
+- Job Board
 - Join the Talent Pool
 - Read the Case Study
 - Meet Apex HR

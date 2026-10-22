@@ -95,6 +95,108 @@ export interface WpRestCategory {
   description?: string;
 }
 
+export type VacancyEmploymentType =
+  | "Permanent"
+  | "Temporary"
+  | "Contract"
+  | "Fixed-term"
+  | "Internship"
+  | "Part-time";
+
+export type VacancyWorkArrangement = "On-site" | "Hybrid" | "Remote";
+export type VacancyStatus = "open" | "closed" | "filled";
+
+export interface WpVacancyMeta {
+  apex_hr_vacancy_reference?: string;
+  apex_hr_responsibilities?: string;
+  apex_hr_requirements?: string;
+  apex_hr_desirable_skills?: string;
+  apex_hr_benefits?: string;
+  apex_hr_sector?: string;
+  apex_hr_department?: string;
+  apex_hr_location?: string;
+  apex_hr_employment_type?: VacancyEmploymentType | string;
+  apex_hr_workplace_arrangement?: VacancyWorkArrangement | string;
+  apex_hr_seniority?: string;
+  apex_hr_salary_min?: number | null;
+  apex_hr_salary_max?: number | null;
+  apex_hr_salary_currency?: string;
+  apex_hr_salary_display?: string;
+  apex_hr_salary_unit?: "HOUR" | "DAY" | "WEEK" | "MONTH" | "YEAR" | string;
+  apex_hr_closing_date?: string;
+  apex_hr_application_email?: string;
+  apex_hr_featured?: boolean;
+  apex_hr_vacancy_status?: VacancyStatus | string;
+  apex_hr_seo_title?: string;
+  apex_hr_meta_description?: string;
+}
+
+/** Public WordPress REST response from `/vacancies?_embed=1`. */
+export interface WpRestVacancy {
+  id: number;
+  date: string;
+  date_gmt: string;
+  modified: string;
+  modified_gmt: string;
+  slug: string;
+  status: WpPostStatus;
+  link: string;
+  title: WpRenderedField;
+  content: WpRenderedField;
+  excerpt: WpRenderedField;
+  featured_media: number;
+  meta?: WpVacancyMeta;
+  _embedded?: {
+    "wp:featuredmedia"?: WpEmbeddedFeaturedMedia[];
+  };
+}
+
+export interface Vacancy {
+  id: number;
+  slug: string;
+  status: VacancyStatus;
+  title: string;
+  reference: string;
+  summary: string;
+  descriptionHtml: string;
+  responsibilities: string[];
+  requirements: string[];
+  desirableSkills: string[];
+  benefits: string[];
+  sector: string;
+  department: string;
+  location: string;
+  employmentType: VacancyEmploymentType | "";
+  workplaceArrangement: VacancyWorkArrangement | "";
+  seniority: string;
+  salaryMin: number | null;
+  salaryMax: number | null;
+  salaryCurrency: string;
+  salaryDisplay: string;
+  salaryUnit: string;
+  closingDate: string;
+  applicationEmail: string;
+  featured: boolean;
+  seoTitle: string;
+  metaDescription: string;
+  publishedAt: string;
+  modifiedAt: string;
+}
+
+export interface VacancyQuery {
+  keyword?: string;
+  location?: string;
+  sector?: string;
+  employmentType?: string;
+  workplaceArrangement?: string;
+  seniority?: string;
+}
+
+export interface GetVacanciesResult {
+  vacancies: Vacancy[];
+  unavailable: boolean;
+}
+
 // --- Normalised internal model -------------------------------------------
 
 export interface ArticleImage {

@@ -33,3 +33,11 @@ Copy `.env.example` to `.env.local` and fill in real values as integrations
 are confirmed. No live credentials are required for the frontend to render —
 see `src/lib/sanity/` and `src/lib/supabase/` for the typed integration
 boundaries.
+
+## Job Board
+
+The WordPress vacancy plugin, publishing steps, Supabase migration and required
+Vercel environment variables are documented in
+[docs/JOB-BOARD-SETUP.md](./docs/JOB-BOARD-SETUP.md). The Next.js website is the
+public presentation layer; do not publish vacancy URLs or vacancy sitemap
+entries from the WordPress CMS.

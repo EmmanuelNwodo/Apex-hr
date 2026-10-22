@@ -157,7 +157,7 @@ export const forCandidatesPageContent: InfoPageContent = {
       answer: "Yes. You can join the talent pool and indicate that you are open to hearing about selected future opportunities.",
     },
   ],
-  primaryCta: { label: "Search Jobs", href: routes.jobs.path },
+  primaryCta: { label: "Job Board", href: routes.jobs.path },
 };
 
 export const findTalentPageContent: InfoPageContent = {
@@ -185,15 +185,15 @@ export const findTalentPageContent: InfoPageContent = {
 
 export const jobsPageContent: InfoPageContent = {
   kicker: "Jobs",
-  heading: "Current vacancies",
-  lead: "Search current vacancies handled by Apex HR.",
+  heading: "Apex HR Job Board",
+  lead: "Explore current vacancies published by Apex HR and filter opportunities by role, location and working arrangement.",
   sections: [
     {
-      heading: "About this page",
-      body: "The searchable jobs archive, including filtering by location, sector and role type, is being built out as the recruitment platform develops. No vacancies are fabricated or listed here until they are genuine, live roles.",
+      heading: "Find a role that fits",
+      body: "Vacancies shown here are published by Apex HR and reflect the information supplied for each role. If there is not a suitable opening today, you can join the talent pool to be considered for relevant future opportunities.",
     },
   ],
-  secondaryCta: { label: "Join the Talent Pool", href: routes.forCandidates.path },
+  secondaryCta: { label: "Join the Talent Pool", href: routes.talentPool.path },
 };
 
 export const talentPoolPageContent: InfoPageContent = {

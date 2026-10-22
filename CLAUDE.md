@@ -108,7 +108,7 @@ The public website is employer-first and candidate-visible.
 
 - Primary global CTA: `Find Talent`
 - Secondary employer CTA: `Meet Apex HR`, `Discuss Your Needs`, or a service-specific equivalent
-- Candidate CTA: `Search Jobs`
+- Candidate CTA: `Job Board`
 - Supporting candidate CTAs: `Join Talent Pool` and `Upload Your CV`
 
 Do not give employer, candidate and general-content journeys equal visual weight in the homepage hero. Candidate routes must remain easy to find in navigation and must appear as a dedicated gateway after the core employer proposition and proof.
@@ -200,12 +200,16 @@ Sanity may manage:
 - Testimonials
 - FAQs
 - Reports, resources, events and webinars
-- Jobs only when no ATS is currently the vacancy source of truth
+- Non-vacancy editorial content; live vacancies are owned by the WordPress vacancy feed until an ATS is selected (D-019)
 - SEO fields and social-sharing assets
 
 ### WordPress owns Insights/blog article content
 
 Per `docs/URL-DECISION-REGISTER.md` D-016, WordPress (`blog.apexhrllc.co.uk`, consumed headlessly via `src/lib/wordpress/`) is the source of truth for individual Insights/blog articles only — not for any other content type this section assigns to Sanity. The archive stays at `/insights/`; articles are served at the root-level `/[slug]/`. `blog.apexhrllc.co.uk` is the CMS/API origin only and must never be a public canonical, sitemap entry or visitor-facing link; `www.apexhrllc.co.uk` (or the current `NEXT_PUBLIC_SITE_URL`) is the only public canonical host.
+
+### WordPress vacancy feed
+
+Per D-019, the `vacancy` custom post type registered by `wordpress/apex-hr-vacancies/` is the current source of truth for live vacancies until an ATS is selected. The WordPress REST API supplies vacancy data to the Next.js Job Board; WordPress vacancy pages and sitemap entries are disabled. Next.js owns the public `/jobs/` archive, `/jobs/[slug]/` pages, canonical metadata and the live vacancy sitemap. Applications and private CVs remain in Supabase.
 
 ### Supabase owns operational and personal data
 
@@ -543,7 +547,7 @@ The homepage must be employer-first. Header and footer surround this ordered con
 - Present a concise UK HR and people-partner proposition.
 - Primary CTA: `Find Talent`.
 - Secondary CTA: `Meet Apex HR`.
-- Keep `Search Jobs` visible but visually subordinate.
+- Keep `Job Board` visible but visually subordinate.
 - Do not claim unverified market leadership, scale, outcomes or geographic presence.
 
 ### Trust section
@@ -690,7 +694,7 @@ Do not place personal or sensitive form values into analytics events.
 
 Provide clear routes to:
 
-- Search Jobs
+- Job Board
 - Upload Your CV
 - Join Talent Pool
 - Candidate resources
@@ -1320,7 +1324,7 @@ The following remain genuine approval or integration gates. They are not permiss
 | Gate | Working rule |
 |---|---|
 | Employer and candidate journey routes | Keep the recorded URLs Provisional until stakeholder sign-off |
-| Jobs and job details | Keep Provisional until the ATS and live-vacancy rules are confirmed |
+| Jobs and job details | Use the WordPress vacancy feed until an ATS is explicitly selected; only published, open, non-expired roles are indexable |
 | Find Talent | Keep the accessible fallback route Provisional; preserve an adapter boundary for the CRM |
 | Additional service candidates | Keep unmatched Website-Sitemap-only offers Provisional; Salesforce is Future |
 | Experts route | Treat `/experts/` and profiles as Provisional |

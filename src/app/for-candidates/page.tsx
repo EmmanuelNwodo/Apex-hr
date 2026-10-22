@@ -134,7 +134,7 @@ export default function ForCandidatesPage() {
                 <p className="max-w-lg text-lead text-white/70">{forCandidatesPageContent.lead}</p>
                 <div className="flex flex-wrap items-center gap-4">
                   <LinkButton href={routes.jobs.path} variant="primary" surface="dark">
-                    Search Jobs
+                    Job Board
                     <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
                   </LinkButton>
                   <LinkButton href={routes.talentPool.path} variant="secondary" surface="dark">
@@ -222,7 +222,7 @@ export default function ForCandidatesPage() {
                 </p>
                 <div className="flex shrink-0 flex-wrap gap-4">
                   <LinkButton href={routes.jobs.path} variant="primary" surface="dark">
-                    Search Jobs
+                    Job Board
                   </LinkButton>
                   <LinkButton href={routes.talentPool.path} variant="secondary" surface="dark">
                     Join Talent Pool

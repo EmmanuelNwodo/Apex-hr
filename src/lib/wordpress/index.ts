@@ -12,6 +12,15 @@ export {
   getRecentPosts,
   getRelatedPosts,
   getAllPublishedPostsForSitemap,
+  normalizeVacancy,
+  isVacancyExpired,
+  isVacancyOpen,
+  filterVacancies,
+  getOpenVacancies,
+  getVacancyBySlug,
+  getFeaturedVacancies,
+  getFilteredVacancies,
+  getOpenVacanciesForSitemap,
   normalizePost,
 } from "./client";
 export { isWordPressConfigured, wordpressConfig } from "./config";
@@ -27,4 +36,10 @@ export type {
   GetPostsResult,
   WpRestPost,
   WpRestCategory,
+  Vacancy,
+  VacancyEmploymentType,
+  VacancyQuery,
+  VacancyStatus,
+  VacancyWorkArrangement,
+  WpRestVacancy,
 } from "./types";

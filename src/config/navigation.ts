@@ -30,9 +30,9 @@ export const primaryCta: CtaConfig = {
 };
 
 export const candidateCta: CtaConfig = {
-  label: "Search Jobs",
+  label: "Job Board",
   route: routes.jobs,
-  analyticsId: "nav-search-jobs",
+  analyticsId: "nav-job-board",
 };
 
 export const footerNavigation = {

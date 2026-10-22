@@ -598,11 +598,11 @@ Primary nav (`primaryNavigation`): **About → Services (mega-menu) → Sectors 
 
 Utility nav (`utilityNavigation`): **Contact**.
 
-Persistent CTAs: **Search Jobs** (→ `/jobs/`) and **Find Talent** (→ `/find-talent/`, primary button).
+Persistent CTAs: **Job Board** (→ `/jobs/`) and **Find Talent** (→ `/find-talent/`, primary button).
 
 ### 6.2 Mobile navigation (`src/components/navigation/mobile-menu.tsx`)
 
-Mirrors the desktop structure via expandable disclosures: Services and Sectors each expand in place to show every category/child or every sector (same full lists as the desktop mega-menus, confirmed by reading the component — it maps over the exact same `serviceCategories`/`getServicesByCategory`/`sectors` data), plus a "View all services"/"View all sectors" link. About, For Employers, For Candidates and Contact are plain links. Search Jobs and Find Talent appear as buttons at the bottom of the drawer.
+Mirrors the desktop structure via expandable disclosures: Services and Sectors each expand in place to show every category/child or every sector (same full lists as the desktop mega-menus, confirmed by reading the component — it maps over the exact same `serviceCategories`/`getServicesByCategory`/`sectors` data), plus a "View all services"/"View all sectors" link. About, For Employers, For Candidates and Contact are plain links. Job Board and Find Talent appear as buttons at the bottom of the drawer.
 
 ### 6.3 Footer (`src/components/layout/site-footer.tsx` + `footerNavigation` in `src/config/navigation.ts`)
 

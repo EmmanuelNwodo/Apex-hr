@@ -5,9 +5,9 @@ import { buildSitemapIndexXml, SITEMAP_CONTENT_TYPE, type SitemapIndexEntry } fr
 /**
  * Sitemap index at /sitemap.xml — kept as the single URL submitted to
  * Search Console and referenced by robots.txt (src/app/robots.ts), now
- * pointing at the six grouped child sitemaps below instead of listing
+ * pointing at the grouped child sitemaps below instead of listing
  * every URL directly. Touches the WordPress feed (to compute an honest
- * `lastmod` for insight-sitemap.xml), so this matches the original
+ * `lastmod` for insight-sitemap.xml and vacancy-sitemap.xml), so this matches the original
  * src/app/sitemap.ts's revalidation window.
  */
 export const revalidate = 300;
@@ -22,6 +22,7 @@ export async function GET(): Promise<Response> {
     { loc: absoluteUrl("/location-sitemap.xml"), lastModified: latestLastModified(groups.location) },
     { loc: absoluteUrl("/talent-acquisition-sitemap.xml"), lastModified: latestLastModified(groups.talentAcquisition) },
     { loc: absoluteUrl("/insight-sitemap.xml"), lastModified: latestLastModified(groups.insight) },
+    { loc: absoluteUrl("/vacancy-sitemap.xml"), lastModified: latestLastModified(groups.vacancy) },
   ];
 
   const xml = buildSitemapIndexXml(entries, "/sitemap.xsl");

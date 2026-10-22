@@ -1,5 +1,6 @@
 import { absoluteUrl, siteConfig } from "@/config/site";
 import type { RouteRecord } from "@/types/route";
+import { stripHtmlToPlainText, type Vacancy } from "@/lib/wordpress";
 
 /**
  * Organization + WebSite JSON-LD for the homepage, per CLAUDE.md section 16
@@ -165,6 +166,80 @@ export function getBlogPostingJsonLd({
     ...(authorName ? { author: { "@type": "Person", name: authorName } } : {}),
     publisher: { "@id": `${siteConfig.productionUrl}/#organization` },
     isPartOf: { "@id": `${siteConfig.productionUrl}/#website` },
+  };
+}
+
+const schemaEmploymentType: Record<string, string> = {
+  Permanent: "FULL_TIME",
+  Temporary: "TEMPORARY",
+  Contract: "CONTRACTOR",
+  "Fixed-term": "TEMPORARY",
+  Internship: "INTERN",
+  "Part-time": "PART_TIME",
+};
+
+/** `JobPosting` data is limited to real, visible vacancy fields. */
+export function getJobPostingJsonLd(vacancy: Vacancy) {
+  const path = `/jobs/${vacancy.slug}/`;
+  const description = stripHtmlToPlainText(vacancy.descriptionHtml || vacancy.summary);
+  const hasStructuredSalary =
+    vacancy.salaryCurrency &&
+    vacancy.salaryUnit &&
+    (vacancy.salaryMin !== null || vacancy.salaryMax !== null);
+  const salaryValue = {
+    "@type": "QuantitativeValue",
+    ...(vacancy.salaryMin !== null ? { minValue: vacancy.salaryMin } : {}),
+    ...(vacancy.salaryMax !== null ? { maxValue: vacancy.salaryMax } : {}),
+    unitText: vacancy.salaryUnit,
+  };
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: vacancy.title,
+    description,
+    datePosted: vacancy.publishedAt,
+    ...(vacancy.closingDate ? { validThrough: `${vacancy.closingDate}T23:59:59+00:00` } : {}),
+    employmentType: schemaEmploymentType[vacancy.employmentType] ?? "OTHER",
+    hiringOrganization: {
+      "@type": "Organization",
+      name: siteConfig.legalName,
+      sameAs: siteConfig.productionUrl,
+    },
+    ...(vacancy.location
+      ? {
+          jobLocation: {
+            "@type": "Place",
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: vacancy.location,
+              addressCountry: "GB",
+            },
+          },
+        }
+      : {}),
+    ...(vacancy.workplaceArrangement === "Remote"
+      ? {
+          jobLocationType: "TELECOMMUTE",
+          applicantLocationRequirements: { "@type": "Country", name: "GB" },
+        }
+      : {}),
+    ...(hasStructuredSalary
+      ? {
+          baseSalary: {
+            "@type": "MonetaryAmount",
+            currency: vacancy.salaryCurrency,
+            value: salaryValue,
+          },
+        }
+      : {}),
+    identifier: {
+      "@type": "PropertyValue",
+      name: siteConfig.legalName,
+      value: vacancy.reference || String(vacancy.id),
+    },
+    url: absoluteUrl(path),
+    mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(path) },
   };
 }
 

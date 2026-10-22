@@ -91,10 +91,10 @@ export const routes = {
   },
   jobs: {
     id: "jobs",
-    label: "Jobs",
+    label: "Job Board",
     path: "/jobs/",
-    status: "provisional",
-    readyToIndex: false,
+    status: "confirmed",
+    readyToIndex: true,
   },
   talentPool: {
     id: "talent-pool",

@@ -366,7 +366,7 @@ describe("8. Homepage Employer Challenge Navigator: all service destinations cra
 
 describe("9 & 10. Indexable routes stay index,follow; intentionally-unfinished routes stay noindex,follow", () => {
   it("every intentionally-unfinished route's readyToIndex is still false", () => {
-    const unfinished = [routes.jobs, routes.talentPool, routes.findTalent, routes.resources, routes.caseStudies, routes.experts];
+    const unfinished = [routes.talentPool, routes.findTalent, routes.resources, routes.caseStudies, routes.experts];
     for (const route of unfinished) {
       expect(route.readyToIndex, route.path).toBe(false);
     }
@@ -383,6 +383,7 @@ describe("9 & 10. Indexable routes stay index,follow; intentionally-unfinished r
       routes.forEmployers,
       routes.forCandidates,
       routes.insights,
+      routes.jobs,
     ];
     for (const route of indexable) {
       expect(route.readyToIndex, route.path).toBe(true);
