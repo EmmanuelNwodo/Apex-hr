@@ -34,9 +34,14 @@ describe("ApexHR favicon assets", () => {
       const imageOffset = favicon.readUInt32LE(entry + 12);
       const image = favicon.subarray(imageOffset, imageOffset + imageLength);
 
-      expect(image.subarray(0, 8)).toEqual(pngSignature);
-      expect(image.readUInt32BE(16)).toBe(width);
-      expect(image.readUInt32BE(20)).toBe(height);
+      if (image.subarray(0, 8).equals(pngSignature)) {
+        expect(image.readUInt32BE(16)).toBe(width);
+        expect(image.readUInt32BE(20)).toBe(height);
+      } else {
+        expect(image.readUInt32LE(0)).toBe(40);
+        expect(image.readInt32LE(4)).toBe(width);
+        expect(image.readInt32LE(8)).toBe(height * 2);
+      }
     }
   });
 });

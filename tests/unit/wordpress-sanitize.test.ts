@@ -1,4 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 const PUBLIC_SITE_URL = "https://www.apexhrllc.co.uk";
 
@@ -75,6 +77,24 @@ describe("sanitizeArticleHtml", () => {
     expect(html).toContain('class="has-text-align-center wp-block-paragraph"');
   });
 
+  it("preserves inline, external, list and marked links while stripping imported inline background styles", () => {
+    const html = sanitizeArticleHtml(
+      '<p><a href="/internal/" style="background-color: yellow; background-image: linear-gradient(red, yellow); box-shadow: 0 0 4px yellow">internal</a> ' +
+        '<a href="https://example.com/" style="background: yellow">external</a> ' +
+        '<mark><a href="/marked-outside/">marked outside</a></mark> ' +
+        '<a href="/marked-inside/"><mark>marked inside</mark></a></p>' +
+        '<ul><li><a href="/list/" class="bg-yellow-200">list link</a></li></ul>',
+      PUBLIC_SITE_URL,
+    );
+
+    expect(html).toContain('<a href="/internal/" rel="noopener noreferrer">internal</a>');
+    expect(html).toContain('<a href="https://example.com/" rel="noopener noreferrer">external</a>');
+    expect(html).toContain('<mark><a href="/marked-outside/" rel="noopener noreferrer">marked outside</a></mark>');
+    expect(html).toContain('<a href="/marked-inside/" rel="noopener noreferrer"><mark>marked inside</mark></a>');
+    expect(html).toContain('<a href="/list/" class="bg-yellow-200" rel="noopener noreferrer">list link</a>');
+    expect(html).not.toContain("style=");
+  });
+
   it("rewrites a public WordPress article link to the public Next.js route", () => {
     const html = sanitizeArticleHtml(
       '<a href="https://blog.apexhrllc.co.uk/how-to-build-a-great-hr-team/">read more</a>',
@@ -103,6 +123,30 @@ describe("sanitizeArticleHtml", () => {
 
   it("returns an empty string for empty input without throwing", () => {
     expect(sanitizeArticleHtml("", PUBLIC_SITE_URL)).toBe("");
+  });
+});
+
+describe("WordPress article link styling", () => {
+  it("removes link and mark backgrounds only inside article content while keeping underlines and keyboard focus", () => {
+    const css = readFileSync(join(process.cwd(), "src", "app", "globals.css"), "utf8");
+    const articleLinkRule = css.match(/\.wp-content a\s*\{([^}]*)\}/)?.[1] ?? "";
+    const markedLinkRule = css.match(/\.wp-content mark,[\s\S]*?\{([^}]*)\}/)?.[1] ?? "";
+    const hoverRule = css.match(/\.wp-content a:hover\s*\{([^}]*)\}/)?.[1] ?? "";
+    const focusRule = css.match(/\.wp-content a:focus-visible\s*\{([^}]*)\}/)?.[1] ?? "";
+
+    expect(articleLinkRule).toContain("background: transparent !important");
+    expect(articleLinkRule).toContain("background-color: transparent !important");
+    expect(articleLinkRule).toContain("background-image: none !important");
+    expect(articleLinkRule).toContain("box-shadow: none");
+    expect(articleLinkRule).toContain("text-decoration-line: underline");
+    expect(articleLinkRule).toContain("text-decoration-thickness: from-font");
+    expect(articleLinkRule).toContain("text-underline-offset: 0.16em");
+    expect(markedLinkRule).toContain("background-color: transparent !important");
+    expect(markedLinkRule).toContain("color: inherit");
+    expect(hoverRule).toContain("color: var(--color-navy)");
+    expect(focusRule).toContain("outline:");
+    expect(focusRule).toContain("outline-offset:");
+    expect(css).not.toMatch(/(^|\n)\s*a\s*\{/);
   });
 });
 
