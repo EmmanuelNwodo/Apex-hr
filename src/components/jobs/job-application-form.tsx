@@ -73,6 +73,7 @@ export function JobApplicationForm({ vacancy }: { vacancy: Vacancy }) {
     formData.set("cv", values.cv[0]);
     formData.set("turnstileToken", turnstileToken);
     formData.set("idempotencyKey", submissionKey);
+    formData.set("vacancyId", String(vacancy.id));
     formData.set("vacancySlug", vacancy.slug);
     formData.set("sourcePath", window.location.pathname);
     formData.set("attribution", JSON.stringify(getAttribution()));

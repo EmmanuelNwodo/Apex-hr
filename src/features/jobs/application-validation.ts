@@ -66,6 +66,10 @@ export async function validateCvFile(file: File): Promise<CvValidationError | nu
 
   const extension = file.name.toLowerCase().match(/\.(pdf|docx?)$/)?.[0] as keyof typeof acceptedFiles | undefined;
   if (!extension) return "cv-extension";
+  const stem = file.name.slice(0, -extension.length);
+  if (/\.(php\d*|phtml|phar|exe|com|bat|cmd|sh|js|html?|svg|pl|py|rb|jar|scr|msi|dll)$/i.test(stem)) {
+    return "cv-extension";
+  }
 
   const accepted = acceptedFiles[extension];
   if (file.type !== accepted.mime) return "cv-mime";

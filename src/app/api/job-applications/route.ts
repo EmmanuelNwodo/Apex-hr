@@ -1,12 +1,11 @@
-import { siteConfig } from "@/config/site";
 import { ApplicationServiceError, submitJobApplication } from "@/features/jobs/application-service";
 
 export const runtime = "nodejs";
 
-function requestOriginAllowed(origin: string | null): boolean {
+function requestOriginAllowed(origin: string | null, requestUrl: string): boolean {
   if (!origin) return false;
   try {
-    return new URL(origin).origin === new URL(siteConfig.productionUrl).origin;
+    return new URL(origin).origin === new URL(requestUrl).origin;
   } catch {
     return false;
   }
@@ -17,8 +16,12 @@ function getTrustedClientIp(request: Request): string {
 }
 
 export async function POST(request: Request): Promise<Response> {
-  if (!requestOriginAllowed(request.headers.get("origin"))) {
+  if (!requestOriginAllowed(request.headers.get("origin"), request.url)) {
     return Response.json({ success: false, code: "origin-not-allowed", message: "Refresh the page and try again." }, { status: 403 });
+  }
+  const contentLength = Number(request.headers.get("content-length") || 0);
+  if (contentLength > 6 * 1024 * 1024) {
+    return Response.json({ success: false, code: "request-too-large", message: "Your CV must be no larger than 5 MB." }, { status: 413 });
   }
 
   let formData: FormData;

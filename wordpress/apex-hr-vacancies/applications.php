@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'APEX_HR_APPLICATIONS_SCHEMA_VERSION', '1' );
+define( 'APEX_HR_APPLICATIONS_SCHEMA_VERSION', '2' );
 define( 'APEX_HR_APPLICATIONS_OPTION', 'apex_hr_applications_schema_version' );
 define( 'APEX_HR_APPLICATIONS_TABLE_SUFFIX', 'apex_hr_applications' );
 define( 'APEX_HR_APPLICATIONS_RECIPIENT_OPTION', 'apex_hr_application_notification_recipient' );
@@ -86,6 +86,7 @@ function apex_hr_applications_install_schema() {
 	$sql             = "CREATE TABLE {$table} (
 		id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 		public_uuid char(36) NOT NULL,
+		idempotency_key char(36) DEFAULT NULL,
 		vacancy_id bigint(20) unsigned NOT NULL,
 		vacancy_title varchar(255) NOT NULL DEFAULT '',
 		vacancy_slug varchar(200) NOT NULL DEFAULT '',
@@ -119,6 +120,7 @@ function apex_hr_applications_install_schema() {
 		anonymised_at datetime NULL,
 		PRIMARY KEY  (id),
 		UNIQUE KEY public_uuid (public_uuid),
+		UNIQUE KEY idempotency_key (idempotency_key),
 		KEY vacancy_id (vacancy_id),
 		KEY candidate_email (candidate_email),
 		KEY application_status (application_status),
@@ -153,6 +155,38 @@ function apex_hr_applications_maybe_upgrade_schema() {
 add_action( 'plugins_loaded', 'apex_hr_applications_maybe_upgrade_schema', 5 );
 
 /**
+ * Create or upgrade the restricted Next.js integration role.
+ *
+ * @return void
+ */
+function apex_hr_applications_register_submitter_role() {
+	$role = get_role( 'apex_hr_application_submitter' );
+	if ( ! $role ) {
+		$role = add_role(
+			'apex_hr_application_submitter',
+			__( 'Apex HR Application Submitter', 'apex-hr-vacancies' ),
+			array(
+				'read'                           => true,
+				'submit_apex_hr_applications'    => true,
+			)
+		);
+	}
+
+	if ( ! $role ) {
+		return;
+	}
+
+	foreach ( array_keys( $role->capabilities ) as $capability ) {
+		if ( ! in_array( $capability, array( 'read', 'submit_apex_hr_applications' ), true ) ) {
+			$role->remove_cap( $capability );
+		}
+	}
+	$role->add_cap( 'read' );
+	$role->add_cap( 'submit_apex_hr_applications' );
+}
+add_action( 'plugins_loaded', 'apex_hr_applications_register_submitter_role', 6 );
+
+/**
  * Grant only the application capabilities required by site administrators.
  *
  * @return void
@@ -175,6 +209,7 @@ function apex_hr_applications_grant_admin_capabilities() {
  */
 function apex_hr_applications_activate() {
 	apex_hr_applications_install_schema();
+	apex_hr_applications_register_submitter_role();
 	apex_hr_applications_grant_admin_capabilities();
 }
 register_activation_hook( __DIR__ . '/apex-hr-vacancies.php', 'apex_hr_applications_activate' );
@@ -332,6 +367,398 @@ function apex_hr_applications_delete_private_file( $file_path ) {
 }
 
 /**
+
+ * Resolve a stored random filename strictly within private CV storage.
+ *
+ * @param string $filename Stored CV filename.
+ * @return string|WP_Error
+ */
+function apex_hr_applications_resolve_cv_file( $filename ) {
+	$directory = apex_hr_applications_private_directory();
+	if ( is_wp_error( $directory ) ) {
+		return $directory;
+	}
+
+	$filename = (string) $filename;
+	if ( ! preg_match( '/^[a-f0-9]{32}\.(?:pdf|doc|docx)$/', $filename ) ) {
+		return new WP_Error( 'apex_hr_cv_path_invalid', __( 'The private CV file could not be found.', 'apex-hr-vacancies' ) );
+	}
+
+	$candidate = trailingslashit( $directory ) . $filename;
+	$resolved  = realpath( $candidate );
+	if ( false === $resolved || is_link( $candidate ) || ! is_file( $resolved ) || wp_normalize_path( dirname( $resolved ) ) !== wp_normalize_path( $directory ) ) {
+		return new WP_Error( 'apex_hr_cv_path_invalid', __( 'The private CV file could not be found.', 'apex-hr-vacancies' ) );
+	}
+
+	return $resolved;
+}
+
+/**
+ * Validate an uploaded CV using its extension, detected MIME type and content.
+ *
+ * @param array<string, mixed> $file PHP uploaded-file data.
+ * @return array<string, mixed>|WP_Error
+ */
+function apex_hr_applications_validate_cv_upload( $file ) {
+	if ( ! is_array( $file ) || ! isset( $file['error'], $file['tmp_name'], $file['name'], $file['size'] ) || UPLOAD_ERR_OK !== (int) $file['error'] || ! is_uploaded_file( $file['tmp_name'] ) ) {
+		return new WP_Error( 'apex_hr_invalid_cv', __( 'Upload a valid PDF, DOC or DOCX CV of no more than 5 MB.', 'apex-hr-vacancies' ) );
+	}
+
+	$original_name = sanitize_file_name( wp_basename( (string) $file['name'] ) );
+	$extension     = strtolower( pathinfo( $original_name, PATHINFO_EXTENSION ) );
+	$size          = (int) $file['size'];
+	$temporary     = (string) $file['tmp_name'];
+
+	if ( ! in_array( $extension, array( 'pdf', 'doc', 'docx' ), true ) || $size < 1 || $size > APEX_HR_APPLICATIONS_MAX_CV_SIZE || ! is_readable( $temporary ) ) {
+		return new WP_Error( 'apex_hr_invalid_cv', __( 'Upload a valid PDF, DOC or DOCX CV of no more than 5 MB.', 'apex-hr-vacancies' ) );
+	}
+
+	$stem = pathinfo( $original_name, PATHINFO_FILENAME );
+	if ( preg_match( '/\.(?:php\d*|phtml|phar|exe|com|bat|cmd|sh|js|html?|svg|pl|py|rb|jar|scr|msi|dll)(?:[-_.].*)?$/i', $stem ) ) {
+		return new WP_Error( 'apex_hr_invalid_cv', __( 'The uploaded CV file is not an accepted document.', 'apex-hr-vacancies' ) );
+	}
+
+	if ( ! class_exists( 'finfo' ) ) {
+		return new WP_Error( 'apex_hr_cv_mime_unavailable', __( 'CV file validation is unavailable.', 'apex-hr-vacancies' ) );
+	}
+	$finfo = new finfo( FILEINFO_MIME_TYPE );
+	$mime  = strtolower( (string) $finfo->file( $temporary ) );
+	$bytes = file_get_contents( $temporary );
+	if ( false === $bytes ) {
+		return new WP_Error( 'apex_hr_invalid_cv', __( 'The uploaded CV file could not be read.', 'apex-hr-vacancies' ) );
+	}
+	if ( 0 === strpos( $bytes, 'MZ' ) || 0 === strpos( $bytes, "\x7FELF" ) || 0 === strpos( $bytes, '#!' ) || false !== stripos( $bytes, '<?php' ) || false !== stripos( $bytes, '<?=') ) {
+		return new WP_Error( 'apex_hr_invalid_cv', __( 'The uploaded CV file is not an accepted document.', 'apex-hr-vacancies' ) );
+	}
+
+	$valid = false;
+	if ( 'pdf' === $extension ) {
+		$valid = 'application/pdf' === $mime && 0 === strpos( $bytes, '%PDF-' ) && ! preg_match( '/\/(?:JavaScript|JS|EmbeddedFile|Launch|OpenAction)\b/i', $bytes );
+	} elseif ( 'doc' === $extension ) {
+		$valid = in_array( $mime, array( 'application/msword', 'application/x-ole-storage', 'application/vnd.ms-office', 'application/cdfv2' ), true ) && 8 <= strlen( $bytes ) && "\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1" === substr( $bytes, 0, 8 ) && false === stripos( $bytes, '_VBA_PROJECT' );
+	} elseif ( 'docx' === $extension && in_array( $mime, array( 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/zip' ), true ) && class_exists( 'ZipArchive' ) ) {
+		$archive = new ZipArchive();
+		if ( true === $archive->open( $temporary ) ) {
+			$has_document = false;
+			$has_types    = false;
+			$unsafe_entry = false;
+			for ( $index = 0; $index < $archive->numFiles; $index++ ) {
+				$entry = $archive->getNameIndex( $index );
+				if ( false === $entry || 0 === strpos( $entry, '/' ) || false !== strpos( $entry, '..' ) ) {
+					$unsafe_entry = true;
+					break;
+				}
+				$has_document = $has_document || 'word/document.xml' === $entry;
+				$has_types    = $has_types || '[Content_Types].xml' === $entry;
+				if ( preg_match( '/\.(?:php\d*|phtml|phar|exe|com|bat|cmd|sh|js|html?|svg|pl|py|rb|jar|scr|msi|dll|bin)$/i', $entry ) || preg_match( '~(?:^|/)word/embeddings(?:/|$)|vbaProject~i', $entry ) ) {
+					$unsafe_entry = true;
+					break;
+				}
+			}
+			$valid = ! $unsafe_entry && $has_document && $has_types;
+			$archive->close();
+		}
+	}
+
+	if ( ! $valid ) {
+		return new WP_Error( 'apex_hr_invalid_cv', __( 'Upload a valid PDF, DOC or DOCX CV of no more than 5 MB.', 'apex-hr-vacancies' ) );
+	}
+
+	return array(
+		'extension'     => $extension,
+		'mime'          => $mime,
+		'size'          => $size,
+		'original_name' => $original_name,
+		'temporary'     => $temporary,
+	);
+}
+
+/**
+ * Resolve an open published vacancy from authoritative WordPress data.
+ *
+ * @param mixed  $vacancy_id   Submitted vacancy ID.
+ * @param string $vacancy_slug Submitted vacancy slug.
+ * @return array<string, mixed>|WP_Error
+ */
+function apex_hr_applications_get_open_vacancy( $vacancy_id, $vacancy_slug ) {
+	$vacancy_id = absint( $vacancy_id );
+	$vacancy    = $vacancy_id ? get_post( $vacancy_id ) : null;
+	if ( ! $vacancy || 'vacancy' !== $vacancy->post_type || 'publish' !== $vacancy->post_status || (string) $vacancy->post_name !== $vacancy_slug ) {
+		return new WP_Error( 'apex_hr_vacancy_unavailable', __( 'This vacancy is not available for applications.', 'apex-hr-vacancies' ), array( 'status' => 409 ) );
+	}
+
+	$closing_date = (string) get_post_meta( $vacancy_id, 'apex_hr_closing_date', true );
+	if ( 'Open' !== get_post_meta( $vacancy_id, 'apex_hr_vacancy_status', true ) || ( '' !== $closing_date && $closing_date < wp_date( 'Y-m-d' ) ) ) {
+		return new WP_Error( 'apex_hr_vacancy_unavailable', __( 'This vacancy is not available for applications.', 'apex-hr-vacancies' ), array( 'status' => 409 ) );
+	}
+
+	return array(
+		'id'        => $vacancy_id,
+		'title'     => sanitize_text_field( get_the_title( $vacancy_id ) ),
+		'slug'      => sanitize_title( $vacancy->post_name ),
+		'reference' => sanitize_text_field( (string) get_post_meta( $vacancy_id, 'apex_hr_vacancy_reference', true ) ),
+	);
+}
+
+/**
+ * Check a UUID-shaped idempotency key against the existing application table.
+ *
+ * @param string $key Idempotency UUID.
+ * @return object|null|WP_Error
+ */
+function apex_hr_applications_find_idempotent( $key ) {
+	global $wpdb;
+	$table = apex_hr_applications_table_name();
+	$row   = $wpdb->get_row( $wpdb->prepare( "SELECT public_uuid, notification_status FROM {$table} WHERE idempotency_key = %s LIMIT 1", $key ) );
+	if ( '' !== $wpdb->last_error ) {
+		return new WP_Error( 'apex_hr_application_lookup_failed', __( 'Applications are temporarily unavailable.', 'apex-hr-vacancies' ), array( 'status' => 503 ) );
+	}
+	return $row;
+}
+
+/**
+ * Insert an application and its private CV, then notify the configured team.
+ *
+ * @param WP_REST_Request $request REST request.
+ * @return WP_REST_Response|WP_Error
+ */
+function apex_hr_applications_rest_submit( $request ) {
+	global $wpdb;
+
+	$content_type = (string) $request->get_header( 'content-type' );
+	if ( 0 !== stripos( $content_type, 'multipart/form-data' ) ) {
+		return new WP_Error( 'apex_hr_invalid_content_type', __( 'Submit the application using the application form.', 'apex-hr-vacancies' ), array( 'status' => 415 ) );
+	}
+
+	$values = array();
+	$limits = array(
+		'firstName'     => 80,
+		'lastName'      => 80,
+		'email'         => 254,
+		'phone'         => 40,
+		'linkedin'      => 2048,
+		'coverLetter'   => 5000,
+		'message'       => 3000,
+		'vacancySlug'   => 120,
+		'consentVersion'=> 64,
+		'sourceUrl'     => 2048,
+	);
+	foreach ( $limits as $field => $limit ) {
+		$value = $request->get_param( $field );
+		if ( ! is_scalar( $value ) || strlen( (string) $value ) > $limit ) {
+			return new WP_Error( 'apex_hr_invalid_application', __( 'Check the application fields and try again.', 'apex-hr-vacancies' ), array( 'status' => 400 ) );
+		}
+		$values[ $field ] = trim( (string) $value );
+	}
+
+	$idempotency_key = sanitize_text_field( (string) $request->get_header( 'idempotency-key' ) );
+	$submitted_key   = sanitize_text_field( (string) $request->get_param( 'idempotencyKey' ) );
+	if ( ! preg_match( '/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $idempotency_key ) || ! hash_equals( $idempotency_key, $submitted_key ) ) {
+		return new WP_Error( 'apex_hr_invalid_idempotency_key', __( 'Refresh the application form and try again.', 'apex-hr-vacancies' ), array( 'status' => 400 ) );
+	}
+
+	$email = sanitize_email( $values['email'] );
+	if ( ! is_email( $email ) || '' === $values['firstName'] || '' === $values['lastName'] || strlen( $values['phone'] ) < 5 || 'true' !== $request->get_param( 'privacyConsent' ) || 'job-application-v1' !== $values['consentVersion'] ) {
+		return new WP_Error( 'apex_hr_invalid_application', __( 'Check the application fields and try again.', 'apex-hr-vacancies' ), array( 'status' => 400 ) );
+	}
+	if ( '' !== $values['linkedin'] && ( ! wp_http_validate_url( $values['linkedin'] ) || ! preg_match( '~^https://([a-z0-9-]+\.)?linkedin\.com/~i', $values['linkedin'] ) ) ) {
+		return new WP_Error( 'apex_hr_invalid_application', __( 'Check the application fields and try again.', 'apex-hr-vacancies' ), array( 'status' => 400 ) );
+	}
+	$source_url = esc_url_raw( $values['sourceUrl'], array( 'https' ) );
+	if ( ! $source_url || ! wp_http_validate_url( $source_url ) ) {
+		return new WP_Error( 'apex_hr_invalid_application', __( 'Refresh the vacancy page and try again.', 'apex-hr-vacancies' ), array( 'status' => 400 ) );
+	}
+	$vacancy_slug = sanitize_title( $values['vacancySlug'] );
+	if ( '' === $vacancy_slug || $vacancy_slug !== $values['vacancySlug'] ) {
+		return new WP_Error( 'apex_hr_vacancy_unavailable', __( 'This vacancy is not available for applications.', 'apex-hr-vacancies' ), array( 'status' => 409 ) );
+	}
+
+	$existing = apex_hr_applications_find_idempotent( $idempotency_key );
+	if ( is_wp_error( $existing ) ) {
+		return $existing;
+	}
+	if ( $existing ) {
+		return new WP_REST_Response(
+			array( 'success' => true, 'data' => array( 'uuid' => $existing->public_uuid, 'duplicate' => true ) ),
+			200
+		);
+	}
+
+	$vacancy = apex_hr_applications_get_open_vacancy( $request->get_param( 'vacancyId' ), $vacancy_slug );
+	if ( is_wp_error( $vacancy ) ) {
+		return $vacancy;
+	}
+	$files = $request->get_file_params();
+	$cv    = isset( $files['cv'] ) ? apex_hr_applications_validate_cv_upload( $files['cv'] ) : new WP_Error( 'apex_hr_cv_required', __( 'Upload your CV or résumé.', 'apex-hr-vacancies' ) );
+	if ( is_wp_error( $cv ) ) {
+		return new WP_Error( 'apex_hr_invalid_cv', $cv->get_error_message(), array( 'status' => 400 ) );
+	}
+
+	$directory = apex_hr_applications_private_directory();
+	if ( is_wp_error( $directory ) ) {
+		return new WP_Error( 'apex_hr_storage_unavailable', __( 'Applications are temporarily unavailable.', 'apex-hr-vacancies' ), array( 'status' => 503 ) );
+	}
+	$stored_filename = apex_hr_applications_random_cv_filename( $cv['extension'] );
+	if ( is_wp_error( $stored_filename ) ) {
+		return new WP_Error( 'apex_hr_storage_unavailable', __( 'Applications are temporarily unavailable.', 'apex-hr-vacancies' ), array( 'status' => 503 ) );
+	}
+	$stored_path = trailingslashit( $directory ) . $stored_filename;
+	if ( ! move_uploaded_file( $cv['temporary'], $stored_path ) ) {
+		return new WP_Error( 'apex_hr_storage_unavailable', __( 'Applications are temporarily unavailable.', 'apex-hr-vacancies' ), array( 'status' => 503 ) );
+	}
+	if ( DIRECTORY_SEPARATOR !== '\\' && ( ! @chmod( $stored_path, 0600 ) || 0600 !== ( fileperms( $stored_path ) & 0777 ) ) ) {
+		wp_delete_file( $stored_path );
+		return new WP_Error( 'apex_hr_storage_unavailable', __( 'Applications are temporarily unavailable.', 'apex-hr-vacancies' ), array( 'status' => 503 ) );
+	}
+
+	$public_uuid = wp_generate_uuid4();
+	$created_at  = current_time( 'mysql', true );
+	$attribution = array();
+	foreach ( array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content' ) as $field ) {
+		$value = $request->get_param( $field );
+		if ( is_scalar( $value ) ) {
+			$attribution[ $field ] = sanitize_text_field( substr( (string) $value, 0, 255 ) );
+		}
+	}
+
+	$inserted = $wpdb->insert(
+		apex_hr_applications_table_name(),
+		array(
+			'public_uuid'          => $public_uuid,
+			'idempotency_key'      => $idempotency_key,
+			'vacancy_id'           => $vacancy['id'],
+			'vacancy_title'        => $vacancy['title'],
+			'vacancy_slug'         => $vacancy['slug'],
+			'vacancy_reference'    => $vacancy['reference'],
+			'candidate_first_name' => sanitize_text_field( $values['firstName'] ),
+			'candidate_last_name'  => sanitize_text_field( $values['lastName'] ),
+			'candidate_email'      => $email,
+			'candidate_phone'      => sanitize_text_field( $values['phone'] ),
+			'linkedin_url'         => '' === $values['linkedin'] ? '' : esc_url_raw( $values['linkedin'], array( 'https' ) ),
+			'supporting_statement' => sanitize_textarea_field( $values['coverLetter'] ),
+			'additional_message'   => sanitize_textarea_field( $values['message'] ),
+			'private_cv_path'      => $stored_filename,
+			'cv_original_filename' => $cv['original_name'],
+			'cv_mime_type'         => $cv['mime'],
+			'cv_file_size'         => $cv['size'],
+			'application_status'   => 'New',
+			'notification_status'  => 'pending',
+			'privacy_consent'      => 1,
+			'consent_text_version' => $values['consentVersion'],
+			'consent_timestamp'    => $created_at,
+			'source_url'           => $source_url,
+			'utm_source'           => isset( $attribution['utm_source'] ) ? $attribution['utm_source'] : '',
+			'utm_medium'           => isset( $attribution['utm_medium'] ) ? $attribution['utm_medium'] : '',
+			'utm_campaign'         => isset( $attribution['utm_campaign'] ) ? $attribution['utm_campaign'] : '',
+			'utm_term'             => isset( $attribution['utm_term'] ) ? $attribution['utm_term'] : '',
+			'utm_content'          => isset( $attribution['utm_content'] ) ? $attribution['utm_content'] : '',
+			'created_at'           => $created_at,
+			'updated_at'           => $created_at,
+		),
+		array( '%s', '%s', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
+	);
+
+	if ( false === $inserted ) {
+		wp_delete_file( $stored_path );
+		$existing = apex_hr_applications_find_idempotent( $idempotency_key );
+		if ( $existing && ! is_wp_error( $existing ) ) {
+			return new WP_REST_Response( array( 'success' => true, 'data' => array( 'uuid' => $existing->public_uuid, 'duplicate' => true ) ), 200 );
+		}
+		return new WP_Error( 'apex_hr_application_save_failed', __( 'Applications are temporarily unavailable.', 'apex-hr-vacancies' ), array( 'status' => 503 ) );
+	}
+
+	$application_id = (int) $wpdb->insert_id;
+	$admin_url      = add_query_arg(
+		array( 'page' => 'apex-hr-applications', 'application_id' => $application_id ),
+		admin_url( 'admin.php' )
+	);
+	$recipient = sanitize_email( (string) get_option( APEX_HR_APPLICATIONS_RECIPIENT_OPTION, APEX_HR_APPLICATIONS_DEFAULT_RECIPIENT ) );
+	if ( ! is_email( $recipient ) ) {
+		$recipient = APEX_HR_APPLICATIONS_DEFAULT_RECIPIENT;
+	}
+	$submitted_date = gmdate( 'Y-m-d H:i:s', strtotime( $created_at . ' UTC' ) ) . ' UTC';
+	$email_lines    = array(
+		'Candidate: ' . trim( $values['firstName'] . ' ' . $values['lastName'] ),
+		'Email: ' . $email,
+		'Telephone: ' . sanitize_text_field( $values['phone'] ),
+		'LinkedIn: ' . ( '' !== $values['linkedin'] ? esc_url_raw( $values['linkedin'], array( 'https' ) ) : 'Not provided' ),
+		'Vacancy: ' . $vacancy['title'],
+		'Vacancy reference: ' . ( '' !== $vacancy['reference'] ? $vacancy['reference'] : 'Not provided' ),
+		'Application UUID: ' . $public_uuid,
+		'Submitted: ' . $submitted_date,
+		'Cover letter / supporting statement: ' . ( '' !== $values['coverLetter'] ? sanitize_textarea_field( $values['coverLetter'] ) : 'Not provided' ),
+		'Additional message: ' . ( '' !== $values['message'] ? sanitize_textarea_field( $values['message'] ) : 'Not provided' ),
+		'Source page: ' . $source_url,
+		'Campaign attribution: ' . ( ! empty( $attribution ) ? wp_json_encode( $attribution ) : 'None' ),
+		'View application: ' . $admin_url,
+		'CV: Stored privately. Download it from the protected application screen.',
+	);
+	$mail_sent = false;
+	try {
+		$mail_sent = wp_mail(
+			$recipient,
+			'Job application: ' . sanitize_text_field( $vacancy['title'] ),
+			implode( "\n", $email_lines ),
+			array( 'Reply-To: ' . $email )
+		);
+	} catch ( Throwable $exception ) {
+		$mail_sent = false;
+	}
+	$notification_updated = $wpdb->update(
+		apex_hr_applications_table_name(),
+		array(
+			'notification_status' => $mail_sent ? 'sent' : 'failed',
+			'notification_error'  => $mail_sent ? null : 'WordPress mail delivery failed.',
+			'updated_at'          => current_time( 'mysql', true ),
+		),
+		array( 'id' => $application_id ),
+		array( '%s', '%s', '%s' ),
+		array( '%d' )
+	);
+	if ( ! $mail_sent ) {
+		error_log( '[Apex HR] Application notification delivery failed.' );
+	}
+	if ( false === $notification_updated ) {
+		error_log( '[Apex HR] Application notification status could not be updated.' );
+	}
+
+	return new WP_REST_Response( array( 'success' => true, 'data' => array( 'uuid' => $public_uuid, 'duplicate' => false ) ), 201 );
+}
+
+/**
+ * Check access to the authenticated application-submission endpoint.
+ *
+ * @return true|WP_Error
+ */
+function apex_hr_applications_rest_permission() {
+	if ( ! is_user_logged_in() ) {
+		return new WP_Error( 'apex_hr_authentication_required', __( 'Authentication is required.', 'apex-hr-vacancies' ), array( 'status' => 401 ) );
+	}
+	if ( ! current_user_can( 'submit_apex_hr_applications' ) ) {
+		return new WP_Error( 'apex_hr_submission_forbidden', __( 'Application submission is not permitted.', 'apex-hr-vacancies' ), array( 'status' => 403 ) );
+	}
+	return true;
+}
+
+/**
+ * Register the private application submission route.
+ *
+ * @return void
+ */
+function apex_hr_applications_register_rest_routes() {
+	register_rest_route(
+		'apex-hr/v1',
+		'/applications',
+		array(
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => 'apex_hr_applications_rest_submit',
+			'permission_callback' => 'apex_hr_applications_rest_permission',
+		)
+	);
+}
+add_action( 'rest_api_init', 'apex_hr_applications_register_rest_routes' );
+
+/**
  * Register the application submenu pages and settings API option.
  *
  * @return void
@@ -419,7 +846,7 @@ function apex_hr_applications_sanitize_recipient( $value ) {
 function apex_hr_applications_render_recipient_field() {
 	$value = get_option( APEX_HR_APPLICATIONS_RECIPIENT_OPTION, APEX_HR_APPLICATIONS_DEFAULT_RECIPIENT );
 	echo '<input class="regular-text" type="email" id="' . esc_attr( APEX_HR_APPLICATIONS_RECIPIENT_OPTION ) . '" name="' . esc_attr( APEX_HR_APPLICATIONS_RECIPIENT_OPTION ) . '" value="' . esc_attr( $value ) . '" required />';
-	echo '<p class="description">' . esc_html__( 'This recipient is saved for the Phase 2 notification integration. No email is sent in Phase 1.', 'apex-hr-vacancies' ) . '</p>';
+	echo '<p class="description">' . esc_html__( 'New applications are sent to this recipient by WordPress. Configure the site SMTP service for reliable delivery.', 'apex-hr-vacancies' ) . '</p>';
 }
 
 /**
@@ -697,7 +1124,7 @@ function apex_hr_applications_render_details( $application ) {
 		'linkedin_url'          => __( 'LinkedIn URL', 'apex-hr-vacancies' ),
 		'supporting_statement'  => __( 'Cover letter / supporting statement', 'apex-hr-vacancies' ),
 		'additional_message'    => __( 'Additional message', 'apex-hr-vacancies' ),
-		'private_cv_path'       => __( 'Private CV storage path', 'apex-hr-vacancies' ),
+		'private_cv_path'       => __( 'Private CV storage', 'apex-hr-vacancies' ),
 		'cv_original_filename'  => __( 'Original CV filename', 'apex-hr-vacancies' ),
 		'cv_mime_type'           => __( 'CV MIME type', 'apex-hr-vacancies' ),
 		'cv_file_size'           => __( 'CV file size (bytes)', 'apex-hr-vacancies' ),
@@ -724,6 +1151,8 @@ function apex_hr_applications_render_details( $application ) {
 		$value = $application->{$column};
 		if ( 'privacy_consent' === $column ) {
 			$value = (int) $value ? __( 'Yes', 'apex-hr-vacancies' ) : __( 'No', 'apex-hr-vacancies' );
+		} elseif ( 'private_cv_path' === $column ) {
+			$value = '' !== $value ? __( 'Stored in private server storage.', 'apex-hr-vacancies' ) : __( 'No CV file is stored.', 'apex-hr-vacancies' );
 		}
 		echo '<tr><th scope="row" style="width:240px">' . esc_html( $label ) . '</th><td style="white-space:pre-wrap;overflow-wrap:anywhere">' . esc_html( (string) $value ) . '</td></tr>';
 	}
@@ -769,7 +1198,22 @@ function apex_hr_applications_render_details_page() {
 		printf( '<option value="%1$s" %2$s>%3$s</option>', esc_attr( $value ), selected( $application->application_status, $value, false ), esc_html( $label ) );
 	}
 	echo '</select> <button type="submit" class="button button-primary">' . esc_html__( 'Save status', 'apex-hr-vacancies' ) . '</button></form>';
-	echo '<h2>' . esc_html__( 'CV file', 'apex-hr-vacancies' ) . '</h2><p><button type="button" class="button" disabled>' . esc_html__( 'Download CV', 'apex-hr-vacancies' ) . '</button> ' . esc_html__( 'Private download endpoint will be added in Phase 2.', 'apex-hr-vacancies' ) . '</p></div>';
+	echo '<h2>' . esc_html__( 'CV file', 'apex-hr-vacancies' ) . '</h2>';
+	$cv_file = apex_hr_applications_resolve_cv_file( $application->private_cv_path );
+	if ( current_user_can( 'download_apex_hr_cvs' ) && ! is_wp_error( $cv_file ) ) {
+		$download_url = add_query_arg(
+			array(
+				'action'         => 'apex_hr_download_cv',
+				'application_id' => $application_id,
+			),
+			admin_url( 'admin-post.php' )
+		);
+		$download_url = wp_nonce_url( $download_url, 'apex_hr_download_cv_' . $application_id );
+		echo '<p><a class="button" href="' . esc_url( $download_url ) . '">' . esc_html__( 'Download CV', 'apex-hr-vacancies' ) . '</a> ' . esc_html( $application->cv_original_filename ) . '</p>';
+	} else {
+		echo '<p>' . esc_html__( 'No downloadable CV is available for this application.', 'apex-hr-vacancies' ) . '</p>';
+	}
+	echo '</div>';
 }
 
 /**
@@ -819,7 +1263,7 @@ function apex_hr_applications_render_settings() {
 	foreach ( $diagnostics as $label => $value ) {
 		echo '<tr><th scope="row">' . esc_html( $label ) . '</th><td>' . esc_html( (string) $value ) . '</td></tr>';
 	}
-	echo '</tbody></table><p>' . esc_html__( 'Email sending and secure CV downloads are not active in Phase 1.', 'apex-hr-vacancies' ) . '</p></div>';
+	echo '</tbody></table><p>' . esc_html__( 'CVs are stored outside the public webroot and are available only through the protected application screen. Configure WordPress SMTP for reliable notification delivery.', 'apex-hr-vacancies' ) . '</p></div>';
 }
 
 /**
@@ -874,3 +1318,53 @@ function apex_hr_applications_update_status() {
 	exit;
 }
 add_action( 'admin_post_apex_hr_update_application_status', 'apex_hr_applications_update_status' );
+
+/**
+ * Stream an application CV to an authorised administrator without a public URL.
+ *
+ * @return void
+ */
+function apex_hr_applications_download_cv() {
+	global $wpdb;
+
+	if ( ! is_user_logged_in() || ! current_user_can( 'download_apex_hr_cvs' ) ) {
+		wp_die( esc_html__( 'You are not allowed to download application CVs.', 'apex-hr-vacancies' ), '', array( 'response' => 403 ) );
+	}
+
+	$application_id = isset( $_GET['application_id'] ) ? absint( $_GET['application_id'] ) : 0;
+	if ( ! $application_id ) {
+		wp_die( esc_html__( 'The private CV file could not be found.', 'apex-hr-vacancies' ), '', array( 'response' => 404 ) );
+	}
+	check_admin_referer( 'apex_hr_download_cv_' . $application_id );
+	if ( ! apex_hr_applications_table_exists() ) {
+		wp_die( esc_html__( 'The private CV file could not be found.', 'apex-hr-vacancies' ), '', array( 'response' => 404 ) );
+	}
+
+	$table       = apex_hr_applications_table_name();
+	$application = $wpdb->get_row( $wpdb->prepare( "SELECT private_cv_path, cv_original_filename, cv_mime_type FROM {$table} WHERE id = %d", $application_id ) );
+	if ( ! $application || '' !== $wpdb->last_error ) {
+		wp_die( esc_html__( 'The private CV file could not be found.', 'apex-hr-vacancies' ), '', array( 'response' => 404 ) );
+	}
+	$file_path = apex_hr_applications_resolve_cv_file( $application->private_cv_path );
+	if ( is_wp_error( $file_path ) ) {
+		wp_die( esc_html__( 'The private CV file could not be found.', 'apex-hr-vacancies' ), '', array( 'response' => 404 ) );
+	}
+	$file_handle = fopen( $file_path, 'rb' );
+	if ( false === $file_handle ) {
+		wp_die( esc_html__( 'The private CV file could not be read.', 'apex-hr-vacancies' ), '', array( 'response' => 500 ) );
+	}
+
+	$download_name = sanitize_file_name( $application->cv_original_filename );
+	if ( '' === $download_name ) {
+		$download_name = 'candidate-cv.' . pathinfo( $application->private_cv_path, PATHINFO_EXTENSION );
+	}
+	nocache_headers();
+	header( 'X-Content-Type-Options: nosniff' );
+	header( 'Content-Type: application/octet-stream' );
+	header( 'Content-Length: ' . (string) filesize( $file_path ) );
+	header( 'Content-Disposition: attachment; filename="' . str_replace( '"', '', $download_name ) . '"; filename*=UTF-8\'\'' . rawurlencode( $download_name ) );
+	fpassthru( $file_handle );
+	fclose( $file_handle );
+	exit;
+}
+add_action( 'admin_post_apex_hr_download_cv', 'apex_hr_applications_download_cv' );
