@@ -6,8 +6,8 @@ import {
   CircleCheck,
   Mail,
   MapPin,
+  MessageCircle,
   MessagesSquare,
-  Phone,
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SectionKicker } from "@/components/ui/section-kicker";
@@ -44,7 +44,7 @@ const enquiryReasons = [
 
 /**
  * Contact page, restructured per the approved reference layout: a dark
- * hero with direct call/email links, an adaptive enquiry form (see
+ * hero with direct WhatsApp/email links, an adaptive enquiry form (see
  * ContactEnquiryForm), a "what happens next" strip, a two-column
  * alternative-routes section (candidate hub plus direct contact repeat),
  * an FAQ section and a closing CTA — inside the same rounded cream page
@@ -99,15 +99,17 @@ export default function ContactPage() {
             <StaggerContainer className="flex flex-col justify-center gap-4 border-t border-white/10 p-10 lg:border-t-0 lg:border-l lg:p-14">
               <StaggerItem>
                 <a
-                  href={`tel:${siteConfig.contactPhone.tel}`}
+                  href={siteConfig.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group flex items-center gap-4 rounded-md border border-white/15 bg-white/8 p-5 transition-colors duration-(--duration-fast) hover:bg-white/12"
                 >
                   <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gold/20 text-gold">
-                    <Phone aria-hidden="true" className="h-5 w-5" />
+                    <MessageCircle aria-hidden="true" className="h-5 w-5" />
                   </span>
                   <span className="flex-1">
-                    <span className="block text-small text-white/60">Call us</span>
-                    <span className="block text-body-lg font-bold text-white">{siteConfig.contactPhone.display}</span>
+                    <span className="block text-small text-white/60">Reach us on WhatsApp:</span>
+                    <span className="block text-body-lg font-bold text-white">{siteConfig.contactPhoneDisplay}</span>
                   </span>
                   <ArrowUpRight
                     aria-hidden="true"
@@ -231,17 +233,18 @@ export default function ContactPage() {
               <span className="grid h-12 w-12 place-items-center rounded-full bg-success/10 text-success">
                 <MessagesSquare aria-hidden="true" className="h-6 w-6" />
               </span>
-              <h2 className="font-display text-h3 font-bold text-navy">Prefer to speak directly?</h2>
+              <h2 className="font-display text-h3 font-bold text-navy">Prefer a direct conversation?</h2>
               <p className="text-body text-text-secondary">
-                Call Apex HR on <strong className="text-navy">{siteConfig.contactPhone.display}</strong> or
-                email <strong className="text-navy">{siteConfig.contactEmail}</strong> to begin the
+                Message Apex HR on WhatsApp or email <strong className="text-navy">{siteConfig.contactEmail}</strong> to begin the
                 conversation.
               </p>
               <a
-                href={`tel:${siteConfig.contactPhone.tel}`}
+                href={siteConfig.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-auto inline-flex w-fit items-center gap-2 text-caption font-bold uppercase tracking-widest text-gold-ink"
               >
-                Call Apex HR
+                Message us on WhatsApp
                 <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
               </a>
             </StaggerItem>

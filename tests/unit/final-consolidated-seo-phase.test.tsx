@@ -429,8 +429,8 @@ describe("llms.txt — canonical link validity against route configuration", () 
     }
   });
 
-  it("contains the verified phone and email, and no fabricated street address or registration number", () => {
-    expect(llmsTxt).toContain("+44 7762 272692");
+  it("contains the verified WhatsApp and email contact details, and no fabricated street address or registration number", () => {
+    expect(llmsTxt).toContain("Reach us on WhatsApp: +44 7762 272692");
     expect(llmsTxt).toContain(siteConfig.contactEmail);
     expect(llmsTxt).not.toMatch(/\bpostcode\b|\bregistration number\b|\bcompany number\b/i);
   });

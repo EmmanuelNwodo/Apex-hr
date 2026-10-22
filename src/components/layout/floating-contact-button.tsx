@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { MessageCircle, Phone, X } from "lucide-react";
+import { MessageCircle, X } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 // Delay before closing on mouseleave, long enough for the cursor to
@@ -10,9 +10,8 @@ const CLOSE_DELAY_MS = 200;
 
 /**
  * Site-wide floating contact button (bottom-right, every page — rendered
- * once from the root layout). Reveals two real, direct contact routes for
- * the confirmed number in siteConfig.contactPhone: WhatsApp (wa.me
- * click-to-chat) and a phone call (tel: link).
+ * once from the root layout). Reveals the direct WhatsApp contact route
+ * configured in siteConfig.
  *
  * Opens on mouse hover (with a short close delay so moving the cursor
  * into the popover doesn't dismiss it) in addition to the existing click
@@ -80,7 +79,7 @@ export function FloatingContactButton() {
       {open && (
         <div className="flex flex-col gap-1 rounded-md border border-border-subtle bg-surface-card p-2 shadow-(--shadow-modal)">
           <a
-            href={`https://wa.me/${siteConfig.contactPhone.whatsapp}`}
+            href={siteConfig.whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setOpen(false)}
@@ -89,17 +88,7 @@ export function FloatingContactButton() {
             <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-success/10 text-success">
               <MessageCircle aria-hidden="true" className="h-5 w-5" />
             </span>
-            WhatsApp us
-          </a>
-          <a
-            href={`tel:${siteConfig.contactPhone.tel}`}
-            onClick={() => setOpen(false)}
-            className="flex min-h-11 items-center gap-3 rounded-md px-3 py-2 text-body font-semibold text-navy hover:bg-surface-warm"
-          >
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold/20 text-gold-ink">
-              <Phone aria-hidden="true" className="h-5 w-5" />
-            </span>
-            Call {siteConfig.contactPhone.display}
+            Message us on WhatsApp
           </a>
         </div>
       )}

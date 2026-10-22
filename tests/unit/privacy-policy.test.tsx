@@ -64,8 +64,8 @@ describe("6. Production domain is .co.uk", () => {
 });
 
 describe("7. the public business email uses the Apex HR contact address", () => {
-  it("siteConfig.contactEmail is info@apexhrllc.co.uk", () => {
-    expect(siteConfig.contactEmail).toBe("info@apexhrllc.co.uk");
+  it("siteConfig.contactEmail is hello@apexhrllc.co.uk", () => {
+    expect(siteConfig.contactEmail).toBe("hello@apexhrllc.co.uk");
   });
 
   it("the rendered page uses the configured address as a real mailto link", () => {

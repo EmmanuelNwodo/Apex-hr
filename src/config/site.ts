@@ -4,6 +4,8 @@
  * statistics, addresses or social profile URLs — leave them empty until
  * confirmed.
  */
+const whatsappNumber = "447762272692";
+
 export const siteConfig = {
   name: "Apex HR",
   legalName: "Apex HR",
@@ -29,14 +31,12 @@ export const siteConfig = {
     "Apex HR is a UK HR, recruitment and people-consulting partner for employers, offering outsourced HR, executive search and strategic workforce advisory.",
   /** Left empty until an approved social profile is confirmed. */
   socialProfiles: [] as string[],
-  /** Confirmed via explicit user instruction — used by the floating contact button. */
-  contactPhone: {
-    display: "+44 7762 272692",
-    tel: "+447762272692",
-    whatsapp: "447762272692",
-  },
-  /** Confirmed via the approved contact-page reference design, at the real production domain — used by the contact page and site footer. */
-  contactEmail: "info@apexhrllc.co.uk",
+  /** Public contact channels confirmed by the client. */
+  contactPhoneDisplay: "+44 7762 272692",
+  whatsappNumber,
+  whatsappUrl: `https://wa.me/${whatsappNumber}`,
+  /** Public contact email used by contact surfaces, form fallback and structured data. */
+  contactEmail: "hello@apexhrllc.co.uk",
 };
 
 export function absoluteUrl(path: string): string {

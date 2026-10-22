@@ -2,8 +2,8 @@
 
 Apex HR is a UK HR, recruitment and people-consulting partner for employers, based in London and serving employers across the UK. The company is employer-first, combining outsourced HR support, recruitment and talent acquisition, and strategic workforce advisory in one connected service — with a secondary, clearly separated pathway for candidates (job search and the Apex talent pool).
 
-Phone: +44 7762 272692
-Email: info@apexhrllc.co.uk
+Reach us on WhatsApp: +44 7762 272692
+Email: hello@apexhrllc.co.uk
 Website: https://www.apexhrllc.co.uk
 
 This file is a concise, curated index for AI assistants and answer engines. It intentionally excludes pages with no substantive content yet and other provisional/unapproved routes — see https://www.apexhrllc.co.uk/sitemap.xml for the full indexable set, and the site's own pages for authoritative visible content.
@@ -12,7 +12,7 @@ This file is a concise, curated index for AI assistants and answer engines. It i
 
 - [Home](https://www.apexhrllc.co.uk/): Apex HR's employer-first overview — HR company in the UK.
 - [About Apex HR](https://www.apexhrllc.co.uk/about/): What Apex HR is, how it works, and who it supports.
-- [Contact Apex HR](https://www.apexhrllc.co.uk/contact/): Phone, email and enquiry form.
+- [Contact Apex HR](https://www.apexhrllc.co.uk/contact/): WhatsApp, email and enquiry form.
 - [For Employers](https://www.apexhrllc.co.uk/for-employers/): Where to start for HR, recruitment and workforce support.
 - [For Candidates](https://www.apexhrllc.co.uk/for-candidates/): Jobs, the Apex talent pool and career resources.
 - [Privacy Policy](https://www.apexhrllc.co.uk/privacy-policy/): How Apex HR collects, uses, stores, shares and protects personal data.

@@ -7,11 +7,11 @@ import type { RouteRecord } from "@/types/route";
  * do not add ratings, addresses, founding dates or social profiles until
  * they are verified and approved.
  *
- * `contactPoint`/`address` use the phone/email/city confirmed by explicit
- * user instruction (SEO audit Batch 2 item 3) — `address` deliberately
- * omits `streetAddress`, since only the city is verified, not a specific
- * office. `areaServed: "GB"` reflects genuine UK-wide service coverage,
- * not a claim of a physical presence in every area served.
+ * `contactPoint`/`address` use confirmed public contact details and location.
+ * The contact point is email-only because the public number is WhatsApp-only;
+ * `address` deliberately omits `streetAddress`, since only the city is
+ * verified, not a specific office. `areaServed: "GB"` reflects genuine
+ * UK-wide service coverage, not a claim of a physical presence in every area.
  */
 export function getOrganizationJsonLd() {
   return {
@@ -29,7 +29,6 @@ export function getOrganizationJsonLd() {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
-      telephone: siteConfig.contactPhone.tel,
       email: siteConfig.contactEmail,
       areaServed: "GB",
     },
@@ -233,7 +232,7 @@ export function getAboutPageJsonLd(path: string) {
 
 /**
  * `ContactPage` JSON-LD for /contact/, referencing the shared Organization
- * entity — which already carries the verified `contactPoint` (phone/email)
+ * entity — which already carries the verified email-only `contactPoint`
  * — rather than duplicating those details here.
  */
 export function getContactPageJsonLd(path: string) {
