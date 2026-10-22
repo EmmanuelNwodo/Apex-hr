@@ -1,12 +1,13 @@
 # Apex HR Vacancies
 
-A small, self-contained WordPress plugin for managing Apex HR vacancies in the WordPress dashboard. It registers the `vacancy` post type, provides a details metabox, registers vacancy metadata with the REST API, and limits anonymous REST vacancy responses to published posts.
+A small, self-contained WordPress plugin for managing Apex HR vacancies and preparing private application administration in the WordPress dashboard. It registers the `vacancy` post type, provides a details metabox, registers vacancy metadata with the REST API, and limits anonymous REST vacancy responses to published posts.
 
 ## Requirements
 
 - WordPress 6.0 or later
 - PHP 7.4 or later
 - Permission to install plugins and publish vacancies
+- An administrator account for application management and private-storage settings
 
 No paid plugin or custom-field dependency is required.
 
@@ -71,8 +72,34 @@ Salary amounts are non-negative numbers, currency uses a three-letter ISO 4217 c
 - Anonymous REST item responses for draft, pending, private, future, or otherwise unpublished posts return not found. WordPress authenticated editorial access remains governed by normal WordPress capabilities.
 - REST-visible metadata is intended for published vacancy content. Do not put applicant data, CVs, private notes, or other sensitive information in vacancy fields.
 - Vacancy status (`Open`, `Closed`, or `Filled`) is editorial data, separate from WordPress post status. Vacancy pages are excluded from WordPress's core and Yoast sitemaps. The public Next.js site's `vacancy-sitemap.xml` includes only published, open, non-expired vacancies at their canonical `www.apexhrllc.co.uk/jobs/{slug}/` URLs.
-- The plugin does not implement an application form, file upload/storage, ATS, or applicant database.
+- The vacancy REST API does not expose application data. Candidate records are kept in a separate operational table and are never stored as vacancy posts or vacancy metadata.
+
+## Application management foundation (Phase 1)
+
+Phase 1 creates the WordPress database, private-storage and administrator foundation for the future WordPress application system. It does **not** yet accept applications, upload CVs, serve CV downloads, or send email. The Next.js application-submission route and its Supabase integration remain active and unchanged until the Phase 2 application migration is complete.
+
+On activation, and on `plugins_loaded` when a stored schema version is older, the plugin uses WordPress `dbDelta()` to create or upgrade `{$wpdb->prefix}apex_hr_applications`. The table contains candidate and vacancy details, consent and attribution data, application/notification states, private CV metadata and lifecycle timestamps. Upgrades preserve existing records; deactivation does not delete application data.
+
+The plugin defines these capabilities:
+
+- `submit_apex_hr_applications` — reserved for the future server-side integration user; it is not granted automatically.
+- `manage_apex_hr_applications` — granted to administrators; gates the Applications and Application Settings screens.
+- `download_apex_hr_cvs` — granted to administrators for the future secured download workflow. No download endpoint exists in Phase 1.
+
+Editors, authors and subscribers do not receive private-application capabilities. The **Vacancies → Applications** screen supports search, vacancy and status filters, pagination, application details and nonce-protected status changes. The CV download control is disabled until Phase 2.
+
+### Private CV storage
+
+Set `APEX_HR_PRIVATE_CV_DIR` in `wp-config.php` to an absolute writable directory outside the public document root. If it is not defined, the plugin attempts to create `apex-hr-private-cvs` beside (not inside) the public document root. On supported non-Windows hosts, directory permissions are restricted to `0700`. A configured path that is public, unavailable or unwritable is reported as unavailable; the plugin never falls back to the WordPress Media Library and creates no attachment records.
+
+The Application Settings screen and administrator notice report storage availability. Prepared helpers enforce PDF, DOC and DOCX extension/MIME matching and a 5 MB size limit, generate random server-side filenames, and safely delete files inside the private directory. These helpers are not connected to public upload handling in this phase.
+
+### Application settings and phase boundary
+
+**Vacancies → Application Settings** stores a notification recipient through the WordPress Settings API. The default is `bilkis@apexhrllc.co.uk`; administrators may change it. This value is only configuration in Phase 1—no notification is sent.
+
+Phase 2 will add the authenticated application submission path, secure CV downloads and email notifications. Supabase application code and its migration remain temporarily present and in use by the existing Next.js submission path until that migration is complete. Do not remove or disable Supabase as part of Phase 1.
 
 ## Deactivate or remove
 
-Deactivate the plugin from **Plugins**. Deactivation preserves vacancy content and metadata. Deleting the plugin files also preserves database records; remove vacancy posts through WordPress if they should be deleted.
+Deactivate the plugin from **Plugins**. Deactivation preserves vacancy content, metadata, application records and settings. Deleting the plugin files also preserves database records; remove vacancy posts through WordPress if they should be deleted.

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Apex HR Vacancies
  * Description: Vacancy publishing fields and a public, read-only REST API for the Apex HR website.
- * Version: 1.0.1
+ * Version: 1.1.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Apex HR
@@ -13,6 +13,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+require_once __DIR__ . '/applications.php';
 
 /**
  * Return the metadata configuration used by the editor and REST API.
