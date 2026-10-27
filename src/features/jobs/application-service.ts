@@ -5,6 +5,8 @@ import { getVacancyBySlug, isVacancyOpen } from "@/lib/wordpress";
 const MAX_TEXT_FIELD_LENGTH = 5_000;
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const UTM_FIELDS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"] as const;
+const TURNSTILE_ALWAYS_PASS_TEST_SECRET = "1x0000000000000000000000000000000AA";
+const NON_PRODUCTION_HOSTNAMES = ["localhost", "127.0.0.1"] as const;
 
 interface ApplicationSubmission {
   idempotencyKey: string;
@@ -159,26 +161,29 @@ async function verifyTurnstile(token: string, ipAddress: string): Promise<void> 
   }
 
   const productionHost = new URL(
-  process.env.NEXT_PUBLIC_SITE_URL || siteConfig.productionUrl,
-).hostname.toLowerCase();
-
-const hostname =
-  "hostname" in result && typeof result.hostname === "string"
-    ? result.hostname.toLowerCase()
-    : "";
-
-const allowedHostnames =
-  process.env.NODE_ENV === "production"
+    process.env.NEXT_PUBLIC_SITE_URL || siteConfig.productionUrl,
+  ).hostname.toLowerCase();
+  const hostname =
+    "hostname" in result && typeof result.hostname === "string"
+      ? result.hostname.toLowerCase()
+      : "";
+  const isProduction = process.env.NODE_ENV === "production";
+  const allowedHostnames = isProduction
     ? [productionHost]
-    : [productionHost, "localhost", "127.0.0.1"];
+    : [productionHost, ...NON_PRODUCTION_HOSTNAMES];
+  const isAllowedHostname =
+    hostname === "example.com"
+      ? !isProduction && secret === TURNSTILE_ALWAYS_PASS_TEST_SECRET
+      : allowedHostnames.includes(hostname) &&
+        !(isProduction && NON_PRODUCTION_HOSTNAMES.some((localHostname) => hostname === localHostname));
 
-if (!allowedHostnames.includes(hostname)) {
-  throw new ApplicationServiceError(
-    "security-check-failed",
-    400,
-    "Complete the security check before submitting your application.",
-  );
-}
+  if (!isAllowedHostname) {
+    throw new ApplicationServiceError(
+      "security-check-failed",
+      400,
+      "Complete the security check before submitting your application.",
+    );
+  }
 }
 
 function getWordPressEndpoint(): { url: URL; username: string; password: string } {
@@ -251,14 +256,6 @@ async function forwardApplication(submission: ApplicationSubmission): Promise<Wo
       "Applications are temporarily unavailable. Please try again later.",
     );
   }
-
-  if (!response.ok && process.env.NODE_ENV !== "production") {
-  const wordpressError = await response.clone().text();
-
-  console.error(
-    `[job-applications] WordPress rejected submission (${response.status}): ${wordpressError.slice(0, 1000)}`,
-  );
-}
 
   if (!response.ok) {
     if (response.status === 409) {

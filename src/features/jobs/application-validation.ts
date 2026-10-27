@@ -4,6 +4,7 @@ export const MAX_CV_SIZE_BYTES = 5 * 1024 * 1024;
 export const JOB_APPLICATION_CONSENT_VERSION = "job-application-v1";
 
 export const applicationFormSchema = z.object({
+  website: z.string().max(300).default(""),
   firstName: z.string().trim().min(1, "Enter your first name.").max(80),
   lastName: z.string().trim().min(1, "Enter your last name.").max(80),
   email: z.email("Enter a valid email address.").max(254),
@@ -20,7 +21,8 @@ export const applicationFormSchema = z.object({
   ),
 });
 
-export type ApplicationFormValues = z.infer<typeof applicationFormSchema>;
+export type ApplicationFormInput = z.input<typeof applicationFormSchema>;
+export type ApplicationFormValues = z.output<typeof applicationFormSchema>;
 
 export const applicationFieldsSchema = z.object({
   firstName: z.string().trim().min(1).max(80),

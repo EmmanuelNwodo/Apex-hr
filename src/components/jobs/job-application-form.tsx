@@ -8,6 +8,7 @@ import { siteConfig } from "@/config/site";
 import {
   applicationFormSchema,
   MAX_CV_SIZE_BYTES,
+  type ApplicationFormInput,
   type ApplicationFormValues,
 } from "@/features/jobs/application-validation";
 import type { Vacancy } from "@/lib/wordpress";
@@ -35,9 +36,10 @@ export function JobApplicationForm({ vacancy }: { vacancy: Vacancy }) {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<ApplicationFormValues>({
+  } = useForm<ApplicationFormInput, unknown, ApplicationFormValues>({
     resolver: zodResolver(applicationFormSchema),
     defaultValues: {
+      website: "",
       firstName: "",
       lastName: "",
       email: "",
@@ -62,7 +64,7 @@ export function JobApplicationForm({ vacancy }: { vacancy: Vacancy }) {
     const submissionKey = idempotencyKey ?? crypto.randomUUID();
     if (!idempotencyKey) setIdempotencyKey(submissionKey);
     const formData = new FormData();
-    formData.set("website", "");
+    formData.set("website", values.website);
     formData.set("firstName", values.firstName);
     formData.set("lastName", values.lastName);
     formData.set("email", values.email);
@@ -171,10 +173,10 @@ export function JobApplicationForm({ vacancy }: { vacancy: Vacancy }) {
           <p id="application-security-help" className="sr-only">Complete the security check to submit your application.</p>
         </div>
 
-        <label className="sr-only" aria-hidden="true">
-          Leave this field empty
-          <input name="website" tabIndex={-1} autoComplete="off" />
-        </label>
+        <div className="sr-only" aria-hidden="true">
+          <label htmlFor="application-website">Website</label>
+          <input id="application-website" tabIndex={-1} autoComplete="off" {...register("website")} />
+        </div>
 
         {submissionError && <p className="text-body text-red-800" role="alert">{submissionError}</p>}
         {submissionMessage && <p className="text-body font-semibold text-navy" role="status">{submissionMessage}</p>}

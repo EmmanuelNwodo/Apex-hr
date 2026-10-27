@@ -1,6 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { validateCvFile } from "@/features/jobs/application-validation";
+import { render } from "@testing-library/react";
+import { createElement } from "react";
+import { JobApplicationForm } from "@/components/jobs/job-application-form";
+import { applicationFormSchema, validateCvFile } from "@/features/jobs/application-validation";
 import { POST } from "@/app/api/job-applications/route";
+import type { Vacancy } from "@/lib/wordpress";
 
 const wordpressMocks = vi.hoisted(() => ({
   getVacancyBySlug: vi.fn(),
@@ -13,6 +17,38 @@ import { ApplicationServiceError, submitJobApplication } from "@/features/jobs/a
 
 const idempotencyKey = "e9f00bd2-107c-4ac1-9b62-f021884f5e88";
 const applicationUuid = "45b10965-2582-41ce-a83d-71eb747b2fc4";
+const turnstileAlwaysPassTestSecret = "1x0000000000000000000000000000000AA";
+const testVacancy: Vacancy = {
+  id: 42,
+  slug: "people-partner",
+  status: "open",
+  title: "People Partner",
+  reference: "",
+  summary: "",
+  descriptionHtml: "",
+  responsibilities: [],
+  requirements: [],
+  desirableSkills: [],
+  benefits: [],
+  sector: "",
+  department: "",
+  location: "",
+  employmentType: "",
+  workplaceArrangement: "",
+  seniority: "",
+  salaryMin: null,
+  salaryMax: null,
+  salaryCurrency: "",
+  salaryDisplay: "",
+  salaryUnit: "",
+  closingDate: "",
+  applicationEmail: "",
+  featured: false,
+  seoTitle: "",
+  metaDescription: "",
+  publishedAt: "",
+  modifiedAt: "",
+};
 
 function buildForm(overrides: Record<string, string | File> = {}) {
   const form = new FormData();
@@ -65,6 +101,17 @@ function mockSuccessfulFetch() {
   return fetchMock;
 }
 
+function mockTurnstileHostname(hostname: string) {
+  const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+    if (String(input).includes("challenges.cloudflare.com")) {
+      return jsonResponse({ success: true, hostname });
+    }
+    return jsonResponse({ success: true, data: { uuid: applicationUuid, duplicate: false } }, 201);
+  });
+  vi.stubGlobal("fetch", fetchMock);
+  return fetchMock;
+}
+
 beforeEach(() => {
   vi.clearAllMocks();
   setupEnvironment();
@@ -89,6 +136,22 @@ describe("CV validation", () => {
   });
 });
 
+describe("application form", () => {
+  it("includes a labelled website honeypot outside keyboard and assistive-technology navigation", () => {
+    const { container } = render(createElement(JobApplicationForm, { vacancy: testVacancy }));
+    const honeypot = container.querySelector<HTMLInputElement>("#application-website");
+
+    expect(honeypot).not.toBeNull();
+    expect(honeypot).toHaveValue("");
+    expect(honeypot).toHaveAttribute("autocomplete", "off");
+    expect(honeypot).toHaveAttribute("tabindex", "-1");
+    expect(honeypot?.closest("[aria-hidden='true']")).not.toBeNull();
+    expect(honeypot?.labels?.[0]).toHaveTextContent("Website");
+    expect(applicationFormSchema.shape.website.safeParse("w".repeat(301)).success).toBe(false);
+    expect(applicationFormSchema.shape.website.parse(undefined)).toBe("");
+  });
+});
+
 describe("WordPress application submission", () => {
   it("rejects missing CV and invalid form values before any network call", async () => {
     const missingCv = buildForm();
@@ -106,6 +169,7 @@ describe("WordPress application submission", () => {
 
   it("fails closed when Turnstile verification fails", async () => {
     const fetchMock = vi.fn(async () => jsonResponse({ success: false }, 200));
+    const errorLog = vi.spyOn(console, "error").mockImplementation(() => {});
     vi.stubGlobal("fetch", fetchMock);
 
     await expect(submitJobApplication(buildForm(), "")).rejects.toMatchObject({
@@ -113,6 +177,69 @@ describe("WordPress application submission", () => {
       status: 400,
     });
     expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(errorLog).not.toHaveBeenCalled();
+    errorLog.mockRestore();
+  });
+
+  it("accepts example.com in a non-production environment only with the official always-pass test key", async () => {
+    vi.stubEnv("NODE_ENV", "test");
+    vi.stubEnv("TURNSTILE_SECRET_KEY", turnstileAlwaysPassTestSecret);
+    const fetchMock = mockTurnstileHostname("example.com");
+
+    await expect(submitJobApplication(buildForm(), "")).resolves.toEqual({
+      duplicate: false,
+      applicationId: applicationUuid,
+    });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it("accepts the configured production hostname in production", async () => {
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("TURNSTILE_SECRET_KEY", turnstileAlwaysPassTestSecret);
+    const fetchMock = mockTurnstileHostname("www.apexhrllc.co.uk");
+
+    await expect(submitJobApplication(buildForm(), "")).resolves.toEqual({
+      duplicate: false,
+      applicationId: applicationUuid,
+    });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it("rejects example.com outside production when the official always-pass test key is not configured", async () => {
+    vi.stubEnv("NODE_ENV", "development");
+    const fetchMock = mockTurnstileHostname("example.com");
+
+    await expect(submitJobApplication(buildForm(), "")).rejects.toMatchObject({
+      code: "security-check-failed",
+      status: 400,
+    });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it.each(["example.com", "localhost", "127.0.0.1"])(
+    "rejects %s as a Turnstile hostname in production",
+    async (hostname) => {
+      vi.stubEnv("NODE_ENV", "production");
+      vi.stubEnv("TURNSTILE_SECRET_KEY", turnstileAlwaysPassTestSecret);
+      const fetchMock = mockTurnstileHostname(hostname);
+
+      await expect(submitJobApplication(buildForm(), "")).rejects.toMatchObject({
+        code: "security-check-failed",
+        status: 400,
+      });
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+    },
+  );
+
+  it("rejects a populated website honeypot before any network call", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    await expect(submitJobApplication(buildForm({ website: "spam.example" }), "")).rejects.toMatchObject({
+      code: "invalid-form",
+      status: 400,
+    });
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("returns only a safe public error from the Next.js route", async () => {
@@ -146,7 +273,7 @@ describe("WordPress application submission", () => {
     expect(String(fetchMock.mock.calls[0][0])).toContain("challenges.cloudflare.com");
   });
 
-  it("forwards multipart data, authentication and the idempotency UUID without calling Supabase", async () => {
+  it("allows an empty honeypot and forwards multipart data, authentication and the idempotency UUID without Supabase", async () => {
     const fetchMock = mockSuccessfulFetch();
 
     await expect(submitJobApplication(buildForm(), "")).resolves.toEqual({
@@ -166,6 +293,7 @@ describe("WordPress application submission", () => {
     const body = request?.body as FormData;
     expect(body.get("vacancyId")).toBe("42");
     expect(body.get("vacancySlug")).toBe("people-partner");
+    expect(body.has("website")).toBe(false);
     expect(body.get("consentVersion")).toBe("job-application-v1");
     expect(body.get("utm_campaign")).toBe("autumn");
     expect(body.get("cv")).toBeInstanceOf(File);
@@ -173,6 +301,7 @@ describe("WordPress application submission", () => {
   });
 
   it("maps WordPress authentication and validation failures to safe candidate messages", async () => {
+    const errorLog = vi.spyOn(console, "error").mockImplementation(() => {});
     const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
       if (String(input).includes("challenges.cloudflare.com")) {
         return jsonResponse({ success: true, hostname: "www.apexhrllc.co.uk" });
@@ -187,6 +316,7 @@ describe("WordPress application submission", () => {
       message: "Applications are temporarily unavailable. Please try again later.",
     });
     await expect(submitJobApplication(buildForm(), "")).rejects.not.toThrow("secret auth details");
+    expect(errorLog.mock.calls.flat().join(" ")).not.toContain("secret auth details");
 
     fetchMock.mockImplementation(async (input: RequestInfo | URL) => {
       if (String(input).includes("challenges.cloudflare.com")) {
@@ -199,6 +329,8 @@ describe("WordPress application submission", () => {
       status: 400,
       message: "Check the application fields and try again.",
     });
+    expect(errorLog.mock.calls.flat().join(" ")).not.toContain("private validation details");
+    errorLog.mockRestore();
   });
 
   it("maps WordPress timeouts to a safe service-unavailable response", async () => {
