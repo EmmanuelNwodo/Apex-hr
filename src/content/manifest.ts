@@ -455,7 +455,17 @@ function buildManifest(): ContentManifestEntry[] {
       relatedPages: [routes.jobs.path, routes.talentPool.path],
     },
     { pageType: "conversionLanding", route: routes.findTalent, audience: "employer", lead: findTalentPageContent.lead, intent: "Capture an employer hiring enquiry" },
-    { pageType: "conversionLanding", route: routes.jobs, audience: "candidate", lead: jobsPageContent.lead, intent: "Let candidates find current vacancies" },
+    {
+      pageType: "conversionLanding",
+      route: routes.jobs,
+      audience: "candidate",
+      lead: jobsPageContent.lead,
+      intent: "Let candidates find current vacancies",
+      title: "Apex HR Job Board",
+      h1: "Apex HR Job Board",
+      primaryKeyword: "Apex HR Job Board and current vacancies",
+      relatedPages: [routes.forCandidates.path, routes.talentPool.path],
+    },
     { pageType: "conversionLanding", route: routes.talentPool, audience: "candidate", lead: talentPoolPageContent.lead, intent: "Capture candidate interest for future roles" },
     {
       pageType: "generalInformation",

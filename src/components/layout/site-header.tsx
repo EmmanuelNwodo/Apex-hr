@@ -16,7 +16,7 @@ const navLinkClassName = "text-body font-semibold text-navy underline-offset-4 h
  * 12.2 is deferred — this phase ships a stable-height, always-solid header
  * to keep behaviour predictable and accessible.
  *
- * The full desktop nav (6 primary links + Contact + Search Jobs + Find
+ * The full desktop nav (6 primary links + Contact + Job Board + Find
  * Talent) does not fit the 1024px `lg` breakpoint without wrapping or
  * overflow, so the switch from the mobile menu to the inline nav happens
  * at `xl` (1280px) instead — verified against DESIGN.md 9.3's breakpoint

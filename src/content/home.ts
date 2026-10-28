@@ -42,7 +42,7 @@ export const hero: HeroContent = {
     "Apex HR helps UK employers hire, manage and develop people with confidence, from outsourced HR support to executive search and strategic workforce advisory.",
   primaryCta: { label: "Find Talent", href: routes.findTalent.path, analyticsId: "hero-find-talent" },
   secondaryCta: { label: "Meet Apex HR", href: routes.about.path, analyticsId: "hero-meet-apex" },
-  candidateLink: { label: "Search Jobs", href: routes.jobs.path, analyticsId: "hero-search-jobs" },
+  candidateLink: { label: "Job Board", href: routes.jobs.path, analyticsId: "hero-job-board" },
 };
 
 // Short, generic, non-quantified capability labels for the hero's lower-left
@@ -546,7 +546,7 @@ export const candidateGateway: CandidateGatewayContent = {
   description:
     "Search current vacancies or join the Apex talent pool so we can contact you about future opportunities.",
   links: [
-    { label: "Search Jobs", href: routes.jobs.path, analyticsId: "candidate-gateway-search-jobs" },
+    { label: "Job Board", href: routes.jobs.path, analyticsId: "candidate-gateway-job-board" },
     { label: "Upload Your CV", href: routes.forCandidates.path, analyticsId: "candidate-gateway-upload-cv" },
   ],
 };

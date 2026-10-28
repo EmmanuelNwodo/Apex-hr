@@ -99,7 +99,17 @@ function rewriteLinksInHtml(html: string, publicSiteUrl: string): string {
 export function sanitizeArticleHtml(rawHtml: string, publicSiteUrl: string): string {
   if (!rawHtml) return "";
   const rewritten = rewriteLinksInHtml(rawHtml, publicSiteUrl);
-  return sanitizeHtml(rewritten, {
+  return sanitizeEditorialHtml(rewritten);
+}
+
+/** Sanitises vacancy description markup without rewriting its CMS links as article routes. */
+export function sanitizeVacancyHtml(rawHtml: string): string {
+  if (!rawHtml) return "";
+  return sanitizeEditorialHtml(rawHtml);
+}
+
+function sanitizeEditorialHtml(rawHtml: string): string {
+  return sanitizeHtml(rawHtml, {
     allowedTags: ALLOWED_TAGS,
     allowedAttributes: ALLOWED_ATTRIBUTES,
     allowedSchemes: ALLOWED_SCHEMES,

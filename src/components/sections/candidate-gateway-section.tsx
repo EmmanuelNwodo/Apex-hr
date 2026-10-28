@@ -10,7 +10,7 @@ import { candidateGateway } from "@/content/home";
 /**
  * Candidate gateway: visually distinct but subordinate to the employer
  * proposition, per DESIGN.md 17.9 and CLAUDE.md section 14.
- * `candidateGateway.links` (Search Jobs, Upload Your CV) render as two
+ * `candidateGateway.links` (Job Board, Upload Your CV) render as two
  * prominent buttons. Join the Talent Pool and Candidate Resources are
  * deliberately not repeated here — see the doc comment on
  * `candidateGateway` in src/content/home.ts for why that still satisfies

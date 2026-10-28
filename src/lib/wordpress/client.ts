@@ -1,15 +1,27 @@
 import { siteConfig } from "@/config/site";
 import { isWordPressConfigured, wordpressConfig } from "./config";
-import { extractFirstImageFromHtml, sanitizeArticleHtml, stripHtmlToPlainText } from "./sanitize";
+import {
+  extractFirstImageFromHtml,
+  sanitizeArticleHtml,
+  sanitizeVacancyHtml,
+  stripHtmlToPlainText,
+} from "./sanitize";
 import type {
   Article,
   ArticleImage,
   ArticleTerm,
+  GetVacanciesResult,
   GetPostsOptions,
   GetPostsResult,
+  Vacancy,
+  VacancyEmploymentType,
+  VacancyQuery,
+  VacancyStatus,
+  VacancyWorkArrangement,
   WpEmbeddedTerm,
   WpRestCategory,
   WpRestPost,
+  WpRestVacancy,
 } from "./types";
 
 /**
@@ -227,6 +239,188 @@ async function resolveCategoryId(categorySlug: string): Promise<number | undefin
   const result = await wpFetch<WpRestCategory[]>(`/categories?slug=${encodeURIComponent(categorySlug)}`);
   if (!result || !Array.isArray(result.data) || result.data.length === 0) return undefined;
   return result.data[0].id;
+}
+
+function getVacancyStatus(value: string | undefined): VacancyStatus {
+  const status = value?.trim().toLowerCase();
+  return status === "open" || status === "closed" || status === "filled" ? status : "closed";
+}
+
+function splitVacancyLines(value: string | undefined): string[] {
+  if (!value) return [];
+  return value
+    .split(/\r?\n/)
+    .map((line) => stripHtmlToPlainText(line))
+    .filter(Boolean);
+}
+
+function parseSalary(value: number | null | undefined): number | null {
+  if (value === null || value === undefined || !Number.isFinite(Number(value))) return null;
+  return Number(value);
+}
+
+/** Maps the vacancy CPT response into the site-owned, provider-neutral model. */
+export function normalizeVacancy(raw: WpRestVacancy): Vacancy {
+  const meta = raw.meta ?? {};
+  return {
+    id: raw.id,
+    slug: raw.slug,
+    status: getVacancyStatus(meta.apex_hr_vacancy_status),
+    title: stripHtmlToPlainText(raw.title?.rendered ?? ""),
+    reference: stripHtmlToPlainText(meta.apex_hr_vacancy_reference ?? ""),
+    summary: stripHtmlToPlainText(raw.excerpt?.rendered ?? ""),
+    descriptionHtml: sanitizeVacancyHtml(raw.content?.rendered ?? ""),
+    responsibilities: splitVacancyLines(meta.apex_hr_responsibilities),
+    requirements: splitVacancyLines(meta.apex_hr_requirements),
+    desirableSkills: splitVacancyLines(meta.apex_hr_desirable_skills),
+    benefits: splitVacancyLines(meta.apex_hr_benefits),
+    sector: stripHtmlToPlainText(meta.apex_hr_sector ?? ""),
+    department: stripHtmlToPlainText(meta.apex_hr_department ?? ""),
+    location: stripHtmlToPlainText(meta.apex_hr_location ?? ""),
+    employmentType: isEmploymentType(meta.apex_hr_employment_type)
+      ? meta.apex_hr_employment_type
+      : "",
+    workplaceArrangement: isWorkArrangement(meta.apex_hr_workplace_arrangement)
+      ? meta.apex_hr_workplace_arrangement
+      : "",
+    seniority: stripHtmlToPlainText(meta.apex_hr_seniority ?? ""),
+    salaryMin: parseSalary(meta.apex_hr_salary_min),
+    salaryMax: parseSalary(meta.apex_hr_salary_max),
+    salaryCurrency: stripHtmlToPlainText(meta.apex_hr_salary_currency ?? ""),
+    salaryDisplay: stripHtmlToPlainText(meta.apex_hr_salary_display ?? ""),
+    salaryUnit: stripHtmlToPlainText(meta.apex_hr_salary_unit ?? ""),
+    closingDate: meta.apex_hr_closing_date ?? "",
+    applicationEmail: stripHtmlToPlainText(meta.apex_hr_application_email ?? ""),
+    featured: meta.apex_hr_featured === true,
+    seoTitle: stripHtmlToPlainText(meta.apex_hr_seo_title ?? ""),
+    metaDescription: stripHtmlToPlainText(meta.apex_hr_meta_description ?? ""),
+    publishedAt: raw.date_gmt ? `${raw.date_gmt}Z` : raw.date,
+    modifiedAt: raw.modified_gmt ? `${raw.modified_gmt}Z` : raw.modified,
+  };
+}
+
+function isEmploymentType(value: string | undefined): value is VacancyEmploymentType {
+  return [
+    "Permanent",
+    "Temporary",
+    "Contract",
+    "Fixed-term",
+    "Internship",
+    "Part-time",
+  ].includes(value ?? "");
+}
+
+function isWorkArrangement(value: string | undefined): value is VacancyWorkArrangement {
+  return ["On-site", "Hybrid", "Remote"].includes(value ?? "");
+}
+
+export function isVacancyExpired(vacancy: Pick<Vacancy, "closingDate">, now = new Date()): boolean {
+  if (!vacancy.closingDate) return false;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(vacancy.closingDate)) return true;
+  return vacancy.closingDate < now.toISOString().slice(0, 10);
+}
+
+export function isVacancyOpen(vacancy: Vacancy, now = new Date()): boolean {
+  return vacancy.status === "open" && !isVacancyExpired(vacancy, now);
+}
+
+export function filterVacancies(vacancies: Vacancy[], filters: VacancyQuery): Vacancy[] {
+  const normalise = (value: string | undefined) => value?.trim().toLocaleLowerCase("en-GB") ?? "";
+  const keyword = normalise(filters.keyword);
+  const location = normalise(filters.location);
+  const sector = normalise(filters.sector);
+  const employmentType = normalise(filters.employmentType);
+  const workplaceArrangement = normalise(filters.workplaceArrangement);
+  const seniority = normalise(filters.seniority);
+
+  return vacancies.filter((vacancy) => {
+    const searchable = [
+      vacancy.title,
+      vacancy.reference,
+      vacancy.summary,
+      vacancy.department,
+      vacancy.sector,
+      vacancy.location,
+      ...vacancy.requirements,
+    ]
+      .join(" ")
+      .toLocaleLowerCase("en-GB");
+
+    return (
+      (!keyword || searchable.includes(keyword)) &&
+      (!location || normalise(vacancy.location) === location) &&
+      (!sector || normalise(vacancy.sector) === sector) &&
+      (!employmentType || normalise(vacancy.employmentType) === employmentType) &&
+      (!workplaceArrangement || normalise(vacancy.workplaceArrangement) === workplaceArrangement) &&
+      (!seniority || normalise(vacancy.seniority) === seniority)
+    );
+  });
+}
+
+async function fetchPublishedVacancies(params: Record<string, string | number | undefined>) {
+  const maxPages = 20;
+  const perPage = 100;
+  const vacancies: Vacancy[] = [];
+
+  for (let page = 1; page <= maxPages; page += 1) {
+    const query = buildQuery({
+      status: "publish",
+      _embed: 1,
+      orderby: "date",
+      order: "desc",
+      per_page: perPage,
+      page,
+      ...params,
+    });
+    const result = await wpFetch<WpRestVacancy[]>(`/vacancies?${query}`);
+    if (!result || !Array.isArray(result.data)) {
+      return { vacancies: [], unavailable: true };
+    }
+
+    vacancies.push(...result.data.filter((item) => item.status === "publish").map(normalizeVacancy));
+    const totalPages = Number(result.headers.get("X-WP-TotalPages") ?? 1);
+    if (!Number.isFinite(totalPages) || page >= Math.min(totalPages, maxPages) || result.data.length === 0) {
+      break;
+    }
+  }
+
+  return { vacancies, unavailable: false };
+}
+
+/** Gets all currently open, published vacancies for server-rendered archive use. */
+export async function getOpenVacancies(): Promise<GetVacanciesResult> {
+  const result = await fetchPublishedVacancies({});
+  return {
+    vacancies: result.vacancies.filter((vacancy) => isVacancyOpen(vacancy)),
+    unavailable: result.unavailable,
+  };
+}
+
+/** Gets the current open vacancies marked as featured in WordPress. */
+export async function getFeaturedVacancies(limit = 3): Promise<Vacancy[]> {
+  const result = await getOpenVacancies();
+  return result.vacancies.filter((vacancy) => vacancy.featured).slice(0, limit);
+}
+
+/** Looks up a published vacancy by exact slug; closed vacancies remain available for a clear status page. */
+export async function getVacancyBySlug(slug: string): Promise<Vacancy | null> {
+  const query = buildQuery({ slug: encodeURIComponent(slug), status: "publish", _embed: 1 });
+  const result = await wpFetch<WpRestVacancy[]>(`/vacancies?${query}`);
+  if (!result || !Array.isArray(result.data)) return null;
+  const raw = result.data.find((item) => item.status === "publish" && item.slug === slug);
+  return raw ? normalizeVacancy(raw) : null;
+}
+
+/** Fetches open vacancies and applies only the finite, approved archive filters. */
+export async function getFilteredVacancies(filters: VacancyQuery): Promise<GetVacanciesResult> {
+  const result = await getOpenVacancies();
+  return { ...result, vacancies: filterVacancies(result.vacancies, filters) };
+}
+
+/** Open live vacancy URLs for the vacancy child sitemap only. */
+export async function getOpenVacanciesForSitemap(): Promise<Vacancy[]> {
+  const result = await getOpenVacancies();
+  return result.vacancies;
 }
 
 /** Convenience wrapper over `getPosts` for homepage/sidebar "recent posts" feeds. */

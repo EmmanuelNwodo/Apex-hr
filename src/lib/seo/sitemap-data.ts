@@ -2,21 +2,22 @@ import type { PageType } from "@/types/content";
 import { contentManifest } from "@/content/manifest";
 import { absoluteUrl } from "@/config/site";
 import { isReservedSlug } from "@/config/reserved-slugs";
-import { getAllPublishedPostsForSitemap } from "@/lib/wordpress";
+import { getAllPublishedPostsForSitemap, getOpenVacanciesForSitemap } from "@/lib/wordpress";
 
 /**
  * Single source of truth for grouped sitemap data, shared by every
  * sitemap route handler (src/app/sitemap.xml, page-sitemap.xml,
  * service-sitemap.xml, sector-sitemap.xml, location-sitemap.xml,
- * talent-acquisition-sitemap.xml, insight-sitemap.xml) and by the
+ * talent-acquisition-sitemap.xml, insight-sitemap.xml, vacancy-sitemap.xml)
+ * and by the
  * sitemap test suite. There is deliberately no second, hand-maintained
  * URL list anywhere — every entry is derived from src/content/manifest.ts
  * (itself derived from the same records that render every page) and, for
  * Insights, the live WordPress article feed, exactly as the original
  * src/app/sitemap.ts did.
  *
- * `lastModified` is only ever set from a genuine tracked date (currently
- * only WordPress's own `modified` field). No local content record tracks
+ * `lastModified` is only ever set from a genuine tracked date (WordPress's
+ * article and vacancy modified fields). No local content record tracks
  * a real per-page modification date, so manifest-derived entries never
  * carry a fabricated `lastModified` — see docs/URL-DECISION-REGISTER.md
  * and the SEO audit final consolidated phase, Part 9.
@@ -24,8 +25,8 @@ import { getAllPublishedPostsForSitemap } from "@/lib/wordpress";
  * Local groups (page/service/sector/location/talentAcquisition) are
  * derived synchronously from the manifest alone, so their route handlers
  * never touch the WordPress feed and stay fully static. Only the insight
- * group and the sitemap index (which needs an honest insight `lastmod`)
- * fetch WordPress, inheriting its ~5-minute revalidation window
+ * insight/vacancy groups and sitemap index fetch WordPress, inheriting its
+ * ~5-minute revalidation window
  * (src/lib/wordpress/client.ts) — matching the original src/app/sitemap.ts
  * behaviour exactly.
  */
@@ -48,13 +49,14 @@ export const SITEMAP_GROUP_KEYS = [
   "location",
   "talentAcquisition",
   "insight",
+  "vacancy",
 ] as const;
 
 export type SitemapGroupKey = (typeof SITEMAP_GROUP_KEYS)[number];
 
 export type SitemapGroups = Record<SitemapGroupKey, SitemapUrlEntry[]>;
 
-type LocalGroupKey = Exclude<SitemapGroupKey, "insight">;
+type LocalGroupKey = Exclude<SitemapGroupKey, "insight" | "vacancy">;
 export type LocalSitemapGroups = Record<LocalGroupKey, SitemapUrlEntry[]>;
 
 /**
@@ -64,7 +66,7 @@ export type LocalSitemapGroups = Record<LocalGroupKey, SitemapUrlEntry[]>;
  * function fails `tsc --noEmit`, rather than silently mis-grouping — or
  * silently dropping — a future page from every child sitemap.
  */
-function classifyPageType(pageType: PageType): SitemapGroupKey {
+function classifyPageType(pageType: PageType): LocalGroupKey | "insight" {
   switch (pageType) {
     case "home":
     case "serviceHub":
@@ -152,11 +154,26 @@ export async function getInsightSitemapEntries(): Promise<SitemapUrlEntry[]> {
   return entries;
 }
 
-/** All six groups together — for the sitemap index (needs every group's lastmod) and for tests wanting the full picture. */
+/** Published, open and non-expired WordPress vacancies only. */
+export async function getVacancySitemapEntries(): Promise<SitemapUrlEntry[]> {
+  const vacancies = await getOpenVacanciesForSitemap();
+  return vacancies.map((vacancy) => {
+    const modified = new Date(vacancy.modifiedAt);
+    return {
+      loc: absoluteUrl(`/jobs/${vacancy.slug}/`),
+      ...(Number.isNaN(modified.getTime()) ? {} : { lastModified: modified }),
+    };
+  });
+}
+
+/** All groups together — for the sitemap index and tests wanting the full picture. */
 export async function getSitemapGroups(): Promise<SitemapGroups> {
   const local = getLocalSitemapGroups();
-  const insight = await getInsightSitemapEntries();
-  return { ...local, insight };
+  const [insight, vacancy] = await Promise.all([
+    getInsightSitemapEntries(),
+    getVacancySitemapEntries(),
+  ]);
+  return { ...local, insight, vacancy };
 }
 
 export function flattenSitemapGroups(groups: SitemapGroups): SitemapUrlEntry[] {

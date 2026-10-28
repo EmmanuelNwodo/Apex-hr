@@ -74,8 +74,8 @@ The counts above include canonical pages, dynamic route patterns, explicit redir
 | Experts | `/experts/` | Provisional | P1 |
 | Expert profile | `/experts/[expert-slug]/` | Provisional | P1 |
 | For Candidates | `/for-candidates/` | Provisional | P2 |
-| Jobs | `/jobs/` | Provisional | P2 |
-| Individual job | `/jobs/[job-slug]/` | Provisional | P2 |
+| Job Board | `/jobs/` | Confirmed | P2 |
+| Individual job | `/jobs/[job-slug]/` | Confirmed pattern; only live, approved vacancies are indexable | P2 |
 | Talent Pool | `/talent-pool/` | Provisional | P2 |
 | Insights | `/insights/` | Confirmed | P3 |
 | Individual insight/article | `/[article-slug]/` (root-level, per D-016 — **not** `/insights/[article-slug]/`) | Confirmed pattern; each article Confirmed only once genuinely published in WordPress | P3 |

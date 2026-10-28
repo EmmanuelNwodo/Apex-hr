@@ -401,7 +401,7 @@ export function LocationPageTemplate({ title, breadcrumbTrail, location }: Locat
             href={routes.jobs.path}
             className="group inline-flex items-center gap-2 text-caption font-bold uppercase tracking-widest text-navy"
           >
-            Search jobs
+            Job Board
             <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </FadeUp>

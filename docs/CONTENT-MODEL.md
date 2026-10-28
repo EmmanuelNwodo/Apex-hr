@@ -133,7 +133,7 @@ Singletons must be created once and removed from the normal “new document” m
 | `resource` | Downloadable resources and landing pages | Depends on record |
 | `report` | Research and report pages | Provisional |
 | `event` | Event and webinar pages | Provisional |
-| `job` | Vacancy content only when an ATS does not own it | Provisional |
+| `job` | Legacy Sanity fallback only; the current WordPress vacancy feed owns live roles under D-019 | Provisional |
 | `office` | Genuine public office pages and structured location data | Provisional |
 
 ### 5.3 Supporting documents
@@ -708,9 +708,9 @@ Expired events must show a clear status and must not continue presenting an acti
 
 ### 14.1 Source-of-truth strategy
 
-Prefer the approved ATS as the source of truth for vacancies. Map ATS records into an internal read model used by the website. Do not let Sanity and the ATS independently own the same live job.
+The current source of truth is the WordPress `vacancy` custom post type supplied by `wordpress/apex-hr-vacancies/` (D-019). The Next.js WordPress adapter maps its REST response into the internal `Vacancy` model. If an ATS is approved later, that adapter boundary is the migration point; do not let WordPress, Sanity and the ATS independently own the same live job.
 
-Use the Sanity `job` document only when no ATS is available or for controlled editorial enrichment linked by `externalJobId`.
+Do not model current live vacancies in Sanity. Keep the `job` schema as a documented fallback only if a separate future decision retires the WordPress feed without selecting an ATS.
 
 ### 14.2 `job`
 
@@ -743,6 +743,7 @@ Rules:
 - Expired or closed jobs must lose active `JobPosting` markup.
 - Never invent salary, location or closing date.
 - Job filters must not create unlimited indexable URL combinations.
+- WordPress vacancy pages and its core/Yoast sitemaps are disabled; Next.js owns public vacancy URLs and the vacancy sitemap.
 
 ## 15. FAQs and links
 
@@ -776,7 +777,7 @@ Resolve the URL from the destination's governed route. If the destination is unp
 Fields:
 
 - `label`
-- `destinationType` — internal, external, Find Talent, Search Jobs, Talent Pool, CV Upload or booking
+- `destinationType` — internal, external, Find Talent, Job Board, Talent Pool, CV Upload or booking
 - `internalDestination`
 - `externalDestination`
 - `style`
@@ -793,13 +794,17 @@ Sanity contains no submissions. The operational database uses UUID primary keys,
 ```mermaid
 erDiagram
     EMPLOYER_LEAD ||--o{ HIRING_REQUEST : contains
-    CANDIDATE ||--o{ APPLICATION : submits
     CANDIDATE ||--o{ FILE_RECORD : owns
     EMPLOYER_LEAD ||--o{ CONSENT_RECORD : records
     CANDIDATE ||--o{ CONSENT_RECORD : records
     APPLICATION ||--o{ INTEGRATION_DELIVERY : synchronises
     EMPLOYER_LEAD ||--o{ INTEGRATION_DELIVERY : synchronises
 ```
+
+The phase-one Job Board migration creates application identity and private CV
+metadata directly on `applications`; it does not create a candidate foreign
+key or make candidates create accounts. Link records to a candidate profile
+only through a separately approved migration.
 
 ### 16.1 `employer_leads`
 
@@ -895,23 +900,44 @@ CMS identifiers may be stored for relationship context, but personal data must n
 
 ### 16.5 `applications`
 
+Purpose: a vacancy application, submission idempotency, private CV reference
+and notification state. The deployed schema is defined by
+`supabase/migrations/20260903090000_job_applications.sql`.
+
 Core columns:
 
 - `id`
-- `candidate_id`
+- `idempotency_key`
+- `first_name`
+- `last_name`
+- `candidate_email`
+- `phone`
+- `linkedin_url`
+- `cover_letter`
+- `additional_message`
 - `job_external_id`
+- `job_title`
+- `job_slug`
+- `job_reference`
 - `job_path`
-- `cv_file_id`
-- `cover_letter_file_id`
-- `application_answers`
+- `source_path`
+- `utm_attribution`
+- `cv_bucket`
+- `cv_object_path`
+- `cv_original_filename`
+- `cv_detected_mime_type`
+- `cv_size_bytes`
+- `cv_checksum`
+- `cv_scan_status`
 - `status`
-- `ats_application_id`
-- `originating_path`
-- `cta_id`
+- `notification_status`
 - `submitted_at`
 - `updated_at`
 
-Sensitive answers should be minimised, documented and excluded from logs and analytics.
+`application_consents` records the processing purpose, consent and policy
+version for each application. The `apex-hr-candidate-documents` Storage bucket
+is private; files are marked pending malware scan. Sensitive values and CV
+contents must be excluded from application logs and analytics.
 
 ### 16.6 `talent_pool_registrations`
 
@@ -1103,7 +1129,7 @@ Recommended editorial navigation:
 10. Resources
     - Reports
     - Events and Webinars
-11. Jobs, only when Sanity is the active source
+11. No vacancy documents; live roles are managed in the WordPress vacancy CPT (D-019)
 12. Standard Pages
 13. Archived Content
 

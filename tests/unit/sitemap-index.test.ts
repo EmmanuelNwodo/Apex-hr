@@ -6,6 +6,7 @@ import { GET as sectorSitemapGET } from "@/app/sector-sitemap.xml/route";
 import { GET as locationSitemapGET } from "@/app/location-sitemap.xml/route";
 import { GET as talentAcquisitionSitemapGET } from "@/app/talent-acquisition-sitemap.xml/route";
 import { GET as insightSitemapGET } from "@/app/insight-sitemap.xml/route";
+import { GET as vacancySitemapGET } from "@/app/vacancy-sitemap.xml/route";
 import { GET as sitemapXslGET } from "@/app/sitemap.xsl/route";
 import { getSitemapGroups, flattenSitemapGroups } from "@/lib/seo/sitemap-data";
 import { absoluteUrl } from "@/config/site";
@@ -20,14 +21,11 @@ import { serviceLocationCombos, categoryLocationCombos } from "@/config/service-
 /**
  * Sitemap index + grouped child sitemaps (XML restructure). WordPress is
  * unconfigured in the test environment (no WORDPRESS_API_URL), so
- * insight-sitemap.xml contributes zero article entries here — see
+ * insight-sitemap.xml and vacancy-sitemap.xml contribute no CMS records here — see
  * tests/unit/sitemap-wordpress-articles.test.ts for WordPress-specific
  * coverage with a mocked API, and tests/unit/wordpress.test.ts generally.
- * That means every count asserted here is the 221-local-page baseline
- * (220 + the /privacy-policy/ page added per explicit later user
- * instruction), not the 232 production figure (221 + live WordPress
- * articles at build time) — see the implementation report for the
- * production build's actual count.
+ * That means the local sitemap page count excludes live WordPress articles
+ * and vacancies in this test environment.
  */
 
 const CHILD_SITEMAP_PATHS = [
@@ -37,6 +35,7 @@ const CHILD_SITEMAP_PATHS = [
   "/location-sitemap.xml",
   "/talent-acquisition-sitemap.xml",
   "/insight-sitemap.xml",
+  "/vacancy-sitemap.xml",
 ] as const;
 
 const CHILD_SITEMAP_HANDLERS = {
@@ -46,6 +45,7 @@ const CHILD_SITEMAP_HANDLERS = {
   "/location-sitemap.xml": locationSitemapGET,
   "/talent-acquisition-sitemap.xml": talentAcquisitionSitemapGET,
   "/insight-sitemap.xml": insightSitemapGET,
+  "/vacancy-sitemap.xml": vacancySitemapGET,
 } as const;
 
 async function xmlDocFrom(response: Response): Promise<{ text: string; doc: Document }> {
@@ -73,8 +73,8 @@ describe("1. /sitemap.xml is a valid sitemap index", () => {
   });
 });
 
-describe("2. All six child sitemap URLs are present exactly once", () => {
-  it("lists exactly the six expected child sitemap URLs, each once", async () => {
+describe("2. All seven child sitemap URLs are present exactly once", () => {
+  it("lists exactly the seven expected child sitemap URLs, each once", async () => {
     const { doc } = await xmlDocFrom(await sitemapIndexGET());
     const locs = locsOf(doc, "sitemap");
     const expected = CHILD_SITEMAP_PATHS.map((p) => absoluteUrl(p));
@@ -110,13 +110,13 @@ describe("4 & 5. Every indexable URL appears exactly once across the child sitem
     expect(new Set(actual).size).toBe(actual.length);
   });
 
-  it("totals 222 unique URLs across the six child sitemaps in this WordPress-unconfigured test environment (233 in production, once live WordPress articles are included)", async () => {
+  it("totals 223 unique URLs across the seven child sitemaps in this WordPress-unconfigured test environment", async () => {
     const actual: string[] = [];
     for (const path of CHILD_SITEMAP_PATHS) {
       const { doc } = await xmlDocFrom(await CHILD_SITEMAP_HANDLERS[path]());
       actual.push(...locsOf(doc, "url"));
     }
-    expect(new Set(actual).size).toBe(222);
+    expect(new Set(actual).size).toBe(223);
   });
 });
 
@@ -196,9 +196,8 @@ describe("11. No redirect source or noindex URL is included", () => {
     }
   });
 
-  it("no child sitemap contains a known noindex route", async () => {
+  it("excludes known noindex routes while including the indexable Job Board", async () => {
     const noindexPaths = [
-      routes.jobs.path,
       routes.talentPool.path,
       routes.findTalent.path,
       routes.resources.path,
@@ -213,6 +212,7 @@ describe("11. No redirect source or noindex URL is included", () => {
     for (const p of noindexPaths) {
       expect(allLocs.has(p), p).toBe(false);
     }
+    expect(allLocs.has(routes.jobs.path)).toBe(true);
   });
 });
 

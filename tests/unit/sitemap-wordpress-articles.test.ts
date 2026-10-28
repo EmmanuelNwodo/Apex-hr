@@ -1,11 +1,12 @@
 import { describe, expect, it, vi } from "vitest";
-import type { Article } from "@/lib/wordpress";
+import type { Article, Vacancy } from "@/lib/wordpress";
 
-const { getAllPublishedPostsForSitemap } = vi.hoisted(() => ({
+const { getAllPublishedPostsForSitemap, getOpenVacanciesForSitemap } = vi.hoisted(() => ({
   getAllPublishedPostsForSitemap: vi.fn(),
+  getOpenVacanciesForSitemap: vi.fn().mockResolvedValue([]),
 }));
 
-vi.mock("@/lib/wordpress", () => ({ getAllPublishedPostsForSitemap }));
+vi.mock("@/lib/wordpress", () => ({ getAllPublishedPostsForSitemap, getOpenVacanciesForSitemap }));
 
 const { getSitemapGroups, flattenSitemapGroups } = await import("@/lib/seo/sitemap-data");
 
@@ -28,6 +29,41 @@ function buildArticle(overrides: Partial<Article> = {}): Article {
   };
 }
 
+function buildVacancy(overrides: Partial<Vacancy> = {}): Vacancy {
+  return {
+    id: 42,
+    slug: "senior-hr-manager",
+    status: "open",
+    title: "Senior HR Manager",
+    reference: "APEX-042",
+    summary: "Lead an experienced HR team.",
+    descriptionHtml: "<p>Role details.</p>",
+    responsibilities: [],
+    requirements: [],
+    desirableSkills: [],
+    benefits: [],
+    sector: "Professional Services",
+    department: "Human Resources",
+    location: "London",
+    employmentType: "Permanent",
+    workplaceArrangement: "Hybrid",
+    seniority: "Senior",
+    salaryMin: null,
+    salaryMax: null,
+    salaryCurrency: "",
+    salaryDisplay: "",
+    salaryUnit: "",
+    closingDate: "",
+    applicationEmail: "",
+    featured: false,
+    seoTitle: "",
+    metaDescription: "",
+    publishedAt: "2026-09-20T09:00:00.000Z",
+    modifiedAt: "2026-09-21T10:00:00.000Z",
+    ...overrides,
+  };
+}
+
 async function allEntries() {
   return flattenSitemapGroups(await getSitemapGroups());
 }
@@ -41,6 +77,34 @@ describe("sitemap data — WordPress article entries", () => {
 
     expect(articleEntry).toBeTruthy();
     expect(articleEntry?.loc).not.toContain("/insights/how-to-build-a-great-hr-team/");
+  });
+
+  describe("sitemap data — WordPress vacancy entries", () => {
+    it("includes a live vacancy at its canonical Next.js URL with the source modified date", async () => {
+      getAllPublishedPostsForSitemap.mockResolvedValueOnce([]);
+      getOpenVacanciesForSitemap.mockResolvedValueOnce([buildVacancy()]);
+
+      const groups = await getSitemapGroups();
+
+      expect(groups.vacancy).toEqual([
+        {
+          loc: "https://www.apexhrllc.co.uk/jobs/senior-hr-manager/",
+          lastModified: new Date("2026-09-21T10:00:00.000Z"),
+        },
+      ]);
+      expect(groups.insight).not.toContainEqual(expect.objectContaining({ loc: expect.stringContaining("/jobs/") }));
+    });
+
+    it("does not expose WordPress-origin vacancy URLs in the public sitemap group", async () => {
+      getAllPublishedPostsForSitemap.mockResolvedValueOnce([]);
+      getOpenVacanciesForSitemap.mockResolvedValueOnce([
+        buildVacancy({ slug: "people-partner", modifiedAt: "not-a-date" }),
+      ]);
+
+      const groups = await getSitemapGroups();
+
+      expect(groups.vacancy).toEqual([{ loc: "https://www.apexhrllc.co.uk/jobs/people-partner/" }]);
+    });
   });
 
   it("never includes a blog.apexhrllc.co.uk (WordPress frontend) URL", async () => {
@@ -100,12 +164,12 @@ describe("sitemap data — WordPress article entries", () => {
   it("contributes zero article entries (without failing) when WordPress is unavailable", async () => {
     getAllPublishedPostsForSitemap.mockResolvedValueOnce([]);
     const entries = await allEntries();
-    // 222 local, indexable manifest entries (211 + the Insights hub and its
+    // 223 local, indexable manifest entries (211 + the Insights hub and its
     // 8 categories, indexable since docs/URL-DECISION-REGISTER.md D-016, +
     // the /privacy-policy/ and /partnership/ pages) — see
     // tests/unit/final-consolidated-seo-phase.test.tsx for the authoritative
     // count assertion.
-    expect(entries.length).toBe(222);
+    expect(entries.length).toBe(223);
   });
 
   it("handles an empty WordPress response gracefully", async () => {

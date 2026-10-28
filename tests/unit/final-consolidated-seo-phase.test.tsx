@@ -255,15 +255,16 @@ describe("Route inventory and sitemap", () => {
     );
   });
 
-  it("sitemap contains exactly 222 URLs, matching the indexable manifest entries, with no lastModified field", async () => {
+  it("sitemap contains exactly 223 URLs, matching the indexable manifest entries, with no lastModified field", async () => {
     // WordPress is unconfigured in the test environment (no WORDPRESS_API_URL),
     // so sitemap() contributes zero article entries here — see
     // tests/unit/wordpress.test.ts for WordPress-specific sitemap coverage
-    // with a mocked API. 222 = the previous 221 local pages (211 + the
+    // with a mocked API. 223 = the previous 222 local pages (211 + the
     // Insights hub and its 8 category pages, per
-    // docs/URL-DECISION-REGISTER.md D-016) + /privacy-policy/ and /partnership/.
+    // docs/URL-DECISION-REGISTER.md D-016) + /privacy-policy/, /partnership/
+    // and the confirmed Job Board (/jobs/, D-019).
     const entries = flattenSitemapGroups(await getSitemapGroups());
-    expect(entries.length).toBe(222);
+    expect(entries.length).toBe(223);
     expect(entries.length).toBe(contentManifest.filter((e) => e.indexable).length);
     for (const entry of entries) {
       expect(entry.lastModified).toBeUndefined();
@@ -285,7 +286,6 @@ describe("Route inventory and sitemap", () => {
     // is expected to appear in the sitemap — see the dedicated assertion
     // below and tests/unit/insights-seo.test.ts.
     const noindexPaths = [
-      routes.jobs.path,
       routes.talentPool.path,
       routes.findTalent.path,
       routes.resources.path,

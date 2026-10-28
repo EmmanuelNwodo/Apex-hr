@@ -25,6 +25,8 @@
 | D-015 | Category-location cannibalisation resolution | Redirect the 44 category-location pages backed by only one curated child service to that child's service-location page; retain the 2 pages backed by two curated child services as independently indexable | Raise the category-location curation threshold to 2+ services in `src/config/service-locations.ts`; add 44 permanent redirects to `src/config/redirects.ts`; reposition the 2 retained pages around both child services |
 | D-016 | Headless WordPress for Insights/blog | WordPress (`blog.apexhrllc.co.uk`) becomes the editorial source of truth for Insights/blog articles only. The archive stays at `/insights/`; individual articles are root-level `/[slug]/`, never `/insights/[slug]/`. `www.apexhrllc.co.uk` is the only public canonical host; `blog.apexhrllc.co.uk` is CMS/API-origin only | Add `src/lib/wordpress/`; add `src/app/[slug]/page.tsx` guarded by `src/config/reserved-slugs.ts`; read `NEXT_PUBLIC_SITE_URL`/`WORDPRESS_API_URL`/`WORDPRESS_SITE_URL` from environment; extend `sitemap.ts`. Sanity and Supabase are unaffected — see the full entry below |
 | D-017 | URL-to-H1 alignment for Services and Sectors | All 58 service/category URLs renamed to `/services/{service-name}-firm-in-the-uk/`; all 17 sector URLs renamed to `/sector/hr-company-for-{sector-name}-in-the-uk/`, matching each page's existing rendered H1. `"&"` becomes `"and"` in slugs (never deleted); `"M&A"` becomes `"ma"` (pre-existing convention preserved). No redirects were added for retired service/sector URLs (never indexed); existing redirect rule *sources* were left untouched, only *destinations* pointing at renamed pages were updated | Rename slugs in `src/config/services.ts`/`src/config/sectors.ts`; update every cross-reference in `src/content/*.ts`; update `src/config/redirects.ts` destinations only; correct `src/content/manifest.ts` `h1`/`metaTitle`; update lookup tables and hardcoded links found via a full-repository sweep; update `public/llms.txt` — see the full entry below |
+| D-018 | Partnership and pricing page | Add the explicitly approved employer partnership route `/partnership/` as Confirmed and indexable; preserve supplied prices and allocations | Add the route to `src/config/routes.ts`, employer navigation and page sitemap; use the existing Contact enquiry flow |
+| D-019 | WordPress-powered Job Board | Confirm `/jobs/` as the public Job Board and WordPress as its vacancy source of truth until an ATS is approved. Individual vacancies use `/jobs/{slug}/`; only published, open, non-expired vacancies are indexable. The WordPress origin must not expose vacancy pages or sitemap entries | Install the `apex-hr-vacancies` plugin on the WordPress CMS, consume its REST API through `src/lib/wordpress/`, and publish active roles through the Next.js vacancy sitemap |
 | D-018 | Partnership and pricing page | Add the explicitly approved employer partnership page at `/partnership/`; do not introduce additional commercial terms beyond the supplied tiers and shared commitments | Add the route to `src/config/routes.ts`, employer navigation and manifest-driven page sitemap; use the existing Contact enquiry flow |
 
 ## D-001 — Sector is canonical
@@ -281,6 +283,12 @@ Individual location pages' breadcrumbs now run Home → Locations → [location]
 
 **Implementation:** Register the canonical route centrally, expose it in employer-facing navigation and the manifest-driven page sitemap, and direct plan enquiries to the existing `/contact/#contact-form-area` destination. Keep prices, monthly allocations, shared commitments and enterprise scope exactly within the supplied content; do not add unapproved contract terms, response guarantees or tier inclusions.
 
+## D-019 — WordPress-powered Job Board
+
+**Decision:** `/jobs/` is the public, indexable Job Board. The WordPress vacancy custom post type is the vacancy source of truth until an ATS is selected; WordPress is not the public vacancy presentation layer. Individual vacancy routes use `/jobs/{slug}/`, and only published, open, non-expired vacancies are eligible for the public vacancy sitemap and `JobPosting` structured data.
+
+**Implementation:** Install the `wordpress/apex-hr-vacancies/` plugin on the WordPress CMS, configure the Next.js WordPress API origin, and use the shared vacancy adapter in `src/lib/wordpress/`. The WordPress front end and WordPress sitemaps must not expose vacancy pages; Next.js owns canonical vacancy URLs and the `vacancy-sitemap.xml` endpoint. Applications and private CVs are persisted through the server-side Supabase integration, not WordPress.
+
 ## Redirect implementation checklist
 
 - Implement all entries in the workbook's `Redirects` sheet.
@@ -298,7 +306,8 @@ Individual location pages' breadcrumbs now run Home → Locations → [location]
 The structural conflicts requested for this round are resolved. The following routes remain Provisional because they depend on separate product or content decisions:
 
 - Employer and candidate journey routes.
-- Jobs and ATS-backed job details.
+- Published vacancy details and applications, subject to current vacancy data and operational integrations.
+- Future ATS selection and migration; the WordPress vacancy adapter remains the current source until that decision is made.
 - Talent Pool.
 - Find Talent fallback page and CRM destination.
 - Experts and profile routes.
